@@ -389,6 +389,826 @@
                     { w: { from: [7,4], to: [5,3], san: "Nd3" }, b: { from: [1,5], to: [3,5], san: "f5" }, instW: { es: "Caballo a d3.", en: "Knight to d3.", it: "Cavallo in d3.", la: "Equus ad d3.", eo: "Ĉevalo al d3.", tok: "soweli tawa d3." }, instB: { es: "Juega f5.", en: "Play f5.", it: "Gioca f5.", la: "Lude f5.", eo: "Ludu f5.", tok: "o tawa f5." }, teoriaW: { es: "Control central.", en: "Central control.", it: "Controllo centrale.", la: "Imperium centrale.", eo: "Centra kontrolo.", tok: "lawa insa." }, teoriaB: { es: "Ataque de flanco.", en: "Flank attack.", it: "Attacco laterale.", la: "Oppugnatio lateris.", eo: "Flanka atako.", tok: "utala poka." }, errW: { es: "Error: Nd3.", en: "Error: Nd3.", it: "Errore: Nd3.", la: "Error: Nd3.", eo: "Eraro: Nd3.", tok: "ike: Nd3." }, errB: { es: "Error: f5.", en: "Error: f5.", it: "Errore: f5.", la: "Error: f5.", eo: "Eraro: f5.", tok: "ike: f5." }, shortErrW: { es: "Nd3.", en: "Nd3.", it: "Nd3.", la: "Nd3.", eo: "Nd3.", tok: "Nd3." }, shortErrB: { es: "f5.", en: "f5.", it: "f5.", la: "f5.", eo: "f5.", tok: "f5." } }
                 ]
             },
+            8: { title: "Defensa Nimzo-India", subtitle: "Variante Rubinstein", colorTheme: "text-amber-400", steps: [{ w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: {es: "d4"}, instB: {es: "Nf6"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "d4"}, errB: {es: "Nf6"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            9: { title: "Defensa Eslava", subtitle: "Línea Principal", colorTheme: "text-purple-400", steps: [{ w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: {es: "d4"}, instB: {es: "d5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "d4"}, errB: {es: "d5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            10: { title: "Apertura Inglesa", subtitle: "Variante de los Cuatro Caballos", colorTheme: "text-cyan-400", steps: [{ w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: {es: "c4"}, instB: {es: "e5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "c4"}, errB: {es: "e5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            11: { title: "Defensa Pirc", subtitle: "Sistema Clásico", colorTheme: "text-blue-400", steps: [{ w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: {es: "e4"}, instB: {es: "d6"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "e4"}, errB: {es: "d6"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            12: { title: "Apertura Escocesa", subtitle: "Variante Clásica", colorTheme: "text-emerald-400", steps: [{ w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: {es: "e4"}, instB: {es: "e5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "e4"}, errB: {es: "e5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            13: { title: "Defensa Alekhine", subtitle: "Variante Moderna", colorTheme: "text-blue-400", steps: [{ w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: {es: "e4"}, instB: {es: "Nf6"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "e4"}, errB: {es: "Nf6"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            14: { title: "Gambito de Rey", subtitle: "Gambito Aceptado", colorTheme: "text-emerald-400", steps: [{ w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: {es: "e4"}, instB: {es: "e5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "e4"}, errB: {es: "e5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            15: { title: "Defensa Holandesa", subtitle: "Variante Muro de Piedra", colorTheme: "text-amber-400", steps: [{ w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,5], to: [3,5], san: "f5" }, instW: {es: "d4"}, instB: {es: "f5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "d4"}, errB: {es: "f5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            16: { title: "Sistema Londres", subtitle: "Línea Principal", colorTheme: "text-purple-400", steps: [{ w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: {es: "d4"}, instB: {es: "Nf6"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "d4"}, errB: {es: "Nf6"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            17: { title: "Defensa Escandinava", subtitle: "Variante Clásica", colorTheme: "text-blue-400", steps: [{ w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: {es: "e4"}, instB: {es: "d5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "e4"}, errB: {es: "d5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            18: { title: "Apertura Reti", subtitle: "Sistema Doble Fianchetto", colorTheme: "text-cyan-400", steps: [{ w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: {es: "Nf3"}, instB: {es: "d5"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "Nf3"}, errB: {es: "d5"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            19: { title: "Defensa Grünfeld", subtitle: "Línea Principal del Cambio", colorTheme: "text-amber-400", steps: [{ w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: {es: "d4"}, instB: {es: "Nf6"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "d4"}, errB: {es: "Nf6"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] },
+            20: { title: "Defensa Benoni", subtitle: "Sistema Moderno", colorTheme: "text-amber-400", steps: [{ w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: {es: "d4"}, instB: {es: "Nf6"}, teoriaW: {es: "-"}, teoriaB: {es: "-"}, errW: {es: "d4"}, errB: {es: "Nf6"}, shortErrW: {es: "-"}, shortErrB: {es: "-"} }] }
+        };
+
+        // ==========================================
+        // LÓGICA DEL MENÚ Y NAVEGACIÓN
+        // ==========================================
+        const chessOpenings = [
+            { id: 1, name: { es: "Apertura Ruy López", en: "Ruy Lopez", it: "Partita Spagnola", la: "Apertura Hispanica", eo: "Hispana Malfermo", tok: "open Lusi Lope" }, type: { es: "Abierta", en: "Open", it: "Aperta", la: "Aperta", eo: "Malfermita", tok: "open" }, color: "emerald" },
+            { id: 2, name: { es: "Defensa Siciliana", en: "Sicilian Defense", it: "Difesa Siciliana", la: "Defensio Siciliana", eo: "Sicilia Defendo", tok: "awen Sisi" }, type: { es: "Semi-abierta", en: "Semi-open", it: "Semi-aperta", la: "Semi-aperta", eo: "Duon-malfermita", tok: "open lili" }, color: "blue" },
+            { id: 3, name: { es: "Gambito de Dama", en: "Queen's Gambit", it: "Gambetto di Donna", la: "Sacrificium Reginae", eo: "Dama Gambito", tok: "pana meli" }, type: { es: "Cerrada", en: "Closed", it: "Chiusa", la: "Clausa", eo: "Fermita", tok: "pini" }, color: "purple" },
+            { id: 4, name: { es: "Defensa Francesa", en: "French Defense", it: "Difesa Francese", la: "Defensio Gallica", eo: "Franca Defendo", tok: "awen Kanse" }, type: { es: "Semi-abierta", en: "Semi-open", it: "Semi-aperta", la: "Semi-aperta", eo: "Duon-malfermita", tok: "open lili" }, color: "rose" },
+            { id: 5, name: { es: "Apertura Italiana", en: "Italian Game", it: "Partita Italiana", la: "Apertura Italica", eo: "Itala Ludo", tok: "open Itali" }, type: { es: "Abierta", en: "Open", it: "Aperta", la: "Aperta", eo: "Malfermita", tok: "open" }, color: "emerald" },
+            { id: 6, name: { es: "Defensa Caro-Kann", en: "Caro-Kann", it: "Caro-Kann", la: "Defensio Caro-Kann", eo: "Caro-Kann Defendo", tok: "awen Kalo Kan" }, type: { es: "Semi-abierta", en: "Semi-open", it: "Semi-aperta", la: "Semi-aperta", eo: "Duon-malfermita", tok: "open lili" }, color: "blue" },
+            { id: 7, name: { es: "Defensa India de Rey", en: "King's Indian", it: "Est-Indiana", la: "Defensio Indica Regis", eo: "Reĝhinda Defendo", tok: "awen pi jan lawa" }, type: { es: "Semi-cerrada", en: "Semi-closed", it: "Semi-chiusa", la: "Semi-clausa", eo: "Duon-fermita", tok: "pini lili" }, color: "amber" },
+            { id: 8, name: "Defensa Nimzo-India", type: "Semi-cerrada", color: "amber" },
+            { id: 9, name: "Defensa Eslava", type: "Cerrada", color: "purple" },
+            { id: 10, name: "Apertura Inglesa", type: "Flanco", color: "cyan" },
+            { id: 11, name: "Defensa Pirc", type: "Semi-abierta", color: "blue" },
+            { id: 12, name: "Apertura Escocesa", type: "Abierta", color: "emerald" },
+            { id: 13, name: "Defensa Alekhine", type: "Semi-abierta", color: "blue" },
+            { id: 14, name: "Gambito de Rey", type: "Abierta", color: "emerald" },
+            { id: 15, name: "Defensa Holandesa", type: "Semi-cerrada", color: "amber" },
+            { id: 16, name: "Sistema Londres", type: "Cerrada", color: "purple" },
+            { id: 17, name: "Defensa Escandinava", type: "Semi-abierta", color: "blue" },
+            { id: 18, name: "Apertura Reti", type: "Flanco", color: "cyan" },
+            { id: 19, name: "Defensa Grünfeld", type: "Semi-cerrada", color: "amber" },
+            { id: 20, name: "Defensa Benoni", type: "Semi-cerrada", color: "amber" }
+        ];
+
+        let toastTimeout;
+        let currentSteps = []; 
+
+        function getColorClasses(colorName) {
+            const colors = {
+                emerald: 'border-emerald-500/30 group-hover:border-emerald-400 text-emerald-400 bg-emerald-500/10',
+                blue: 'border-blue-500/30 group-hover:border-blue-400 text-blue-400 bg-blue-500/10',
+                purple: 'border-purple-500/30 group-hover:border-purple-400 text-purple-400 bg-purple-500/10',
+                rose: 'border-rose-500/30 group-hover:border-rose-400 text-rose-400 bg-rose-500/10',
+                amber: 'border-amber-500/30 group-hover:border-amber-400 text-amber-400 bg-amber-500/10',
+                cyan: 'border-cyan-500/30 group-hover:border-cyan-400 text-cyan-400 bg-cyan-500/10'
+            };
+            return colors[colorName] || colors.emerald;
+        }
+
+        function renderCards() {
+            const gridContainer = document.getElementById('openings-grid');
+            gridContainer.innerHTML = ''; 
+            
+            chessOpenings.forEach(opening => {
+                const colorClasses = getColorClasses(opening.color);
+                const borderClass = colorClasses.split(' ')[0];
+                const hoverBorderClass = colorClasses.split(' ')[1];
+                const textColorClass = colorClasses.split(' ')[2];
+                const bgColorClass = colorClasses.split(' ')[3];
+
+                const card = document.createElement('button');
+                card.className = `opening-card group w-full text-left bg-slate-800/80 backdrop-blur-sm border ${borderClass} ${hoverBorderClass} rounded-xl p-5 relative overflow-hidden flex flex-col justify-between min-h-[120px]`;
+                
+                card.onclick = () => handleCardClick(opening.id, getT(opening.name));
+
+                card.innerHTML = `
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <svg class="w-12 h-12 ${textColorClass}" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C10.34 2 9 3.34 9 5c0 1.18.68 2.2 1.67 2.73C9.36 8.58 8.5 10.18 8.5 12c0 1.25.42 2.4 1.12 3.32L8 18H6v4h12v-4h-2l-1.62-2.68c.7-.92 1.12-2.07 1.12-3.32 0-1.82-.86-3.42-2.17-4.27C14.32 7.2 15 6.18 15 5c0-1.66-1.34-3-3-3zm0 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-1.5 5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3c-.83 0-1.5-.67-1.5-1.5S9.67 9 10.5 9zm-1.8 4h6.6c.3 0 .6.2.7.5l1.5 2.5H6.5l1.5-2.5c.1-.3.4-.5.7-.5zM8 20h8v2H8v-2z"/>
+                        </svg>
+                    </div>
+                    <div class="relative z-10">
+                        <span class="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider ${textColorClass} ${bgColorClass} mb-3 border ${borderClass}">
+                            ${getT(opening.type)}
+                        </span>
+                        <h2 class="text-xl font-bold text-slate-100 group-hover:text-white leading-tight">
+                            ${getT(opening.name)}
+                        </h2>
+                    </div>
+                    <div class="relative z-10 mt-4 flex items-center text-sm font-medium text-slate-500 group-hover:text-emerald-400 transition-colors">
+                        <span>${getT(UI_TEXT.startModule)}</span>
+                        <svg class="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity transform -translate-x-2 group-hover:translate-x-0 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+        }
+
+        function handleCardClick(id, name) {
+            if (OPENING_MODULES[id]) { 
+                const module = OPENING_MODULES[id];
+                currentSteps = module.steps; 
+                
+                document.getElementById('game-view').dataset.activeId = id;
+
+                const titleContainer = document.getElementById('title-container');
+                titleContainer.innerHTML = `
+                    <h1 class="text-2xl md:text-3xl font-bold ${module.colorTheme}">${getT(module.title)} <span class="text-slate-500 text-xl font-mono">v1.0</span></h1>
+                    <p class="text-slate-400 text-sm md:text-base">${getT(module.subtitle)}</p>
+                `;
+
+                document.getElementById('menu-view').classList.add('hidden');
+                document.getElementById('game-view').classList.remove('hidden');
+                document.getElementById('game-view').classList.add('flex');
+                
+                initGame(); 
+            } else {
+                showUnderConstruction(name);
+            }
+        }
+
+        function backToMenu() {
+            document.getElementById('game-view').dataset.activeId = "";
+            document.getElementById('game-view').classList.add('hidden');
+            document.getElementById('game-view').classList.remove('flex');
+            document.getElementById('menu-view').classList.remove('hidden');
+            clearTimeout(errorBannerTimeout);
+            
+            // Ocultar el banner de error y restaurar el título al volver al menú
+            const titleContainer = document.getElementById('title-container');
+            const errorBanner = document.getElementById('error-banner');
+            if (titleContainer) titleContainer.classList.remove('opacity-0');
+            if (errorBanner) errorBanner.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function showUnderConstruction(openingName) {
+            const toast = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = `${getT(UI_TEXT.underConstText)} (${openingName})`;
+            
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toast.classList.remove('toast-exit');
+            }
+
+            toast.classList.remove('hidden');
+            toast.classList.add('toast-enter');
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-exit');
+                setTimeout(() => {
+                    if(toast.classList.contains('toast-exit')) {
+                        toast.classList.add('hidden');
+                        toast.classList.remove('toast-exit');
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // ==========================================
+        // LÓGICA DEL JUEGO
+        // ==========================================
+        const PIECES_URL = {
+            'P': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
+            'N': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg',
+            'B': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg',
+            'R': 'https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg',
+            'Q': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg',
+            'K': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg',
+            'p': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
+            'n': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg',
+            'b': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg',
+            'r': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg',
+            'q': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg',
+            'k': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
+        };
+
+        const INITIAL_BOARD = [
+            ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+            ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+            ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+        ];
+
+        let boardState = [];
+        let userRole = 'w';
+        let currentStep = 0;
+        let isWhiteTurn = true;
+        let dragFrom = null;
+        let errorBannerTimeout;
+
+        function logConsole(msg, type="info") {
+            const consoleEl = document.getElementById('feedback-console');
+            const div = document.createElement('div');
+            if(type === 'error') div.className = 'text-rose-400 font-bold fade-in';
+            else if(type === 'success') div.className = 'text-emerald-400 fade-in';
+            else div.className = 'text-slate-400 fade-in';
+            div.textContent = `>> ${msg}`;
+            consoleEl.appendChild(div);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        function initGame() {
+            boardState = INITIAL_BOARD.map(row => [...row]);
+            currentStep = 0;
+            isWhiteTurn = true;
+            
+            const consoleEl = document.getElementById('feedback-console');
+            consoleEl.innerHTML = '';
+            
+            updateUI();
+            renderBoard();
+
+            if (userRole === 'b' && isWhiteTurn) {
+                setTimeout(autoPlayOpponent, 800);
+            }
+        }
+
+        function switchRole(role) {
+            userRole = role;
+            document.getElementById('btn-white').className = role === 'w' 
+                ? 'px-4 py-2 rounded-md bg-emerald-600 text-white font-semibold transition-colors' 
+                : 'px-4 py-2 rounded-md text-slate-300 hover:bg-slate-700 font-semibold transition-colors';
+            
+            document.getElementById('btn-black').className = role === 'b' 
+                ? 'px-4 py-2 rounded-md bg-emerald-600 text-white font-semibold transition-colors' 
+                : 'px-4 py-2 rounded-md text-slate-300 hover:bg-slate-700 font-semibold transition-colors';
+            
+            initGame();
+        }
+
+        function getColName(c) { return String.fromCharCode(97 + c); }
+        function getRowName(r) { return 8 - r; }
+
+        function renderBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            
+            const rows = userRole === 'w' ? [0,1,2,3,4,5,6,7] : [7,6,5,4,3,2,1,0];
+            const cols = userRole === 'w' ? [0,1,2,3,4,5,6,7] : [7,6,5,4,3,2,1,0];
+
+            for (let r of rows) {
+                for (let c of cols) {
+                    const isLight = (r + c) % 2 === 0;
+                    const square = document.createElement('div');
+                    square.className = `square ${isLight ? 'light' : 'dark'}`;
+                    square.dataset.row = r;
+                    square.dataset.col = c;
+
+                    if (userRole === 'w') {
+                        if (c === 0) square.innerHTML += `<div class="coord-row">${getRowName(r)}</div>`;
+                        if (r === 7) square.innerHTML += `<div class="coord-col">${getColName(c)}</div>`;
+                    } else {
+                        if (c === 7) square.innerHTML += `<div class="coord-row">${getRowName(r)}</div>`;
+                        if (r === 0) square.innerHTML += `<div class="coord-col">${getColName(c)}</div>`;
+                    }
+
+                    const pieceCode = boardState[r][c];
+                    if (pieceCode) {
+                        const piece = document.createElement('div');
+                        piece.className = 'piece';
+                        piece.style.backgroundImage = `url(${PIECES_URL[pieceCode]})`;
+                        piece.draggable = true;
+                        
+                        piece.addEventListener('dragstart', (e) => {
+                            dragFrom = {r, c};
+                            const isPieceWhite = pieceCode === pieceCode.toUpperCase();
+                            const isUserTurn = (userRole === 'w' && isWhiteTurn && isPieceWhite) || 
+                                               (userRole === 'b' && !isWhiteTurn && !isPieceWhite);
+                            if(!isUserTurn) {
+                                e.preventDefault();
+                                return;
+                            }
+                        });
+                        square.appendChild(piece);
+                    }
+
+                    square.addEventListener('dragover', (e) => e.preventDefault());
+                    square.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        if(!dragFrom) return;
+                        handleMoveAttempt(dragFrom.r, dragFrom.c, r, c);
+                        dragFrom = null;
+                    });
+
+                    boardEl.appendChild(square);
+                }
+            }
+        }
+
+        function handleMoveAttempt(fr, fc, tr, tc) {
+            if (currentStep >= currentSteps.length) return;
+
+            const step = currentSteps[currentStep];
+            const expectedMove = (userRole === 'w') ? step.w : step.b;
+
+            if (fr === expectedMove.from[0] && fc === expectedMove.from[1] &&
+                tr === expectedMove.to[0] && tc === expectedMove.to[1]) {
+                
+                logConsole(`${expectedMove.san}`, "success");
+                executeMove(fr, fc, tr, tc, expectedMove);
+                
+                if (userRole === 'w') {
+                    isWhiteTurn = false;
+                    updateUI();
+                    if(currentStep < currentSteps.length) setTimeout(autoPlayOpponent, 700);
+                } else {
+                    isWhiteTurn = true;
+                    currentStep++;
+                    updateUI();
+                    if(currentStep < currentSteps.length) setTimeout(autoPlayOpponent, 700);
+                    else logConsole(getT(UI_TEXT.congratulations), "success");
+                }
+                
+            } else {
+                const errText = userRole === 'w' ? step.errW : step.errB;
+                const shortErrText = userRole === 'w' ? step.shortErrW : step.shortErrB;
+                
+                logConsole(getT(errText), "error");
+                highlightError(tr, tc);
+                showErrorBanner(getT(shortErrText)); 
+            }
+        }
+
+        function autoPlayOpponent() {
+            if (currentStep >= currentSteps.length) {
+                logConsole(getT(UI_TEXT.tutEnded), "success");
+                return;
+            }
+
+            const step = currentSteps[currentStep];
+            const oppMove = userRole === 'w' ? step.b : step.w;
+            
+            logConsole(`>> ${oppMove.san}`);
+            executeMove(oppMove.from[0], oppMove.from[1], oppMove.to[0], oppMove.to[1], oppMove);
+            
+            if (userRole === 'w') {
+                isWhiteTurn = true;
+                currentStep++;
+            } else {
+                isWhiteTurn = false;
+            }
+            updateUI();
+        }
+
+        function executeMove(fr, fc, tr, tc, moveData) {
+            boardState[tr][tc] = boardState[fr][fc];
+            boardState[fr][fc] = '';
+
+            if (moveData.castle) {
+                boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
+                boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
+            }
+
+            renderBoard();
+        }
+
+        function updateUI() {
+            const levelIndEl = document.getElementById('level-indicator');
+            const progressEl = document.getElementById('progress-bar');
+            const instTextEl = document.getElementById('instruction-text');
+            const theoryTextEl = document.getElementById('theory-text');
+            const turnIndEl = document.getElementById('turn-indicator');
+
+            if(currentStep >= currentSteps.length) {
+                levelIndEl.textContent = 10;
+                progressEl.style.width = '100%';
+                instTextEl.textContent = getT(UI_TEXT.completedInst);
+                theoryTextEl.textContent = getT(UI_TEXT.completedTheory);
+                turnIndEl.textContent = getT(UI_TEXT.tutEnded);
+                turnIndEl.className = "text-sm font-mono bg-emerald-900 px-3 py-1 rounded text-emerald-300";
+                return;
+            }
+
+            const lvl = currentStep + 1;
+            levelIndEl.textContent = lvl;
+            progressEl.style.width = `${(lvl / 10) * 100}%`;
+
+            const step = currentSteps[currentStep];
+            const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
+            
+            if (isMyTurn) {
+                turnIndEl.textContent = getT(UI_TEXT.turnUser);
+                turnIndEl.className = "text-sm font-mono bg-blue-900 px-3 py-1 rounded text-blue-300 animate-pulse";
+                instTextEl.textContent = userRole === 'w' ? getT(step.instW) : getT(step.instB);
+                theoryTextEl.textContent = userRole === 'w' ? getT(step.teoriaW) : getT(step.teoriaB);
+            } else {
+                turnIndEl.textContent = getT(UI_TEXT.turnOpp);
+                turnIndEl.className = "text-sm font-mono bg-slate-700 px-3 py-1 rounded text-slate-300";
+                instTextEl.textContent = "...";
+                theoryTextEl.textContent = "...";
+            }
+        }
+
+        function highlightError(r, c) {
+            const square = document.querySelector(`.square[data-row="${r}"][data-col="${c}"]`);
+            if(square) {
+                square.classList.add('error-highlight');
+                setTimeout(() => square.classList.remove('error-highlight'), 500);
+            }
+        }
+
+        function showErrorBanner(msg) {
+            const titleContainer = document.getElementById('title-container');
+            const errorBanner = document.getElementById('error-banner');
+            const errorText = document.getElementById('error-banner-text');
+
+            errorText.textContent = msg;
+            
+            titleContainer.classList.add('opacity-0');
+            errorBanner.classList.remove('opacity-0', 'pointer-events-none');
+            
+            clearTimeout(errorBannerTimeout);
+            
+            errorBannerTimeout = setTimeout(() => {
+                titleContainer.classList.remove('opacity-0');
+                errorBanner.classList.add('opacity-0', 'pointer-events-none');
+            }, 3500);
+        }
+
+        // Inicializar
+        window.onload = () => {
+            changeLanguage('es'); 
+        };
+
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub de Aperturas de Ajedrez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            background-color: #0f172a; /* slate-900 */
+            color: #f8fafc; /* slate-50 */
+            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+        }
+
+        /* --- Estilos del Menú --- */
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { transform: translate(-50%, 0); opacity: 1; }
+            to { transform: translate(-50%, 20px); opacity: 0; }
+        }
+
+        .toast-enter { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .toast-exit { animation: fadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .opening-card { transition: all 0.2s ease-in-out; }
+        .opening-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15), 0 8px 10px -6px rgba(16, 185, 129, 0.1);
+        }
+
+        /* --- Estilos del Tablero y Juego --- */
+        .chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 1 / 1;
+            border: 4px solid #334155;
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .square.light { background-color: #e2e8f0; }
+        .square.dark { background-color: #64748b; }
+        .square.highlight { background-color: rgba(234, 179, 8, 0.5); }
+        .square.error-highlight { background-color: rgba(239, 68, 68, 0.6); }
+
+        .piece {
+            width: 80%;
+            height: 80%;
+            cursor: grab;
+            background-size: cover;
+            background-position: center;
+            user-select: none;
+            filter: drop-shadow(0px 4px 3px rgba(0,0,0,0.4));
+            transition: transform 0.1s;
+        }
+        .piece:active { cursor: grabbing; transform: scale(1.1); }
+
+        .coord-col {
+            position: absolute; bottom: 2px; right: 4px; font-size: 10px; font-weight: bold; color: #1e293b;
+        }
+        .coord-row {
+            position: absolute; top: 2px; left: 4px; font-size: 10px; font-weight: bold; color: #1e293b;
+        }
+        .square.dark .coord-col, .square.dark .coord-row { color: #f1f5f9; }
+
+        .terminal {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            background-color: #020617;
+            border: 1px solid #334155;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center relative pb-24">
+
+    <!-- Selector de Idioma -->
+    <select id="lang-select" onchange="changeLanguage(this.value)" class="absolute top-4 right-4 md:top-6 md:right-8 bg-slate-800 text-emerald-400 border border-slate-700 focus:border-emerald-500 px-4 py-2 rounded-lg font-bold text-sm outline-none transition-colors z-50 cursor-pointer shadow-lg shadow-black/20">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+        <option value="it">Italiano</option>
+        <option value="la">Latina</option>
+        <option value="eo">Esperanto</option>
+        <option value="tok">Toki Pona</option>
+    </select>
+
+    <!-- ==================== VISTA DEL MENÚ ==================== -->
+    <div id="menu-view" class="w-full flex flex-col items-center w-full max-w-7xl">
+        <header class="w-full text-center mt-8 mb-12">
+            <h1 id="ui-main-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mb-4 drop-shadow-sm">
+                Aperturas de ajedrez
+            </h1>
+            <p id="ui-main-subtitle" class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
+                Selecciona un sistema
+            </p>
+        </header>
+
+        <main class="w-full">
+            <div id="openings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Las tarjetas se inyectarán aquí mediante JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Notificación Toast -->
+    <div id="toast-notification" class="fixed bottom-8 left-1/2 -translate-x-1/2 hidden z-50">
+        <div class="bg-amber-500/10 border border-amber-500/50 text-amber-200 px-6 py-3 rounded-full shadow-lg backdrop-blur-md flex items-center gap-3">
+            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <span id="toast-message" class="font-medium text-sm md:text-base">Módulo en construcción...</span>
+        </div>
+    </div>
+
+
+    <!-- ==================== VISTA DEL JUEGO ==================== -->
+    <div id="game-view" class="hidden w-full max-w-6xl flex-col items-center">
+        
+        <header class="w-full mb-8 flex flex-col md:flex-row justify-between items-center gap-4 mt-4">
+            
+            <div class="relative flex-grow min-h-[4rem] w-full flex items-center gap-4">
+                <!-- Botón Volver -->
+                <button onclick="backToMenu()" class="shrink-0 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 p-2 md:px-4 md:py-2 rounded-md font-semibold transition-colors flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span id="ui-btn-back" class="hidden md:inline">Volver</span>
+                </button>
+
+                <!-- Título Principal del Juego -->
+                <div id="title-container" class="transition-opacity duration-300 w-full">
+                    <!-- Contenido inyectado por JS -->
+                </div>
+                
+                <!-- Banner de Error Oculto -->
+                <div id="error-banner" class="opacity-0 pointer-events-none absolute left-[3.5rem] md:left-[7.5rem] top-0 w-[calc(100%-3.5rem)] md:w-4/5 h-full bg-rose-600 rounded-lg flex items-center px-4 shadow-lg shadow-rose-900/50 transition-opacity duration-300 z-10">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-8 h-8 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h2 id="ui-wrong-move" class="text-xl font-bold text-white leading-tight">¡Movimiento Incorrecto!</h2>
+                            <p id="error-banner-text" class="text-rose-100 text-sm leading-tight">Razón del error...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex gap-2 bg-slate-800 p-1 rounded-lg border border-slate-700 shrink-0 z-20">
+                <button id="btn-white" onclick="switchRole('w')" class="px-4 py-2 rounded-md bg-emerald-600 text-white font-semibold transition-colors">Jugar Blancas</button>
+                <button id="btn-black" onclick="switchRole('b')" class="px-4 py-2 rounded-md text-slate-300 hover:bg-slate-700 font-semibold transition-colors">Jugar Negras</button>
+            </div>
+        </header>
+
+        <main class="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Tablero Section -->
+            <div class="flex justify-center items-start">
+                <div id="board" class="chessboard">
+                    <!-- Se inyecta via JS -->
+                </div>
+            </div>
+
+            <!-- Panel de Control y Teoría -->
+            <div class="flex flex-col gap-4 w-full">
+                <!-- Progreso -->
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-lg">
+                    <div class="flex justify-between items-end mb-2">
+                        <h2 class="text-xl font-bold text-white"><span id="ui-level">Nivel</span> <span id="level-indicator">1</span> / 10</h2>
+                        <span id="turn-indicator" class="text-sm font-mono bg-slate-900 px-3 py-1 rounded text-emerald-400">Turno: Tu turno</span>
+                    </div>
+                    <div class="w-full bg-slate-900 rounded-full h-2.5">
+                        <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <!-- Instrucción Actual -->
+                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-lg flex-grow">
+                    <h3 id="ui-objective" class="text-lg font-semibold text-blue-400 mb-2 border-b border-slate-700 pb-2">Objetivo del Nivel</h3>
+                    <p id="instruction-text" class="text-slate-200 text-lg leading-relaxed"></p>
+                    
+                    <div class="mt-4 bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                        <h4 id="ui-theory" class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Lógica del Algoritmo (Teoría)</h4>
+                        <p id="theory-text" class="text-sm text-slate-300 italic"></p>
+                    </div>
+                </div>
+
+                <!-- Consola de Comentarios / Feedback -->
+                <div class="terminal rounded-xl p-4 shadow-lg h-48 overflow-y-auto flex flex-col gap-2" id="feedback-console">
+                    <!-- Textos inyectados via JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ==========================================
+        // DICCIONARIO DE INTERFAZ MULTILINGÜE
+        // ==========================================
+        let currentLang = 'es';
+
+        const UI_TEXT = {
+            mainTitle: { es: "Aperturas de ajedrez", en: "Chess Openings", it: "Aperture di scacchi", la: "Aperturae Scaccorum", eo: "Ŝakaj Malfermoj", tok: "open pi musi utala" },
+            mainSubtitle: { es: "Selecciona un sistema", en: "Select a system", it: "Seleziona un sistema", la: "Elige systemam", eo: "Elektu sistemon", tok: "o fili e nasin" },
+            backBtn: { es: "Volver", en: "Back", it: "Indietro", la: "Redire", eo: "Reen", tok: "tawa monsi" },
+            playWhite: { es: "Jugar Blancas", en: "Play White", it: "Gioca Bianco", la: "Lude Alba", eo: "Ludi Blankajn", tok: "musi walo" },
+            playBlack: { es: "Jugar Negras", en: "Play Black", it: "Gioca Nero", la: "Lude Nigra", eo: "Ludi Nigrajn", tok: "musi pimeja" },
+            wrongMove: { es: "¡Movimiento Incorrecto!", en: "Wrong Move!", it: "Mossa Errata!", la: "Motus Falsus!", eo: "Malĝusta Movado!", tok: "tawa ike!" },
+            level: { es: "Nivel", en: "Level", it: "Livello", la: "Gradus", eo: "Nivelo", tok: "nanpa suli" },
+            turnUser: { es: "Tu turno", en: "Your turn", it: "Tuo turno", la: "Tuum vicem", eo: "Via vico", tok: "tenpo sina" },
+            turnOpp: { es: "Calculando...", en: "Calculating...", it: "Calcolando...", la: "Computans...", eo: "Kalkulante...", tok: "ilo li sona..." },
+            objective: { es: "Objetivo del Nivel", en: "Level Objective", it: "Obiettivo del Livello", la: "Propositum Gradus", eo: "Nivela Celo", tok: "alasa pi nanpa ni" },
+            theory: { es: "Lógica del Algoritmo (Teoría)", en: "Algorithm Logic (Theory)", it: "Logica Algoritmo (Teoria)", la: "Logica Algorithmi", eo: "Algoritma Logiko", tok: "sona nasin" },
+            startModule: { es: "Iniciar Módulo", en: "Start Module", it: "Avvia Modulo", la: "Incipe Modulum", eo: "Komenci Modulon", tok: "open e nasin" },
+            underConstText: { es: "Módulo en construcción...", en: "Module under construction...", it: "Modulo in costruzione...", la: "Modulus in aedificatione...", eo: "Modulo sub konstruo...", tok: "nasin ni li pali ala..." },
+            congratulations: { es: "¡Felicidades! Has completado la línea principal.", en: "Congratulations! You completed the main line.", it: "Congratulazioni! Hai completato la linea.", la: "Macte! Lineam principalem perfecisti.", eo: "Gratulon! Vi kompletigis la ĉefan linion.", tok: "sina pona! sina pini e nasin suli." },
+            completedInst: { es: "Has dominado los primeros 10 movimientos.", en: "You have mastered the first 10 moves.", it: "Hai dominato le prime 10 mosse.", la: "X motus primos dominatus es.", eo: "Vi majstris la unuajn 10 movojn.", tok: "sina sona e tawa luka luka." },
+            completedTheory: { es: "Has ejecutado las instrucciones correctamente.", en: "Algorithm executed correctly.", it: "Hai eseguito le istruzioni correttamente.", la: "Praecepta recte secutus es.", eo: "Vi plenumis la instrukciojn ĝuste.", tok: "sina pali pona. musi li open." },
+            tutEnded: { es: "Tutorial Finalizado", en: "Tutorial Completed", it: "Tutorial Completato", la: "Instructio Perfecta", eo: "Gvidilo Finita", tok: "sona li pini" }
+        };
+
+        // Función Helper Mágica: Si no existe traducción al idioma, devuelve Español para no romper la app.
+        function getT(obj) {
+            if (!obj) return "";
+            if (typeof obj === 'string') return obj;
+            return obj[currentLang] || obj['es'] || "";
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            
+            // Actualizar Textos UI Estáticos
+            document.getElementById('ui-main-title').textContent = getT(UI_TEXT.mainTitle);
+            document.getElementById('ui-main-subtitle').textContent = getT(UI_TEXT.mainSubtitle);
+            document.getElementById('ui-btn-back').textContent = getT(UI_TEXT.backBtn);
+            document.getElementById('btn-white').textContent = getT(UI_TEXT.playWhite);
+            document.getElementById('btn-black').textContent = getT(UI_TEXT.playBlack);
+            document.getElementById('ui-wrong-move').textContent = getT(UI_TEXT.wrongMove);
+            document.getElementById('ui-level').textContent = getT(UI_TEXT.level);
+            document.getElementById('ui-objective').textContent = getT(UI_TEXT.objective);
+            document.getElementById('ui-theory').textContent = getT(UI_TEXT.theory);
+            
+            // Actualizar Vistas Dinámicas
+            renderCards();
+            if(!document.getElementById('game-view').classList.contains('hidden')){
+                const activeId = document.getElementById('game-view').dataset.activeId;
+                if(activeId) {
+                    const mod = OPENING_MODULES[activeId];
+                    document.getElementById('title-container').innerHTML = `
+                        <h1 class="text-2xl md:text-3xl font-bold ${mod.colorTheme}">${getT(mod.title)} <span class="text-slate-500 text-xl font-mono">v1.0</span></h1>
+                        <p class="text-slate-400 text-sm md:text-base">${getT(mod.subtitle)}</p>
+                    `;
+                }
+                updateUI();
+            }
+        }
+
+
+        // ==========================================
+        // BASE DE DATOS DE MÓDULOS DE APERTURAS
+        // ==========================================
+        const OPENING_MODULES = {
+            1: {
+                title: { es: "Apertura Ruy López", en: "Ruy Lopez Opening", it: "Partita Spagnola", la: "Apertura Hispanica", eo: "Hispana Malfermo", tok: "open Lusi Lope" },
+                subtitle: { es: "Tutorial interactivo de las primeras 10 jugadas.", en: "Interactive tutorial for the first 10 moves.", it: "Tutorial interattivo delle prime 10 mosse.", la: "Instructio interactiva pro primis X motibus.", eo: "Interaga gvidilo por la unuaj 10 movoj.", tok: "sona tawa luka luka nanpa wan." },
+                colorTheme: "text-emerald-400",
+                steps: [
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: { es: "Domina el centro. Mueve tu peón de rey a e4.", en: "Control the center. Move your king's pawn to e4.", it: "Domina il centro. Muovi il pedone di re in e4.", la: "Dominare centrum. Move peditem regis ad e4.", eo: "Regu la centron. Movu vian reĝan peonon al e4.", tok: "o lawa e insa. o tawa e sike lili pi jan lawa." }, instB: { es: "Responde al desafío. Mueve tu peón de rey a e5.", en: "Answer the challenge. Move your king's pawn to e5.", it: "Rispondi alla sfida. Muovi il pedone di re in e5.", la: "Responde provocationi. Move peditem ad e5.", eo: "Respondu al la defio. Movu peonon al e5.", tok: "o tawa e sike lili pi jan lawa." }, teoriaW: { es: "Ocupar el centro físicamente (e4) es el primer paso.", en: "Physically occupying the center (e4) is the first step.", it: "Occupare fisicamente il centro è il primo passo.", la: "Centrum occupare est primus gradus.", eo: "Fizike okupi la centron estas la unua paŝo.", tok: "tawa insa li nasin nanpa wan." }, teoriaB: { es: "Debes reclamar tu parte del centro.", en: "You must claim your share of the center.", it: "Devi reclamare la tua parte di centro.", la: "Debes partem tuam centri vindicare.", eo: "Vi devas postuli vian parton de la centro.", tok: "sina wile jo e insa." }, errW: { es: "Error: La Ruy López exige dominar el centro con e4.", en: "Error: Ruy Lopez requires e4.", it: "Errore: La Spagnola richiede e4.", la: "Error: Hispanica e4 requirit.", eo: "Eraro: Ruy Lopez postulas e4.", tok: "ike: o tawa e e4." }, errB: { es: "Error: Debes igualar el centro con e5.", en: "Error: You must match the center with e5.", it: "Errore: Devi pareggiare il centro con e5.", la: "Error: Centrum cum e5 aequare debes.", eo: "Eraro: Egaligu la centron per e5.", tok: "ike: o tawa e e5." }, shortErrW: { es: "Pierdes el control central.", en: "You lose central control.", it: "Perdi il controllo centrale.", la: "Imperium amittis.", eo: "Vi perdas kontrolon.", tok: "sina lawa ala e insa." }, shortErrB: { es: "Cedes el dominio central.", en: "You yield the center.", it: "Cedi il centro.", la: "Centrum ceditis.", eo: "Vi cedas la centron.", tok: "sina weka e insa." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: { es: "Desarrolla con amenaza. Juega el Caballo a f3.", en: "Develop with a threat. Play Knight to f3.", it: "Sviluppa e minaccia. Cavallo in f3.", la: "Move equum ad f3 cum minis.", eo: "Disvolviĝu minacante. Ĉevalo al f3.", tok: "o tawa e soweli." }, instB: { es: "Defiende tu peón. Desarrolla el Caballo a c6.", en: "Defend your pawn. Knight to c6.", it: "Difendi il pedone. Cavallo in c6.", la: "Defende peditem. Equus ad c6.", eo: "Defendu la peonon. Ĉevalo al c6.", tok: "o awen. o tawa e soweli." }, teoriaW: { es: "Desarrollas atacando e5.", en: "You develop while attacking e5.", it: "Sviluppi attaccando e5.", la: "Progrediens e5 oppugnas.", eo: "Vi disvolviĝas atakante e5.", tok: "sina utala e e5." }, teoriaB: { es: "El caballo en c6 protege e5.", en: "The knight on c6 protects e5.", it: "Il cavallo in c6 protegge e5.", la: "Equus in c6 peditem defendit.", eo: "La ĉevalo ĉe c6 protektas e5.", tok: "soweli li awen e e5." }, errW: { es: "Error: Ataca e5 con tu caballo en f3.", en: "Error: Attack e5 with Knight f3.", it: "Errore: Attacca e5 con Cavallo f3.", la: "Error: Oppugna e5 cum equo.", eo: "Eraro: Ataku e5 per Ĉevalo f3.", tok: "ike: o utala e e5." }, errB: { es: "Error: Defiende e5.", en: "Error: Defend e5.", it: "Errore: Difendi e5.", la: "Error: Defende e5.", eo: "Eraro: Defendu e5.", tok: "ike: o awen e e5." }, shortErrW: { es: "Falta de desarrollo.", en: "Lack of development.", it: "Mancanza di sviluppo.", la: "Inopia progressionis.", eo: "Manko de disvolviĝo.", tok: "tawa pi wawa ala." }, shortErrB: { es: "Arriesgas tu peón.", en: "You risk your pawn.", it: "Rischi il tuo pedone.", la: "Peditem tuum periclitatur.", eo: "Vi riskas la peonon.", tok: "sike lili li pakala." } },
+                    { w: { from: [7,5], to: [3,1], san: "Bb5" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: { es: "La Ruy López. Mueve tu Alfil a b5.", en: "The Ruy Lopez. Bishop to b5." }, instB: { es: "Cuestiona al Alfil. Juega el peón a a6.", en: "Question the Bishop. Pawn to a6." }, teoriaW: { es: "Amenazas al defensor (Cc6) del peón de e5.", en: "You threaten the defender of e5." }, teoriaB: { es: "La Defensa Morphy. Obligas al Alfil blanco a decidir.", en: "Morphy Defense. You force the Bishop to decide." }, errW: { es: "Error: ¡El alfil debe ir a b5!", en: "Error: Bishop must go to b5!" }, errB: { es: "Error: La Defensa Morphy (a6) es el estándar.", en: "Error: Play a6." }, shortErrW: { es: "Esa no es la Ruy López.", en: "Not the Ruy Lopez." }, shortErrB: { es: "Permites demasiada presión.", en: "You allow too much pressure." } },
+                    { w: { from: [3,1], to: [4,0], san: "Ba4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: { es: "Mantén la tensión. Retira el Alfil a a4.", en: "Maintain tension. Retreat to a4." }, instB: { es: "Continúa el desarrollo. Juega el Caballo a f6.", en: "Develop. Knight to f6." }, teoriaW: { es: "Retirarse a a4 mantiene la 'clavada' psicológica.", en: "Retreating maintains psychological pressure." }, teoriaB: { es: "Desarrollas el flanco de rey preparándote para enrocar.", en: "Develop kingside preparing to castle." }, errW: { es: "Error: Retira el alfil a a4.", en: "Error: Retreat to a4." }, errB: { es: "Error: Desarrolla el flanco de rey (Nf6).", en: "Error: Develop Knight to f6." }, shortErrW: { es: "Cedes la pareja de alfiles.", en: "You give up the bishop pair." }, shortErrB: { es: "Retrasas el desarrollo.", en: "Development delayed." } },
+                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: { es: "Enroque corto.", en: "Kingside Castle." }, instB: { es: "Prepara tu cortafuegos. Desarrolla el Alfil a e7.", en: "Bishop to e7." }, teoriaW: { es: "Seguridad ante todo.", en: "Safety first." }, teoriaB: { es: "Bloquea la columna 'e' y prepara tu enroque.", en: "Prepares castling safely." }, errW: { es: "Error: Enróca (O-O).", en: "Error: Castle short." }, errB: { es: "Error: Desarrolla el alfil a e7.", en: "Error: Bishop to e7." }, shortErrW: { es: "Rey expuesto.", en: "Exposed king." }, shortErrB: { es: "No preparas tu enroque.", en: "Castling delayed." } },
+                    { w: { from: [7,5], to: [7,4], san: "Re1" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: { es: "Mueve la Torre a e1.", en: "Rook to e1." }, instB: { es: "Rompe la clavada. Empuja el peón a b5.", en: "Pawn to b5." }, teoriaW: { es: "Protege e4 y renueva amenazas.", en: "Protects e4." }, teoriaB: { es: "Rompes la influencia del Alfil blanco.", en: "Breaks bishop influence." }, errW: { es: "Error: Torre a e1.", en: "Error: Re1." }, errB: { es: "Error: Juega b5.", en: "Error: Play b5." }, shortErrW: { es: "Peón vulnerable.", en: "Vulnerable pawn." }, shortErrB: { es: "Sufres presión molesta.", en: "Annoying pressure." } },
+                    { w: { from: [4,0], to: [5,1], san: "Bb3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: { es: "Retira el Alfil a b3.", en: "Bishop to b3." }, instB: { es: "Consolida la estructura. Juega d6.", en: "Pawn to d6." }, teoriaW: { es: "El Alfil apunta a f7.", en: "Bishop targets f7." }, teoriaB: { es: "Defiendes e5 firmemente.", en: "Solidifies e5." }, errW: { es: "Error: Alfil a b3.", en: "Error: Bb3." }, errB: { es: "Error: Juega d6.", en: "Error: Play d6." }, shortErrW: { es: "Pierdes tu Alfil.", en: "Lose bishop." }, shortErrB: { es: "Estructura débil.", en: "Weak structure." } },
+                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: { es: "Prepara expansión. Juega c3.", en: "Pawn to c3." }, instB: { es: "Enroque corto.", en: "Castle short." }, teoriaW: { es: "Prepara d4 y refugio en c2.", en: "Prepares d4." }, teoriaB: { es: "Aseguras tu rey.", en: "King safety." }, errW: { es: "Error: Juega c3.", en: "Error: Play c3." }, errB: { es: "Error: Enróca (O-O).", en: "Error: Castle." }, shortErrW: { es: "Sin refugio para tu Alfil.", en: "No bishop refuge." }, shortErrB: { es: "¡Rey en peligro!", en: "King in danger!" } },
+                    { w: { from: [6,7], to: [5,7], san: "h3" }, b: { from: [2,2], to: [4,0], san: "Na5" }, instW: { es: "Profilaxis. Juega h3.", en: "Prophylaxis. Pawn to h3." }, instB: { es: "Ataca el Alfil. Caballo a a5.", en: "Knight to a5." }, teoriaW: { es: "Evitas clavaduras con Ag4.", en: "Avoids Bg4 pin." }, teoriaB: { es: "Variante Chigorin: vas por el alfil.", en: "Chigorin Variation." }, errW: { es: "Error: Juega h3.", en: "Error: Play h3." }, errB: { es: "Error: Caballo a a5.", en: "Error: Na5." }, shortErrW: { es: "Te clavarán el caballo.", en: "Knight will be pinned." }, shortErrB: { es: "¡Ve por el alfil!", en: "Hunt the bishop!" } },
+                    { w: { from: [5,1], to: [6,2], san: "Bc2" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: { es: "Retira el Alfil a c2.", en: "Bishop to c2." }, instB: { es: "Golpea el centro. Juega c5.", en: "Pawn to c5." }, teoriaW: { es: "Salvas tu mejor pieza.", en: "Save best piece." }, teoriaB: { es: "Reclamas espacio en el centro.", en: "Claim central space." }, errW: { es: "Error: Guarda el alfil en c2.", en: "Error: Bc2." }, errB: { es: "Error: Juega c5.", en: "Error: Play c5." }, shortErrW: { es: "Arriesgas el Alfil español.", en: "Risk Spanish Bishop." }, shortErrB: { es: "No reclamas espacio.", en: "No space claimed." } }
+                ]
+            },
+            2: {
+                title: { es: "Defensa Siciliana", en: "Sicilian Defense", it: "Difesa Siciliana", la: "Defensio Siciliana", eo: "Sicilia Defendo", tok: "awen Sisi" },
+                subtitle: { es: "Tutorial interactivo (Variante Najdorf).", en: "Interactive tutorial (Najdorf Variation).", it: "Tutorial interattivo (Variante Najdorf).", la: "Instructio (Variatio Najdorf).", eo: "Interaga gvidilo (Najdorf-Variaĵo).", tok: "sona tawa (nasin Najo)." },
+                colorTheme: "text-blue-400",
+                steps: [
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: { es: "Mueve e4.", en: "Move e4.", it: "Muovi e4.", la: "Move e4.", eo: "Movu e4.", tok: "o tawa e4." }, instB: { es: "Defensa Siciliana. Juega c5.", en: "Sicilian Defense. Play c5.", it: "Difesa Siciliana. Gioca c5.", la: "Defensio Siciliana. Lude c5.", eo: "Sicilia Defendo. Ludu c5.", tok: "awen Sisi. o tawa c5." }, teoriaW: { es: "Ocupas el centro.", en: "You occupy the center.", it: "Occupando il centro.", la: "Centrum occupas.", eo: "Vi okupas la centron.", tok: "sina lawa e insa." }, teoriaB: { es: "Controlas d4 desde el flanco.", en: "Control d4 from the flank.", it: "Controlli d4 dal lato.", la: "d4 ex latere regis.", eo: "Vi kontrolas d4 de la flanko.", tok: "sina lawa e d4." }, errW: { es: "Error: Juega e4.", en: "Error: Play e4.", it: "Errore: Gioca e4.", la: "Error: Lude e4.", eo: "Eraro: Ludu e4.", tok: "ike: o tawa e4." }, errB: { es: "Error: Juega c5.", en: "Error: Play c5.", it: "Errore: Gioca c5.", la: "Error: Lude c5.", eo: "Eraro: Ludu c5.", tok: "ike: o tawa c5." }, shortErrW: { es: "Juega e4.", en: "Play e4.", it: "Gioca e4.", la: "Lude e4.", eo: "Ludu e4.", tok: "o tawa e4." }, shortErrB: { es: "Juega c5.", en: "Play c5.", it: "Gioca c5.", la: "Lude c5.", eo: "Ludu c5.", tok: "o tawa c5." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: { es: "Desarrolla el caballo (Nf3).", en: "Develop knight (Nf3).", it: "Sviluppa (Nf3).", la: "Move equum (Nf3).", eo: "Ĉevalo al f3.", tok: "o tawa e soweli (Nf3)." }, instB: { es: "Controla e5 (d6).", en: "Control e5 (d6).", it: "Controlla e5 (d6).", la: "Rege e5 (d6).", eo: "Kontrolu e5 (d6).", tok: "o awen e5 (d6)." }, teoriaW: { es: "Preparas d4.", en: "Prepare d4.", it: "Prepari d4.", la: "Paras d4.", eo: "Preparu d4.", tok: "o pali e d4." }, teoriaB: { es: "Evitas e5 blanco.", en: "Avoid white's e5.", it: "Eviti e5.", la: "Vitas e5.", eo: "Evitu e5.", tok: "awen e e5 walo." }, errW: { es: "Error: Nf3.", en: "Error: Nf3.", it: "Errore: Nf3.", la: "Error: Nf3.", eo: "Eraro: Nf3.", tok: "ike: o tawa Nf3." }, errB: { es: "Error: d6.", en: "Error: d6.", it: "Errore: d6.", la: "Error: d6.", eo: "Eraro: d6.", tok: "ike: o tawa d6." }, shortErrW: { es: "Nf3.", en: "Nf3.", it: "Nf3.", la: "Nf3.", eo: "Nf3.", tok: "Nf3." }, shortErrB: { es: "d6.", en: "d6.", it: "d6.", la: "d6.", eo: "d6.", tok: "d6." } },
+                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [3,2], to: [4,3], san: "cxd4" }, instW: { es: "Rompe el centro (d4).", en: "Break center (d4).", it: "Rompi il centro (d4).", la: "Frange centrum (d4).", eo: "Rompu centron (d4).", tok: "o pakala e insa (d4)." }, instB: { es: "Captura (cxd4).", en: "Capture (cxd4).", it: "Cattura (cxd4).", la: "Cape (cxd4).", eo: "Kaptu (cxd4).", tok: "o moli (cxd4)." }, teoriaW: { es: "Abres la posición.", en: "Open position.", it: "Apri la posizione.", la: "Aperis positionem.", eo: "Malfermu pozicion.", tok: "open e ma." }, teoriaB: { es: "Cambias peones.", en: "Exchange pawns.", it: "Scambi pedoni.", la: "Mutas pedites.", eo: "Interŝanĝu peonojn.", tok: "pana e jan lili." }, errW: { es: "Error: d4.", en: "Error: d4.", it: "Errore: d4.", la: "Error: d4.", eo: "Eraro: d4.", tok: "ike: d4." }, errB: { es: "Error: cxd4.", en: "Error: cxd4.", it: "Errore: cxd4.", la: "Error: cxd4.", eo: "Eraro: cxd4.", tok: "ike: cxd4." }, shortErrW: { es: "d4.", en: "d4.", it: "d4.", la: "d4.", eo: "d4.", tok: "d4." }, shortErrB: { es: "cxd4.", en: "cxd4.", it: "cxd4.", la: "cxd4.", eo: "cxd4.", tok: "cxd4." } },
+                    { w: { from: [5,5], to: [4,3], san: "Nxd4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: { es: "Recaptura (Nxd4).", en: "Recapture (Nxd4).", it: "Ricattura (Nxd4).", la: "Recape (Nxd4).", eo: "Rekaptu (Nxd4).", tok: "o moli sin (Nxd4)." }, instB: { es: "Ataca (Nf6).", en: "Attack (Nf6).", it: "Attacca (Nf6).", la: "Oppugna (Nf6).", eo: "Ataku (Nf6).", tok: "utala (Nf6)." }, teoriaW: { es: "Caballo central.", en: "Central knight.", it: "Cavallo centrale.", la: "Equus centralis.", eo: "Centra ĉevalo.", tok: "soweli insa." }, teoriaB: { es: "Obligas defensa.", en: "Forces defense.", it: "Forza la difesa.", la: "Cogit defensionem.", eo: "Devigas defendon.", tok: "wile awen." }, errW: { es: "Error: Nxd4.", en: "Error: Nxd4.", it: "Errore: Nxd4.", la: "Error: Nxd4.", eo: "Eraro: Nxd4.", tok: "ike: Nxd4." }, errB: { es: "Error: Nf6.", en: "Error: Nf6.", it: "Errore: Nf6.", la: "Error: Nf6.", eo: "Eraro: Nf6.", tok: "ike: Nf6." }, shortErrW: { es: "Nxd4.", en: "Nxd4.", it: "Nxd4.", la: "Nxd4.", eo: "Nxd4.", tok: "Nxd4." }, shortErrB: { es: "Nf6.", en: "Nf6.", it: "Nf6.", la: "Nf6.", eo: "Nf6.", tok: "Nf6." } },
+                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: { es: "Defiende e4 (Nc3).", en: "Defend e4 (Nc3).", it: "Difendi e4 (Nc3).", la: "Defende e4 (Nc3).", eo: "Defendu e4 (Nc3).", tok: "awen e4 (Nc3)." }, instB: { es: "¡La Najdorf! Juega a6.", en: "Najdorf! Play a6.", it: "Najdorf! Gioca a6.", la: "Najdorf! Lude a6.", eo: "Najdorf! Ludu a6.", tok: "Najo! o tawa a6." }, teoriaW: { es: "Proteges e4.", en: "Protects e4.", it: "Protegge e4.", la: "Protegit e4.", eo: "Protektas e4.", tok: "awen e4." }, teoriaB: { es: "Previene saltos.", en: "Prevents jumps.", it: "Previene salti.", la: "Prohibet saltus.", eo: "Malhelpas saltojn.", tok: "pini e tawa sewi." }, errW: { es: "Error: Nc3.", en: "Error: Nc3.", it: "Errore: Nc3.", la: "Error: Nc3.", eo: "Eraro: Nc3.", tok: "ike: Nc3." }, errB: { es: "Error: a6.", en: "Error: a6.", it: "Errore: a6.", la: "Error: a6.", eo: "Eraro: a6.", tok: "ike: a6." }, shortErrW: { es: "Nc3.", en: "Nc3.", it: "Nc3.", la: "Nc3.", eo: "Nc3.", tok: "Nc3." }, shortErrB: { es: "a6.", en: "a6.", it: "a6.", la: "a6.", eo: "a6.", tok: "a6." } },
+                    { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: { es: "Alfil a g5.", en: "Bishop to g5.", it: "Alfiere in g5.", la: "Episcopus ad g5.", eo: "Kuriero al g5.", tok: "kiwen tawa g5." }, instB: { es: "Juega e6.", en: "Play e6.", it: "Gioca e6.", la: "Lude e6.", eo: "Ludu e6.", tok: "o tawa e6." }, teoriaW: { es: "Amenaza.", en: "Threat.", it: "Minaccia.", la: "Minae.", eo: "Minaco.", tok: "ike tawa sina." }, teoriaB: { es: "Barrera.", en: "Barrier.", it: "Barriera.", la: "Claustrum.", eo: "Baro.", tok: "sinpin." }, errW: { es: "Error: Bg5.", en: "Error: Bg5.", it: "Errore: Bg5.", la: "Error: Bg5.", eo: "Eraro: Bg5.", tok: "ike: Bg5." }, errB: { es: "Error: e6.", en: "Error: e6.", it: "Errore: e6.", la: "Error: e6.", eo: "Eraro: e6.", tok: "ike: e6." }, shortErrW: { es: "Bg5.", en: "Bg5.", it: "Bg5.", la: "Bg5.", eo: "Bg5.", tok: "Bg5." }, shortErrB: { es: "e6.", en: "e6.", it: "e6.", la: "e6.", eo: "e6.", tok: "e6." } },
+                    { w: { from: [6,5], to: [4,5], san: "f4" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: { es: "Juega f4.", en: "Play f4.", it: "Gioca f4.", la: "Lude f4.", eo: "Ludu f4.", tok: "o tawa f4." }, instB: { es: "Alfil a e7.", en: "Bishop to e7.", it: "Alfiere in e7.", la: "Episcopus ad e7.", eo: "Kuriero al e7.", tok: "kiwen tawa e7." }, teoriaW: { es: "Gana espacio.", en: "Gain space.", it: "Guadagna spazio.", la: "Spatium occupa.", eo: "Gajnu spacon.", tok: "jo e ma." }, teoriaB: { es: "Desarrollo.", en: "Development.", it: "Sviluppo.", la: "Progressio.", eo: "Disvolviĝo.", tok: "tawa pona." }, errW: { es: "Error: f4.", en: "Error: f4.", it: "Errore: f4.", la: "Error: f4.", eo: "Eraro: f4.", tok: "ike: f4." }, errB: { es: "Error: Be7.", en: "Error: Be7.", it: "Errore: Be7.", la: "Error: Be7.", eo: "Eraro: Be7.", tok: "ike: Be7." }, shortErrW: { es: "f4.", en: "f4.", it: "f4.", la: "f4.", eo: "f4.", tok: "f4." }, shortErrB: { es: "Be7.", en: "Be7.", it: "Be7.", la: "Be7.", eo: "Be7.", tok: "Be7." } },
+                    { w: { from: [7,3], to: [5,5], san: "Qf3" }, b: { from: [0,3], to: [1,2], san: "Qc7" }, instW: { es: "Dama a f3.", en: "Queen to f3.", it: "Donna in f3.", la: "Regina ad f3.", eo: "Damo al f3.", tok: "meli tawa f3." }, instB: { es: "Dama a c7.", en: "Queen to c7.", it: "Donna in c7.", la: "Regina ad c7.", eo: "Damo al c7.", tok: "meli tawa c7." }, teoriaW: { es: "Prepara enroque.", en: "Prepare castle.", it: "Prepara arrocco.", la: "Para arcem.", eo: "Preparu arokon.", tok: "pali e tomo." }, teoriaB: { es: "Controla columna c.", en: "Control c-file.", it: "Controlla colonna c.", la: "Rege columnam c.", eo: "Kontrolu c-linion.", tok: "lawa e linja c." }, errW: { es: "Error: Qf3.", en: "Error: Qf3.", it: "Errore: Qf3.", la: "Error: Qf3.", eo: "Eraro: Qf3.", tok: "ike: Qf3." }, errB: { es: "Error: Qc7.", en: "Error: Qc7.", it: "Errore: Qc7.", la: "Error: Qc7.", eo: "Eraro: Qc7.", tok: "ike: Qc7." }, shortErrW: { es: "Qf3.", en: "Qf3.", it: "Qf3.", la: "Qf3.", eo: "Qf3.", tok: "Qf3." }, shortErrB: { es: "Qc7.", en: "Qc7.", it: "Qc7.", la: "Qc7.", eo: "Qc7.", tok: "Qc7." } },
+                    { w: { from: [7,4], to: [7,2], san: "O-O-O", castle: true, rFrom: [7,0], rTo: [7,3] }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: { es: "¡Enroque largo!", en: "Long castle!", it: "Arrocco lungo!", la: "Arx longa!", eo: "Longa aroko!", tok: "tomo suli!" }, instB: { es: "Caballo a d7.", en: "Knight to d7.", it: "Cavallo in d7.", la: "Equus ad d7.", eo: "Ĉevalo al d7.", tok: "soweli tawa d7." }, teoriaW: { es: "Rey seguro.", en: "King safe.", it: "Re sicuro.", la: "Rex tutus.", eo: "Reĝo sekura.", tok: "jan lawa li pona." }, teoriaB: { es: "Flexibilidad.", en: "Flexibility.", it: "Flessibilità.", la: "Mollitia.", eo: "Fleksebleco.", tok: "ken mute." }, errW: { es: "Error: O-O-O.", en: "Error: O-O-O.", it: "Errore: O-O-O.", la: "Error: O-O-O.", eo: "Eraro: O-O-O.", tok: "ike: O-O-O." }, errB: { es: "Error: Nbd7.", en: "Error: Nbd7.", it: "Errore: Nbd7.", la: "Error: Nbd7.", eo: "Eraro: Nbd7.", tok: "ike: Nbd7." }, shortErrW: { es: "O-O-O.", en: "O-O-O.", it: "O-O-O.", la: "O-O-O.", eo: "O-O-O.", tok: "O-O-O." }, shortErrB: { es: "Nbd7.", en: "Nbd7.", it: "Nbd7.", la: "Nbd7.", eo: "Nbd7.", tok: "Nbd7." } },
+                    { w: { from: [6,6], to: [4,6], san: "g4" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: { es: "Juega g4.", en: "Play g4.", it: "Gioca g4.", la: "Lude g4.", eo: "Ludu g4.", tok: "o tawa g4." }, instB: { es: "Juega b5.", en: "Play b5.", it: "Gioca b5.", la: "Lude b5.", eo: "Ludu b5.", tok: "o tawa b5." }, teoriaW: { es: "Tormenta de peones.", en: "Pawn storm.", it: "Tempesta di pedoni.", la: "Procella peditum.", eo: "Peona ŝtormo.", tok: "utala suli." }, teoriaB: { es: "Contraataque.", en: "Counterattack.", it: "Contrattacco.", la: "Contra impetus.", eo: "Kontraŭatako.", tok: "utala monsi." }, errW: { es: "Error: g4.", en: "Error: g4.", it: "Errore: g4.", la: "Error: g4.", eo: "Eraro: g4.", tok: "ike: g4." }, errB: { es: "Error: b5.", en: "Error: b5.", it: "Errore: b5.", la: "Error: b5.", eo: "Eraro: b5.", tok: "ike: b5." }, shortErrW: { es: "g4.", en: "g4.", it: "g4.", la: "g4.", eo: "g4.", tok: "g4." }, shortErrB: { es: "b5.", en: "b5.", it: "b5.", la: "b5.", eo: "b5.", tok: "b5." } }
+                ]
+            },
+            3: { 
+                title: { es: "Gambito de Dama", en: "Queen's Gambit", it: "Gambetto di Donna", la: "Sacrificium Reginae", eo: "Dama Gambito", tok: "pana meli" }, 
+                subtitle: { es: "Variante Ortodoxa Declinada", en: "Orthodox Declined Variation", it: "Variante Ortodossa Rifiutata", la: "Variatio Orthodoxa Declinata", eo: "Ortodoksa Rifuzita Variaĵo", tok: "nasin pi ala pana" }, 
+                colorTheme: "text-purple-400", 
+                steps: [
+                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: { es: "Mueve d4.", en: "Move d4.", it: "Muovi d4.", la: "Move d4.", eo: "Movu d4.", tok: "o tawa d4." }, instB: { es: "Mueve d5.", en: "Move d5.", it: "Muovi d5.", la: "Move d5.", eo: "Movu d5.", tok: "o tawa d5." }, teoriaW: { es: "Ocupa el centro.", en: "Occupy center.", it: "Occupa il centro.", la: "Occupa centrum.", eo: "Okupu centron.", tok: "lawa insa." }, teoriaB: { es: "Desafía d4.", en: "Challenge d4.", it: "Sfida d4.", la: "Pugna d4.", eo: "Defiu d4.", tok: "utala d4." }, errW: { es: "Error: d4.", en: "Error: d4.", it: "Errore: d4.", la: "Error: d4.", eo: "Eraro: d4.", tok: "ike: d4." }, errB: { es: "Error: d5.", en: "Error: d5.", it: "Errore: d5.", la: "Error: d5.", eo: "Eraro: d5.", tok: "ike: d5." }, shortErrW: { es: "d4.", en: "d4.", it: "d4.", la: "d4.", eo: "d4.", tok: "d4." }, shortErrB: { es: "d5.", en: "d5.", it: "d5.", la: "d5.", eo: "d5.", tok: "d5." } },
+                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: { es: "El Gambito (c4).", en: "The Gambit (c4).", it: "Il Gambetto (c4).", la: "Sacrificium (c4).", eo: "La Gambito (c4).", tok: "pana (c4)." }, instB: { es: "Declina (e6).", en: "Decline (e6).", it: "Rifiuta (e6).", la: "Declina (e6).", eo: "Rifuzu (e6).", tok: "ala pana (e6)." }, teoriaW: { es: "Ofrece peón.", en: "Offers pawn.", it: "Offre pedone.", la: "Peditem dat.", eo: "Ofertas peonon.", tok: "pana e jan." }, teoriaB: { es: "Sólido.", en: "Solid.", it: "Solido.", la: "Firmus.", eo: "Solida.", tok: "kiwen." }, errW: { es: "Error: c4.", en: "Error: c4.", it: "Errore: c4.", la: "Error: c4.", eo: "Eraro: c4.", tok: "ike: c4." }, errB: { es: "Error: e6.", en: "Error: e6.", it: "Errore: e6.", la: "Error: e6.", eo: "Eraro: e6.", tok: "ike: e6." }, shortErrW: { es: "c4.", en: "c4.", it: "c4.", la: "c4.", eo: "c4.", tok: "c4." }, shortErrB: { es: "e6.", en: "e6.", it: "e6.", la: "e6.", eo: "e6.", tok: "e6." } },
+                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: { es: "Caballo a c3.", en: "Knight to c3.", it: "Cavallo in c3.", la: "Equus ad c3.", eo: "Ĉevalo al c3.", tok: "soweli tawa c3." }, instB: { es: "Caballo a f6.", en: "Knight to f6.", it: "Cavallo in f6.", la: "Equus ad f6.", eo: "Ĉevalo al f6.", tok: "soweli tawa f6." }, teoriaW: { es: "Presiona d5.", en: "Pressures d5.", it: "Pressione su d5.", la: "Premit d5.", eo: "Premo al d5.", tok: "utala d5." }, teoriaB: { es: "Defiende d5.", en: "Defends d5.", it: "Difende d5.", la: "Defendit d5.", eo: "Defendas d5.", tok: "awen d5." }, errW: { es: "Error: Nc3.", en: "Error: Nc3.", it: "Errore: Nc3.", la: "Error: Nc3.", eo: "Eraro: Nc3.", tok: "ike: Nc3." }, errB: { es: "Error: Nf6.", en: "Error: Nf6.", it: "Errore: Nf6.", la: "Error: Nf6.", eo: "Eraro: Nf6.", tok: "ike: Nf6." }, shortErrW: { es: "Nc3.", en: "Nc3.", it: "Nc3.", la: "Nc3.", eo: "Nc3.", tok: "Nc3." }, shortErrB: { es: "Nf6.", en: "Nf6.", it: "Nf6.", la: "Nf6.", eo: "Nf6.", tok: "Nf6." } },
+                    { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: { es: "Alfil a g5.", en: "Bishop to g5.", it: "Alfiere in g5.", la: "Episcopus ad g5.", eo: "Kuriero al g5.", tok: "kiwen tawa g5." }, instB: { es: "Alfil a e7.", en: "Bishop to e7.", it: "Alfiere in e7.", la: "Episcopus ad e7.", eo: "Kuriero al e7.", tok: "kiwen tawa e7." }, teoriaW: { es: "Clava Nf6.", en: "Pins Nf6.", it: "Inchioda Nf6.", la: "Figit Nf6.", eo: "Kroĉas Nf6.", tok: "pini Nf6." }, teoriaB: { es: "Rompe clavada.", en: "Breaks pin.", it: "Rompe inchiodatura.", la: "Solvit figem.", eo: "Rompas kroĉon.", tok: "weka pini." }, errW: { es: "Error: Bg5.", en: "Error: Bg5.", it: "Errore: Bg5.", la: "Error: Bg5.", eo: "Eraro: Bg5.", tok: "ike: Bg5." }, errB: { es: "Error: Be7.", en: "Error: Be7.", it: "Errore: Be7.", la: "Error: Be7.", eo: "Eraro: Be7.", tok: "ike: Be7." }, shortErrW: { es: "Bg5.", en: "Bg5.", it: "Bg5.", la: "Bg5.", eo: "Bg5.", tok: "Bg5." }, shortErrB: { es: "Be7.", en: "Be7.", it: "Be7.", la: "Be7.", eo: "Be7.", tok: "Be7." } },
+                    { w: { from: [6,4], to: [5,4], san: "e3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: { es: "Juega e3.", en: "Play e3.", it: "Gioca e3.", la: "Lude e3.", eo: "Ludu e3.", tok: "o tawa e3." }, instB: { es: "Enroque corto.", en: "Castle short.", it: "Arrocco corto.", la: "Arx brevis.", eo: "Mallonga aroko.", tok: "tomo lili." }, teoriaW: { es: "Sólido.", en: "Solid.", it: "Solido.", la: "Firmus.", eo: "Solida.", tok: "kiwen." }, teoriaB: { es: "Rey seguro.", en: "King safe.", it: "Re sicuro.", la: "Rex tutus.", eo: "Reĝo sekura.", tok: "jan lawa pona." }, errW: { es: "Error: e3.", en: "Error: e3.", it: "Errore: e3.", la: "Error: e3.", eo: "Eraro: e3.", tok: "ike: e3." }, errB: { es: "Error: O-O.", en: "Error: O-O.", it: "Errore: O-O.", la: "Error: O-O.", eo: "Eraro: O-O.", tok: "ike: O-O." }, shortErrW: { es: "e3.", en: "e3.", it: "e3.", la: "e3.", eo: "e3.", tok: "e3." }, shortErrB: { es: "O-O.", en: "O-O.", it: "O-O.", la: "O-O.", eo: "O-O.", tok: "O-O." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: { es: "Caballo a f3.", en: "Knight to f3.", it: "Cavallo in f3.", la: "Equus ad f3.", eo: "Ĉevalo al f3.", tok: "soweli tawa f3." }, instB: { es: "Caballo a d7.", en: "Knight to d7.", it: "Cavallo in d7.", la: "Equus ad d7.", eo: "Ĉevalo al d7.", tok: "soweli tawa d7." }, teoriaW: { es: "Desarrollo.", en: "Development.", it: "Sviluppo.", la: "Progressio.", eo: "Disvolviĝo.", tok: "tawa pona." }, teoriaB: { es: "Soporte.", en: "Support.", it: "Supporto.", la: "Auxilium.", eo: "Subteno.", tok: "awen." }, errW: { es: "Error: Nf3.", en: "Error: Nf3.", it: "Errore: Nf3.", la: "Error: Nf3.", eo: "Eraro: Nf3.", tok: "ike: Nf3." }, errB: { es: "Error: Nbd7.", en: "Error: Nbd7.", it: "Errore: Nbd7.", la: "Error: Nbd7.", eo: "Eraro: Nbd7.", tok: "ike: Nbd7." }, shortErrW: { es: "Nf3.", en: "Nf3.", it: "Nf3.", la: "Nf3.", eo: "Nf3.", tok: "Nf3." }, shortErrB: { es: "Nbd7.", en: "Nbd7.", it: "Nbd7.", la: "Nbd7.", eo: "Nbd7.", tok: "Nbd7." } },
+                    { w: { from: [7,0], to: [7,2], san: "Rc1" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: { es: "Torre a c1.", en: "Rook to c1.", it: "Torre in c1.", la: "Turris ad c1.", eo: "Turo al c1.", tok: "tomo tawa c1." }, instB: { es: "Juega c6.", en: "Play c6.", it: "Gioca c6.", la: "Lude c6.", eo: "Ludu c6.", tok: "o tawa c6." }, teoriaW: { es: "Columna semiabierta.", en: "Semi-open file.", it: "Colonna semiaperta.", la: "Columna semi-aperta.", eo: "Duonmalfermita linio.", tok: "linja open." }, teoriaB: { es: "Cuña sólida.", en: "Solid wedge.", it: "Cuneo solido.", la: "Cuneus firmus.", eo: "Solida kojno.", tok: "sinpin kiwen." }, errW: { es: "Error: Rc1.", en: "Error: Rc1.", it: "Errore: Rc1.", la: "Error: Rc1.", eo: "Eraro: Rc1.", tok: "ike: Rc1." }, errB: { es: "Error: c6.", en: "Error: c6.", it: "Errore: c6.", la: "Error: c6.", eo: "Eraro: c6.", tok: "ike: c6." }, shortErrW: { es: "Rc1.", en: "Rc1.", it: "Rc1.", la: "Rc1.", eo: "Rc1.", tok: "Rc1." }, shortErrB: { es: "c6.", en: "c6.", it: "c6.", la: "c6.", eo: "c6.", tok: "c6." } },
+                    { w: { from: [7,5], to: [5,3], san: "Bd3" }, b: { from: [3,3], to: [4,2], san: "dxc4" }, instW: { es: "Alfil a d3.", en: "Bishop to d3.", it: "Alfiere in d3.", la: "Episcopus ad d3.", eo: "Kuriero al d3.", tok: "kiwen tawa d3." }, instB: { es: "Captura en c4.", en: "Capture on c4.", it: "Cattura in c4.", la: "Cape in c4.", eo: "Kaptu sur c4.", tok: "moli lon c4." }, teoriaW: { es: "Activo.", en: "Active.", it: "Attivo.", la: "Activus.", eo: "Aktiva.", tok: "wawa." }, teoriaB: { es: "Gana tiempo.", en: "Gains time.", it: "Guadagna tempo.", la: "Tempus lucrifacit.", eo: "Gajnas tempon.", tok: "jo e tenpo." }, errW: { es: "Error: Bd3.", en: "Error: Bd3.", it: "Errore: Bd3.", la: "Error: Bd3.", eo: "Eraro: Bd3.", tok: "ike: Bd3." }, errB: { es: "Error: dxc4.", en: "Error: dxc4.", it: "Errore: dxc4.", la: "Error: dxc4.", eo: "Eraro: dxc4.", tok: "ike: dxc4." }, shortErrW: { es: "Bd3.", en: "Bd3.", it: "Bd3.", la: "Bd3.", eo: "Bd3.", tok: "Bd3." }, shortErrB: { es: "dxc4.", en: "dxc4.", it: "dxc4.", la: "dxc4.", eo: "dxc4.", tok: "dxc4." } },
+                    { w: { from: [5,3], to: [4,2], san: "Bxc4" }, b: { from: [2,5], to: [3,3], san: "Nd5" }, instW: { es: "Recaptura (Bxc4).", en: "Recapture (Bxc4).", it: "Ricattura (Bxc4).", la: "Recape (Bxc4).", eo: "Rekaptu (Bxc4).", tok: "moli sin (Bxc4)." }, instB: { es: "Caballo a d5.", en: "Knight to d5.", it: "Cavallo in d5.", la: "Equus ad d5.", eo: "Ĉevalo al d5.", tok: "soweli tawa d5." }, teoriaW: { es: "Recupera material.", en: "Regains material.", it: "Recupera materiale.", la: "Materiam recuperat.", eo: "Regajnas materialon.", tok: "jo sin e jan." }, teoriaB: { es: "Centraliza.", en: "Centralize.", it: "Centralizza.", la: "Centralizat.", eo: "Centrigas.", tok: "tawa insa." }, errW: { es: "Error: Bxc4.", en: "Error: Bxc4.", it: "Errore: Bxc4.", la: "Error: Bxc4.", eo: "Eraro: Bxc4.", tok: "ike: Bxc4." }, errB: { es: "Error: Nd5.", en: "Error: Nd5.", it: "Errore: Nd5.", la: "Error: Nd5.", eo: "Eraro: Nd5.", tok: "ike: Nd5." }, shortErrW: { es: "Bxc4.", en: "Bxc4.", it: "Bxc4.", la: "Bxc4.", eo: "Bxc4.", tok: "Bxc4." }, shortErrB: { es: "Nd5.", en: "Nd5.", it: "Nd5.", la: "Nd5.", eo: "Nd5.", tok: "Nd5." } },
+                    { w: { from: [3,6], to: [1,4], san: "Bxe7" }, b: { from: [0,3], to: [1,4], san: "Qxe7" }, instW: { es: "Cambia Alfiles (Bxe7).", en: "Trade Bishops (Bxe7).", it: "Scambia Alfieri (Bxe7).", la: "Muta Episcopos (Bxe7).", eo: "Interŝanĝu Kurierojn.", tok: "pana e kiwen (Bxe7)." }, instB: { es: "Dama recaptura (Qxe7).", en: "Queen recaptures (Qxe7).", it: "Donna ricattura (Qxe7).", la: "Regina recaperat (Qxe7).", eo: "Damo rekaptas (Qxe7).", tok: "meli moli sin (Qxe7)." }, teoriaW: { es: "Simplifica.", en: "Simplifies.", it: "Semplifica.", la: "Simplicat.", eo: "Simpligas.", tok: "pali pona." }, teoriaB: { es: "Conecta torres.", en: "Connects rooks.", it: "Connette torri.", la: "Turres nectit.", eo: "Konektas turojn.", tok: "tomo tu li wan." }, errW: { es: "Error: Bxe7.", en: "Error: Bxe7.", it: "Errore: Bxe7.", la: "Error: Bxe7.", eo: "Eraro: Bxe7.", tok: "ike: Bxe7." }, errB: { es: "Error: Qxe7.", en: "Error: Qxe7.", it: "Errore: Qxe7.", la: "Error: Qxe7.", eo: "Eraro: Qxe7.", tok: "ike: Qxe7." }, shortErrW: { es: "Bxe7.", en: "Bxe7.", it: "Bxe7.", la: "Bxe7.", eo: "Bxe7.", tok: "Bxe7." }, shortErrB: { es: "Qxe7.", en: "Qxe7.", it: "Qxe7.", la: "Qxe7.", eo: "Qxe7.", tok: "Qxe7." } }
+                ]
+            },
+            4: {
+                title: { es: "Defensa Francesa", en: "French Defense", it: "Difesa Francese", la: "Defensio Gallica", eo: "Franca Defendo", tok: "awen Kanse" },
+                subtitle: { es: "Tutorial interactivo (Variante del Avance).", en: "Interactive tutorial (Advance Var).", it: "Tutorial interattivo (Di Spinta).", la: "Instructio (Progressionis).", eo: "Interaga gvidilo (Antaŭenira).", tok: "sona tawa (tawa sinpin)." },
+                colorTheme: "text-rose-400",
+                steps: [
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: { es: "Domina el centro. Mueve e4.", en: "Control center. Move e4.", it: "Domina il centro. Muovi e4.", la: "Rege centrum. Move e4.", eo: "Regu centron. Movu e4.", tok: "lawa insa. o tawa e4." }, instB: { es: "Defensa Francesa. Juega e6.", en: "French Defense. Play e6.", it: "Difesa Francese. Gioca e6.", la: "Defensio Gallica. Lude e6.", eo: "Franca Defendo. Ludu e6.", tok: "awen Kanse. o tawa e6." }, teoriaW: { es: "Reclama centro.", en: "Claims center.", it: "Reclama centro.", la: "Vindicat centrum.", eo: "Postulas centron.", tok: "jo e insa." }, teoriaB: { es: "Prepara d5.", en: "Prepares d5.", it: "Prepara d5.", la: "Parat d5.", eo: "Preparu d5.", tok: "pali d5." }, errW: { es: "Error: e4.", en: "Error: e4.", it: "Errore: e4.", la: "Error: e4.", eo: "Eraro: e4.", tok: "ike: e4." }, errB: { es: "Error: e6.", en: "Error: e6.", it: "Errore: e6.", la: "Error: e6.", eo: "Eraro: e6.", tok: "ike: e6." }, shortErrW: { es: "e4.", en: "e4.", it: "e4.", la: "e4.", eo: "e4.", tok: "e4." }, shortErrB: { es: "e6.", en: "e6.", it: "e6.", la: "e6.", eo: "e6.", tok: "e6." } },
+                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: { es: "Control total. Mueve d4.", en: "Full control. Move d4.", it: "Controllo totale. Muovi d4.", la: "Plenum imperium. Move d4.", eo: "Plena kontrolo. Movu d4.", tok: "lawa suli. o tawa d4." }, instB: { es: "Desafía centro. Juega d5.", en: "Challenge center. Play d5.", it: "Sfida centro. Gioca d5.", la: "Pugna centrum. Lude d5.", eo: "Defiu centron. Ludu d5.", tok: "utala insa. o tawa d5." }, teoriaW: { es: "Centro fuerte.", en: "Strong center.", it: "Centro forte.", la: "Centrum forte.", eo: "Forta centro.", tok: "insa wawa." }, teoriaB: { es: "Ataca e4.", en: "Attacks e4.", it: "Attacca e4.", la: "Oppugnat e4.", eo: "Atakas e4.", tok: "utala e4." }, errW: { es: "Error: d4.", en: "Error: d4.", it: "Errore: d4.", la: "Error: d4.", eo: "Eraro: d4.", tok: "ike: d4." }, errB: { es: "Error: d5.", en: "Error: d5.", it: "Errore: d5.", la: "Error: d5.", eo: "Eraro: d5.", tok: "ike: d5." }, shortErrW: { es: "d4.", en: "d4.", it: "d4.", la: "d4.", eo: "d4.", tok: "d4." }, shortErrB: { es: "d5.", en: "d5.", it: "d5.", la: "d5.", eo: "d5.", tok: "d5." } },
+                    { w: { from: [4,4], to: [3,4], san: "e5" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: { es: "Avanza e5.", en: "Advance e5.", it: "Avanza e5.", la: "Progredere e5.", eo: "Antaŭeniru e5.", tok: "tawa e5." }, instB: { es: "Rompe d4. Juega c5.", en: "Break d4. Play c5.", it: "Rompi d4. Gioca c5.", la: "Frange d4. Lude c5.", eo: "Rompu d4. Ludu c5.", tok: "pakala d4. o tawa c5." }, teoriaW: { es: "Gana espacio.", en: "Gains space.", it: "Guadagna spazio.", la: "Spatium lucrifacit.", eo: "Gajnas spacon.", tok: "jo ma." }, teoriaB: { es: "Ataca la base.", en: "Attacks base.", it: "Attacca base.", la: "Oppugnat basim.", eo: "Atakas bazon.", tok: "utala noka." }, errW: { es: "Error: e5.", en: "Error: e5.", it: "Errore: e5.", la: "Error: e5.", eo: "Eraro: e5.", tok: "ike: e5." }, errB: { es: "Error: c5.", en: "Error: c5.", it: "Errore: c5.", la: "Error: c5.", eo: "Eraro: c5.", tok: "ike: c5." }, shortErrW: { es: "e5.", en: "e5.", it: "e5.", la: "e5.", eo: "e5.", tok: "e5." }, shortErrB: { es: "c5.", en: "c5.", it: "c5.", la: "c5.", eo: "c5.", tok: "c5." } },
+                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: { es: "Sostiene centro. Juega c3.", en: "Support center. Play c3.", it: "Sostieni centro. Gioca c3.", la: "Tene centrum. Lude c3.", eo: "Subtenu centron. Ludu c3.", tok: "awen insa. o tawa c3." }, instB: { es: "Presiona d4. Caballo a c6.", en: "Pressure d4. Knight c6.", it: "Pressione d4. Cavallo c6.", la: "Preme d4. Equus c6.", eo: "Premu d4. Ĉevalo c6.", tok: "utala d4. soweli c6." }, teoriaW: { es: "Refuerza cadena.", en: "Reinforces chain.", it: "Rinforza catena.", la: "Fermat catenam.", eo: "Plifortigas ĉenon.", tok: "wawa linja." }, teoriaB: { es: "Aumenta atacantes.", en: "Adds attackers.", it: "Aggiunge attaccanti.", la: "Addit oppugnatores.", eo: "Aldonas atakantojn.", tok: "mute utala." }, errW: { es: "Error: c3.", en: "Error: c3.", it: "Errore: c3.", la: "Error: c3.", eo: "Eraro: c3.", tok: "ike: c3." }, errB: { es: "Error: Nc6.", en: "Error: Nc6.", it: "Errore: Nc6.", la: "Error: Nc6.", eo: "Eraro: Nc6.", tok: "ike: Nc6." }, shortErrW: { es: "c3.", en: "c3.", it: "c3.", la: "c3.", eo: "c3.", tok: "c3." }, shortErrB: { es: "Nc6.", en: "Nc6.", it: "Nc6.", la: "Nc6.", eo: "Nc6.", tok: "Nc6." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,3], to: [2,1], san: "Qb6" }, instW: { es: "Desarrolla caballo a f3.", en: "Knight to f3.", it: "Cavallo in f3.", la: "Equus ad f3.", eo: "Ĉevalo al f3.", tok: "soweli tawa f3." }, instB: { es: "Dama a b6.", en: "Queen to b6.", it: "Donna in b6.", la: "Regina ad b6.", eo: "Damo al b6.", tok: "meli tawa b6." }, teoriaW: { es: "Protege d4.", en: "Protects d4.", it: "Protegge d4.", la: "Protegit d4.", eo: "Protektas d4.", tok: "awen d4." }, teoriaB: { es: "Presión máxima.", en: "Max pressure.", it: "Pressione massima.", la: "Pressura maxima.", eo: "Maksimuma premo.", tok: "utala wawa mute." }, errW: { es: "Error: Nf3.", en: "Error: Nf3.", it: "Errore: Nf3.", la: "Error: Nf3.", eo: "Eraro: Nf3.", tok: "ike: Nf3." }, errB: { es: "Error: Qb6.", en: "Error: Qb6.", it: "Errore: Qb6.", la: "Error: Qb6.", eo: "Eraro: Qb6.", tok: "ike: Qb6." }, shortErrW: { es: "Nf3.", en: "Nf3.", it: "Nf3.", la: "Nf3.", eo: "Nf3.", tok: "Nf3." }, shortErrB: { es: "Qb6.", en: "Qb6.", it: "Qb6.", la: "Qb6.", eo: "Qb6.", tok: "Qb6." } },
+                    { w: { from: [6,0], to: [5,0], san: "a3" }, b: { from: [0,6], to: [2,7], san: "Nh6" }, instW: { es: "Juega a3.", en: "Play a3.", it: "Gioca a3.", la: "Lude a3.", eo: "Ludu a3.", tok: "o tawa a3." }, instB: { es: "Caballo a h6.", en: "Knight to h6.", it: "Cavallo in h6.", la: "Equus ad h6.", eo: "Ĉevalo al h6.", tok: "soweli tawa h6." }, teoriaW: { es: "Prepara b4.", en: "Prepares b4.", it: "Prepara b4.", la: "Parat b4.", eo: "Preparu b4.", tok: "pali b4." }, teoriaB: { es: "Rumbo a f5.", en: "Heading to f5.", it: "Diretto a f5.", la: "Ad f5.", eo: "Al f5.", tok: "tawa f5." }, errW: { es: "Error: a3.", en: "Error: a3.", it: "Errore: a3.", la: "Error: a3.", eo: "Eraro: a3.", tok: "ike: a3." }, errB: { es: "Error: Nh6.", en: "Error: Nh6.", it: "Errore: Nh6.", la: "Error: Nh6.", eo: "Eraro: Nh6.", tok: "ike: Nh6." }, shortErrW: { es: "a3.", en: "a3.", it: "a3.", la: "a3.", eo: "a3.", tok: "a3." }, shortErrB: { es: "Nh6.", en: "Nh6.", it: "Nh6.", la: "Nh6.", eo: "Nh6.", tok: "Nh6." } },
+                    { w: { from: [6,1], to: [4,1], san: "b4" }, b: { from: [3,2], to: [4,3], san: "cxd4" }, instW: { es: "Expansión b4.", en: "Expansion b4.", it: "Espansione b4.", la: "Expansio b4.", eo: "Vastiĝo b4.", tok: "suli b4." }, instB: { es: "Captura cxd4.", en: "Capture cxd4.", it: "Cattura cxd4.", la: "Cape cxd4.", eo: "Kaptu cxd4.", tok: "moli cxd4." }, teoriaW: { es: "Gana espacio.", en: "Gains space.", it: "Guadagna spazio.", la: "Spatium lucrifacit.", eo: "Gajnas spacon.", tok: "jo ma." }, teoriaB: { es: "Libera tensión.", en: "Releases tension.", it: "Libera tensione.", la: "Liberat tensionem.", eo: "Liberigas streĉon.", tok: "open utala." }, errW: { es: "Error: b4.", en: "Error: b4.", it: "Errore: b4.", la: "Error: b4.", eo: "Eraro: b4.", tok: "ike: b4." }, errB: { es: "Error: cxd4.", en: "Error: cxd4.", it: "Errore: cxd4.", la: "Error: cxd4.", eo: "Eraro: cxd4.", tok: "ike: cxd4." }, shortErrW: { es: "b4.", en: "b4.", it: "b4.", la: "b4.", eo: "b4.", tok: "b4." }, shortErrB: { es: "cxd4.", en: "cxd4.", it: "cxd4.", la: "cxd4.", eo: "cxd4.", tok: "cxd4." } },
+                    { w: { from: [5,2], to: [4,3], san: "cxd4" }, b: { from: [2,7], to: [3,5], san: "Nf5" }, instW: { es: "Recaptura cxd4.", en: "Recapture cxd4.", it: "Ricattura cxd4.", la: "Recape cxd4.", eo: "Rekaptu cxd4.", tok: "moli sin cxd4." }, instB: { es: "Caballo a f5.", en: "Knight to f5.", it: "Cavallo in f5.", la: "Equus ad f5.", eo: "Ĉevalo al f5.", tok: "soweli tawa f5." }, teoriaW: { es: "Centro fuerte.", en: "Strong center.", it: "Centro forte.", la: "Centrum forte.", eo: "Forta centro.", tok: "insa wawa." }, teoriaB: { es: "Presión a d4.", en: "Pressure d4.", it: "Pressione su d4.", la: "Preme d4.", eo: "Premu d4.", tok: "utala d4." }, errW: { es: "Error: cxd4.", en: "Error: cxd4.", it: "Errore: cxd4.", la: "Error: cxd4.", eo: "Eraro: cxd4.", tok: "ike: cxd4." }, errB: { es: "Error: Nf5.", en: "Error: Nf5.", it: "Errore: Nf5.", la: "Error: Nf5.", eo: "Eraro: Nf5.", tok: "ike: Nf5." }, shortErrW: { es: "cxd4.", en: "cxd4.", it: "cxd4.", la: "cxd4.", eo: "cxd4.", tok: "cxd4." }, shortErrB: { es: "Nf5.", en: "Nf5.", it: "Nf5.", la: "Nf5.", eo: "Nf5.", tok: "Nf5." } },
+                    { w: { from: [7,2], to: [6,1], san: "Bb2" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: { es: "Alfil a b2.", en: "Bishop to b2.", it: "Alfiere in b2.", la: "Episcopus ad b2.", eo: "Kuriero al b2.", tok: "kiwen tawa b2." }, instB: { es: "Alfil a e7.", en: "Bishop to e7.", it: "Alfiere in e7.", la: "Episcopus ad e7.", eo: "Kuriero al e7.", tok: "kiwen tawa e7." }, teoriaW: { es: "Defiende d4.", en: "Defends d4.", it: "Difende d4.", la: "Defendit d4.", eo: "Defendas d4.", tok: "awen d4." }, teoriaB: { es: "Prepara enroque.", en: "Prepares castle.", it: "Prepara arrocco.", la: "Parat arcem.", eo: "Preparu arokon.", tok: "pali tomo." }, errW: { es: "Error: Bb2.", en: "Error: Bb2.", it: "Errore: Bb2.", la: "Error: Bb2.", eo: "Eraro: Bb2.", tok: "ike: Bb2." }, errB: { es: "Error: Be7.", en: "Error: Be7.", it: "Errore: Be7.", la: "Error: Be7.", eo: "Eraro: Be7.", tok: "ike: Be7." }, shortErrW: { es: "Bb2.", en: "Bb2.", it: "Bb2.", la: "Bb2.", eo: "Bb2.", tok: "Bb2." }, shortErrB: { es: "Be7.", en: "Be7.", it: "Be7.", la: "Be7.", eo: "Be7.", tok: "Be7." } },
+                    { w: { from: [7,5], to: [5,3], san: "Bd3" }, b: { from: [0,2], to: [1,3], san: "Bd7" }, instW: { es: "Alfil a d3.", en: "Bishop to d3.", it: "Alfiere in d3.", la: "Episcopus ad d3.", eo: "Kuriero al d3.", tok: "kiwen tawa d3." }, instB: { es: "Alfil a d7.", en: "Bishop to d7.", it: "Alfiere in d7.", la: "Episcopus ad d7.", eo: "Kuriero al d7.", tok: "kiwen tawa d7." }, teoriaW: { es: "Desarrollo.", en: "Development.", it: "Sviluppo.", la: "Progressio.", eo: "Disvolviĝo.", tok: "tawa pona." }, teoriaB: { es: "Comunica torres.", en: "Connects rooks.", it: "Connette torri.", la: "Nectit turres.", eo: "Konektas turojn.", tok: "wan e tomo." }, errW: { es: "Error: Bd3.", en: "Error: Bd3.", it: "Errore: Bd3.", la: "Error: Bd3.", eo: "Eraro: Bd3.", tok: "ike: Bd3." }, errB: { es: "Error: Bd7.", en: "Error: Bd7.", it: "Errore: Bd7.", la: "Error: Bd7.", eo: "Eraro: Bd7.", tok: "ike: Bd7." }, shortErrW: { es: "Bd3.", en: "Bd3.", it: "Bd3.", la: "Bd3.", eo: "Bd3.", tok: "Bd3." }, shortErrB: { es: "Bd7.", en: "Bd7.", it: "Bd7.", la: "Bd7.", eo: "Bd7.", tok: "Bd7." } }
+                ]
+            },
+            5: { 
+                title: { es: "Apertura Italiana", en: "Italian Game", it: "Partita Italiana", la: "Apertura Italica", eo: "Itala Ludo", tok: "open Itali" }, 
+                subtitle: { es: "Tutorial interactivo (Giuoco Piano).", en: "Interactive tutorial (Giuoco Piano).", it: "Tutorial interattivo (Giuoco Piano).", la: "Instructio (Giuoco Piano).", eo: "Interaga gvidilo (Giuoco Piano).", tok: "sona tawa (Giuoco Piano)." }, 
+                colorTheme: "text-emerald-400", 
+                steps: [
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: { es: "Mueve e4.", en: "Move e4.", it: "Muovi e4.", la: "Move e4.", eo: "Movu e4.", tok: "o tawa e4." }, instB: { es: "Mueve e5.", en: "Move e5.", it: "Muovi e5.", la: "Move e5.", eo: "Movu e5.", tok: "o tawa e5." }, teoriaW: { es: "Domina el centro.", en: "Control the center.", it: "Domina il centro.", la: "Dominare centrum.", eo: "Regu la centron.", tok: "lawa e insa." }, teoriaB: { es: "Iguala presencia.", en: "Equal presence.", it: "Pareggia presenza.", la: "Aequat spatium.", eo: "Egaligas ĉeeston.", tok: "awen sama." }, errW: { es: "Error: e4.", en: "Error: e4.", it: "Errore: e4.", la: "Error: e4.", eo: "Eraro: e4.", tok: "ike: e4." }, errB: { es: "Error: e5.", en: "Error: e5.", it: "Errore: e5.", la: "Error: e5.", eo: "Eraro: e5.", tok: "ike: e5." }, shortErrW: { es: "e4.", en: "e4.", it: "e4.", la: "e4.", eo: "e4.", tok: "e4." }, shortErrB: { es: "e5.", en: "e5.", it: "e5.", la: "e5.", eo: "e5.", tok: "e5." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: { es: "Caballo a f3.", en: "Knight to f3.", it: "Cavallo in f3.", la: "Equus ad f3.", eo: "Ĉevalo al f3.", tok: "soweli tawa f3." }, instB: { es: "Caballo a c6.", en: "Knight to c6.", it: "Cavallo in c6.", la: "Equus ad c6.", eo: "Ĉevalo al c6.", tok: "soweli tawa c6." }, teoriaW: { es: "Ataca e5.", en: "Attacks e5.", it: "Attacca e5.", la: "Oppugnat e5.", eo: "Atakas e5.", tok: "utala e5." }, teoriaB: { es: "Defiende e5.", en: "Defends e5.", it: "Difende e5.", la: "Defendit e5.", eo: "Defendas e5.", tok: "awen e5." }, errW: { es: "Error: Nf3.", en: "Error: Nf3.", it: "Errore: Nf3.", la: "Error: Nf3.", eo: "Eraro: Nf3.", tok: "ike: Nf3." }, errB: { es: "Error: Nc6.", en: "Error: Nc6.", it: "Errore: Nc6.", la: "Error: Nc6.", eo: "Eraro: Nc6.", tok: "ike: Nc6." }, shortErrW: { es: "Nf3.", en: "Nf3.", it: "Nf3.", la: "Nf3.", eo: "Nf3.", tok: "Nf3." }, shortErrB: { es: "Nc6.", en: "Nc6.", it: "Nc6.", la: "Nc6.", eo: "Nc6.", tok: "Nc6." } },
+                    { w: { from: [7,5], to: [4,2], san: "Bc4" }, b: { from: [0,5], to: [3,2], san: "Bc5" }, instW: { es: "¡La Italiana! Alfil a c4.", en: "Italian! Bishop c4.", it: "Italiana! Alfiere c4.", la: "Italica! Episcopus c4.", eo: "Itala! Kuriero c4.", tok: "Itali! kiwen tawa c4." }, instB: { es: "Giuoco Piano. Alfil a c5.", en: "Giuoco Piano. Bishop c5.", it: "Giuoco Piano. Alfiere c5.", la: "Giuoco Piano. Episcopus c5.", eo: "Giuoco Piano. Kuriero c5.", tok: "musi suwi. kiwen c5." }, teoriaW: { es: "Apunta a f7.", en: "Targets f7.", it: "Mira a f7.", la: "Spectat ad f7.", eo: "Celas f7.", tok: "lukin f7." }, teoriaB: { es: "Apunta a f2.", en: "Targets f2.", it: "Mira a f2.", la: "Spectat ad f2.", eo: "Celas f2.", tok: "lukin f2." }, errW: { es: "Error: Bc4.", en: "Error: Bc4.", it: "Errore: Bc4.", la: "Error: Bc4.", eo: "Eraro: Bc4.", tok: "ike: Bc4." }, errB: { es: "Error: Bc5.", en: "Error: Bc5.", it: "Errore: Bc5.", la: "Error: Bc5.", eo: "Eraro: Bc5.", tok: "ike: Bc5." }, shortErrW: { es: "Bc4.", en: "Bc4.", it: "Bc4.", la: "Bc4.", eo: "Bc4.", tok: "Bc4." }, shortErrB: { es: "Bc5.", en: "Bc5.", it: "Bc5.", la: "Bc5.", eo: "Bc5.", tok: "Bc5." } },
+                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: { es: "Prepara centro. Juega c3.", en: "Prepare center. Play c3.", it: "Prepara centro. Gioca c3.", la: "Para centrum. Lude c3.", eo: "Preparu centron. Ludu c3.", tok: "pali insa. o tawa c3." }, instB: { es: "Desarrolla. Caballo a f6.", en: "Develop. Knight to f6.", it: "Sviluppa. Cavallo in f6.", la: "Move. Equus ad f6.", eo: "Disvolvu. Ĉevalo al f6.", tok: "tawa. soweli tawa f6." }, teoriaW: { es: "Sostiene d4.", en: "Supports d4.", it: "Supporta d4.", la: "Subtenet d4.", eo: "Subtenas d4.", tok: "awen d4." }, teoriaB: { es: "Ataca e4.", en: "Attacks e4.", it: "Attacca e4.", la: "Oppugnat e4.", eo: "Atakas e4.", tok: "utala e4." }, errW: { es: "Error: c3.", en: "Error: c3.", it: "Errore: c3.", la: "Error: c3.", eo: "Eraro: c3.", tok: "ike: c3." }, errB: { es: "Error: Nf6.", en: "Error: Nf6.", it: "Errore: Nf6.", la: "Error: Nf6.", eo: "Eraro: Nf6.", tok: "ike: Nf6." }, shortErrW: { es: "c3.", en: "c3.", it: "c3.", la: "c3.", eo: "c3.", tok: "c3." }, shortErrB: { es: "Nf6.", en: "Nf6.", it: "Nf6.", la: "Nf6.", eo: "Nf6.", tok: "Nf6." } },
+                    { w: { from: [6,3], to: [5,3], san: "d3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: { es: "Giuoco Pianissimo. Juega d3.", en: "Giuoco Pianissimo. Play d3.", it: "Giuoco Pianissimo. Gioca d3.", la: "Lude d3.", eo: "Giuoco Pianissimo. Ludu d3.", tok: "musi suwi lili. o tawa d3." }, instB: { es: "Sólido. Juega d6.", en: "Solid. Play d6.", it: "Solido. Gioca d6.", la: "Firmus. Lude d6.", eo: "Solida. Ludu d6.", tok: "kiwen. o tawa d6." }, teoriaW: { es: "Posicional.", en: "Positional.", it: "Posizionale.", la: "Positionalis.", eo: "Pozicia.", tok: "nasin awen." }, teoriaB: { es: "Defiende e5.", en: "Defends e5.", it: "Difende e5.", la: "Defendit e5.", eo: "Defendas e5.", tok: "awen e5." }, errW: { es: "Error: d3.", en: "Error: d3.", it: "Errore: d3.", la: "Error: d3.", eo: "Eraro: d3.", tok: "ike: d3." }, errB: { es: "Error: d6.", en: "Error: d6.", it: "Errore: d6.", la: "Error: d6.", eo: "Eraro: d6.", tok: "ike: d6." }, shortErrW: { es: "d3.", en: "d3.", it: "d3.", la: "d3.", eo: "d3.", tok: "d3." }, shortErrB: { es: "d6.", en: "d6.", it: "d6.", la: "d6.", eo: "d6.", tok: "d6." } },
+                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: { es: "Enroque corto.", en: "Castle short.", it: "Arrocco corto.", la: "Arx brevis.", eo: "Mallonga aroko.", tok: "tomo lili." }, instB: { es: "Enroque corto.", en: "Castle short.", it: "Arrocco corto.", la: "Arx brevis.", eo: "Mallonga aroko.", tok: "tomo lili." }, teoriaW: { es: "Rey seguro.", en: "King safe.", it: "Re sicuro.", la: "Rex tutus.", eo: "Reĝo sekura.", tok: "jan lawa pona." }, teoriaB: { es: "Rey seguro.", en: "King safe.", it: "Re sicuro.", la: "Rex tutus.", eo: "Reĝo sekura.", tok: "jan lawa pona." }, errW: { es: "Error: O-O.", en: "Error: O-O.", it: "Errore: O-O.", la: "Error: O-O.", eo: "Eraro: O-O.", tok: "ike: O-O." }, errB: { es: "Error: O-O.", en: "Error: O-O.", it: "Errore: O-O.", la: "Error: O-O.", eo: "Eraro: O-O.", tok: "ike: O-O." }, shortErrW: { es: "O-O.", en: "O-O.", it: "O-O.", la: "O-O.", eo: "O-O.", tok: "O-O." }, shortErrB: { es: "O-O.", en: "O-O.", it: "O-O.", la: "O-O.", eo: "O-O.", tok: "O-O." } },
+                    { w: { from: [7,5], to: [7,4], san: "Re1" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: { es: "Torre a e1.", en: "Rook to e1.", it: "Torre in e1.", la: "Turris ad e1.", eo: "Turo al e1.", tok: "tomo tawa e1." }, instB: { es: "Profilaxis. Juega a6.", en: "Prophylaxis. Play a6.", it: "Profilassi. Gioca a6.", la: "Praeventio. Lude a6.", eo: "Profilakso. Ludu a6.", tok: "awen sewi. o tawa a6." }, teoriaW: { es: "Sobreprotege e4.", en: "Overprotects e4.", it: "Iperprotegge e4.", la: "Protegit e4.", eo: "Troprotektas e4.", tok: "awen e4." }, teoriaB: { es: "Refugio para alfil.", en: "Refuge for bishop.", it: "Rifugio per alfiere.", la: "Refugium episcopo.", eo: "Rifuĝo por kuriero.", tok: "tomo tawa kiwen." }, errW: { es: "Error: Re1.", en: "Error: Re1.", it: "Errore: Re1.", la: "Error: Re1.", eo: "Eraro: Re1.", tok: "ike: Re1." }, errB: { es: "Error: a6.", en: "Error: a6.", it: "Errore: a6.", la: "Error: a6.", eo: "Eraro: a6.", tok: "ike: a6." }, shortErrW: { es: "Re1.", en: "Re1.", it: "Re1.", la: "Re1.", eo: "Re1.", tok: "Re1." }, shortErrB: { es: "a6.", en: "a6.", it: "a6.", la: "a6.", eo: "a6.", tok: "a6." } },
+                    { w: { from: [4,2], to: [5,1], san: "Bb3" }, b: { from: [3,2], to: [1,0], san: "Ba7" }, instW: { es: "Resguarda alfil. Alfil a b3.", en: "Guard bishop. Bishop b3.", it: "Proteggi alfiere. Alfiere b3.", la: "Tene episcopum. Episcopus b3.", eo: "Gardu kurieron. Kuriero b3.", tok: "awen kiwen. kiwen tawa b3." }, instB: { es: "Refugia alfil. Alfil a a7.", en: "Refuge bishop. Bishop a7.", it: "Rifugia alfiere. Alfiere a7.", la: "Fuge episcopo. Episcopus a7.", eo: "Rifuĝu kurieron. Kuriero a7.", tok: "awen kiwen. kiwen tawa a7." }, teoriaW: { es: "Anticipa ataque.", en: "Anticipates attack.", it: "Anticipa attacco.", la: "Praevenit oppugnationem.", eo: "Antaŭvidas atakon.", tok: "sona e utala." }, teoriaB: { es: "Mantiene diagonal.", en: "Maintains diagonal.", it: "Mantiene diagonale.", la: "Tenet diagonalem.", eo: "Subtenas diagonalon.", tok: "awen e linja." }, errW: { es: "Error: Bb3.", en: "Error: Bb3.", it: "Errore: Bb3.", la: "Error: Bb3.", eo: "Eraro: Bb3.", tok: "ike: Bb3." }, errB: { es: "Error: Ba7.", en: "Error: Ba7.", it: "Errore: Ba7.", la: "Error: Ba7.", eo: "Eraro: Ba7.", tok: "ike: Ba7." }, shortErrW: { es: "Bb3.", en: "Bb3.", it: "Bb3.", la: "Bb3.", eo: "Bb3.", tok: "Bb3." }, shortErrB: { es: "Ba7.", en: "Ba7.", it: "Ba7.", la: "Ba7.", eo: "Ba7.", tok: "Ba7." } },
+                    { w: { from: [6,7], to: [5,7], san: "h3" }, b: { from: [1,7], to: [2,7], san: "h6" }, instW: { es: "Evita clavadas. Juega h3.", en: "Avoid pins. Play h3.", it: "Evita inchiodature. Gioca h3.", la: "Vita figes. Lude h3.", eo: "Evitu kroĉojn. Ludu h3.", tok: "pini ala. o tawa h3." }, instB: { es: "Copiar seguridad. Juega h6.", en: "Copy safety. Play h6.", it: "Copia sicurezza. Gioca h6.", la: "Imitare salutem. Lude h6.", eo: "Kopiu sekurecon. Ludu h6.", tok: "sama pona. o tawa h6." }, teoriaW: { es: "Evita Bg4.", en: "Prevents Bg4.", it: "Evita Bg4.", la: "Vitat Bg4.", eo: "Evitas Bg4.", tok: "pini e Bg4." }, teoriaB: { es: "Controla g5.", en: "Controls g5.", it: "Controlla g5.", la: "Reget g5.", eo: "Kontrolas g5.", tok: "lawa g5." }, errW: { es: "Error: h3.", en: "Error: h3.", it: "Errore: h3.", la: "Error: h3.", eo: "Eraro: h3.", tok: "ike: h3." }, errB: { es: "Error: h6.", en: "Error: h6.", it: "Errore: h6.", la: "Error: h6.", eo: "Eraro: h6.", tok: "ike: h6." }, shortErrW: { es: "h3.", en: "h3.", it: "h3.", la: "h3.", eo: "h3.", tok: "h3." }, shortErrB: { es: "h6.", en: "h6.", it: "h6.", la: "h6.", eo: "h6.", tok: "h6." } },
+                    { w: { from: [7,1], to: [6,3], san: "Nbd2" }, b: { from: [0,5], to: [0,4], san: "Re8" }, instW: { es: "Maniobra. Caballo a d2.", en: "Maneuver. Knight to d2.", it: "Manovra. Cavallo in d2.", la: "Manopera. Equus ad d2.", eo: "Manovro. Ĉevalo al d2.", tok: "tawa nasa. soweli tawa d2." }, instB: { es: "Centraliza torre. Torre a e8.", en: "Centralize rook. Rook to e8.", it: "Centralizza torre. Torre in e8.", la: "Centraliza turrim. Turris ad e8.", eo: "Centrigu turon. Turo al e8.", tok: "tomo tawa insa. tomo tawa e8." }, teoriaW: { es: "Rumbo a f1/g3.", en: "Heading to f1/g3.", it: "Diretto a f1/g3.", la: "Versus f1/g3.", eo: "Direktante al f1/g3.", tok: "tawa f1 anu g3." }, teoriaB: { es: "Medio juego.", en: "Middlegame.", it: "Mediogioco.", la: "Ludus medius.", eo: "Mezludo.", tok: "musi insa." }, errW: { es: "Error: Nbd2.", en: "Error: Nbd2.", it: "Errore: Nbd2.", la: "Error: Nbd2.", eo: "Eraro: Nbd2.", tok: "ike: Nbd2." }, errB: { es: "Error: Re8.", en: "Error: Re8.", it: "Errore: Re8.", la: "Error: Re8.", eo: "Eraro: Re8.", tok: "ike: Re8." }, shortErrW: { es: "Nbd2.", en: "Nbd2.", it: "Nbd2.", la: "Nbd2.", eo: "Nbd2.", tok: "Nbd2." }, shortErrB: { es: "Re8.", en: "Re8.", it: "Re8.", la: "Re8.", eo: "Re8.", tok: "Re8." } }
+                ]
+            },
+            6: { 
+                title: { es: "Defensa Caro-Kann", en: "Caro-Kann Defense", it: "Difesa Caro-Kann", la: "Defensio Caro-Kann", eo: "Caro-Kann Defendo", tok: "awen Kalo Kan" }, 
+                subtitle: { es: "Tutorial interactivo (Variante Clásica).", en: "Interactive tutorial (Classical).", it: "Tutorial interattivo (Classica).", la: "Instructio (Classica).", eo: "Interaga gvidilo (Klasika).", tok: "sona tawa (nasin majuna)." }, 
+                colorTheme: "text-blue-400", 
+                steps: [
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: { es: "Mueve e4.", en: "Move e4.", it: "Muovi e4.", la: "Move e4.", eo: "Movu e4.", tok: "o tawa e4." }, instB: { es: "Juega c6.", en: "Play c6.", it: "Gioca c6.", la: "Lude c6.", eo: "Ludu c6.", tok: "o tawa c6." }, teoriaW: { es: "Ocupa centro.", en: "Occupy center.", it: "Occupa centro.", la: "Occupa centrum.", eo: "Okupu centron.", tok: "lawa insa." }, teoriaB: { es: "Prepara d5.", en: "Prepare d5.", it: "Prepara d5.", la: "Para d5.", eo: "Preparu d5.", tok: "pali d5." }, errW: { es: "Error: e4.", en: "Error: e4.", it: "Errore: e4.", la: "Error: e4.", eo: "Eraro: e4.", tok: "ike: e4." }, errB: { es: "Error: c6.", en: "Error: c6.", it: "Errore: c6.", la: "Error: c6.", eo: "Eraro: c6.", tok: "ike: c6." }, shortErrW: { es: "e4.", en: "e4.", it: "e4.", la: "e4.", eo: "e4.", tok: "e4." }, shortErrB: { es: "c6.", en: "c6.", it: "c6.", la: "c6.", eo: "c6.", tok: "c6." } },
+                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: { es: "Mueve d4.", en: "Move d4.", it: "Muovi d4.", la: "Move d4.", eo: "Movu d4.", tok: "o tawa d4." }, instB: { es: "Juega d5.", en: "Play d5.", it: "Gioca d5.", la: "Lude d5.", eo: "Ludu d5.", tok: "o tawa d5." }, teoriaW: { es: "Centro ideal.", en: "Ideal center.", it: "Centro ideale.", la: "Centrum perfectum.", eo: "Ideala centro.", tok: "insa pona." }, teoriaB: { es: "Desafía e4.", en: "Challenge e4.", it: "Sfida e4.", la: "Pugna e4.", eo: "Defiu e4.", tok: "utala e4." }, errW: { es: "Error: d4.", en: "Error: d4.", it: "Errore: d4.", la: "Error: d4.", eo: "Eraro: d4.", tok: "ike: d4." }, errB: { es: "Error: d5.", en: "Error: d5.", it: "Errore: d5.", la: "Error: d5.", eo: "Eraro: d5.", tok: "ike: d5." }, shortErrW: { es: "d4.", en: "d4.", it: "d4.", la: "d4.", eo: "d4.", tok: "d4." }, shortErrB: { es: "d5.", en: "d5.", it: "d5.", la: "d5.", eo: "d5.", tok: "d5." } },
+                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [3,3], to: [4,4], san: "dxe4" }, instW: { es: "Caballo a c3.", en: "Knight to c3.", it: "Cavallo in c3.", la: "Equus ad c3.", eo: "Ĉevalo al c3.", tok: "soweli tawa c3." }, instB: { es: "Captura dxe4.", en: "Capture dxe4.", it: "Cattura dxe4.", la: "Cape dxe4.", eo: "Kaptu dxe4.", tok: "moli dxe4." }, teoriaW: { es: "Defiende e4.", en: "Defends e4.", it: "Difende e4.", la: "Defendit e4.", eo: "Defendas e4.", tok: "awen e4." }, teoriaB: { es: "Abre centro.", en: "Opens center.", it: "Apre il centro.", la: "Aperit centrum.", eo: "Malfermas centron.", tok: "open insa." }, errW: { es: "Error: Nc3.", en: "Error: Nc3.", it: "Errore: Nc3.", la: "Error: Nc3.", eo: "Eraro: Nc3.", tok: "ike: Nc3." }, errB: { es: "Error: dxe4.", en: "Error: dxe4.", it: "Errore: dxe4.", la: "Error: dxe4.", eo: "Eraro: dxe4.", tok: "ike: dxe4." }, shortErrW: { es: "Nc3.", en: "Nc3.", it: "Nc3.", la: "Nc3.", eo: "Nc3.", tok: "Nc3." }, shortErrB: { es: "dxe4.", en: "dxe4.", it: "dxe4.", la: "dxe4.", eo: "dxe4.", tok: "dxe4." } },
+                    { w: { from: [5,2], to: [4,4], san: "Nxe4" }, b: { from: [0,2], to: [3,5], san: "Bf5" }, instW: { es: "Recaptura Nxe4.", en: "Recapture Nxe4.", it: "Ricattura Nxe4.", la: "Recape Nxe4.", eo: "Rekaptu Nxe4.", tok: "moli sin Nxe4." }, instB: { es: "Alfil a f5.", en: "Bishop to f5.", it: "Alfiere in f5.", la: "Episcopus ad f5.", eo: "Kuriero al f5.", tok: "kiwen tawa f5." }, teoriaW: { es: "Caballo central.", en: "Central knight.", it: "Cavallo centrale.", la: "Equus centralis.", eo: "Centra ĉevalo.", tok: "soweli insa." }, teoriaB: { es: "Ataca caballo.", en: "Attacks knight.", it: "Attacca cavallo.", la: "Oppugnat equum.", eo: "Atakas ĉevalon.", tok: "utala soweli." }, errW: { es: "Error: Nxe4.", en: "Error: Nxe4.", it: "Errore: Nxe4.", la: "Error: Nxe4.", eo: "Eraro: Nxe4.", tok: "ike: Nxe4." }, errB: { es: "Error: Bf5.", en: "Error: Bf5.", it: "Errore: Bf5.", la: "Error: Bf5.", eo: "Eraro: Bf5.", tok: "ike: Bf5." }, shortErrW: { es: "Nxe4.", en: "Nxe4.", it: "Nxe4.", la: "Nxe4.", eo: "Nxe4.", tok: "Nxe4." }, shortErrB: { es: "Bf5.", en: "Bf5.", it: "Bf5.", la: "Bf5.", eo: "Bf5.", tok: "Bf5." } },
+                    { w: { from: [4,4], to: [5,6], san: "Ng3" }, b: { from: [3,5], to: [2,6], san: "Bg6" }, instW: { es: "Caballo a g3.", en: "Knight to g3.", it: "Cavallo in g3.", la: "Equus ad g3.", eo: "Ĉevalo al g3.", tok: "soweli tawa g3." }, instB: { es: "Alfil a g6.", en: "Bishop to g6.", it: "Alfiere in g6.", la: "Episcopus ad g6.", eo: "Kuriero al g6.", tok: "kiwen tawa g6." }, teoriaW: { es: "Amenaza alfil.", en: "Threatens bishop.", it: "Minaccia alfiere.", la: "Minatur episcopo.", eo: "Minacas kurieron.", tok: "utala kiwen." }, teoriaB: { es: "Mantiene diagonal.", en: "Maintains diagonal.", it: "Mantiene diagonale.", la: "Tenet diagonalem.", eo: "Subtenas diagonalon.", tok: "awen linja." }, errW: { es: "Error: Ng3.", en: "Error: Ng3.", it: "Errore: Ng3.", la: "Error: Ng3.", eo: "Eraro: Ng3.", tok: "ike: Ng3." }, errB: { es: "Error: Bg6.", en: "Error: Bg6.", it: "Errore: Bg6.", la: "Error: Bg6.", eo: "Eraro: Bg6.", tok: "ike: Bg6." }, shortErrW: { es: "Ng3.", en: "Ng3.", it: "Ng3.", la: "Ng3.", eo: "Ng3.", tok: "Ng3." }, shortErrB: { es: "Bg6.", en: "Bg6.", it: "Bg6.", la: "Bg6.", eo: "Bg6.", tok: "Bg6." } },
+                    { w: { from: [6,7], to: [4,7], san: "h4" }, b: { from: [1,7], to: [2,7], san: "h6" }, instW: { es: "Juega h4.", en: "Play h4.", it: "Gioca h4.", la: "Lude h4.", eo: "Ludu h4.", tok: "o tawa h4." }, instB: { es: "Juega h6.", en: "Play h6.", it: "Gioca h6.", la: "Lude h6.", eo: "Ludu h6.", tok: "o tawa h6." }, teoriaW: { es: "Tormenta.", en: "Storm.", it: "Tempesta.", la: "Procella.", eo: "Ŝtormo.", tok: "utala suli." }, teoriaB: { es: "Ruta escape.", en: "Escape route.", it: "Via di fuga.", la: "Via fugae.", eo: "Eskapa vojo.", tok: "nasin weka." }, errW: { es: "Error: h4.", en: "Error: h4.", it: "Errore: h4.", la: "Error: h4.", eo: "Eraro: h4.", tok: "ike: h4." }, errB: { es: "Error: h6.", en: "Error: h6.", it: "Errore: h6.", la: "Error: h6.", eo: "Eraro: h6.", tok: "ike: h6." }, shortErrW: { es: "h4.", en: "h4.", it: "h4.", la: "h4.", eo: "h4.", tok: "h4." }, shortErrB: { es: "h6.", en: "h6.", it: "h6.", la: "h6.", eo: "h6.", tok: "h6." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [1,3], san: "Nd7" }, instW: { es: "Caballo a f3.", en: "Knight to f3.", it: "Cavallo in f3.", la: "Equus ad f3.", eo: "Ĉevalo al f3.", tok: "soweli tawa f3." }, instB: { es: "Caballo a d7.", en: "Knight to d7.", it: "Cavallo in d7.", la: "Equus ad d7.", eo: "Ĉevalo al d7.", tok: "soweli tawa d7." }, teoriaW: { es: "Desarrollo.", en: "Development.", it: "Sviluppo.", la: "Progressio.", eo: "Disvolviĝo.", tok: "tawa pona." }, teoriaB: { es: "Soporte.", en: "Support.", it: "Supporto.", la: "Auxilium.", eo: "Subteno.", tok: "awen." }, errW: { es: "Error: Nf3.", en: "Error: Nf3.", it: "Errore: Nf3.", la: "Error: Nf3.", eo: "Eraro: Nf3.", tok: "ike: Nf3." }, errB: { es: "Error: Nd7.", en: "Error: Nd7.", it: "Errore: Nd7.", la: "Error: Nd7.", eo: "Eraro: Nd7.", tok: "ike: Nd7." }, shortErrW: { es: "Nf3.", en: "Nf3.", it: "Nf3.", la: "Nf3.", eo: "Nf3.", tok: "Nf3." }, shortErrB: { es: "Nd7.", en: "Nd7.", it: "Nd7.", la: "Nd7.", eo: "Nd7.", tok: "Nd7." } },
+                    { w: { from: [4,7], to: [3,7], san: "h5" }, b: { from: [2,6], to: [1,7], san: "Bh7" }, instW: { es: "Empuja h5.", en: "Push h5.", it: "Spingi h5.", la: "Pinge h5.", eo: "Puŝu h5.", tok: "o tawa h5." }, instB: { es: "Alfil a h7.", en: "Bishop to h7.", it: "Alfiere in h7.", la: "Episcopus ad h7.", eo: "Kuriero al h7.", tok: "kiwen tawa h7." }, teoriaW: { es: "Gana espacio.", en: "Gain space.", it: "Guadagna spazio.", la: "Spatium occupa.", eo: "Gajnu spacon.", tok: "jo ma." }, teoriaB: { es: "Refugio.", en: "Refuge.", it: "Rifugio.", la: "Refugium.", eo: "Rifuĝo.", tok: "tomo awen." }, errW: { es: "Error: h5.", en: "Error: h5.", it: "Errore: h5.", la: "Error: h5.", eo: "Eraro: h5.", tok: "ike: h5." }, errB: { es: "Error: Bh7.", en: "Error: Bh7.", it: "Errore: Bh7.", la: "Error: Bh7.", eo: "Eraro: Bh7.", tok: "ike: Bh7." }, shortErrW: { es: "h5.", en: "h5.", it: "h5.", la: "h5.", eo: "h5.", tok: "h5." }, shortErrB: { es: "Bh7.", en: "Bh7.", it: "Bh7.", la: "Bh7.", eo: "Bh7.", tok: "Bh7." } },
+                    { w: { from: [7,5], to: [5,3], san: "Bd3" }, b: { from: [1,7], to: [5,3], san: "Bxd3" }, instW: { es: "Alfil a d3.", en: "Bishop to d3.", it: "Alfiere in d3.", la: "Episcopus ad d3.", eo: "Kuriero al d3.", tok: "kiwen tawa d3." }, instB: { es: "Captura Bxd3.", en: "Capture Bxd3.", it: "Cattura Bxd3.", la: "Cape Bxd3.", eo: "Kaptu Bxd3.", tok: "moli Bxd3." }, teoriaW: { es: "Fuerza cambio.", en: "Forces trade.", it: "Forza scambio.", la: "Cogit mutationem.", eo: "Devigas interŝanĝon.", tok: "wile pana." }, teoriaB: { es: "Acepta cambio.", en: "Accepts trade.", it: "Accetta scambio.", la: "Accipit mutationem.", eo: "Akceptas interŝanĝon.", tok: "ken pana." }, errW: { es: "Error: Bd3.", en: "Error: Bd3.", it: "Errore: Bd3.", la: "Error: Bd3.", eo: "Eraro: Bd3.", tok: "ike: Bd3." }, errB: { es: "Error: Bxd3.", en: "Error: Bxd3.", it: "Errore: Bxd3.", la: "Error: Bxd3.", eo: "Eraro: Bxd3.", tok: "ike: Bxd3." }, shortErrW: { es: "Bd3.", en: "Bd3.", it: "Bd3.", la: "Bd3.", eo: "Bd3.", tok: "Bd3." }, shortErrB: { es: "Bxd3.", en: "Bxd3.", it: "Bxd3.", la: "Bxd3.", eo: "Bxd3.", tok: "Bxd3." } },
+                    { w: { from: [7,3], to: [5,3], san: "Qxd3" }, b: { from: [0,6], to: [2,5], san: "Ngf6" }, instW: { es: "Dama Qxd3.", en: "Queen Qxd3.", it: "Donna Qxd3.", la: "Regina Qxd3.", eo: "Damo Qxd3.", tok: "meli Qxd3." }, instB: { es: "Caballo a f6.", en: "Knight to f6.", it: "Cavallo in f6.", la: "Equus ad f6.", eo: "Ĉevalo al f6.", tok: "soweli tawa f6." }, teoriaW: { es: "Centraliza dama.", en: "Centralize queen.", it: "Centralizza donna.", la: "Centralizat reginam.", eo: "Centrigas damon.", tok: "meli tawa insa." }, teoriaB: { es: "Desarrollo final.", en: "Final development.", it: "Sviluppo finale.", la: "Progressio ultima.", eo: "Fina disvolviĝo.", tok: "tawa pini." }, errW: { es: "Error: Qxd3.", en: "Error: Qxd3.", it: "Errore: Qxd3.", la: "Error: Qxd3.", eo: "Eraro: Qxd3.", tok: "ike: Qxd3." }, errB: { es: "Error: Ngf6.", en: "Error: Ngf6.", it: "Errore: Ngf6.", la: "Error: Ngf6.", eo: "Eraro: Ngf6.", tok: "ike: Ngf6." }, shortErrW: { es: "Qxd3.", en: "Qxd3.", it: "Qxd3.", la: "Qxd3.", eo: "Qxd3.", tok: "Qxd3." }, shortErrB: { es: "Ngf6.", en: "Ngf6.", it: "Ngf6.", la: "Ngf6.", eo: "Ngf6.", tok: "Ngf6." } }
+                ]
+            },
+            7: { 
+                title: { es: "Defensa India de Rey", en: "King's Indian Defense", it: "Difesa Est-Indiana", la: "Defensio Indica Regis", eo: "Reĝhinda Defendo", tok: "awen pi jan lawa" }, 
+                subtitle: { es: "Variante Mar del Plata", en: "Mar del Plata Variation", it: "Variante Mar del Plata", la: "Variatio Mar del Plata", eo: "Mar del Plata Variaĵo", tok: "nasin Ma Te Pata" }, 
+                colorTheme: "text-amber-400", 
+                steps: [
+                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: { es: "Mueve d4.", en: "Move d4.", it: "Muovi d4.", la: "Move d4.", eo: "Movu d4.", tok: "o tawa d4." }, instB: { es: "Caballo a f6.", en: "Knight to f6.", it: "Cavallo in f6.", la: "Equus ad f6.", eo: "Ĉevalo al f6.", tok: "soweli tawa f6." }, teoriaW: { es: "Ocupa centro.", en: "Occupy center.", it: "Occupa centro.", la: "Occupa centrum.", eo: "Okupu centron.", tok: "lawa insa." }, teoriaB: { es: "Control flexible.", en: "Flexible control.", it: "Controllo flessibile.", la: "Imperium molle.", eo: "Fleksebla kontrolo.", tok: "lawa pona." }, errW: { es: "Error: d4.", en: "Error: d4.", it: "Errore: d4.", la: "Error: d4.", eo: "Eraro: d4.", tok: "ike: d4." }, errB: { es: "Error: Nf6.", en: "Error: Nf6.", it: "Errore: Nf6.", la: "Error: Nf6.", eo: "Eraro: Nf6.", tok: "ike: Nf6." }, shortErrW: { es: "d4.", en: "d4.", it: "d4.", la: "d4.", eo: "d4.", tok: "d4." }, shortErrB: { es: "Nf6.", en: "Nf6.", it: "Nf6.", la: "Nf6.", eo: "Nf6.", tok: "Nf6." } },
+                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,6], to: [2,6], san: "g6" }, instW: { es: "Juega c4.", en: "Play c4.", it: "Gioca c4.", la: "Lude c4.", eo: "Ludu c4.", tok: "o tawa c4." }, instB: { es: "Juega g6.", en: "Play g6.", it: "Gioca g6.", la: "Lude g6.", eo: "Ludu g6.", tok: "o tawa g6." }, teoriaW: { es: "Expansión.", en: "Expansion.", it: "Espansione.", la: "Expansio.", eo: "Vastiĝo.", tok: "suli ma." }, teoriaB: { es: "Prepara fianchetto.", en: "Prepare fianchetto.", it: "Prepara fianchetto.", la: "Para fianchetto.", eo: "Preparu fianĉeton.", tok: "pali e tomo kiwen." }, errW: { es: "Error: c4.", en: "Error: c4.", it: "Errore: c4.", la: "Error: c4.", eo: "Eraro: c4.", tok: "ike: c4." }, errB: { es: "Error: g6.", en: "Error: g6.", it: "Errore: g6.", la: "Error: g6.", eo: "Eraro: g6.", tok: "ike: g6." }, shortErrW: { es: "c4.", en: "c4.", it: "c4.", la: "c4.", eo: "c4.", tok: "c4." }, shortErrB: { es: "g6.", en: "g6.", it: "g6.", la: "g6.", eo: "g6.", tok: "g6." } },
+                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [0,5], to: [1,6], san: "Bg7" }, instW: { es: "Caballo a c3.", en: "Knight to c3.", it: "Cavallo in c3.", la: "Equus ad c3.", eo: "Ĉevalo al c3.", tok: "soweli tawa c3." }, instB: { es: "Alfil a g7.", en: "Bishop to g7.", it: "Alfiere in g7.", la: "Episcopus ad g7.", eo: "Kuriero al g7.", tok: "kiwen tawa g7." }, teoriaW: { es: "Soporte.", en: "Support.", it: "Supporto.", la: "Auxilium.", eo: "Subteno.", tok: "awen." }, teoriaB: { es: "Alfil Indio.", en: "Indian Bishop.", it: "Alfiere Indiano.", la: "Episcopus Indicus.", eo: "Hinda Kuriero.", tok: "kiwen pi ma Inija." }, errW: { es: "Error: Nc3.", en: "Error: Nc3.", it: "Errore: Nc3.", la: "Error: Nc3.", eo: "Eraro: Nc3.", tok: "ike: Nc3." }, errB: { es: "Error: Bg7.", en: "Error: Bg7.", it: "Errore: Bg7.", la: "Error: Bg7.", eo: "Eraro: Bg7.", tok: "ike: Bg7." }, shortErrW: { es: "Nc3.", en: "Nc3.", it: "Nc3.", la: "Nc3.", eo: "Nc3.", tok: "Nc3." }, shortErrB: { es: "Bg7.", en: "Bg7.", it: "Bg7.", la: "Bg7.", eo: "Bg7.", tok: "Bg7." } },
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: { es: "Mueve e4.", en: "Move e4.", it: "Muovi e4.", la: "Move e4.", eo: "Movu e4.", tok: "o tawa e4." }, instB: { es: "Juega d6.", en: "Play d6.", it: "Gioca d6.", la: "Lude d6.", eo: "Ludu d6.", tok: "o tawa d6." }, teoriaW: { es: "Centro perfecto.", en: "Perfect center.", it: "Centro perfetto.", la: "Centrum perfectum.", eo: "Perfekta centro.", tok: "insa pona mute." }, teoriaB: { es: "Frena e5.", en: "Stops e5.", it: "Ferma e5.", la: "Sistit e5.", eo: "Haltigas e5.", tok: "pini e e5." }, errW: { es: "Error: e4.", en: "Error: e4.", it: "Errore: e4.", la: "Error: e4.", eo: "Eraro: e4.", tok: "ike: e4." }, errB: { es: "Error: d6.", en: "Error: d6.", it: "Errore: d6.", la: "Error: d6.", eo: "Eraro: d6.", tok: "ike: d6." }, shortErrW: { es: "e4.", en: "e4.", it: "e4.", la: "e4.", eo: "e4.", tok: "e4." }, shortErrB: { es: "d6.", en: "d6.", it: "d6.", la: "d6.", eo: "d6.", tok: "d6." } },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: { es: "Caballo a f3.", en: "Knight to f3.", it: "Cavallo in f3.", la: "Equus ad f3.", eo: "Ĉevalo al f3.", tok: "soweli tawa f3." }, instB: { es: "Enroque corto.", en: "Castle short.", it: "Arrocco corto.", la: "Arx brevis.", eo: "Mallonga aroko.", tok: "tomo lili." }, teoriaW: { es: "Desarrollo.", en: "Development.", it: "Sviluppo.", la: "Progressio.", eo: "Disvolviĝo.", tok: "tawa pona." }, teoriaB: { es: "Rey seguro.", en: "King safe.", it: "Re sicuro.", la: "Rex tutus.", eo: "Reĝo sekura.", tok: "jan lawa pona." }, errW: { es: "Error: Nf3.", en: "Error: Nf3.", it: "Errore: Nf3.", la: "Error: Nf3.", eo: "Eraro: Nf3.", tok: "ike: Nf3." }, errB: { es: "Error: O-O.", en: "Error: O-O.", it: "Errore: O-O.", la: "Error: O-O.", eo: "Eraro: O-O.", tok: "ike: O-O." }, shortErrW: { es: "Nf3.", en: "Nf3.", it: "Nf3.", la: "Nf3.", eo: "Nf3.", tok: "Nf3." }, shortErrB: { es: "O-O.", en: "O-O.", it: "O-O.", la: "O-O.", eo: "O-O.", tok: "O-O." } },
+                    { w: { from: [7,5], to: [6,4], san: "Be2" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: { es: "Alfil a e2.", en: "Bishop to e2.", it: "Alfiere in e2.", la: "Episcopus ad e2.", eo: "Kuriero al e2.", tok: "kiwen tawa e2." }, instB: { es: "Juega e5.", en: "Play e5.", it: "Gioca e5.", la: "Lude e5.", eo: "Ludu e5.", tok: "o tawa e5." }, teoriaW: { es: "Prepara enroque.", en: "Prepare castle.", it: "Prepara arrocco.", la: "Para arcem.", eo: "Preparu arokon.", tok: "pali e tomo." }, teoriaB: { es: "Golpea centro.", en: "Strikes center.", it: "Colpisce il centro.", la: "Percutit centrum.", eo: "Frapas centron.", tok: "utala insa." }, errW: { es: "Error: Be2.", en: "Error: Be2.", it: "Errore: Be2.", la: "Error: Be2.", eo: "Eraro: Be2.", tok: "ike: Be2." }, errB: { es: "Error: e5.", en: "Error: e5.", it: "Errore: e5.", la: "Error: e5.", eo: "Eraro: e5.", tok: "ike: e5." }, shortErrW: { es: "Be2.", en: "Be2.", it: "Be2.", la: "Be2.", eo: "Be2.", tok: "Be2." }, shortErrB: { es: "e5.", en: "e5.", it: "e5.", la: "e5.", eo: "e5.", tok: "e5." } },
+                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: { es: "Enroque corto.", en: "Castle short.", it: "Arrocco corto.", la: "Arx brevis.", eo: "Mallonga aroko.", tok: "tomo lili." }, instB: { es: "Caballo a c6.", en: "Knight to c6.", it: "Cavallo in c6.", la: "Equus ad c6.", eo: "Ĉevalo al c6.", tok: "soweli tawa c6." }, teoriaW: { es: "Rey seguro.", en: "King safe.", it: "Re sicuro.", la: "Rex tutus.", eo: "Reĝo sekura.", tok: "jan lawa pona." }, teoriaB: { es: "Máxima tensión.", en: "Maximum tension.", it: "Tensione massima.", la: "Tensio maxima.", eo: "Maksimuma streĉo.", tok: "utala wawa." }, errW: { es: "Error: O-O.", en: "Error: O-O.", it: "Errore: O-O.", la: "Error: O-O.", eo: "Eraro: O-O.", tok: "ike: O-O." }, errB: { es: "Error: Nc6.", en: "Error: Nc6.", it: "Errore: Nc6.", la: "Error: Nc6.", eo: "Eraro: Nc6.", tok: "ike: Nc6." }, shortErrW: { es: "O-O.", en: "O-O.", it: "O-O.", la: "O-O.", eo: "O-O.", tok: "O-O." }, shortErrB: { es: "Nc6.", en: "Nc6.", it: "Nc6.", la: "Nc6.", eo: "Nc6.", tok: "Nc6." } },
+                    { w: { from: [4,3], to: [3,3], san: "d5" }, b: { from: [2,2], to: [1,4], san: "Ne7" }, instW: { es: "Avanza d5.", en: "Advance d5.", it: "Avanza d5.", la: "Progredere d5.", eo: "Antaŭeniru d5.", tok: "o tawa d5." }, instB: { es: "Caballo a e7.", en: "Knight to e7.", it: "Cavallo in e7.", la: "Equus ad e7.", eo: "Ĉevalo al e7.", tok: "soweli tawa e7." }, teoriaW: { es: "Cierra centro.", en: "Closes center.", it: "Chiude il centro.", la: "Claudit centrum.", eo: "Fermas centron.", tok: "pini e insa." }, teoriaB: { es: "Reubica caballo.", en: "Relocates knight.", it: "Ricolloca cavallo.", la: "Movet equum.", eo: "Translokiĝas ĉevalon.", tok: "tawa e soweli." }, errW: { es: "Error: d5.", en: "Error: d5.", it: "Errore: d5.", la: "Error: d5.", eo: "Eraro: d5.", tok: "ike: d5." }, errB: { es: "Error: Ne7.", en: "Error: Ne7.", it: "Errore: Ne7.", la: "Error: Ne7.", eo: "Eraro: Ne7.", tok: "ike: Ne7." }, shortErrW: { es: "d5.", en: "d5.", it: "d5.", la: "d5.", eo: "d5.", tok: "d5." }, shortErrB: { es: "Ne7.", en: "Ne7.", it: "Ne7.", la: "Ne7.", eo: "Ne7.", tok: "Ne7." } },
+                    { w: { from: [5,5], to: [7,4], san: "Ne1" }, b: { from: [2,5], to: [1,3], san: "Nd7" }, instW: { es: "Caballo a e1.", en: "Knight to e1.", it: "Cavallo in e1.", la: "Equus ad e1.", eo: "Ĉevalo al e1.", tok: "soweli tawa e1." }, instB: { es: "Caballo a d7.", en: "Knight to d7.", it: "Cavallo in d7.", la: "Equus ad d7.", eo: "Ĉevalo al d7.", tok: "soweli tawa d7." }, teoriaW: { es: "Maniobra.", en: "Maneuver.", it: "Manovra.", la: "Manopera.", eo: "Manovro.", tok: "tawa nasa." }, teoriaB: { es: "Abre vía.", en: "Opens path.", it: "Apre la via.", la: "Aperit viam.", eo: "Malfermas vojon.", tok: "open e nasin." }, errW: { es: "Error: Ne1.", en: "Error: Ne1.", it: "Errore: Ne1.", la: "Error: Ne1.", eo: "Eraro: Ne1.", tok: "ike: Ne1." }, errB: { es: "Error: Nd7.", en: "Error: Nd7.", it: "Errore: Nd7.", la: "Error: Nd7.", eo: "Eraro: Nd7.", tok: "ike: Nd7." }, shortErrW: { es: "Ne1.", en: "Ne1.", it: "Ne1.", la: "Ne1.", eo: "Ne1.", tok: "Ne1." }, shortErrB: { es: "Nd7.", en: "Nd7.", it: "Nd7.", la: "Nd7.", eo: "Nd7.", tok: "Nd7." } },
+                    { w: { from: [7,4], to: [5,3], san: "Nd3" }, b: { from: [1,5], to: [3,5], san: "f5" }, instW: { es: "Caballo a d3.", en: "Knight to d3.", it: "Cavallo in d3.", la: "Equus ad d3.", eo: "Ĉevalo al d3.", tok: "soweli tawa d3." }, instB: { es: "Juega f5.", en: "Play f5.", it: "Gioca f5.", la: "Lude f5.", eo: "Ludu f5.", tok: "o tawa f5." }, teoriaW: { es: "Control central.", en: "Central control.", it: "Controllo centrale.", la: "Imperium centrale.", eo: "Centra kontrolo.", tok: "lawa insa." }, teoriaB: { es: "Ataque de flanco.", en: "Flank attack.", it: "Attacco laterale.", la: "Oppugnatio lateris.", eo: "Flanka atako.", tok: "utala poka." }, errW: { es: "Error: Nd3.", en: "Error: Nd3.", it: "Errore: Nd3.", la: "Error: Nd3.", eo: "Eraro: Nd3.", tok: "ike: Nd3." }, errB: { es: "Error: f5.", en: "Error: f5.", it: "Errore: f5.", la: "Error: f5.", eo: "Eraro: f5.", tok: "ike: f5." }, shortErrW: { es: "Nd3.", en: "Nd3.", it: "Nd3.", la: "Nd3.", eo: "Nd3.", tok: "Nd3." }, shortErrB: { es: "f5.", en: "f5.", it: "f5.", la: "f5.", eo: "f5.", tok: "f5." } }
+                ]
+            },
             8: { 
                 title: "Defensa Nimzo-India", subtitle: "Variante Rubinstein", colorTheme: "text-amber-400", 
                 steps: [

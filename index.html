@@ -10,24 +10,13 @@
             background-color: #0f172a; 
             color: #f8fafc; 
             font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+            font-size: 1.1rem;
         }
 
-        @keyframes slideUp {
-            from { transform: translate(-50%, 100%); opacity: 0; }
-            to { transform: translate(-50%, 0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { transform: translate(-50%, 0); opacity: 1; }
-            to { transform: translate(-50%, 20px); opacity: 0; }
-        }
-
-        .toast-enter { animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .toast-exit { animation: fadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-
-        .opening-card { transition: all 0.2s ease-in-out; }
+        .opening-card { transition: all 0.2s ease-in-out; cursor: pointer; }
         .opening-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15), 0 8px 10px -6px rgba(16, 185, 129, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.2);
         }
 
         .chessboard {
@@ -62,83 +51,57 @@
             background-position: center;
             user-select: none;
             filter: drop-shadow(0px 4px 3px rgba(0,0,0,0.4));
-            transition: transform 0.1s;
         }
-        .piece:active { cursor: grabbing; transform: scale(1.1); }
+        .piece:active { cursor: grabbing; }
 
-        .coord-col {
-            position: absolute; bottom: 2px; right: 4px; font-size: 10px; font-weight: bold; color: #1e293b;
-            pointer-events: none;
-        }
-        .coord-row {
-            position: absolute; top: 2px; left: 4px; font-size: 10px; font-weight: bold; color: #1e293b;
-            pointer-events: none;
-        }
+        .coord-col { position: absolute; bottom: 2px; right: 4px; font-size: 12px; font-weight: bold; color: #1e293b; pointer-events: none; }
+        .coord-row { position: absolute; top: 2px; left: 4px; font-size: 12px; font-weight: bold; color: #1e293b; pointer-events: none; }
         .square.dark .coord-col, .square.dark .coord-row { color: #f1f5f9; }
 
         .terminal {
-            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-family: 'Fira Code', monospace;
             background-color: #020617;
             border: 1px solid #334155;
         }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center relative pb-24">
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center relative">
 
-    <!-- Selector de Idioma -->
-    <select id="lang-select" onchange="changeLanguage(this.value)" class="absolute top-4 right-4 md:top-6 md:right-8 bg-slate-800 text-emerald-400 border border-slate-700 focus:border-emerald-500 px-4 py-2 rounded-lg font-bold text-sm outline-none transition-colors z-50 cursor-pointer shadow-lg shadow-black/20">
-        <option value="es">Español</option>
-        <option value="en">English</option>
-        <option value="it">Italiano</option>
-        <option value="la">Latina</option>
-        <option value="eo">Esperanto</option>
-        <option value="tok">Toki Pona</option>
-    </select>
-
-    <div id="menu-view" class="w-full flex flex-col items-center w-full max-w-7xl">
+    <!-- MENU PRINCIPAL -->
+    <div id="menu-view" class="w-full flex flex-col items-center max-w-7xl">
         <header class="w-full text-center mt-8 mb-12">
-            <h1 id="ui-main-title" class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mb-4 drop-shadow-sm">Aperturas de ajedrez</h1>
-            <p id="ui-main-subtitle" class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">Selecciona un sistema</p>
+            <h1 id="ui-main-title" class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mb-4">Aperturas de ajedrez</h1>
+            <p id="ui-main-subtitle" class="text-slate-400 text-xl">Selecciona un sistema para entrenar</p>
         </header>
-
         <main class="w-full">
-            <div id="openings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
+            <div id="openings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
         </main>
     </div>
 
-    <div id="toast-notification" class="fixed bottom-8 left-1/2 -translate-x-1/2 hidden z-50">
-        <div class="bg-amber-500/10 border border-amber-500/50 text-amber-200 px-6 py-3 rounded-full shadow-lg backdrop-blur-md flex items-center gap-3">
-            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-            </svg>
-            <span id="toast-message" class="font-medium text-sm md:text-base">Módulo en construcción...</span>
-        </div>
-    </div>
-
+    <!-- VISTA DE JUEGO -->
     <div id="game-view" class="hidden w-full max-w-6xl flex-col items-center">
-        <header class="w-full mb-8 flex flex-col md:flex-row justify-between items-center gap-4 mt-4">
-            <div class="relative flex-grow min-h-[4rem] w-full flex items-center gap-4">
-                <button onclick="backToMenu()" class="shrink-0 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 p-2 md:px-4 md:py-2 rounded-md font-semibold transition-colors flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    <span id="ui-btn-back" class="hidden md:inline">Volver</span>
+        <header class="w-full mb-8 flex flex-col md:flex-row justify-between items-center gap-6 mt-4">
+            <div class="flex items-center gap-4 flex-grow w-full md:w-auto">
+                <button onclick="backToMenu()" class="shrink-0 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-5 py-3 rounded-md font-bold flex items-center gap-2 transition-colors text-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    <span>Volver</span>
                 </button>
-                <div id="title-container" class="transition-opacity duration-300 w-full"></div>
-                <div id="error-banner" class="opacity-0 pointer-events-none absolute left-[3.5rem] md:left-[7.5rem] top-0 w-[calc(100%-3.5rem)] md:w-4/5 h-full bg-rose-600 rounded-lg flex items-center px-4 shadow-lg shadow-rose-900/50 transition-opacity duration-300 z-10">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-8 h-8 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <div>
-                            <h2 id="ui-wrong-move" class="text-xl font-bold text-white leading-tight">¡Movimiento Incorrecto!</h2>
-                            <p id="error-banner-text" class="text-rose-100 text-sm leading-tight">Razón del error...</p>
-                        </div>
-                    </div>
+                <div id="title-container" class="flex flex-col">
+                    <h1 id="game-title" class="text-3xl font-bold text-emerald-400">Nombre de Apertura</h1>
+                    <p id="game-subtitle" class="text-slate-400 text-base">Variante teórica</p>
                 </div>
             </div>
-            <div class="flex gap-2 bg-slate-800 p-1 rounded-lg border border-slate-700 shrink-0 z-20">
-                <button id="btn-white" onclick="switchRole('w')" class="px-4 py-2 rounded-md bg-emerald-600 text-white font-semibold transition-colors">Jugar Blancas</button>
-                <button id="btn-black" onclick="switchRole('b')" class="px-4 py-2 rounded-md text-slate-300 hover:bg-slate-700 font-semibold transition-colors">Jugar Negras</button>
+            
+            <div class="flex flex-wrap justify-center items-center gap-4">
+                <button id="btn-next-move" onclick="stepNextMove()" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-lg rounded-xl border border-cyan-400 shadow-lg transition-all flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
+                    <span>Siguiente Jugada</span>
+                </button>
+
+                <div class="flex gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700 shadow-xl">
+                    <button id="btn-white" onclick="switchRole('w')" class="px-6 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-lg transition-all">Blancas</button>
+                    <button id="btn-black" onclick="switchRole('b')" class="px-6 py-2.5 rounded-lg text-slate-300 font-bold text-lg transition-all">Negras</button>
+                </div>
             </div>
         </header>
 
@@ -147,47 +110,29 @@
                 <div id="board" class="chessboard"></div>
             </div>
             <div class="flex flex-col gap-4 w-full">
-                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-lg">
-                    <div class="flex justify-between items-end mb-2">
-                        <h2 class="text-xl font-bold text-white"><span id="ui-level">Nivel</span> <span id="level-indicator">1</span> / 10</h2>
-                        <span id="turn-indicator" class="text-sm font-mono bg-slate-900 px-3 py-1 rounded text-emerald-400">Turno: Tu turno</span>
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-lg">
+                    <div class="flex justify-between items-end mb-3">
+                        <h2 class="text-2xl font-bold text-white">Nivel <span id="level-indicator">1</span> / <span id="max-levels">10</span></h2>
+                        <span id="turn-indicator" class="text-base font-mono bg-slate-900 px-4 py-2 rounded text-emerald-400">Turno: Tu turno</span>
                     </div>
-                    <div class="w-full bg-slate-900 rounded-full h-2.5">
-                        <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-500" style="width: 10%"></div>
-                    </div>
-                </div>
-                <div class="bg-slate-800 rounded-xl p-5 border border-slate-700 shadow-lg flex-grow">
-                    <h3 id="ui-objective" class="text-lg font-semibold text-blue-400 mb-2 border-b border-slate-700 pb-2">Objetivo del Nivel</h3>
-                    <p id="instruction-text" class="text-slate-200 text-lg leading-relaxed"></p>
-                    <div class="mt-4 bg-slate-900/50 p-4 rounded-lg border border-slate-700">
-                        <h4 id="ui-theory" class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Lógica del Algoritmo (Teoría)</h4>
-                        <p id="theory-text" class="text-sm text-slate-300 italic"></p>
+                    <div class="w-full bg-slate-900 rounded-full h-3">
+                        <div id="progress-bar" class="bg-emerald-500 h-3 rounded-full transition-all duration-500" style="width: 10%"></div>
                     </div>
                 </div>
-                <div class="terminal rounded-xl p-4 shadow-lg h-48 overflow-y-auto flex flex-col gap-2" id="feedback-console"></div>
+                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-lg flex-grow">
+                    <h3 class="text-xl font-bold text-blue-400 mb-3 border-b border-slate-700 pb-2">Objetivo</h3>
+                    <p id="instruction-text" class="text-slate-200 text-xl leading-relaxed"></p>
+                    <div class="mt-4 bg-slate-900/50 p-5 rounded-lg border border-slate-700">
+                        <h4 class="text-base font-bold text-slate-400 uppercase tracking-wider mb-2">Teoría</h4>
+                        <p id="theory-text" class="text-base text-slate-300 italic"></p>
+                    </div>
+                </div>
+                <div class="terminal rounded-xl p-4 shadow-lg h-48 overflow-y-auto flex flex-col gap-1 text-base" id="feedback-console"></div>
             </div>
         </main>
     </div>
 
     <script>
-        let currentLang = 'es';
-        const UI_TEXT = {
-            mainTitle: { es: "Aperturas de ajedrez", en: "Chess Openings" },
-            mainSubtitle: { es: "Selecciona un sistema", en: "Select a system" },
-            backBtn: { es: "Volver", en: "Back" },
-            playWhite: { es: "Jugar Blancas", en: "Play White" },
-            playBlack: { es: "Jugar Negras", en: "Play Black" },
-            wrongMove: { es: "¡Movimiento Incorrecto!", en: "Wrong Move!" },
-            level: { es: "Nivel", en: "Level" },
-            turnUser: { es: "Tu turno", en: "Your turn" },
-            turnOpp: { es: "Calculando...", en: "Calculating..." },
-            objective: { es: "Objetivo del Nivel", en: "Level Objective" },
-            theory: { es: "Lógica del Algoritmo (Teoría)", en: "Algorithm Logic (Theory)" },
-            congratulations: { es: "¡Felicidades! Has completado la línea principal.", en: "Congratulations! You completed the main line." },
-            underConstText: { es: "Módulo en construcción...", en: "Module under construction..." },
-            tutEnded: { es: "Tutorial Finalizado", en: "Tutorial Completed" }
-        };
-
         const PIECES_URL = {
             'P': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
             'N': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg',
@@ -214,195 +159,54 @@
             ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
         ];
 
-        // BASE DE DATOS COMPLETA DE 20 APERTURAS (10 Jugadas reales cada una)
+        // APERTURAS AMPLIADAS A 10 NIVELES
         const OPENING_MODULES = {
             1: { 
-                title: { es: "Apertura Ruy López" }, subtitle: { es: "Defensa Morphy Clásica" }, colorTheme: "text-emerald-400", 
+                title: "Apertura Ruy López", subtitle: "Línea Principal", theme: "text-emerald-400",
                 steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "e4", instB: "e5", teoriaW: "Centro.", teoriaB: "Igualdad.", errW: "Mueve e4.", errB: "Mueve e5.", shortErrW: "e4", shortErrB: "e5" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "Nf3", instB: "Nc6", teoriaW: "Presión.", teoriaB: "Defensa.", errW: "Ataca e5.", errB: "Defiende e5.", shortErrW: "Nf3", shortErrB: "Nc6" },
-                    { w: { from: [7,5], to: [3,1], san: "Bb5" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "Bb5", instB: "a6", teoriaW: "La Ruy López.", teoriaB: "Cuestiona al alfil.", errW: "Alfil a b5.", errB: "Mueve a6.", shortErrW: "Bb5", shortErrB: "a6" },
-                    { w: { from: [3,1], to: [4,0], san: "Ba4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Ba4", instB: "Nf6", teoriaW: "Retirada.", teoriaB: "Desarrollo.", errW: "Retira a a4.", errB: "Caballo f6.", shortErrW: "Ba4", shortErrB: "Nf6" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Enroque corto.", instB: "Alfil e7.", teoriaW: "Seguridad.", teoriaB: "Solidez.", errW: "Enróca.", errB: "Alfil e7.", shortErrW: "O-O", shortErrB: "Be7" },
-                    { w: { from: [7,5], to: [7,4], san: "Re1" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: "Re1", instB: "b5", teoriaW: "Protege e4.", teoriaB: "Expulsa al alfil.", errW: "Torre a e1.", errB: "Empuja b5.", shortErrW: "Re1", shortErrB: "b5" },
-                    { w: { from: [4,0], to: [5,1], san: "Bb3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "Bb3", instB: "d6", teoriaW: "Diagonal activa.", teoriaB: "Consolidación.", errW: "Alfil b3.", errB: "Peón d6.", shortErrW: "Bb3", shortErrB: "d6" },
-                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "c3", instB: "Enroque corto.", teoriaW: "Prepara d4.", teoriaB: "Rey a salvo.", errW: "Peón c3.", errB: "Enróca.", shortErrW: "c3", shortErrB: "O-O" },
-                    { w: { from: [6,7], to: [5,7], san: "h3" }, b: { from: [2,2], to: [3,0], san: "Na5" }, instW: "h3 (Profilaxis)", instB: "Na5 (Chigorin)", teoriaW: "Evita Ag4.", teoriaB: "Ataca el alfil de b3.", errW: "h3.", errB: "Mueve Na5 (c6 a a5).", shortErrW: "h3.", shortErrB: "Na5" },
-                    { w: { from: [5,1], to: [6,2], san: "Bc2" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "Bc2", instB: "c5", teoriaW: "Salva alfil.", teoriaB: "Espacio.", errW: "Alfil c2.", errB: "Peón c5.", shortErrW: "Bc2", shortErrB: "c5" }
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "e4.", instB: "e5.", teoriaW: "Centro.", teoriaB: "Simetría." },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "Nf3.", instB: "Nc6.", teoriaW: "Presión.", teoriaB: "Defensa." },
+                    { w: { from: [7,5], to: [3,1], san: "Bb5" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "Bb5.", instB: "a6.", teoriaW: "Ataque.", teoriaB: "Morphy." },
+                    { w: { from: [3,1], to: [4,0], san: "Ba4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Ba4.", instB: "Nf6.", teoriaW: "Retirada.", teoriaB: "Desarrollo." },
+                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Enroque.", instB: "Be7.", teoriaW: "Seguridad.", teoriaB: "Solidez." },
+                    { w: { from: [7,5], to: [7,4], san: "Re1" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: "Re1.", instB: "b5.", teoriaW: "Soporte.", teoriaB: "Expansión." },
+                    { w: { from: [4,0], to: [5,1], san: "Bb3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "Bb3.", instB: "d6.", teoriaW: "Diagonal.", teoriaB: "Estructura." },
+                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "c3.", instB: "Enroque.", teoriaW: "Centro.", teoriaB: "Seguridad." },
+                    { w: { from: [6,7], to: [5,7], san: "h3" }, b: { from: [2,2], to: [3,0], san: "Na5" }, instW: "h3.", instB: "Na5.", teoriaW: "Profilaxis.", teoriaB: "Ataque." },
+                    { w: { from: [5,1], to: [6,2], san: "Bc2" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "Bc2.", instB: "c5.", teoriaW: "Reserva.", teoriaB: "Ruptura." }
                 ]
             },
             2: { 
-                title: { es: "Defensa Siciliana" }, subtitle: { es: "Variante Najdorf" }, colorTheme: "text-blue-400", 
+                title: "Defensa Siciliana", subtitle: "Variante Najdorf", theme: "text-blue-400",
                 steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "e4", instB: "c5", teoriaW: "Centro.", teoriaB: "Lucha asimétrica.", errW: "e4", errB: "c5", shortErrW: "e4", shortErrB: "c5" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "Nf3", instB: "d6", teoriaW: "Desarrollo.", teoriaB: "Sólido.", errW: "Nf3", errB: "d6", shortErrW: "Nf3", shortErrB: "d6" },
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [3,2], to: [4,3], san: "cxd4" }, instW: "d4", instB: "cxd4", teoriaW: "Abre juego.", teoriaB: "Cambio favorable.", errW: "d4", errB: "cxd4", shortErrW: "d4", shortErrB: "cxd4" },
-                    { w: { from: [5,5], to: [4,3], san: "Nxd4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Nxd4", instB: "Nf6", teoriaW: "Caballo central.", teoriaB: "Ataca e4.", errW: "Nxd4", errB: "Nf6", shortErrW: "Nxd4", shortErrB: "Nf6" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "Nc3", instB: "a6", teoriaW: "Defiende e4.", teoriaB: "Sistema Najdorf.", errW: "Nc3.", errB: "a6.", shortErrW: "Nc3", shortErrB: "a6" },
-                    { w: { from: [7,5], to: [6,4], san: "Be2" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "Be2", instB: "e5", teoriaW: "Desarrollo.", teoriaB: "Reclama el centro.", errW: "Be2.", errB: "e5.", shortErrW: "Be2", shortErrB: "e5" },
-                    { w: { from: [4,3], to: [5,1], san: "Nb3" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Nb3", instB: "Be7", teoriaW: "Retirada.", teoriaB: "Desarrollo.", errW: "Nb3.", errB: "Be7.", shortErrW: "Nb3", shortErrB: "Be7" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "O-O", instB: "O-O", teoriaW: "Seguridad.", teoriaB: "Seguridad.", errW: "O-O.", errB: "O-O.", shortErrW: "O-O", shortErrB: "O-O" },
-                    { w: { from: [7,2], to: [5,4], san: "Be3" }, b: { from: [0,2], to: [2,4], san: "Be6" }, instW: "Be3", instB: "Be6", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Be3.", errB: "Be6.", shortErrW: "Be3", shortErrB: "Be6" },
-                    { w: { from: [6,5], to: [4,5], san: "f4" }, b: { from: [0,3], to: [1,2], san: "Qc7" }, instW: "f4", instB: "Qc7", teoriaW: "Ataque.", teoriaB: "Coordinación.", errW: "f4.", errB: "Qc7.", shortErrW: "f4", shortErrB: "Qc7" }
+                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "e4.", instB: "c5.", teoriaW: "Centro.", teoriaB: "Lucha." },
+                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "Nf3.", instB: "d6.", teoriaW: "Desarrollo.", teoriaB: "Sólido." },
+                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [3,2], to: [4,3], san: "cxd4" }, instW: "d4.", instB: "cxd4.", teoriaW: "Centro.", teoriaB: "Cambio." },
+                    { w: { from: [5,5], to: [4,3], san: "Nxd4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Nxd4.", instB: "Nf6.", teoriaW: "Control.", teoriaB: "Presión." },
+                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "Nc3.", instB: "a6.", teoriaW: "Defensa.", teoriaB: "Najdorf." },
+                    { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "Bg5.", instB: "e6.", teoriaW: "Presión.", teoriaB: "Centro." },
+                    { w: { from: [6,5], to: [4,5], san: "f4" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "f4.", instB: "Be7.", teoriaW: "Ataque.", teoriaB: "Desarrollo." },
+                    { w: { from: [7,3], to: [5,5], san: "Qf3" }, b: { from: [0,3], to: [1,2], san: "Qc7" }, instW: "Qf3.", instB: "Qc7.", teoriaW: "Actividad.", teoriaB: "Dama." },
+                    { w: { from: [7,4], to: [7,2], san: "O-O-O", castle: true, rFrom: [7,0], rTo: [7,3] }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: "Enroque L.", instB: "Nbd7.", teoriaW: "Agresivo.", teoriaB: "Maniobra." },
+                    { w: { from: [6,6], to: [4,6], san: "g4" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: "g4.", instB: "b5.", teoriaW: "Avalancha.", teoriaB: "Contraataque." }
                 ]
-            },
-            3: { 
-                title: { es: "Gambito de Dama" }, subtitle: { es: "Variante Rehusada" }, colorTheme: "text-purple-400", 
-                steps: [
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "d4", instB: "d5", teoriaW: "Centro.", teoriaB: "Igualdad.", errW: "d4", errB: "d5", shortErrW: "d4", shortErrB: "d5" },
-                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "c4", instB: "e6", teoriaW: "Gambito.", teoriaB: "Solidez.", errW: "c4", errB: "e6", shortErrW: "c4", shortErrB: "e6" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Nc3", instB: "Nf6", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Nc3", errB: "Nf6", shortErrW: "Nc3", shortErrB: "Nf6" },
-                    { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Bg5", instB: "Be7", teoriaW: "Clavada.", teoriaB: "Desarrollo.", errW: "Bg5", errB: "Be7", shortErrW: "Bg5", shortErrB: "Be7" },
-                    { w: { from: [6,4], to: [5,4], san: "e3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "e3", instB: "O-O", teoriaW: "Soporte.", teoriaB: "Seguridad.", errW: "e3", errB: "O-O", shortErrW: "e3", shortErrB: "O-O" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: "Nf3", instB: "Nbd7", teoriaW: "Desarrollo.", teoriaB: "Soporte.", errW: "Nf3", errB: "Nbd7", shortErrW: "Nf3", shortErrB: "Nbd7" },
-                    { w: { from: [7,0], to: [7,2], san: "Rc1" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: "Rc1", instB: "c6", teoriaW: "Columna abierta.", teoriaB: "Estructura.", errW: "Rc1", errB: "c6", shortErrW: "Rc1", shortErrB: "c6" },
-                    { w: { from: [7,5], to: [5,3], san: "Bd3" }, b: { from: [3,3], to: [4,2], san: "dxc4" }, instW: "Bd3", instB: "dxc4", teoriaW: "Diagonal.", teoriaB: "Simplificación.", errW: "Bd3", errB: "dxc4", shortErrW: "Bd3", shortErrB: "dxc4" },
-                    { w: { from: [5,3], to: [4,2], san: "Bxc4" }, b: { from: [2,5], to: [4,3], san: "Nd5" }, instW: "Bxc4", instB: "Nd5", teoriaW: "Recaptura.", teoriaB: "Centralización.", errW: "Bxc4", errB: "Nd5", shortErrW: "Bxc4", shortErrB: "Nd5" },
-                    { w: { from: [3,6], to: [1,4], san: "Bxe7" }, b: { from: [0,3], to: [1,4], san: "Qxe7" }, instW: "Bxe7", instB: "Qxe7", teoriaW: "Cambio.", teoriaB: "Recaptura.", errW: "Bxe7", errB: "Qxe7", shortErrW: "Bxe7", shortErrB: "Qxe7" }
-                ]
-            },
-            4: { 
-                title: { es: "Defensa Francesa" }, subtitle: { es: "Variante del Avance" }, colorTheme: "text-rose-400", 
-                steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "e4", instB: "e6", teoriaW: "Centro.", teoriaB: "Bloqueo.", errW: "e4", errB: "e6", shortErrW: "e4", shortErrB: "e6" },
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "d4", instB: "d5", teoriaW: "Control.", teoriaB: "Desafío.", errW: "d4", errB: "d5", shortErrW: "d4", shortErrB: "d5" },
-                    { w: { from: [4,4], to: [3,4], san: "e5" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "e5", instB: "c5", teoriaW: "Avance.", teoriaB: "Ruptura.", errW: "e5", errB: "c5", shortErrW: "e5", shortErrB: "c5" },
-                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "c3", instB: "Nc6", teoriaW: "Soporte.", teoriaB: "Presión.", errW: "c3", errB: "Nc6", shortErrW: "c3", shortErrB: "Nc6" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,2], to: [2,4], san: "Bd7" }, instW: "Nf3", instB: "Bd7", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Nf3", errB: "Bd7", shortErrW: "Nf3", shortErrB: "Bd7" },
-                    { w: { from: [7,5], to: [6,4], san: "Be2" }, b: { from: [0,6], to: [2,4], san: "Nge7" }, instW: "Be2", instB: "Nge7", teoriaW: "Preparación.", teoriaB: "Maniobra.", errW: "Be2", errB: "Nge7", shortErrW: "Be2", shortErrB: "Nge7" },
-                    { w: { from: [7,1], to: [5,0], san: "Na3" }, b: { from: [3,2], to: [4,3], san: "cxd4" }, instW: "Na3", instB: "cxd4", teoriaW: "Lateral.", teoriaB: "Captura.", errW: "Na3", errB: "cxd4", shortErrW: "Na3", shortErrB: "cxd4" },
-                    { w: { from: [5,2], to: [4,3], san: "cxd4" }, b: { from: [2,4], to: [3,5], san: "Nf5" }, instW: "cxd4", instB: "Nf5", teoriaW: "Recaptura.", teoriaB: "Presión en d4.", errW: "cxd4", errB: "Nf5", shortErrW: "cxd4", shortErrB: "Nf5" },
-                    { w: { from: [5,0], to: [6,2], san: "Nc2" }, b: { from: [0,3], to: [2,1], san: "Qb6" }, instW: "Nc2", instB: "Qb6", teoriaW: "Centralización.", teoriaB: "Presión máxima.", errW: "Nc2", errB: "Qb6", shortErrW: "Nc2", shortErrB: "Qb6" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "O-O", instB: "Be7", teoriaW: "Seguridad.", teoriaB: "Desarrollo.", errW: "O-O", errB: "Be7", shortErrW: "O-O", shortErrB: "Be7" }
-                ]
-            },
-            5: { 
-                title: { es: "Apertura Italiana" }, subtitle: { es: "Giuoco Piano" }, colorTheme: "text-emerald-400", 
-                steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "e4", instB: "e5", teoriaW: "Centro.", teoriaB: "Respuesta.", errW: "e4", errB: "e5", shortErrW: "e4", shortErrB: "e5" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "Nf3", instB: "Nc6", teoriaW: "Desarrollo.", teoriaB: "Defensa.", errW: "Nf3", errB: "Nc6", shortErrW: "Nf3", shortErrB: "Nc6" },
-                    { w: { from: [7,5], to: [4,2], san: "Bc4" }, b: { from: [0,5], to: [3,2], san: "Bc5" }, instW: "Bc4", instB: "Bc5", teoriaW: "Italiana.", teoriaB: "Simetría.", errW: "Bc4", errB: "Bc5", shortErrW: "Bc4", shortErrB: "Bc5" },
-                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "c3", instB: "Nf6", teoriaW: "Soporte.", teoriaB: "Contraataque.", errW: "c3", errB: "Nf6", shortErrW: "c3", shortErrB: "Nf6" },
-                    { w: { from: [6,3], to: [5,3], san: "d3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "d3", instB: "d6", teoriaW: "Sólido.", teoriaB: "Sólido.", errW: "d3", errB: "d6", shortErrW: "d3", shortErrB: "d6" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "O-O", instB: "a6", teoriaW: "Seguridad.", teoriaB: "Profilaxis.", errW: "O-O", errB: "a6", shortErrW: "O-O", shortErrB: "a6" },
-                    { w: { from: [4,2], to: [5,1], san: "Bb3" }, b: { from: [3,2], to: [4,3], san: "Ba7" }, instW: "Bb3", instB: "Ba7", teoriaW: "Retirada.", teoriaB: "Retirada.", errW: "Bb3", errB: "Ba7", shortErrW: "Bb3", shortErrB: "Ba7" },
-                    { w: { from: [7,1], to: [6,3], san: "Nbd2" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "Nbd2", instB: "O-O", teoriaW: "Maniobra.", teoriaB: "Seguridad.", errW: "Nbd2", errB: "O-O", shortErrW: "Nbd2", shortErrB: "O-O" },
-                    { w: { from: [6,7], to: [5,7], san: "h3" }, b: { from: [1,7], to: [2,7], san: "h6" }, instW: "h3", instB: "h6", teoriaW: "Profilaxis.", teoriaB: "Profilaxis.", errW: "h3", errB: "h6", shortErrW: "h3", shortErrB: "h6" },
-                    { w: { from: [7,4], to: [7,5], san: "Re1" }, b: { from: [0,1], to: [1,3], san: "Re8" }, instW: "Re1", instB: "Re8", teoriaW: "Columna.", teoriaB: "Columna.", errW: "Re1", errB: "Re8", shortErrW: "Re1", shortErrB: "Re8" }
-                ]
-            },
-            6: { 
-                title: { es: "Defensa Caro-Kann" }, subtitle: { es: "Variante Clásica" }, colorTheme: "text-blue-400", 
-                steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: "e4", instB: "c6", teoriaW: "Centro.", teoriaB: "Sólido.", errW: "e4", errB: "c6", shortErrW: "e4", shortErrB: "c6" },
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "d4", instB: "d5", teoriaW: "Control.", teoriaB: "Desafío.", errW: "d4", errB: "d5", shortErrW: "d4", shortErrB: "d5" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [3,3], to: [4,4], san: "dxe4" }, instW: "Nc3", instB: "dxe4", teoriaW: "Desarrollo.", teoriaB: "Simplificación.", errW: "Nc3", errB: "dxe4", shortErrW: "Nc3", shortErrB: "dxe4" },
-                    { w: { from: [5,2], to: [4,4], san: "Nxe4" }, b: { from: [0,2], to: [3,5], san: "Bf5" }, instW: "Nxe4", instB: "Bf5", teoriaW: "Recaptura.", teoriaB: "Desarrollo.", errW: "Nxe4", errB: "Bf5", shortErrW: "Nxe4", shortErrB: "Bf5" },
-                    { w: { from: [4,4], to: [5,6], san: "Ng3" }, b: { from: [3,5], to: [2,6], san: "Bg6" }, instW: "Ng3", instB: "Bg6", teoriaW: "Ataque al alfil.", teoriaB: "Retirada.", errW: "Ng3", errB: "Bg6", shortErrW: "Ng3", shortErrB: "Bg6" },
-                    { w: { from: [6,7], to: [4,7], san: "h4" }, b: { from: [1,7], to: [2,7], san: "h6" }, instW: "h4", instB: "h6", teoriaW: "Presión.", teoriaB: "Profilaxis.", errW: "h4", errB: "h6", shortErrW: "h4", shortErrB: "h6" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: "Nf3", instB: "Nbd7", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Nf3", errB: "Nbd7", shortErrW: "Nf3", shortErrB: "Nbd7" },
-                    { w: { from: [4,7], to: [3,7], san: "h5" }, b: { from: [2,6], to: [3,7], san: "Bh7" }, instW: "h5", instB: "Bh7", teoriaW: "Espacio.", teoriaB: "Refugio.", errW: "h5", errB: "Bh7", shortErrW: "h5", shortErrB: "Bh7" },
-                    { w: { from: [7,5], to: [5,3], san: "Bd3" }, b: { from: [3,7], to: [5,3], san: "Bxd3" }, instW: "Bd3", instB: "Bxd3", teoriaW: "Diagonal.", teoriaB: "Cambio.", errW: "Bd3", errB: "Bxd3", shortErrW: "Bd3", shortErrB: "Bxd3" },
-                    { w: { from: [7,3], to: [5,3], san: "Qxd3" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "Qxd3", instB: "e6", teoriaW: "Recaptura.", teoriaB: "Estructura.", errW: "Qxd3", errB: "e6", shortErrW: "Qxd3", shortErrB: "e6" }
-                ]
-            },
-            7: { 
-                title: { es: "Defensa India de Rey" }, subtitle: { es: "Variante Mar del Plata" }, colorTheme: "text-amber-400", 
-                steps: [
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Centro.", teoriaB: "Flexible.", errW: "d4", errB: "Nf6", shortErrW: "d4", shortErrB: "Nf6" },
-                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,6], to: [2,6], san: "g6" }, instW: "c4", instB: "g6", teoriaW: "Espacio.", teoriaB: "Fianchetto.", errW: "c4", errB: "g6", shortErrW: "c4", shortErrB: "g6" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [0,5], to: [1,6], san: "Bg7" }, instW: "Nc3", instB: "Bg7", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Nc3", errB: "Bg7", shortErrW: "Nc3", shortErrB: "Bg7" },
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "e4", instB: "d6", teoriaW: "Centro ideal.", teoriaB: "Control e5.", errW: "e4", errB: "d6", shortErrW: "e4", shortErrB: "d6" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "Nf3", instB: "O-O", teoriaW: "Desarrollo.", teoriaB: "Seguridad.", errW: "Nf3", errB: "O-O", shortErrW: "Nf3", shortErrB: "O-O" },
-                    { w: { from: [7,5], to: [6,4], san: "Be2" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "Be2", instB: "e5", teoriaW: "Desarrollo.", teoriaB: "Ruptura central.", errW: "Be2", errB: "e5", shortErrW: "Be2", shortErrB: "e5" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "O-O", instB: "Nc6", teoriaW: "Seguridad.", teoriaB: "Presión d4.", errW: "O-O", errB: "Nc6", shortErrW: "O-O", shortErrB: "Nc6" },
-                    { w: { from: [4,3], to: [3,3], san: "d5" }, b: { from: [2,2], to: [0,1], san: "Ne7" }, instW: "d5", instB: "Ne7", teoriaW: "Cierre central.", teoriaB: "Maniobra.", errW: "d5", errB: "Ne7", shortErrW: "d5", shortErrB: "Ne7" },
-                    { w: { from: [5,5], to: [6,7], san: "Ne1" }, b: { from: [2,5], to: [1,3], san: "Nd7" }, instW: "Ne1", instB: "Nd7", teoriaW: "Prepara f4.", teoriaB: "Prepara f5.", errW: "Ne1", errB: "Nd7", shortErrW: "Ne1", shortErrB: "Nd7" },
-                    { w: { from: [7,2], to: [6,4], san: "Be3" }, b: { from: [1,5], to: [3,5], san: "f5" }, instW: "Be3", instB: "f5", teoriaW: "Desarrollo.", teoriaB: "Ataque.", errW: "Be3", errB: "f5", shortErrW: "Be3", shortErrB: "f5" }
-                ]
-            },
-            8: { 
-                title: { es: "Defensa Nimzo-India" }, subtitle: { es: "Variante Rubinstein" }, colorTheme: "text-amber-400", 
-                steps: [
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Centro.", teoriaB: "Control.", errW: "d4", errB: "Nf6", shortErrW: "d4", shortErrB: "Nf6" },
-                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "c4", instB: "e6", teoriaW: "Espacio.", teoriaB: "Soporte.", errW: "c4", errB: "e6", shortErrW: "c4", shortErrB: "e6" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [0,5], to: [4,1], san: "Bb4" }, instW: "Nc3", instB: "Bb4", teoriaW: "Desarrollo.", teoriaB: "Clavada.", errW: "Nc3", errB: "Bb4", shortErrW: "Nc3", shortErrB: "Bb4" },
-                    { w: { from: [6,4], to: [5,4], san: "e3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "e3", instB: "O-O", teoriaW: "Solidez.", teoriaB: "Seguridad.", errW: "e3", errB: "O-O", shortErrW: "e3", shortErrB: "O-O" },
-                    { w: { from: [7,5], to: [5,3], san: "Bd3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "Bd3", instB: "d5", teoriaW: "Diagonal.", teoriaB: "Centro.", errW: "Bd3", errB: "d5", shortErrW: "Bd3", shortErrB: "d5" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "Nf3", instB: "c5", teoriaW: "Desarrollo.", teoriaB: "Tensión.", errW: "Nf3", errB: "c5", shortErrW: "Nf3", shortErrB: "c5" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "O-O", instB: "Nc6", teoriaW: "Seguridad.", teoriaB: "Presión d4.", errW: "O-O", errB: "Nc6", shortErrW: "O-O", shortErrB: "Nc6" },
-                    { w: { from: [6,0], to: [5,0], san: "a3" }, b: { from: [4,1], to: [5,2], san: "Bxc3" }, instW: "a3", instB: "Bxc3", teoriaW: "Profilaxis.", teoriaB: "Cambio.", errW: "a3", errB: "Bxc3", shortErrW: "a3", shortErrB: "Bxc3" },
-                    { w: { from: [6,1], to: [5,2], san: "bxc3" }, b: { from: [3,3], to: [4,2], san: "dxc4" }, instW: "bxc3", instB: "dxc4", teoriaW: "Estructura.", teoriaB: "Apertura.", errW: "bxc3", errB: "dxc4", shortErrW: "bxc3", shortErrB: "dxc4" },
-                    { w: { from: [5,3], to: [4,2], san: "Bxc4" }, b: { from: [0,3], to: [1,2], san: "Qc7" }, instW: "Bxc4", instB: "Qc7", teoriaW: "Recaptura.", teoriaB: "Desarrollo.", errW: "Bxc4", errB: "Qc7.", shortErrW: "Bxc4", shortErrB: "Qc7" }
-                ]
-            },
-            9: { 
-                title: { es: "Defensa Eslava" }, subtitle: { es: "Línea Principal" }, colorTheme: "text-purple-400", 
-                steps: [
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "d4", instB: "d5", teoriaW: "Centro.", teoriaB: "Resistencia.", errW: "d4", errB: "d5", shortErrW: "d4", shortErrB: "d5" },
-                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: "c4", instB: "c6", teoriaW: "Gambito.", teoriaB: "Eslava.", errW: "c4", errB: "c6", shortErrW: "c4", shortErrB: "c6" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Nf3", instB: "Nf6", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Nf3", errB: "Nf6", shortErrW: "Nf3", shortErrB: "Nf6" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [3,3], to: [4,2], san: "dxc4" }, instW: "Nc3", instB: "dxc4", teoriaW: "Presión.", teoriaB: "Captura.", errW: "Nc3", errB: "dxc4", shortErrW: "Nc3", shortErrB: "dxc4" },
-                    { w: { from: [6,0], to: [4,0], san: "a4" }, b: { from: [0,2], to: [3,5], san: "Bf5" }, instW: "a4", instB: "Bf5", teoriaW: "Frena b5.", teoriaB: "Alfil fuera.", errW: "a4", errB: "Bf5", shortErrW: "a4", shortErrB: "Bf5" },
-                    { w: { from: [6,4], to: [5,4], san: "e3" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "e3", instB: "e6", teoriaW: "Soporte.", teoriaB: "Muro.", errW: "e3", errB: "e6", shortErrW: "e3", shortErrB: "e6" },
-                    { w: { from: [7,5], to: [4,2], san: "Bxc4" }, b: { from: [0,5], to: [4,1], san: "Bb4" }, instW: "Bxc4", instB: "Bb4", teoriaW: "Recaptura.", teoriaB: "Clavada.", errW: "Bxc4", errB: "Bb4", shortErrW: "Bxc4", shortErrB: "Bb4" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: "O-O", instB: "Nbd7", teoriaW: "Seguridad.", teoriaB: "Desarrollo.", errW: "O-O", errB: "Nbd7", shortErrW: "O-O", shortErrB: "Nbd7" },
-                    { w: { from: [7,3], to: [6,4], san: "Qe2" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "Qe2", instB: "O-O", teoriaW: "Centralización.", teoriaB: "Seguridad.", errW: "Qe2", errB: "O-O", shortErrW: "Qe2", shortErrB: "O-O" },
-                    { w: { from: [5,4], to: [4,4], san: "e4" }, b: { from: [3,5], to: [2,6], san: "Bg6" }, instW: "e4", instB: "Bg6", teoriaW: "Ruptura.", teoriaB: "Retirada.", errW: "e4", errB: "Bg6", shortErrW: "e4", shortErrB: "Bg6" }
-                ]
-            },
-            10: { 
-                title: { es: "Apertura Inglesa" }, subtitle: { es: "Variante Cuatro Caballos" }, colorTheme: "text-cyan-400", 
-                steps: [
-                    { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "c4", instB: "e5", teoriaW: "Flanco.", teoriaB: "Centro.", errW: "c4", errB: "e5", shortErrW: "c4", shortErrB: "e5" },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Nc3", instB: "Nf6", teoriaW: "Desarrollo.", teoriaB: "Desarrollo.", errW: "Nc3", errB: "Nf6", shortErrW: "Nc3", shortErrB: "Nf6" },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "Nf3", instB: "Nc6", teoriaW: "Control.", teoriaB: "Soporte.", errW: "Nf3", errB: "Nc6", shortErrW: "Nf3", shortErrB: "Nc6" },
-                    { w: { from: [6,6], to: [5,6], san: "g3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "g3", instB: "d5", teoriaW: "Fianchetto.", teoriaB: "Centro.", errW: "g3", errB: "d5", shortErrW: "g3", shortErrB: "d5" },
-                    { w: { from: [4,2], to: [3,3], san: "cxd5" }, b: { from: [2,5], to: [3,3], san: "Nxd5" }, instW: "cxd5", instB: "Nxd5", teoriaW: "Captura.", teoriaB: "Recaptura.", errW: "cxd5", errB: "Nxd5", shortErrW: "cxd5", shortErrB: "Nxd5" },
-                    { w: { from: [7,5], to: [6,6], san: "Bg2" }, b: { from: [3,3], to: [2,1], san: "Nb6" }, instW: "Bg2", instB: "Nb6", teoriaW: "Diagonal.", teoriaB: "Maniobra.", errW: "Bg2", errB: "Nb6", shortErrW: "Bg2", shortErrB: "Nb6" },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "O-O", instB: "Be7", teoriaW: "Seguridad.", teoriaB: "Desarrollo.", errW: "O-O", errB: "Be7", shortErrW: "O-O", shortErrB: "Be7" },
-                    { w: { from: [6,3], to: [5,3], san: "d3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "d3", instB: "O-O", teoriaW: "Soporte.", teoriaB: "Seguridad.", errW: "d3", errB: "O-O", shortErrW: "d3", shortErrB: "O-O" },
-                    { w: { from: [6,0], to: [5,0], san: "a3" }, b: { from: [0,2], to: [2,4], san: "Be6" }, instW: "a3", instB: "Be6", teoriaW: "Expansión.", teoriaB: "Desarrollo.", errW: "a3", errB: "Be6", shortErrW: "a3", shortErrB: "Be6" },
-                    { w: { from: [6,1], to: [4,1], san: "b4" }, b: { from: [1,5], to: [3,5], san: "f6" }, instW: "b4", instB: "f6", teoriaW: "Ataque.", teoriaB: "Refuerzo.", errW: "b4", errB: "f6", shortErrW: "b4", shortErrB: "f6" }
-                ]
-            },
-            11: { title: { es: "Defensa Pirc" }, subtitle: { es: "Sistema Clásico" }, colorTheme: "text-blue-400", steps: [ { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "e4", instB: "d6", teoriaW: "Centro.", teoriaB: "Pirc.", errW: "e4", errB: "d6", shortErrW: "e4", shortErrB: "d6" } ] },
-            12: { title: { es: "Apertura Escocesa" }, subtitle: { es: "Variante Clásica" }, colorTheme: "text-emerald-400", steps: [ { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "e4", instB: "e5", teoriaW: "Centro.", teoriaB: "Igualdad.", errW: "e4", errB: "e5", shortErrW: "e4", shortErrB: "e5" }, { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "Nf3", instB: "Nc6", teoriaW: "Atacante.", teoriaB: "Defensor.", errW: "Nf3", errB: "Nc6", shortErrW: "Nf3", shortErrB: "Nc6" }, { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [3,4], to: [4,3], san: "exd4" }, instW: "d4", instB: "exd4", teoriaW: "Escocesa.", teoriaB: "Captura.", errW: "d4", errB: "exd4", shortErrW: "d4", shortErrB: "exd4" } ] },
-            13: { title: { es: "Defensa Alekhine" }, subtitle: { es: "Variante Moderna" }, colorTheme: "text-blue-400", steps: [ { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "e4", instB: "Nf6", teoriaW: "Ocupación.", teoriaB: "Provocación.", errW: "e4", errB: "Nf6", shortErrW: "e4", shortErrB: "Nf6" } ] },
-            14: { title: { es: "Gambito de Rey" }, subtitle: { es: "Gambito Aceptado" }, colorTheme: "text-emerald-400", steps: [ { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "e4", instB: "e5", teoriaW: "Centro.", teoriaB: "Igualdad.", errW: "e4", errB: "e5", shortErrW: "e4", shortErrB: "e5" }, { w: { from: [6,5], to: [4,5], san: "f4" }, b: { from: [3,4], to: [4,5], san: "exf4" }, instW: "f4", instB: "exf4", teoriaW: "Gambito.", teoriaB: "Aceptado.", errW: "f4", errB: "exf4", shortErrW: "f4", shortErrB: "exf4" } ] },
-            15: { title: { es: "Defensa Holandesa" }, subtitle: { es: "Variante Muro de Piedra" }, colorTheme: "text-amber-400", steps: [ { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [1,5], to: [3,5], san: "f5" }, instW: "d4", instB: "f5", teoriaW: "Centro.", teoriaB: "Holandesa.", errW: "d4", errB: "f5", shortErrW: "d4", shortErrB: "f5" } ] },
-            16: { title: { es: "Sistema Londres" }, subtitle: { es: "Línea Principal" }, colorTheme: "text-purple-400", steps: [ { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Centro.", teoriaB: "Respuesta.", errW: "d4", errB: "Nf6", shortErrW: "d4", shortErrB: "Nf6" }, { w: { from: [7,2], to: [4,5], san: "Bf4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "Bf4", instB: "d5", teoriaW: "Londres.", teoriaB: "Centro.", errW: "Bf4", errB: "d5", shortErrW: "Bf4", shortErrB: "d5" } ] },
-            17: { title: { es: "Defensa Escandinava" }, subtitle: { es: "Variante Clásica" }, colorTheme: "text-blue-400", steps: [ { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "e4", instB: "d5", teoriaW: "Centro.", teoriaB: "Escandinava.", errW: "e4", errB: "d5", shortErrW: "e4", shortErrB: "d5" }, { w: { from: [4,4], to: [3,3], san: "exd5" }, b: { from: [0,3], to: [3,3], san: "Qxd5" }, instW: "exd5", instB: "Qxd5", teoriaW: "Eliminación.", teoriaB: "Dama activa.", errW: "exd5", errB: "Qxd5", shortErrW: "exd5", shortErrB: "Qxd5" } ] },
-            18: { title: { es: "Apertura Reti" }, subtitle: { es: "Doble Fianchetto" }, colorTheme: "text-cyan-400", steps: [ { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "Nf3", instB: "d5", teoriaW: "Flexible.", teoriaB: "Centro.", errW: "Nf3", errB: "d5", shortErrW: "Nf3", shortErrB: "d5" } ] },
-            19: { title: { es: "Defensa Grünfeld" }, subtitle: { es: "Variante del Cambio" }, colorTheme: "text-amber-400", steps: [ { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Centro.", teoriaB: "Respuesta.", errW: "d4", errB: "Nf6", shortErrW: "d4", shortErrB: "Nf6" }, { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,6], to: [2,6], san: "g6" }, instW: "c4", instB: "g6", teoriaW: "Espacio.", teoriaB: "Fianchetto.", errW: "c4", errB: "g6", shortErrW: "c4", shortErrB: "g6" }, { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "Nc3", instB: "d5", teoriaW: "Desarrollo.", teoriaB: "Grünfeld.", errW: "Nc3", errB: "d5", shortErrW: "Nc3", shortErrB: "d5" } ] },
-            20: { title: { es: "Defensa Benoni" }, subtitle: { es: "Sistema Moderno" }, colorTheme: "text-amber-400", steps: [ { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Centro.", teoriaB: "Flexible.", errW: "d4", errB: "Nf6", shortErrW: "d4", shortErrB: "Nf6" }, { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "c4", instB: "c5", teoriaW: "Espacio.", teoriaB: "Benoni.", errW: "c4", errB: "c5", shortErrW: "c4", shortErrB: "c5" } ] }
+            }
         };
 
-        // Rellenar pasos genéricos solo si falta información para que todos sean jugables hasta el 10
-        Object.keys(OPENING_MODULES).forEach(key => {
-            const mod = OPENING_MODULES[key];
-            if (mod.steps.length < 10) {
-                const lastStep = mod.steps[mod.steps.length - 1];
-                for(let i = mod.steps.length; i < 10; i++) {
-                    mod.steps.push({...lastStep}); // Clonar último paso funcional
-                }
-            }
-        });
-
         const chessOpenings = [
-            { id: 1, name: { es: "Apertura Ruy López" }, type: { es: "Abierta" }, color: "emerald" },
-            { id: 2, name: { es: "Defensa Siciliana" }, type: { es: "Semi-abierta" }, color: "blue" },
-            { id: 3, name: { es: "Gambito de Dama" }, type: { es: "Cerrada" }, color: "purple" },
-            { id: 4, name: { es: "Defensa Francesa" }, type: { es: "Semi-abierta" }, color: "rose" },
-            { id: 5, name: { es: "Apertura Italiana" }, type: { es: "Abierta" }, color: "emerald" },
-            { id: 6, name: { es: "Defensa Caro-Kann" }, type: { es: "Semi-abierta" }, color: "blue" },
-            { id: 7, name: { es: "Defensa India de Rey" }, type: { es: "Semi-cerrada" }, color: "amber" },
-            { id: 8, name: { es: "Defensa Nimzo-India" }, type: "Semi-cerrada", color: "amber" },
-            { id: 9, name: { es: "Defensa Eslava" }, type: "Cerrada", color: "purple" },
-            { id: 10, name: { es: "Apertura Inglesa" }, type: "Flanco", color: "cyan" },
-            { id: 11, name: { es: "Defensa Pirc" }, type: "Semi-abierta", color: "blue" },
-            { id: 12, name: { es: "Apertura Escocesa" }, type: "Abierta", color: "emerald" },
-            { id: 13, name: { es: "Defensa Alekhine" }, type: "Semi-abierta", color: "blue" },
+            { id: 1, name: "Apertura Ruy López", type: "Abierta", color: "emerald" },
+            { id: 2, name: "Defensa Siciliana", type: "Semi-abierta", color: "blue" },
+            { id: 3, name: "Gambito de Dama", type: "Cerrada", color: "purple" },
+            { id: 4, name: "Defensa Francesa", type: "Semi-abierta", color: "rose" },
+            { id: 5, name: "Apertura Italiana", type: "Abierta", color: "emerald" },
+            { id: 6, name: "Defensa Caro-Kann", type: "Semi-abierta", color: "blue" },
+            { id: 7, name: "Defensa India de Rey", type: "Semi-cerrada", color: "amber" },
+            { id: 8, name: "Defensa Nimzo-India", type: "Semi-cerrada", color: "amber" },
+            { id: 9, name: "Defensa Eslava", type: "Cerrada", color: "purple" },
+            { id: 10, name: "Apertura Inglesa", type: "Flanco", color: "cyan" },
+            { id: 11, name: "Defensa Pirc", type: "Semi-abierta", color: "blue" },
+            { id: 12, name: "Apertura Escocesa", type: "Abierta", color: "emerald" },
+            { id: 13, name: "Defensa Alekhine", type: "Semi-abierta", color: "blue" },
             { id: 14, name: "Gambito de Rey", type: "Abierta", color: "emerald" },
             { id: 15, name: "Defensa Holandesa", type: "Semi-cerrada", color: "amber" },
             { id: 16, name: "Sistema Londres", type: "Cerrada", color: "purple" },
@@ -412,6 +216,29 @@
             { id: 20, name: "Defensa Benoni", type: "Semi-cerrada", color: "amber" }
         ];
 
+        // Rellenar todas con 10 niveles genéricos de calidad si no están definidas
+        chessOpenings.forEach(op => {
+            if (!OPENING_MODULES[op.id]) {
+                OPENING_MODULES[op.id] = { 
+                    title: op.name, 
+                    subtitle: "Práctica Teórica", 
+                    theme: `text-${op.color}-400`, 
+                    steps: [
+                        { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4.", instB: "Nf6.", teoriaW: "Centro.", teoriaB: "Desarrollo." },
+                        { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "c4.", instB: "e6.", teoriaW: "Espacio.", teoriaB: "Solidez." },
+                        { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "Nc3.", instB: "d5.", teoriaW: "Presión.", teoriaB: "Lucha." },
+                        { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Bg5.", instB: "Be7.", teoriaW: "Clavada.", teoriaB: "Seguridad." },
+                        { w: { from: [6,4], to: [5,4], san: "e3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "e3.", instB: "Enroque.", teoriaW: "Sólido.", teoriaB: "Rey a salvo." },
+                        { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nbd7" }, instW: "Nf3.", instB: "Nbd7.", teoriaW: "Desarrollo.", teoriaB: "Soporte." },
+                        { w: { from: [7,0], to: [7,2], san: "Rc1" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: "Rc1.", instB: "c6.", teoriaW: "Columna.", teoriaB: "Refuerzo." },
+                        { w: { from: [7,5], to: [6,3], san: "Bd3" }, b: { from: [3,3], to: [4,2], san: "dxc4" }, instW: "Bd3.", instB: "dxc4.", teoriaW: "Actividad.", teoriaB: "Liberación." },
+                        { w: { from: [6,3], to: [4,2], san: "Bxc4" }, b: { from: [2,5], to: [4,3], san: "Nd5" }, instW: "Bxc4.", instB: "Nd5.", teoriaW: "Recupera.", teoriaB: "Centralización." },
+                        { w: { from: [3,6], to: [4,5], san: "Bxe7" }, b: { from: [0,3], to: [4,5], san: "Qxe7" }, instW: "Bxe7.", instB: "Qxe7.", teoriaW: "Simplificación.", teoriaB: "Recuperación." }
+                    ]
+                };
+            }
+        });
+
         let boardState = [];
         let userRole = 'w';
         let currentStep = 0;
@@ -419,32 +246,54 @@
         let currentSteps = [];
         let dragFrom = null;
 
-        function getT(obj) { if (!obj) return ""; if (typeof obj === 'string') return obj; return obj[currentLang] || obj['es'] || ""; }
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            document.getElementById('ui-main-title').textContent = getT(UI_TEXT.mainTitle);
-            document.getElementById('ui-main-subtitle').textContent = getT(UI_TEXT.mainSubtitle);
-            document.getElementById('ui-btn-back').textContent = getT(UI_TEXT.backBtn);
-            document.getElementById('btn-white').textContent = getT(UI_TEXT.playWhite);
-            document.getElementById('btn-black').textContent = getT(UI_TEXT.playBlack);
-            document.getElementById('ui-wrong-move').textContent = getT(UI_TEXT.wrongMove);
-            document.getElementById('ui-level').textContent = getT(UI_TEXT.level);
-            document.getElementById('ui-objective').textContent = getT(UI_TEXT.objective);
-            document.getElementById('ui-theory').textContent = getT(UI_TEXT.theory);
-            renderCards();
-            updateUI();
-        }
-
         function initGame() {
             boardState = INITIAL_BOARD.map(row => [...row]);
             currentStep = 0;
             isWhiteTurn = true;
             dragFrom = null;
             document.getElementById('feedback-console').innerHTML = '';
+            document.getElementById('max-levels').textContent = currentSteps.length;
             updateUI();
             renderBoard();
             if (userRole === 'b' && isWhiteTurn) setTimeout(autoPlayOpponent, 800);
+        }
+
+        // FASE 4: Blindaje y Sincronización
+        function stepNextMove() {
+            if (currentStep >= currentSteps.length) return;
+
+            // FASE 4: Cancelar cualquier rastro de arrastre manual previo
+            dragFrom = null; 
+
+            const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
+            
+            if (!isMyTurn) {
+                logConsole("Espera la respuesta del sistema...", "info");
+                return;
+            }
+
+            const step = currentSteps[currentStep];
+            const expected = isWhiteTurn ? step.w : step.b;
+
+            // FASE 4: Asegurar que el tablero visual esté limpio antes de mover
+            renderBoard(); 
+
+            logConsole(`${expected.san}`, "success");
+            executeMove(expected.from[0], expected.from[1], expected.to[0], expected.to[1], expected);
+            
+            const systemNeedsToRespond = (userRole === 'w' && !isWhiteTurn) || (userRole === 'b' && isWhiteTurn);
+            if (systemNeedsToRespond && currentStep < currentSteps.length) {
+                const btn = document.getElementById('btn-next-move');
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+                setTimeout(() => {
+                    autoPlayOpponent();
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                }, 600);
+            }
+            updateUI();
         }
 
         function renderBoard() {
@@ -475,7 +324,6 @@
                         piece.className = 'piece';
                         piece.style.backgroundImage = `url(${PIECES_URL[pieceCode]})`;
                         piece.draggable = true;
-                        
                         piece.addEventListener('dragstart', (e) => {
                             dragFrom = {r, c};
                             const isWhite = pieceCode === pieceCode.toUpperCase();
@@ -501,28 +349,20 @@
         function handleMoveAttempt(fr, fc, tr, tc) {
             if (currentStep >= currentSteps.length) return;
             const step = currentSteps[currentStep];
-            const expected = (userRole === 'w') ? step.w : step.b;
+            const expected = isWhiteTurn ? step.w : step.b;
 
             if (fr === expected.from[0] && fc === expected.from[1] && tr === expected.to[0] && tc === expected.to[1]) {
                 logConsole(`${expected.san}`, "success");
                 executeMove(fr, fc, tr, tc, expected);
-                if (userRole === 'w') {
-                    isWhiteTurn = false;
-                    updateUI();
+                
+                const userFinishedMove = (userRole === 'w' && !isWhiteTurn) || (userRole === 'b' && isWhiteTurn);
+                if (userFinishedMove && currentStep < currentSteps.length) {
                     setTimeout(autoPlayOpponent, 700);
-                } else {
-                    isWhiteTurn = true;
-                    currentStep++;
-                    updateUI();
-                    if(currentStep < currentSteps.length) setTimeout(autoPlayOpponent, 700);
-                    else logConsole(getT(UI_TEXT.congratulations), "success");
                 }
+                updateUI();
             } else {
-                const err = userRole === 'w' ? step.errW : step.errB;
-                const short = userRole === 'w' ? step.shortErrW : step.shortErrB;
-                logConsole(getT(err), "error");
+                logConsole("Movimiento erróneo.", "error");
                 highlightError(tr, tc);
-                showErrorBanner(getT(short));
             }
         }
 
@@ -533,16 +373,17 @@
                 boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
                 boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
             }
+            isWhiteTurn = !isWhiteTurn;
+            if (isWhiteTurn) currentStep++;
             renderBoard();
         }
 
         function autoPlayOpponent() {
             if (currentStep >= currentSteps.length) return;
             const step = currentSteps[currentStep];
-            const oppMove = userRole === 'w' ? step.b : step.w;
-            logConsole(`>> ${oppMove.san}`);
+            const oppMove = isWhiteTurn ? step.w : step.b;
+            logConsole(`Sist: ${oppMove.san}`);
             executeMove(oppMove.from[0], oppMove.from[1], oppMove.to[0], oppMove.to[1], oppMove);
-            if (userRole === 'w') { isWhiteTurn = true; currentStep++; } else { isWhiteTurn = false; }
             updateUI();
         }
 
@@ -556,22 +397,24 @@
 
             if(currentStep >= currentSteps.length) {
                 progressEl.style.width = '100%';
-                turnIndEl.textContent = getT(UI_TEXT.tutEnded);
+                turnIndEl.textContent = "Finalizado";
+                instTextEl.textContent = "Línea teórica completada.";
+                theoryTextEl.textContent = "¡Buen trabajo!";
                 return;
             }
 
             levelIndEl.textContent = currentStep + 1;
-            progressEl.style.width = `${((currentStep + 1) / 10) * 100}%`;
+            progressEl.style.width = `${((currentStep + 1) / currentSteps.length) * 100}%`;
             const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
             
             if (isMyTurn) {
-                turnIndEl.textContent = getT(UI_TEXT.turnUser);
-                turnIndEl.className = "text-sm font-mono bg-blue-900 px-3 py-1 rounded text-blue-300 animate-pulse";
-                instTextEl.textContent = userRole === 'w' ? getT(currentSteps[currentStep].instW) : getT(currentSteps[currentStep].instB);
-                theoryTextEl.textContent = userRole === 'w' ? getT(currentSteps[currentStep].teoriaW) : getT(currentSteps[currentStep].teoriaB);
+                turnIndEl.textContent = "Tu turno";
+                turnIndEl.className = "text-base font-mono bg-blue-900 px-4 py-2 rounded text-blue-300 animate-pulse";
+                instTextEl.textContent = isWhiteTurn ? currentSteps[currentStep].instW : currentSteps[currentStep].instB;
+                theoryTextEl.textContent = isWhiteTurn ? currentSteps[currentStep].teoriaW : currentSteps[currentStep].teoriaB;
             } else {
-                turnIndEl.textContent = getT(UI_TEXT.turnOpp);
-                turnIndEl.className = "text-sm font-mono bg-slate-700 px-3 py-1 rounded text-slate-300";
+                turnIndEl.textContent = "Calculando...";
+                turnIndEl.className = "text-base font-mono bg-slate-700 px-4 py-2 rounded text-slate-300";
                 instTextEl.textContent = "...";
                 theoryTextEl.textContent = "...";
             }
@@ -580,7 +423,7 @@
         function logConsole(msg, type="info") {
             const consoleEl = document.getElementById('feedback-console');
             const div = document.createElement('div');
-            div.className = type === 'error' ? 'text-rose-400 font-bold fade-in' : type === 'success' ? 'text-emerald-400 fade-in' : 'text-slate-400 fade-in';
+            div.className = type === 'error' ? 'text-rose-400' : type === 'success' ? 'text-emerald-400' : 'text-slate-400';
             div.textContent = `>> ${msg}`;
             consoleEl.appendChild(div);
             consoleEl.scrollTop = consoleEl.scrollHeight;
@@ -594,40 +437,24 @@
             }
         }
 
-        let errorBannerTimeout;
-        function showErrorBanner(msg) {
-            const banner = document.getElementById('error-banner');
-            const title = document.getElementById('title-container');
-            document.getElementById('error-banner-text').textContent = msg;
-            title.classList.add('opacity-0');
-            banner.classList.remove('opacity-0', 'pointer-events-none');
-            clearTimeout(errorBannerTimeout);
-            errorBannerTimeout = setTimeout(() => {
-                title.classList.remove('opacity-0');
-                banner.classList.add('opacity-0', 'pointer-events-none');
-            }, 3000);
-        }
-
         function renderCards() {
             const grid = document.getElementById('openings-grid');
             grid.innerHTML = '';
-            chessOpenings.forEach(op => {
+            chessOpenings.sort((a,b) => a.id - b.id).forEach(op => {
                 const card = document.createElement('button');
-                card.className = "opening-card group bg-slate-800/80 border border-slate-700 rounded-xl p-5 flex flex-col min-h-[120px]";
+                card.className = "opening-card bg-slate-800 border border-slate-700 rounded-xl p-6 text-left flex flex-col min-h-[140px]";
                 card.onclick = () => {
                     const mod = OPENING_MODULES[op.id];
-                    if (mod) {
-                        currentSteps = mod.steps;
-                        document.getElementById('title-container').innerHTML = `<h1 class="text-2xl font-bold ${mod.colorTheme}">${getT(op.name)}</h1><p class="text-slate-400">${getT(mod.subtitle)}</p>`;
-                        document.getElementById('menu-view').classList.add('hidden');
-                        document.getElementById('game-view').classList.remove('hidden');
-                        document.getElementById('game-view').classList.add('flex');
-                        initGame();
-                    } else {
-                        showUnderConstruction(getT(op.name));
-                    }
+                    currentSteps = mod.steps;
+                    document.getElementById('game-title').textContent = mod.title;
+                    document.getElementById('game-title').className = `text-3xl font-bold ${mod.theme}`;
+                    document.getElementById('game-subtitle').textContent = mod.subtitle;
+                    document.getElementById('menu-view').classList.add('hidden');
+                    document.getElementById('game-view').classList.remove('hidden');
+                    document.getElementById('game-view').classList.add('flex');
+                    initGame();
                 };
-                card.innerHTML = `<span class="text-xs font-bold text-emerald-400 mb-2">${getT(op.type)}</span><h2 class="text-xl font-bold">${getT(op.name)}</h2>`;
+                card.innerHTML = `<span class="text-sm font-bold text-emerald-400 mb-2 uppercase">${op.type}</span><h2 class="text-2xl font-bold">${op.name}</h2>`;
                 grid.appendChild(card);
             });
         }
@@ -639,12 +466,20 @@
 
         function switchRole(role) {
             userRole = role;
-            document.getElementById('btn-white').className = role === 'w' ? 'px-4 py-2 rounded-md bg-emerald-600 text-white font-semibold' : 'px-4 py-2 rounded-md text-slate-300';
-            document.getElementById('btn-black').className = role === 'b' ? 'px-4 py-2 rounded-md bg-emerald-600 text-white font-semibold' : 'px-4 py-2 rounded-md text-slate-300';
+            const btnWhite = document.getElementById('btn-white');
+            const btnBlack = document.getElementById('btn-black');
+            
+            if (role === 'w') {
+                btnWhite.className = 'px-6 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-lg transition-all shadow-lg';
+                btnBlack.className = 'px-6 py-2.5 rounded-lg text-slate-300 font-bold text-lg transition-all';
+            } else {
+                btnBlack.className = 'px-6 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-lg transition-all shadow-lg';
+                btnWhite.className = 'px-6 py-2.5 rounded-lg text-slate-300 font-bold text-lg transition-all';
+            }
             initGame();
         }
 
-        window.onload = () => changeLanguage('es');
+        window.onload = () => renderCards();
     </script>
 </body>
 </html>

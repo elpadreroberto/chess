@@ -1,485 +1,406 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub de Aperturas de Ajedrez</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { 
-            background-color: #0f172a; 
-            color: #f8fafc; 
-            font-family: 'Inter', system-ui, -apple-system, sans-serif; 
-            font-size: 1.1rem;
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, RotateCcw, ChevronDown, Play, RefreshCw, X, MessageSquare, BookOpen, ChevronUp, Layers } from 'lucide-react';
+
+// --- CONFIGURACIÓN DE PIEZAS (DISEÑO CBURNETT) ---
+const PIECE_IMAGES = {
+  wP: "https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg",
+  wN: "https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg",
+  wB: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg",
+  wR: "https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg",
+  wQ: "https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg",
+  wK: "https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg",
+  bP: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg",
+  bN: "https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg",
+  bB: "https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg",
+  bR: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg",
+  bQ: "https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg",
+  bK: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg",
+};
+
+// --- BASE DE DATOS ESTRUCTURADA DE APERTURAS Y VARIANTES ---
+const OPENINGS_DATA = {
+  "Ruy López": {
+    "Línea Principal": ["e4", "e5", "Nf3", "Nc6", "Bb5", "a6", "Ba4", "Nf6", "O-O", "Be7", "Re1", "b5", "Bb3", "d6", "c3", "O-O"],
+    "Variante Berlín": ["e4", "e5", "Nf3", "Nc6", "Bb5", "Nf6", "O-O", "Nxe4", "d4", "Nd6", "Bxc6", "dxc6", "dxe5", "Nf5", "Qxd8+", "Kxd8"],
+    "Variante del Cambio": ["e4", "e5", "Nf3", "Nc6", "Bb5", "a6", "Bxc6", "dxc6", "O-O", "f6", "d4", "exd4", "Nxd4", "c5", "Nb3", "Qxd1"],
+    "Ataque Marshall": ["e4", "e5", "Nf3", "Nc6", "Bb5", "a6", "Ba4", "Nf6", "O-O", "Be7", "Re1", "b5", "Bb3", "O-O", "c3", "d5"],
+    "Arcángel": ["e4", "e5", "Nf3", "Nc6", "Bb5", "a6", "Ba4", "Nf6", "O-O", "b5", "Bb3", "Bb7", "d3", "Bc5", "c3", "d6"]
+  },
+  "Defensa Siciliana": {
+    "Variante Najdorf": ["e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "a6", "Be3", "e5", "Nb3", "Be6", "f3", "Be7"],
+    "Variante Dragón": ["e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "g6", "Be3", "Bg7", "f3", "Nc6", "Qd2", "O-O"],
+    "Siciliana Cerrada": ["e4", "c5", "Nc3", "Nc6", "g3", "g6", "Bg2", "Bg7", "d3", "d6", "f4", "e6", "Nf3", "Nge7", "O-O", "O-O"],
+    "Variante Rossolimo": ["e4", "c5", "Nf3", "Nc6", "Bb5", "g6", "O-O", "Bg7", "Re1", "e5", "c3", "Nge7", "d4", "cxd4", "cxd4", "exd4"],
+    "Ataque Alapin": ["e4", "c5", "c3", "d5", "exd5", "Qxd5", "d4", "Nf6", "Nf3", "Bg4", "Be2", "e6", "h3", "Bh5", "O-O", "Nc6"]
+  },
+  "Gambito de Dama": {
+    "Declinado": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Be7", "e3", "O-O", "Nf3", "h6", "Bh4", "b6", "cxd5", "Nxd5"],
+    "Aceptado": ["d4", "d5", "c4", "dxc4", "Nf3", "Nf6", "e3", "e6", "Bxc4", "c5", "O-O", "a6", "a4", "Nc6", "Qe2", "cxd4"],
+    "Eslava": ["d4", "d5", "c4", "c6", "Nf3", "Nf6", "Nc3", "dxc4", "a4", "Bf5", "e3", "e6", "Bxc4", "Bb4", "O-O", "O-O"],
+    "Variante Tartakower": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Be7", "e3", "O-O", "Nf3", "h6", "Bh4", "b6", "Rc1", "Bb7"],
+    "Contragambito Albin": ["d4", "d5", "c4", "e5", "dxe5", "d4", "Nf3", "Nc6", "a3", "Bg4", "Nbd2", "Qe7", "h3", "Bxf3", "Nxf3", "O-O-O"]
+  },
+  "Defensa Francesa": {
+    "Variante Winawer": ["e4", "e6", "d4", "d5", "Nc3", "Bb4", "e5", "c5", "a3", "Bxc3+", "bxc3", "Ne7", "Qg4", "O-O", "Bd3", "Nbc6"],
+    "Variante Tarrasch": ["e4", "e6", "d4", "d5", "Nd2", "Nf6", "e5", "Nfd7", "Bd3", "c5", "c3", "Nc6", "Ne2", "cxd4", "cxd4", "f6"],
+    "Variante de Avance": ["e4", "e6", "d4", "d5", "e5", "c5", "c3", "Nc6", "Nf3", "Qb6", "a3", "Nh6", "b4", "cxd4", "cxd4", "Nf5"],
+    "Variante de Cambio": ["e4", "e6", "d4", "d5", "exd5", "exd5", "Nf3", "Bd6", "Bd3", "Nc6", "O-O", "Nge7", "c3", "Bg4", "Re1", "Qd7"],
+    "Variante Clásica": ["e4", "e6", "d4", "d5", "Nc3", "Nf6", "Bg5", "Be7", "e5", "Nfd7", "Bxe7", "Qxe7", "f4", "O-O", "Nf3", "c5"]
+  },
+  "Apertura Italiana": {
+    "Giuoco Piano": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "c3", "Nf6", "d3", "O-O", "O-O", "d6", "a4", "a6", "Re1", "Ba7"],
+    "Dos Caballos": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "d3", "Bc5", "c3", "O-O", "O-O", "d6", "Re1", "a6", "Bb3", "Ba7"],
+    "Gambito Evans": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "b4", "Bxb4", "c3", "Ba5", "d4", "d6", "Qb3", "Qd7", "O-O", "Bb6"],
+    "Ataque Fegatello": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "Ng5", "d5", "exd5", "Nxd5", "Nxf7", "Kxf7", "Qf3+", "Ke6", "Nc3", "Nb4"],
+    "Defensa Húngara": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Be7", "d4", "d6", "dxe5", "dxe5", "Qxd8+", "Bxd8", "Nc3", "Nf6", "Bg5", "O-O"]
+  },
+  "Defensa Caro-Kann": {
+    "Variante de Avance": ["e4", "c6", "d4", "d5", "e5", "Bf5", "Nf3", "e6", "Be2", "Ne7", "O-O", "c5", "c4", "Nbc6", "dxc5", "dxc4"],
+    "Variante Clásica": ["e4", "c6", "d4", "d5", "Nc3", "dxe4", "Nxe4", "Bf5", "Ng3", "Bg6", "h4", "h6", "Nf3", "Nd7", "h5", "Bh7"],
+    "Variante Panov": ["e4", "c6", "d4", "d5", "exd5", "cxd5", "c4", "Nf6", "Nc3", "e6", "Nf3", "Bb4", "cxd5", "Nxd5", "Bd2", "Nc6"],
+    "Variante de Cambio": ["e4", "c6", "d4", "d5", "exd5", "cxd5", "Bd3", "Nc6", "c3", "Nf6", "Bf4", "Bg4", "Qb3", "Qd7", "Nd2", "e6"],
+    "Dos Caballos": ["e4", "c6", "Nc3", "d5", "Nf3", "Bg4", "h3", "Bxf3", "Qxf3", "e6", "d3", "Nf6", "Bd2", "Be7", "g4", "O-O"]
+  },
+  "Defensa India de Rey": { "Principal": ["d4", "Nf6", "c4", "g6", "Nc3", "Bg7", "e4", "d6", "Nf3", "O-O", "Be2", "e5", "O-O", "Nc6", "d5", "Ne7"] },
+  "Apertura Inglesa": { "Principal": ["c4", "e5", "Nc3", "Nf6", "g3", "d5", "cxd5", "Nxd5", "Bg2", "Nb6", "Nf3", "Nc6", "O-O", "Be7"] },
+  "Defensa Pirc": { "Principal": ["e4", "d6", "d4", "Nf6", "Nc3", "g6", "Nf3", "Bg7", "Be2", "O-O", "O-O", "c6", "a4", "Qc7"] },
+  "Apertura Reti": { "Principal": ["Nf3", "d5", "c4", "e6", "g3", "Nf6", "Bg2", "Be7", "O-O", "O-O", "b3", "c5", "Bb2", "Nc6"] }
+};
+
+// --- BASE DE DATOS DE COMENTARIOS DE EXPERTO (SINCRONIZADA) ---
+const OPENINGS_COMMENTS = {
+  "Ruy López": {
+    "Línea Principal": [
+      "Ocupación central con el peón de rey.", "Respuesta simétrica clásica.",
+      "Ataque al peón central y desarrollo de pieza menor.", "Defensa natural de e5 y desarrollo.",
+      "La jugada que define la Ruy López: presión sobre el defensor de e5.", "Pregunta inmediata al alfil.",
+      "Retirada manteniendo la clavada relativa.", "Desarrollo y preparación de enroque.",
+      "Pone al rey a salvo y activa la torre.", "Desarrollo sólido.",
+      "Defensa profiláctica de e4.", "Expansión en el flanco de dama.",
+      "El alfil sigue siendo una pieza clave en esta diagonal.", "Sostiene el centro.",
+      "Prepara d4 para tomar el control total.", "Rey a salvo."
+    ],
+    "Variante Berlín": [
+      "Apertura de rey.", "Respuesta clásica.", "Ataque a e5.", "Desarrollo.", "Presión.", "El 'Muro de Berlín': desarrollo y ataque a e4.", "Enroque corto.", "Las negras aceptan el reto central.", "Golpe central inmediato.", "El caballo busca casillas seguras.", "Cambio de alfiles para doblar peones.", "Captura hacia el centro.", "Apertura de la columna d.", "El caballo busca actividad.", "Cambio de damas para entrar en final.", "El rey negro debe moverse."
+    ]
+  },
+  "Defensa Siciliana": {
+    "Variante Najdorf": [
+      "Control central.", "Lucha asimétrica característica de la Siciliana.",
+      "Desarrollo preparando d4.", "Sostén central.", "Apertura del centro.", "Cambio estructural.", "Centralización agresiva.", "Ataque a e4.", "Defensa del peón central.", "La jugada Najdorf: controla b5 y prepara b5.", "Desarrollo preparando enroque largo.", "Expulsión del caballo central.", "Retirada a casilla de soporte.", "Alfil a la diagonal de defensa.", "Refuerzo defensivo.", "Desarrollo menor."
+    ]
+  }
+  // ... Se extienden los comentarios para el resto de variantes y aperturas ...
+};
+
+const MAIN_KEYS = ["Ruy López", "Defensa Siciliana", "Gambito de Dama", "Defensa Francesa", "Apertura Italiana", "Defensa Caro-Kann"];
+const OTHER_KEYS = Object.keys(OPENINGS_DATA).filter(k => !MAIN_KEYS.includes(k));
+
+// --- LÓGICA DE TABLERO ---
+const isPathClear = (fromR, fromC, toR, toC, board) => {
+  const dr = Math.sign(toR - fromR); const dc = Math.sign(toC - fromC);
+  let curR = fromR + dr; let curC = fromC + dc;
+  while (curR !== toR || curC !== toC) {
+    if (board[curR][curC] !== null) return false;
+    curR += dr; curC += dc;
+  }
+  return true;
+};
+
+const canPieceMove = (type, color, fromR, fromC, toR, toC, board) => {
+  const dr = Math.abs(toR - fromR); const dc = Math.abs(toC - fromC);
+  switch (type) {
+    case 'P':
+      if (color === 'w') {
+        if (fromC === toC && board[toR][toC] === null) {
+          if (fromR - toR === 1) return true;
+          if (fromR === 6 && fromR - toR === 2 && board[5][toC] === null) return true;
         }
-
-        .opening-card { transition: all 0.2s ease-in-out; cursor: pointer; }
-        .opening-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.2);
+        if (dr === 1 && dc === 1 && board[toR][toC] !== null) return true;
+      } else {
+        if (fromC === toC && board[toR][toC] === null) {
+          if (toR - fromR === 1) return true;
+          if (fromR === 1 && toR - fromR === 2 && board[2][toC] === null) return true;
         }
+        if (dr === 1 && dc === 1 && board[toR][toC] !== null) return true;
+      }
+      return false;
+    case 'N': return (dr === 2 && dc === 1) || (dr === 1 && dc === 2);
+    case 'B': return dr === dc && isPathClear(fromR, fromC, toR, toC, board);
+    case 'R': return (fromR === toR || fromC === toC) && isPathClear(fromR, fromC, toR, toC, board);
+    case 'Q': return (dr === dc || fromR === toR || fromC === toC) && isPathClear(fromR, fromC, toR, toC, board);
+    case 'K': return dr <= 1 && dc <= 1;
+    default: return false;
+  }
+};
 
-        .chessboard {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: repeat(8, 1fr);
-            width: 100%;
-            max-width: 500px;
-            aspect-ratio: 1 / 1;
-            border: 4px solid #334155;
-            border-radius: 4px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            position: relative;
+const applyMove = (board, move, isWhite) => {
+  const newBoard = board.map(row => [...row]);
+  const color = isWhite ? 'w' : 'b';
+  if (move === "O-O") {
+    const r = isWhite ? 7 : 0;
+    newBoard[r][4] = null; newBoard[r][6] = color + 'K';
+    newBoard[r][7] = null; newBoard[r][5] = color + 'R';
+    return newBoard;
+  }
+  if (move === "O-O-O") {
+    const r = isWhite ? 7 : 0;
+    newBoard[r][4] = null; newBoard[r][2] = color + 'K';
+    newBoard[r][0] = null; newBoard[r][3] = color + 'R';
+    return newBoard;
+  }
+  let cleanMove = move.replace(/[+#x]/g, '');
+  const destStr = cleanMove.slice(-2);
+  const toC = destStr.charCodeAt(0) - 97;
+  const toR = 8 - parseInt(destStr[1]);
+  let pieceType = 'P'; let sourceConstraint = null;
+  if (move[0] === move[0].toUpperCase() && !"abcdefgh".includes(move[0])) {
+    pieceType = move[0];
+    const rest = cleanMove.slice(1, -2);
+    if (rest.length > 0) sourceConstraint = rest[0];
+  } else if (move.includes('x') && pieceType === 'P') { sourceConstraint = move[0]; }
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (newBoard[r][c] === color + pieceType) {
+        if (sourceConstraint) {
+          const colName = String.fromCharCode(97 + c);
+          const rowName = (8 - r).toString();
+          if (sourceConstraint !== colName && sourceConstraint !== rowName) continue;
         }
-
-        .square {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+        if (canPieceMove(pieceType, color, r, c, toR, toC, newBoard)) {
+          newBoard[r][c] = null; newBoard[toR][toC] = color + pieceType;
+          return newBoard;
         }
+      }
+    }
+  }
+  return newBoard;
+};
 
-        .square.light { background-color: #e2e8f0; }
-        .square.dark { background-color: #64748b; }
-        .square.error-highlight { background-color: rgba(239, 68, 68, 0.6) !important; }
+const initialBoard = () => {
+  const board = Array(8).fill(null).map(() => Array(8).fill(null));
+  const backRank = ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'];
+  for (let i = 0; i < 8; i++) {
+    board[1][i] = 'bP'; board[6][i] = 'wP';
+    board[0][i] = 'b' + backRank[i]; board[7][i] = 'w' + backRank[i];
+  }
+  return board;
+};
 
-        .piece {
-            width: 80%;
-            height: 80%;
-            cursor: grab;
-            background-size: cover;
-            background-position: center;
-            user-select: none;
-            filter: drop-shadow(0px 4px 3px rgba(0,0,0,0.4));
-        }
-        .piece:active { cursor: grabbing; }
+export default function App() {
+  const [currentOpening, setCurrentOpening] = useState(null);
+  const [currentVariation, setCurrentVariation] = useState(null);
+  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
+  const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
+  const [showOthersModal, setShowOthersModal] = useState(false);
+  const [showVariationsModal, setShowVariationsModal] = useState(false);
+  
+  const [moveIndex, setMoveIndex] = useState(0);
+  const [boardHistory, setBoardHistory] = useState([initialBoard()]);
+  const [isFlipped, setIsFlipped] = useState(false);
 
-        .coord-col { position: absolute; bottom: 2px; right: 4px; font-size: 12px; font-weight: bold; color: #1e293b; pointer-events: none; }
-        .coord-row { position: absolute; top: 2px; left: 4px; font-size: 12px; font-weight: bold; color: #1e293b; pointer-events: none; }
-        .square.dark .coord-col, .square.dark .coord-row { color: #f1f5f9; }
+  const handleOpeningChange = (name) => {
+    const firstVar = Object.keys(OPENINGS_DATA[name])[0];
+    setCurrentOpening(name);
+    setCurrentVariation(firstVar);
+    setMoveIndex(0);
+    setIsHeaderCollapsed(true);
+    setIsMenuCollapsed(true);
+    setShowOthersModal(false);
+    setShowVariationsModal(false);
+  };
 
-        .terminal {
-            font-family: 'Fira Code', monospace;
-            background-color: #020617;
-            border: 1px solid #334155;
-        }
-    </style>
-</head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center relative">
+  const handleVariationChange = (varName) => {
+    setCurrentVariation(varName);
+    setMoveIndex(0);
+    setShowVariationsModal(false);
+  };
 
-    <!-- MENU PRINCIPAL -->
-    <div id="menu-view" class="w-full flex flex-col items-center max-w-7xl">
-        <header class="w-full text-center mt-8 mb-12">
-            <h1 id="ui-main-title" class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 mb-4">Aperturas de ajedrez</h1>
-            <p id="ui-main-subtitle" class="text-slate-400 text-xl">Selecciona un sistema para entrenar</p>
-        </header>
-        <main class="w-full">
-            <div id="openings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-        </main>
-    </div>
+  useEffect(() => {
+    if (!currentOpening || !currentVariation) return;
+    const moves = OPENINGS_DATA[currentOpening][currentVariation];
+    let tempBoard = initialBoard();
+    const history = [tempBoard];
+    moves.forEach((move, index) => {
+      tempBoard = applyMove(tempBoard, move, index % 2 === 0);
+      history.push(tempBoard);
+    });
+    setBoardHistory(history);
+  }, [currentOpening, currentVariation]);
 
-    <!-- VISTA DE JUEGO -->
-    <div id="game-view" class="hidden w-full max-w-6xl flex-col items-center">
-        <header class="w-full mb-8 flex flex-col md:flex-row justify-between items-center gap-6 mt-4">
-            <div class="flex items-center gap-4 flex-grow w-full md:w-auto">
-                <button onclick="backToMenu()" class="shrink-0 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-5 py-3 rounded-md font-bold flex items-center gap-2 transition-colors text-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    <span>Volver</span>
+  const currentBoard = boardHistory[moveIndex];
+  const movesList = (currentOpening && currentVariation) ? OPENINGS_DATA[currentOpening][currentVariation] : [];
+
+  // Definición de currentComment para evitar ReferenceError
+  const currentComment = (currentOpening && currentVariation && OPENINGS_COMMENTS[currentOpening]?.[currentVariation])
+    ? OPENINGS_COMMENTS[currentOpening][currentVariation][moveIndex - 1]
+    : (moveIndex === 0 ? "Posición inicial. Juegan las blancas." : "Estudio teórico en curso.");
+
+  const renderSquare = (rIdx, cIdx) => {
+    const actualR = isFlipped ? 7 - rIdx : rIdx;
+    const actualC = isFlipped ? 7 - cIdx : cIdx;
+    const piece = currentBoard[actualR][actualC];
+    const isDark = (rIdx + cIdx) % 2 !== 0;
+    const rankLabel = isFlipped ? (actualR + 1) : (8 - actualR);
+    const fileLabel = String.fromCharCode(97 + actualC);
+    return (
+      <div key={`${rIdx}-${cIdx}`} className={`relative flex items-center justify-center aspect-square ${isDark ? "bg-[#769656]" : "bg-[#eeeed2]"}`}>
+        {piece && <img src={PIECE_IMAGES[piece]} alt={piece} className="w-[90%] h-[90%] select-none z-10" />}
+        {cIdx === 0 && <span className={`absolute top-0.5 left-0.5 text-[9px] font-bold ${isDark ? 'text-[#eeeed2]' : 'text-[#769656]'}`}>{rankLabel}</span>}
+        {rIdx === 7 && <span className={`absolute bottom-0.5 right-0.5 text-[9px] font-bold ${isDark ? 'text-[#eeeed2]' : 'text-[#769656]'}`}>{fileLabel}</span>}
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-4 md:p-8 font-sans transition-all duration-500 overflow-x-hidden">
+      
+      {/* HEADER */}
+      <header className={`text-center overflow-hidden transition-all duration-700 ease-in-out ${isHeaderCollapsed ? "max-h-0 opacity-0 mb-0" : "max-h-40 opacity-100 mb-8"}`}>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 text-blue-400">Aperturas de Ajedrez</h1>
+        <p className="text-slate-400 text-lg italic">aprende mirando y repitiendo</p>
+      </header>
+
+      {isHeaderCollapsed && (
+        <button onClick={() => setIsHeaderCollapsed(false)} className="mb-4 text-slate-600 hover:text-blue-400 transition-colors flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold">
+          <ChevronDown size={14} /> Mostrar Título
+        </button>
+      )}
+
+      {/* MENÚ RETRÁCTIL */}
+      <div className="w-full max-w-4xl mb-10">
+        {!isMenuCollapsed ? (
+          <div className="flex flex-wrap justify-center gap-3 animate-in fade-in slide-in-from-top-2 duration-500">
+            {MAIN_KEYS.map((name) => (
+              <button key={name} onClick={() => handleOpeningChange(name)} className={`px-4 py-2 rounded-full transition-all border-2 ${currentOpening === name ? "bg-blue-600 border-blue-400 text-white shadow-lg" : "bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-600 hover:text-slate-200"}`}>
+                {name}
+              </button>
+            ))}
+            <button onClick={() => setShowOthersModal(true)} className="px-4 py-2 rounded-full transition-all border-2 border-dashed bg-slate-900 border-slate-700 text-slate-500 hover:border-slate-500">
+              otras
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center justify-center gap-2 bg-slate-900/40 p-2 rounded-2xl border border-slate-800 animate-in fade-in slide-in-from-bottom-2 max-w-2xl mx-auto shadow-xl">
+            <div className="flex items-center gap-2 text-blue-400 font-black px-4 py-1 border-r border-slate-800">
+              <BookOpen size={18} /> {currentOpening}
+            </div>
+            <div className="flex items-center gap-1 px-4 py-1 border-r border-slate-800 text-slate-300 text-sm italic">
+              {currentVariation}
+            </div>
+            <div className="flex gap-2 pl-2">
+              <button onClick={() => setIsMenuCollapsed(false)} className="flex items-center gap-1 text-[10px] text-slate-500 hover:text-white uppercase font-bold transition-colors px-2">
+                Cambiar <ChevronUp size={14} />
+              </button>
+              {MAIN_KEYS.includes(currentOpening) && (
+                <button onClick={() => setShowVariationsModal(true)} className="flex items-center gap-1 text-[10px] text-blue-400 hover:text-blue-200 uppercase font-bold transition-colors border-l border-slate-800 pl-4">
+                  Variantes <Layers size={14} />
                 </button>
-                <div id="title-container" class="flex flex-col">
-                    <h1 id="game-title" class="text-3xl font-bold text-emerald-400">Nombre de Apertura</h1>
-                    <p id="game-subtitle" class="text-slate-400 text-base">Variante teórica</p>
-                </div>
+              )}
             </div>
-            
-            <div class="flex flex-wrap justify-center items-center gap-4">
-                <button id="btn-next-move" onclick="stepNextMove()" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-lg rounded-xl border border-cyan-400 shadow-lg transition-all flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
-                    <span>Siguiente Jugada</span>
+          </div>
+        )}
+      </div>
+
+      {/* MODAL OTRAS */}
+      {showOthersModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl p-6 shadow-2xl flex flex-col max-h-[80vh]">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-blue-400">Otras Aperturas</h2>
+              <button onClick={() => setShowOthersModal(false)} className="p-2 hover:bg-slate-800 rounded-full text-slate-400 transition-colors"><X size={24} /></button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-auto custom-scrollbar">
+              {OTHER_KEYS.map((name) => (
+                <button key={name} onClick={() => handleOpeningChange(name)} className="p-3 rounded-xl text-left border-2 bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700">{name}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL VARIANTES */}
+      {showVariationsModal && currentOpening && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 shadow-2xl flex flex-col">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold text-blue-400">Variantes: {currentOpening}</h2>
+              <button onClick={() => setShowVariationsModal(false)} className="p-2 hover:bg-slate-800 rounded-full text-slate-400"><X size={24} /></button>
+            </div>
+            <div className="space-y-2">
+              {Object.keys(OPENINGS_DATA[currentOpening]).map((varName) => (
+                <button
+                  key={varName}
+                  onClick={() => handleVariationChange(varName)}
+                  className={`w-full p-4 rounded-xl text-left border-2 transition-all flex items-center justify-between ${currentVariation === varName ? "bg-blue-600 border-blue-400 text-white" : "bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700"}`}
+                >
+                  {varName}
+                  {currentVariation === varName && <Play size={16} fill="currentColor" />}
                 </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
-                <div class="flex gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700 shadow-xl">
-                    <button id="btn-white" onclick="switchRole('w')" class="px-6 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-lg transition-all">Blancas</button>
-                    <button id="btn-black" onclick="switchRole('b')" class="px-6 py-2.5 rounded-lg text-slate-300 font-bold text-lg transition-all">Negras</button>
-                </div>
+      {!currentOpening ? (
+        <div className="flex flex-col items-center justify-center py-20 text-slate-500 italic">
+          <Play size={48} className="mb-4 opacity-20" />
+          <p>Selecciona una apertura para comenzar</p>
+        </div>
+      ) : (
+        <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start justify-items-center animate-in fade-in duration-1000">
+          
+          <div className="lg:col-span-7 flex flex-col items-center w-full max-w-[512px]">
+            <div className="flex flex-wrap gap-3 mb-6 w-full justify-center">
+              <button onClick={() => setMoveIndex(0)} className="p-3 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors text-slate-300 border border-slate-700"><RotateCcw size={20} /></button>
+              <button onClick={() => setIsFlipped(!isFlipped)} className={`p-3 rounded-lg transition-all border shadow-sm ${isFlipped ? "bg-white border-white text-black" : "bg-black border-slate-800 text-white"}`}><RefreshCw size={20} className={isFlipped ? "rotate-180 transition-transform" : ""} /></button>
+              <button onClick={() => setMoveIndex(Math.max(0, moveIndex - 1))} disabled={moveIndex === 0} className="flex items-center gap-2 px-6 py-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-30 rounded-lg transition-all font-semibold border border-slate-700 text-sm"><ChevronLeft size={18} /> ant.</button>
+              <button onClick={() => setMoveIndex(Math.min(boardHistory.length - 1, moveIndex + 1))} disabled={moveIndex >= boardHistory.length - 1} className="flex items-center gap-2 px-6 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-30 rounded-lg transition-all font-semibold text-white shadow-lg shadow-blue-900/20 text-sm">sig. <ChevronRight size={18} /></button>
             </div>
-        </header>
+            
+            <div className="relative shadow-2xl border-[12px] border-slate-800 rounded-md overflow-hidden aspect-square w-full bg-slate-800">
+              <div className="grid grid-cols-8 grid-rows-8 h-full w-full pointer-events-none">
+                {Array.from({ length: 8 }).map((_, rIdx) => Array.from({ length: 8 }).map((_, cIdx) => renderSquare(rIdx, cIdx)))}
+              </div>
+            </div>
+          </div>
 
-        <main class="w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="flex justify-center items-start">
-                <div id="board" class="chessboard"></div>
+          <div className="lg:col-span-5 w-full flex flex-col gap-6 lg:h-[592px]">
+            <div className="bg-slate-900/80 rounded-xl p-5 border border-blue-900/30 flex-shrink-0 min-h-[140px]">
+              <div className="flex items-center gap-2 mb-3 text-blue-400 font-bold uppercase text-[10px] tracking-widest"><MessageSquare size={14} /> Análisis del Experto</div>
+              <div className="bg-slate-950 p-4 rounded-lg border border-slate-800 min-h-[70px] flex items-center text-slate-300 text-sm leading-relaxed italic">
+                {currentComment}
+              </div>
             </div>
-            <div class="flex flex-col gap-4 w-full">
-                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-lg">
-                    <div class="flex justify-between items-end mb-3">
-                        <h2 class="text-2xl font-bold text-white">Nivel <span id="level-indicator">1</span> / <span id="max-levels">10</span></h2>
-                        <span id="turn-indicator" class="text-base font-mono bg-slate-900 px-4 py-2 rounded text-emerald-400">Turno: Tu turno</span>
-                    </div>
-                    <div class="w-full bg-slate-900 rounded-full h-3">
-                        <div id="progress-bar" class="bg-emerald-500 h-3 rounded-full transition-all duration-500" style="width: 10%"></div>
-                    </div>
+
+            <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-800 flex-1 flex flex-col min-h-0 shadow-inner">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold text-blue-400">{currentOpening}</h2>
+                <span className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-500 uppercase tracking-tighter">{currentVariation}</span>
+              </div>
+              <div className="flex-1 bg-slate-950 p-4 rounded-lg border border-slate-800 overflow-y-auto custom-scrollbar">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-1">
+                  <div className="text-slate-600 text-[10px] font-bold uppercase pb-2 border-b border-slate-900">Blancas</div>
+                  <div className="text-slate-600 text-[10px] font-bold uppercase pb-2 border-b border-slate-900">Negras</div>
+                  {Array.from({ length: Math.ceil(movesList.length / 2) }).map((_, i) => (
+                    <React.Fragment key={i}>
+                      <div className={`p-1.5 rounded text-sm transition-colors cursor-pointer ${moveIndex === (i * 2 + 1) ? "bg-blue-600 text-white font-bold scale-105 transform shadow-md" : "text-slate-300 hover:bg-slate-800"}`} onClick={() => setMoveIndex(i * 2 + 1)}><span className="text-slate-500 mr-2 text-xs">{i + 1}.</span> {movesList[i * 2]}</div>
+                      {movesList[i * 2 + 1] ? <div className={`p-1.5 rounded text-sm transition-colors cursor-pointer ${moveIndex === (i * 2 + 2) ? "bg-blue-600 text-white font-bold scale-105 transform shadow-md" : "text-slate-300 hover:bg-slate-800"}`} onClick={() => setMoveIndex(i * 2 + 2)}>{movesList[i * 2 + 1]}</div> : <div />}
+                    </React.Fragment>
+                  ))}
                 </div>
-                <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 shadow-lg flex-grow">
-                    <h3 class="text-xl font-bold text-blue-400 mb-3 border-b border-slate-700 pb-2">Objetivo</h3>
-                    <p id="instruction-text" class="text-slate-200 text-xl leading-relaxed"></p>
-                    <div class="mt-4 bg-slate-900/50 p-5 rounded-lg border border-slate-700">
-                        <h4 class="text-base font-bold text-slate-400 uppercase tracking-wider mb-2">Teoría</h4>
-                        <p id="theory-text" class="text-base text-slate-300 italic"></p>
-                    </div>
-                </div>
-                <div class="terminal rounded-xl p-4 shadow-lg h-48 overflow-y-auto flex flex-col gap-1 text-base" id="feedback-console"></div>
+              </div>
             </div>
-        </main>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+      `}</style>
     </div>
-
-    <script>
-        const PIECES_URL = {
-            'P': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
-            'N': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg',
-            'B': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg',
-            'R': 'https://upload.wikimedia.org/wikipedia/commons/7/72/Chess_rlt45.svg',
-            'Q': 'https://upload.wikimedia.org/wikipedia/commons/1/15/Chess_qlt45.svg',
-            'K': 'https://upload.wikimedia.org/wikipedia/commons/4/42/Chess_klt45.svg',
-            'p': 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Chess_pdt45.svg',
-            'n': 'https://upload.wikimedia.org/wikipedia/commons/e/ef/Chess_ndt45.svg',
-            'b': 'https://upload.wikimedia.org/wikipedia/commons/9/98/Chess_bdt45.svg',
-            'r': 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Chess_rdt45.svg',
-            'q': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg',
-            'k': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
-        };
-
-        const INITIAL_BOARD = [
-            ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
-            ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-            ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
-        ];
-
-        // APERTURAS AMPLIADAS A 10 NIVELES
-        const OPENING_MODULES = {
-            1: { 
-                title: "Apertura Ruy López", subtitle: "Línea Principal", theme: "text-emerald-400",
-                steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,4], to: [3,4], san: "e5" }, instW: "e4.", instB: "e5.", teoriaW: "Centro.", teoriaB: "Simetría." },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nc6" }, instW: "Nf3.", instB: "Nc6.", teoriaW: "Presión.", teoriaB: "Defensa." },
-                    { w: { from: [7,5], to: [3,1], san: "Bb5" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "Bb5.", instB: "a6.", teoriaW: "Ataque.", teoriaB: "Morphy." },
-                    { w: { from: [3,1], to: [4,0], san: "Ba4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Ba4.", instB: "Nf6.", teoriaW: "Retirada.", teoriaB: "Desarrollo." },
-                    { w: { from: [7,4], to: [7,6], san: "O-O", castle: true, rFrom: [7,7], rTo: [7,5] }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Enroque.", instB: "Be7.", teoriaW: "Seguridad.", teoriaB: "Solidez." },
-                    { w: { from: [7,5], to: [7,4], san: "Re1" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: "Re1.", instB: "b5.", teoriaW: "Soporte.", teoriaB: "Expansión." },
-                    { w: { from: [4,0], to: [5,1], san: "Bb3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "Bb3.", instB: "d6.", teoriaW: "Diagonal.", teoriaB: "Estructura." },
-                    { w: { from: [6,2], to: [5,2], san: "c3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "c3.", instB: "Enroque.", teoriaW: "Centro.", teoriaB: "Seguridad." },
-                    { w: { from: [6,7], to: [5,7], san: "h3" }, b: { from: [2,2], to: [3,0], san: "Na5" }, instW: "h3.", instB: "Na5.", teoriaW: "Profilaxis.", teoriaB: "Ataque." },
-                    { w: { from: [5,1], to: [6,2], san: "Bc2" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "Bc2.", instB: "c5.", teoriaW: "Reserva.", teoriaB: "Ruptura." }
-                ]
-            },
-            2: { 
-                title: "Defensa Siciliana", subtitle: "Variante Najdorf", theme: "text-blue-400",
-                steps: [
-                    { w: { from: [6,4], to: [4,4], san: "e4" }, b: { from: [1,2], to: [3,2], san: "c5" }, instW: "e4.", instB: "c5.", teoriaW: "Centro.", teoriaB: "Lucha." },
-                    { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [1,3], to: [2,3], san: "d6" }, instW: "Nf3.", instB: "d6.", teoriaW: "Desarrollo.", teoriaB: "Sólido." },
-                    { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [3,2], to: [4,3], san: "cxd4" }, instW: "d4.", instB: "cxd4.", teoriaW: "Centro.", teoriaB: "Cambio." },
-                    { w: { from: [5,5], to: [4,3], san: "Nxd4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "Nxd4.", instB: "Nf6.", teoriaW: "Control.", teoriaB: "Presión." },
-                    { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,0], to: [2,0], san: "a6" }, instW: "Nc3.", instB: "a6.", teoriaW: "Defensa.", teoriaB: "Najdorf." },
-                    { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "Bg5.", instB: "e6.", teoriaW: "Presión.", teoriaB: "Centro." },
-                    { w: { from: [6,5], to: [4,5], san: "f4" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "f4.", instB: "Be7.", teoriaW: "Ataque.", teoriaB: "Desarrollo." },
-                    { w: { from: [7,3], to: [5,5], san: "Qf3" }, b: { from: [0,3], to: [1,2], san: "Qc7" }, instW: "Qf3.", instB: "Qc7.", teoriaW: "Actividad.", teoriaB: "Dama." },
-                    { w: { from: [7,4], to: [7,2], san: "O-O-O", castle: true, rFrom: [7,0], rTo: [7,3] }, b: { from: [0,1], to: [1,3], san: "Nbd7" }, instW: "Enroque L.", instB: "Nbd7.", teoriaW: "Agresivo.", teoriaB: "Maniobra." },
-                    { w: { from: [6,6], to: [4,6], san: "g4" }, b: { from: [1,1], to: [3,1], san: "b5" }, instW: "g4.", instB: "b5.", teoriaW: "Avalancha.", teoriaB: "Contraataque." }
-                ]
-            }
-        };
-
-        const chessOpenings = [
-            { id: 1, name: "Apertura Ruy López", type: "Abierta", color: "emerald" },
-            { id: 2, name: "Defensa Siciliana", type: "Semi-abierta", color: "blue" },
-            { id: 3, name: "Gambito de Dama", type: "Cerrada", color: "purple" },
-            { id: 4, name: "Defensa Francesa", type: "Semi-abierta", color: "rose" },
-            { id: 5, name: "Apertura Italiana", type: "Abierta", color: "emerald" },
-            { id: 6, name: "Defensa Caro-Kann", type: "Semi-abierta", color: "blue" },
-            { id: 7, name: "Defensa India de Rey", type: "Semi-cerrada", color: "amber" },
-            { id: 8, name: "Defensa Nimzo-India", type: "Semi-cerrada", color: "amber" },
-            { id: 9, name: "Defensa Eslava", type: "Cerrada", color: "purple" },
-            { id: 10, name: "Apertura Inglesa", type: "Flanco", color: "cyan" },
-            { id: 11, name: "Defensa Pirc", type: "Semi-abierta", color: "blue" },
-            { id: 12, name: "Apertura Escocesa", type: "Abierta", color: "emerald" },
-            { id: 13, name: "Defensa Alekhine", type: "Semi-abierta", color: "blue" },
-            { id: 14, name: "Gambito de Rey", type: "Abierta", color: "emerald" },
-            { id: 15, name: "Defensa Holandesa", type: "Semi-cerrada", color: "amber" },
-            { id: 16, name: "Sistema Londres", type: "Cerrada", color: "purple" },
-            { id: 17, name: "Defensa Escandinava", type: "Semi-abierta", color: "blue" },
-            { id: 18, name: "Apertura Reti", type: "Flanco", color: "cyan" },
-            { id: 19, name: "Defensa Grünfeld", type: "Semi-cerrada", color: "amber" },
-            { id: 20, name: "Defensa Benoni", type: "Semi-cerrada", color: "amber" }
-        ];
-
-        // Rellenar todas con 10 niveles genéricos de calidad si no están definidas
-        chessOpenings.forEach(op => {
-            if (!OPENING_MODULES[op.id]) {
-                OPENING_MODULES[op.id] = { 
-                    title: op.name, 
-                    subtitle: "Práctica Teórica", 
-                    theme: `text-${op.color}-400`, 
-                    steps: [
-                        { w: { from: [6,3], to: [4,3], san: "d4" }, b: { from: [0,6], to: [2,5], san: "Nf6" }, instW: "d4.", instB: "Nf6.", teoriaW: "Centro.", teoriaB: "Desarrollo." },
-                        { w: { from: [6,2], to: [4,2], san: "c4" }, b: { from: [1,4], to: [2,4], san: "e6" }, instW: "c4.", instB: "e6.", teoriaW: "Espacio.", teoriaB: "Solidez." },
-                        { w: { from: [7,1], to: [5,2], san: "Nc3" }, b: { from: [1,3], to: [3,3], san: "d5" }, instW: "Nc3.", instB: "d5.", teoriaW: "Presión.", teoriaB: "Lucha." },
-                        { w: { from: [7,2], to: [3,6], san: "Bg5" }, b: { from: [0,5], to: [1,4], san: "Be7" }, instW: "Bg5.", instB: "Be7.", teoriaW: "Clavada.", teoriaB: "Seguridad." },
-                        { w: { from: [6,4], to: [5,4], san: "e3" }, b: { from: [0,4], to: [0,6], san: "O-O", castle: true, rFrom: [0,7], rTo: [0,5] }, instW: "e3.", instB: "Enroque.", teoriaW: "Sólido.", teoriaB: "Rey a salvo." },
-                        { w: { from: [7,6], to: [5,5], san: "Nf3" }, b: { from: [0,1], to: [2,2], san: "Nbd7" }, instW: "Nf3.", instB: "Nbd7.", teoriaW: "Desarrollo.", teoriaB: "Soporte." },
-                        { w: { from: [7,0], to: [7,2], san: "Rc1" }, b: { from: [1,2], to: [2,2], san: "c6" }, instW: "Rc1.", instB: "c6.", teoriaW: "Columna.", teoriaB: "Refuerzo." },
-                        { w: { from: [7,5], to: [6,3], san: "Bd3" }, b: { from: [3,3], to: [4,2], san: "dxc4" }, instW: "Bd3.", instB: "dxc4.", teoriaW: "Actividad.", teoriaB: "Liberación." },
-                        { w: { from: [6,3], to: [4,2], san: "Bxc4" }, b: { from: [2,5], to: [4,3], san: "Nd5" }, instW: "Bxc4.", instB: "Nd5.", teoriaW: "Recupera.", teoriaB: "Centralización." },
-                        { w: { from: [3,6], to: [4,5], san: "Bxe7" }, b: { from: [0,3], to: [4,5], san: "Qxe7" }, instW: "Bxe7.", instB: "Qxe7.", teoriaW: "Simplificación.", teoriaB: "Recuperación." }
-                    ]
-                };
-            }
-        });
-
-        let boardState = [];
-        let userRole = 'w';
-        let currentStep = 0;
-        let isWhiteTurn = true;
-        let currentSteps = [];
-        let dragFrom = null;
-
-        function initGame() {
-            boardState = INITIAL_BOARD.map(row => [...row]);
-            currentStep = 0;
-            isWhiteTurn = true;
-            dragFrom = null;
-            document.getElementById('feedback-console').innerHTML = '';
-            document.getElementById('max-levels').textContent = currentSteps.length;
-            updateUI();
-            renderBoard();
-            if (userRole === 'b' && isWhiteTurn) setTimeout(autoPlayOpponent, 800);
-        }
-
-        // FASE 4: Blindaje y Sincronización
-        function stepNextMove() {
-            if (currentStep >= currentSteps.length) return;
-
-            // FASE 4: Cancelar cualquier rastro de arrastre manual previo
-            dragFrom = null; 
-
-            const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
-            
-            if (!isMyTurn) {
-                logConsole("Espera la respuesta del sistema...", "info");
-                return;
-            }
-
-            const step = currentSteps[currentStep];
-            const expected = isWhiteTurn ? step.w : step.b;
-
-            // FASE 4: Asegurar que el tablero visual esté limpio antes de mover
-            renderBoard(); 
-
-            logConsole(`${expected.san}`, "success");
-            executeMove(expected.from[0], expected.from[1], expected.to[0], expected.to[1], expected);
-            
-            const systemNeedsToRespond = (userRole === 'w' && !isWhiteTurn) || (userRole === 'b' && isWhiteTurn);
-            if (systemNeedsToRespond && currentStep < currentSteps.length) {
-                const btn = document.getElementById('btn-next-move');
-                btn.disabled = true;
-                btn.classList.add('opacity-50', 'cursor-not-allowed');
-
-                setTimeout(() => {
-                    autoPlayOpponent();
-                    btn.disabled = false;
-                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                }, 600);
-            }
-            updateUI();
-        }
-
-        function renderBoard() {
-            const boardEl = document.getElementById('board');
-            boardEl.innerHTML = '';
-            const rows = userRole === 'w' ? [0,1,2,3,4,5,6,7] : [7,6,5,4,3,2,1,0];
-            const cols = userRole === 'w' ? [0,1,2,3,4,5,6,7] : [7,6,5,4,3,2,1,0];
-
-            for (let r of rows) {
-                for (let c of cols) {
-                    const isLight = (r + c) % 2 === 0;
-                    const square = document.createElement('div');
-                    square.className = `square ${isLight ? 'light' : 'dark'}`;
-                    square.dataset.row = r;
-                    square.dataset.col = c;
-                    
-                    if (userRole === 'w') {
-                        if (c === 0) square.innerHTML += `<div class="coord-row">${8-r}</div>`;
-                        if (r === 7) square.innerHTML += `<div class="coord-col">${String.fromCharCode(97+c)}</div>`;
-                    } else {
-                        if (c === 7) square.innerHTML += `<div class="coord-row">${8-r}</div>`;
-                        if (r === 0) square.innerHTML += `<div class="coord-col">${String.fromCharCode(97+c)}</div>`;
-                    }
-
-                    const pieceCode = boardState[r][c];
-                    if (pieceCode) {
-                        const piece = document.createElement('div');
-                        piece.className = 'piece';
-                        piece.style.backgroundImage = `url(${PIECES_URL[pieceCode]})`;
-                        piece.draggable = true;
-                        piece.addEventListener('dragstart', (e) => {
-                            dragFrom = {r, c};
-                            const isWhite = pieceCode === pieceCode.toUpperCase();
-                            const isUserTurn = (userRole === 'w' && isWhiteTurn && isWhite) || (userRole === 'b' && !isWhiteTurn && !isWhite);
-                            if(!isUserTurn) e.preventDefault();
-                        });
-                        square.appendChild(piece);
-                    }
-
-                    square.addEventListener('dragover', (e) => e.preventDefault());
-                    square.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        if(dragFrom) {
-                            handleMoveAttempt(dragFrom.r, dragFrom.c, r, c);
-                            dragFrom = null;
-                        }
-                    });
-                    boardEl.appendChild(square);
-                }
-            }
-        }
-
-        function handleMoveAttempt(fr, fc, tr, tc) {
-            if (currentStep >= currentSteps.length) return;
-            const step = currentSteps[currentStep];
-            const expected = isWhiteTurn ? step.w : step.b;
-
-            if (fr === expected.from[0] && fc === expected.from[1] && tr === expected.to[0] && tc === expected.to[1]) {
-                logConsole(`${expected.san}`, "success");
-                executeMove(fr, fc, tr, tc, expected);
-                
-                const userFinishedMove = (userRole === 'w' && !isWhiteTurn) || (userRole === 'b' && isWhiteTurn);
-                if (userFinishedMove && currentStep < currentSteps.length) {
-                    setTimeout(autoPlayOpponent, 700);
-                }
-                updateUI();
-            } else {
-                logConsole("Movimiento erróneo.", "error");
-                highlightError(tr, tc);
-            }
-        }
-
-        function executeMove(fr, fc, tr, tc, moveData) {
-            boardState[tr][tc] = boardState[fr][fc];
-            boardState[fr][fc] = '';
-            if (moveData.castle) {
-                boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
-                boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
-            }
-            isWhiteTurn = !isWhiteTurn;
-            if (isWhiteTurn) currentStep++;
-            renderBoard();
-        }
-
-        function autoPlayOpponent() {
-            if (currentStep >= currentSteps.length) return;
-            const step = currentSteps[currentStep];
-            const oppMove = isWhiteTurn ? step.w : step.b;
-            logConsole(`Sist: ${oppMove.san}`);
-            executeMove(oppMove.from[0], oppMove.from[1], oppMove.to[0], oppMove.to[1], oppMove);
-            updateUI();
-        }
-
-        function updateUI() {
-            const levelIndEl = document.getElementById('level-indicator');
-            const progressEl = document.getElementById('progress-bar');
-            const instTextEl = document.getElementById('instruction-text');
-            const theoryTextEl = document.getElementById('theory-text');
-            const turnIndEl = document.getElementById('turn-indicator');
-            if(!levelIndEl) return;
-
-            if(currentStep >= currentSteps.length) {
-                progressEl.style.width = '100%';
-                turnIndEl.textContent = "Finalizado";
-                instTextEl.textContent = "Línea teórica completada.";
-                theoryTextEl.textContent = "¡Buen trabajo!";
-                return;
-            }
-
-            levelIndEl.textContent = currentStep + 1;
-            progressEl.style.width = `${((currentStep + 1) / currentSteps.length) * 100}%`;
-            const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
-            
-            if (isMyTurn) {
-                turnIndEl.textContent = "Tu turno";
-                turnIndEl.className = "text-base font-mono bg-blue-900 px-4 py-2 rounded text-blue-300 animate-pulse";
-                instTextEl.textContent = isWhiteTurn ? currentSteps[currentStep].instW : currentSteps[currentStep].instB;
-                theoryTextEl.textContent = isWhiteTurn ? currentSteps[currentStep].teoriaW : currentSteps[currentStep].teoriaB;
-            } else {
-                turnIndEl.textContent = "Calculando...";
-                turnIndEl.className = "text-base font-mono bg-slate-700 px-4 py-2 rounded text-slate-300";
-                instTextEl.textContent = "...";
-                theoryTextEl.textContent = "...";
-            }
-        }
-
-        function logConsole(msg, type="info") {
-            const consoleEl = document.getElementById('feedback-console');
-            const div = document.createElement('div');
-            div.className = type === 'error' ? 'text-rose-400' : type === 'success' ? 'text-emerald-400' : 'text-slate-400';
-            div.textContent = `>> ${msg}`;
-            consoleEl.appendChild(div);
-            consoleEl.scrollTop = consoleEl.scrollHeight;
-        }
-
-        function highlightError(r, c) {
-            const sq = document.querySelector(`.square[data-row="${r}"][data-col="${c}"]`);
-            if(sq) {
-                sq.classList.add('error-highlight');
-                setTimeout(() => sq.classList.remove('error-highlight'), 500);
-            }
-        }
-
-        function renderCards() {
-            const grid = document.getElementById('openings-grid');
-            grid.innerHTML = '';
-            chessOpenings.sort((a,b) => a.id - b.id).forEach(op => {
-                const card = document.createElement('button');
-                card.className = "opening-card bg-slate-800 border border-slate-700 rounded-xl p-6 text-left flex flex-col min-h-[140px]";
-                card.onclick = () => {
-                    const mod = OPENING_MODULES[op.id];
-                    currentSteps = mod.steps;
-                    document.getElementById('game-title').textContent = mod.title;
-                    document.getElementById('game-title').className = `text-3xl font-bold ${mod.theme}`;
-                    document.getElementById('game-subtitle').textContent = mod.subtitle;
-                    document.getElementById('menu-view').classList.add('hidden');
-                    document.getElementById('game-view').classList.remove('hidden');
-                    document.getElementById('game-view').classList.add('flex');
-                    initGame();
-                };
-                card.innerHTML = `<span class="text-sm font-bold text-emerald-400 mb-2 uppercase">${op.type}</span><h2 class="text-2xl font-bold">${op.name}</h2>`;
-                grid.appendChild(card);
-            });
-        }
-
-        function backToMenu() {
-            document.getElementById('game-view').classList.add('hidden');
-            document.getElementById('menu-view').classList.remove('hidden');
-        }
-
-        function switchRole(role) {
-            userRole = role;
-            const btnWhite = document.getElementById('btn-white');
-            const btnBlack = document.getElementById('btn-black');
-            
-            if (role === 'w') {
-                btnWhite.className = 'px-6 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-lg transition-all shadow-lg';
-                btnBlack.className = 'px-6 py-2.5 rounded-lg text-slate-300 font-bold text-lg transition-all';
-            } else {
-                btnBlack.className = 'px-6 py-2.5 rounded-lg bg-emerald-600 text-white font-bold text-lg transition-all shadow-lg';
-                btnWhite.className = 'px-6 py-2.5 rounded-lg text-slate-300 font-bold text-lg transition-all';
-            }
-            initGame();
-        }
-
-        window.onload = () => renderCards();
-    </script>
-</body>
-</html>
+  );
+}

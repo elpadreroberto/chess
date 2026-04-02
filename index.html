@@ -138,6 +138,9 @@
                         <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Concepto Estratégico</h4>
                         <p id="theory-text" class="text-base text-slate-300 italic leading-relaxed"></p>
                     </div>
+
+                    <!-- CONTENEDOR FANTASMA PARA VARIANTES (Parte 2) -->
+                    <div id="variations-container" class="hidden flex flex-col gap-3 mt-2 border-t border-slate-700 pt-4"></div>
                 </div>
             </div>
         </main>
@@ -185,6 +188,38 @@
                     { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "c3", instB: "O-O", teoriaW: "Prepara d4.", teoriaB: "Rey a salvo." },
                     { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[2,2], to:[3,0], san:"Na5" }, instW: "h3", instB: "Na5", teoriaW: "Profilaxis.", teoriaB: "Ataca alfil." },
                     { w: { from:[5,1], to:[6,2], san:"Bc2" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "Bc2", instB: "c5", teoriaW: "Guarda alfil.", teoriaB: "Chigorin." }
+                ],
+                variations: [
+                    {
+                        name: "Variante Berlinesa", subtitle: "El muro de Berlín",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[3,1], san:"Bb5" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instB: "Nf6", teoriaB: "Muro de Berlín." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[4,4], to:[2,3], san:"Nd6" } },
+                            { w: { from:[3,1], to:[2,2], san:"Bxc6" }, b: { from:[1,3], to:[2,2], san:"dxc6" } },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[2,3], to:[3,5], san:"Nf5" } },
+                            { w: { from:[7,3], to:[0,3], san:"Qxd8+" }, b: { from:[0,4], to:[0,3], san:"Kxd8" }, teoriaW: "Cambio de damas.", teoriaB: "Pierde enroque, gana solidez." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,3], to:[0,4], san:"Ke8" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,7], to:[3,7], san:"h5" } }
+                        ]
+                    },
+                    {
+                        name: "Defensa Steinitz", subtitle: "Línea Diferida",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[3,1], san:"Bb5" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[3,1], to:[4,0], san:"Ba4" }, b: { from:[1,3], to:[2,3], san:"d6" }, instB: "d6", teoriaB: "Steinitz diferida." },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,2], to:[1,3], san:"Bd7" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[1,4], san:"Nge7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,4], to:[2,6], san:"Ng6" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,3], to:[7,5], san:"Nf1" }, b: { from:[1,1], to:[3,1], san:"b5" }, teoriaW: "Maniobra a g3." }
+                        ]
+                    }
                 ]
             },
             2: { // Sicilian Najdorf
@@ -200,6 +235,38 @@
                     { w: { from:[7,3], to:[5,3], san:"Qd3" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
                     { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
                     { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[1,1], to:[3,1], san:"b5" } }
+                ],
+                variations: [
+                    {
+                        name: "Variante Dragón", subtitle: "Ataque Yugoslavo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" }, instB: "g6", teoriaB: "Variante Dragón." },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, teoriaW: "Prepara ataque." },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,2], to:[1,3], san:"Bd7" } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,0], to:[0,2], san:"Rc8" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Sveshnikov", subtitle: "Lucha por d5",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,4], to:[3,4], san:"e5" }, instB: "e5", teoriaB: "Expulsa el caballo, debilita d5." },
+                            { w: { from:[4,3], to:[3,1], san:"Ndb5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[3,1], to:[5,0], san:"Na3" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                            { w: { from:[5,2], to:[3,3], san:"Nd5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[3,6], to:[2,5], san:"Bxf6" }, b: { from:[1,4], to:[2,5], san:"Bxf6" }, teoriaW: "Asegura casilla d5." }
+                        ]
+                    }
                 ]
             },
             3: { // QGD
@@ -215,6 +282,38 @@
                     { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
                     { w: { from:[5,3], to:[4,2], san:"Bxc4" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
                     { w: { from:[3,6], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" } }
+                ],
+                variations: [
+                    {
+                        name: "Variante del Cambio", subtitle: "Línea posicional",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,4], to:[3,3], san:"exd5" }, instW: "cxd5", teoriaW: "Fija la estructura." },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,3], to:[0,5], san:"Nf8" }, teoriaB: "Maniobra clásica del caballo." }
+                        ]
+                    },
+                    {
+                        name: "Variante Tartakower", subtitle: "Flexibilidad moderna",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,7], to:[2,7], san:"h6" }, instB: "h6", teoriaB: "Fuerza definición del alfil." },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[1,1], to:[2,1], san:"b6" }, teoriaB: "Prepara fianchetto." },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[4,7], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" } },
+                            { w: { from:[5,2], to:[3,3], san:"Nxd5" }, b: { from:[2,4], to:[3,3], san:"exd5" } }
+                        ]
+                    }
                 ]
             },
             4: { // French Defense
@@ -230,6 +329,38 @@
                     { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
                     { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
                     { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,0], to:[2,0], san:"a6" } }
+                ],
+                variations: [
+                    {
+                        name: "Variante del Avance", subtitle: "Bloqueo central",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "e5", teoriaW: "Cierra el centro.", teoriaB: "Ataque inmediato a la base." },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,3], to:[2,1], san:"Qb6" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[0,6], to:[2,7], san:"Nh6" } },
+                            { w: { from:[6,1], to:[4,1], san:"b4" }, b: { from:[3,2], to:[4,3], san:"cxd4" }, teoriaW: "Defensa lateral." },
+                            { w: { from:[5,2], to:[4,3], san:"cxd4" }, b: { from:[2,7], to:[3,5], san:"Nf5" } },
+                            { w: { from:[7,2], to:[6,1], san:"Bb2" }, b: { from:[0,2], to:[1,3], san:"Bd7" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,5], to:[1,4], san:"Be7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Winawer", subtitle: "Caos y desequilibrio",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[4,1], san:"Bb4" }, instB: "Bb4", teoriaB: "Clava el caballo." },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[4,1], to:[5,2], san:"Bxc3+" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,6], to:[1,4], san:"Ne7" } },
+                            { w: { from:[7,3], to:[4,6], san:"Qg4" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[4,6], to:[1,6], san:"Qxg7" }, b: { from:[0,7], to:[0,6], san:"Rg8" }, teoriaW: "Ataque agresivo al flanco." },
+                            { w: { from:[1,6], to:[1,7], san:"Qxh7" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
+                            { w: { from:[7,6], to:[6,4], san:"Ne2" }, b: { from:[0,1], to:[2,2], san:"Nbc6" } }
+                        ]
+                    }
                 ]
             },
             5: { // Italian
@@ -507,6 +638,26 @@
         let dragFrom = null;
         let gameHistory = []; 
         let systemTimeout = null;
+        let activeOpeningId = null; // NUEVO: Para saber qué apertura base jugamos
+
+        // PARTE 4: Motor de carga de variantes
+        function loadVariation(variationData) {
+            // 1. Reemplazamos los pasos por los de la variante
+            currentSteps = variationData.steps;
+            
+            // 2. Actualizamos el subtítulo de la cabecera
+            document.getElementById('game-subtitle').textContent = variationData.subtitle;
+            
+            // 3. Limpiamos y ocultamos el panel de variantes
+            const varContainer = document.getElementById('variations-container');
+            if(varContainer) { 
+                varContainer.classList.add('hidden'); 
+                varContainer.innerHTML = ''; 
+            }
+            
+            // 4. Reiniciamos el tablero con la nueva línea
+            initGame();
+        }
 
         function initGame() {
             if(systemTimeout) clearTimeout(systemTimeout);
@@ -660,6 +811,7 @@
             const theory = document.getElementById('theory-text');
             const turn = document.getElementById('turn-indicator');
             const next = document.getElementById('next-move-preview');
+            const varContainer = document.getElementById('variations-container'); // NUEVO
             
             if (!currentSteps || currentSteps.length === 0) return;
             
@@ -669,8 +821,25 @@
                 inst.textContent = "¡Teoría Completada!";
                 theory.textContent = "Has dominado esta variante de memoria.";
                 next.textContent = "FIN";
+
+                // PARTE 3: Mostrar contenedor de variantes si existen
+                if (activeOpeningId && OPENING_MODULES[activeOpeningId].variations) {
+                    varContainer.innerHTML = '<h4 class="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em] mb-1 mt-2">Aprender Variantes</h4>';
+                    OPENING_MODULES[activeOpeningId].variations.forEach((v, index) => {
+                        const btn = document.createElement('button');
+                        btn.className = "w-full text-left px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold border border-slate-500 transition-all text-sm text-white flex justify-between items-center group shadow-md";
+                        btn.innerHTML = `<span>${v.name}</span> <span class="text-xs text-slate-400 font-normal group-hover:text-slate-200 transition-colors">${v.subtitle} &rarr;</span>`;
+                        btn.onclick = () => loadVariation(v); // PARTE 4: Conectado a la nueva función
+                        varContainer.appendChild(btn);
+                    });
+                    varContainer.classList.remove('hidden');
+                }
+                
                 return;
             }
+            
+            // Ocultar variantes automáticamente si retrocedemos de la jugada 10
+            if(varContainer) varContainer.classList.add('hidden');
             
             const step = currentSteps[currentStep];
             if (!step) return; 
@@ -707,6 +876,7 @@
                 const btn = document.createElement('button');
                 btn.className = "opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between";
                 btn.onclick = () => {
+                    activeOpeningId = op.id; // NUEVO: Guardamos el ID de la apertura al hacer clic
                     currentSteps = OPENING_MODULES[op.id].steps;
                     document.getElementById('game-title').textContent = OPENING_MODULES[op.id].title;
                     document.getElementById('game-title').className = `text-4xl font-black ${OPENING_MODULES[op.id].theme}`;
@@ -725,6 +895,12 @@
             document.getElementById('game-view').classList.add('hidden');
             document.getElementById('menu-view').classList.remove('hidden');
             currentSteps = [];
+            activeOpeningId = null; // NUEVO: Limpieza
+            
+            // Limpieza visual al salir (Parte 5 adelantada)
+            const varContainer = document.getElementById('variations-container');
+            if(varContainer) { varContainer.classList.add('hidden'); varContainer.innerHTML = ''; } 
+            
             initGame();
         }
 

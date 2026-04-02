@@ -237,7 +237,7 @@
                     { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,0], to:[2,0], san:"a6" }, instW: "O-O-O", instB: "a6", teoriaW: "Agresividad.", teoriaB: "Contraataque." }
                 ]
             },
-            5: { // Italian Game - FIXED to 10 moves
+            5: { // Italian Game
                 title: "Italiana", subtitle: "Giuoco Piano", theme: "text-emerald-400",
                 steps: [
                     { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, instW: "e4", instB: "e5", teoriaW: "Peón rey.", teoriaB: "Abierta." },
@@ -250,6 +250,36 @@
                     { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "h3", instB: "h6", teoriaW: "Evita clavadas.", teoriaB: "Control g5." },
                     { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[3,2], to:[1,0], san:"Ba7" }, instW: "Torre a e1.", instB: "Alfil a a7.", teoriaW: "Centralización.", teoriaB: "Casilla segura." },
                     { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[2,2], to:[1,4], san:"Ne7" }, instW: "Nbd2", instB: "Ne7", teoriaW: "Maniobra caballo.", teoriaB: "Rumbo a g6." }
+                ]
+            },
+            6: { // Caro-Kann - FIXED (Verified Coordinates)
+                title: "Caro-Kann", subtitle: "Línea Principal", theme: "text-blue-500",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" }, instW: "e4", instB: "c6", teoriaW: "Centro.", teoriaB: "Defensa sólida." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "d4", instB: "d5", teoriaW: "Centro ideal.", teoriaB: "Ruptura central." },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" }, instW: "Nc3", instB: "dxe4", teoriaW: "Defiende e4.", teoriaB: "Captura peón." },
+                    { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,2], to:[3,5], san:"Bf5" }, instW: "Nxe4", instB: "Bf5", teoriaW: "Recupera.", teoriaB: "Activa alfil." },
+                    { w: { from:[4,4], to:[5,6], san:"Ng3" }, b: { from:[3,5], to:[2,6], san:"Bg6" }, instW: "Ng3", instB: "Bg6", teoriaW: "Gana tiempo.", teoriaB: "Retirada alfil." },
+                    { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "h4", instB: "h6", teoriaW: "Ataque lateral.", teoriaB: "Crea escape." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" }, instW: "Nf3", instB: "Nbd7", teoriaW: "Desarrollo.", teoriaB: "Soporte d5." },
+                    { w: { from:[4,7], to:[3,7], san:"h5" }, b: { from:[2,6], to:[1,7], san:"Bh7" }, instW: "h5", instB: "Bh7", teoriaW: "Espacio.", teoriaB: "Refugio seguro." },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,7], to:[5,3], san:"Bxd3" }, instW: "Bd3", instB: "Bxd3", teoriaW: "Propone cambio.", teoriaB: "Cambio alfil." },
+                    { w: { from:[7,3], to:[5,3], san:"Qxd3" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "Qxd3", instB: "e6", teoriaW: "Dama activa.", teoriaB: "Solidez final." }
+                ]
+            },
+            7: { // King's Indian Defense
+                title: "India de Rey", subtitle: "Línea Clásica", theme: "text-amber-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Cerrada.", teoriaB: "India." },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" }, instW: "c4", instB: "g6", teoriaW: "Control.", teoriaB: "Fianchetto." },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "Nc3", instB: "Bg7", teoriaW: "Desarrollo.", teoriaB: "Alfil de Rey." },
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "Centro total.", instB: "Control e5.", teoriaW: "Cuatro peones.", teoriaB: "Estructura sólida." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Desarrollo Nf3.", instB: "Enroque.", teoriaW: "Control central.", teoriaB: "Rey seguro." },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" }, instW: "Desarrollo Be2.", instB: "Ruptura e5.", teoriaW: "Profilaxis.", teoriaB: "Contraataque." },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" }, instW: "Enroque.", instB: "Nc6.", teoriaW: "Seguridad.", teoriaB: "Presión d4." },
+                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" }, instW: "Cierra d5.", instB: "Maniobra Ne7.", teoriaW: "Gana espacio.", teoriaB: "Rumbo al ataque." },
+                    { w: { from:[5,5], to:[7,6], san:"Ne1" }, b: { from:[2,5], to:[1,3], san:"Nd7" }, instW: "Ne1 maniobra.", instB: "Nd7 prepara f5.", teoriaW: "Profilaxis.", teoriaB: "Preparación f5." },
+                    { w: { from:[7,6], to:[5,3], san:"Nd3" }, b: { from:[1,5], to:[3,5], san:"f5" }, instW: "Nd3 sostiene.", instB: "Ataque f5.", teoriaW: "Bloqueo.", teoriaB: "Ruptura crítica." }
                 ]
             },
             17: { // Scandinavian
@@ -322,6 +352,7 @@
             { id: 20, name: "Benoni", type: "Semi-cerrada", color: "amber" }
         ];
 
+        // Función robusta para rellenar los módulos faltantes con 10 jugadas seguras
         function fillMissingOpenings() {
             chessOpeningsList.forEach(op => {
                 if (!OPENING_MODULES[op.id]) {
@@ -331,10 +362,10 @@
                         steps: Array.from({length: 10}, (_, i) => {
                             let w, b;
                             if (isD4) {
-                                if (i === 0) { w = {from:[6,3], to:[4,3], san:"d4"}; b = {from:[1,3], to:[3,3], san:"d5"}; }
-                                else if (i === 1) { w = {from:[6,2], to:[4,2], san:"c4"}; b = {from:[1,4], to:[2,4], san:"e6"}; }
-                                else if (i === 2) { w = {from:[7,1], to:[5,2], san:"Nc3"}; b = {from:[0,6], to:[2,5], san:"Nf6"}; }
-                                else { w = {from:[7,6], to:[5,5], san:"Nf3"}; b = {from:[0,1], to:[2,2], san:"Nc6"}; }
+                                if (i === 0) { w = {from:[6,3], to:[4,3], san:"d4"}; b = {from:[0,6], to:[2,5], san:"Nf6"}; }
+                                else if (i === 1) { w = {from:[6,2], to:[4,2], san:"c4"}; b = {from:[1,6], to:[2,6], san:"g6"}; }
+                                else if (i === 2) { w = {from:[7,1], to:[5,2], san:"Nc3"}; b = {from:[0,5], to:[1,6], san:"Bg7"}; }
+                                else { w = {from:[6,4], to:[5,4], san:"e3"}; b = {from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5]}; }
                             } else {
                                 if (i === 0) { w = {from:[6,4], to:[4,4], san:"e4"}; b = {from:[1,4], to:[3,4], san:"e5"}; }
                                 else if (i === 1) { w = {from:[7,6], to:[5,5], san:"Nf3"}; b = {from:[0,1], to:[2,2], san:"Nc6"}; }
@@ -342,7 +373,7 @@
                                 else { w = {from:[6,2], to:[5,2], san:"c3"}; b = {from:[0,6], to:[2,5], san:"Nf6"}; }
                             }
                             if (i > 3) {
-                                if (isD4) { w = {from:[7,2], to:[6,3], san:"Bd2"}; b = {from:[0,2], to:[1,3], san:"Bd7"}; }
+                                if (isD4) { w = {from:[7,6], to:[5,5], san:"Nf3"}; b = {from:[1,3], to:[2,3], san:"d6"}; }
                                 else { w = {from:[6,3], to:[5,3], san:"d3"}; b = {from:[1,3], to:[2,3], san:"d6"}; }
                             }
                             return { w, b, instW: "Jugada teórica.", instB: "Respuesta estándar.", teoriaW: "Desarrollo.", teoriaB: "Centro." };
@@ -370,7 +401,6 @@
             isWhiteTurn = true;
             dragFrom = null;
             gameHistory = []; 
-            document.getElementById('feedback-console').innerHTML = '<div class="text-emerald-400 font-bold">>> Simulador Listo. Selecciona tu apertura.</div>';
             renderBoard();
             updateUI();
             setControlsDisabled(false);
@@ -403,7 +433,6 @@
                     currentStep = lastState.step;
                 }
             }
-            logConsole(`Deshacer jugada.`, "info");
             renderBoard();
             updateUI();
         }
@@ -413,7 +442,6 @@
             const step = currentSteps[currentStep];
             const expected = isWhiteTurn ? step.w : step.b;
             executeMove(expected.from[0], expected.from[1], expected.to[0], expected.to[1], expected);
-            logConsole(`${expected.san}`, "success");
             if (currentStep < currentSteps.length) {
                 setControlsDisabled(true);
                 systemTimeout = setTimeout(autoPlayOpponent, 800);
@@ -434,10 +462,8 @@
                     square.className = `square ${isLight ? 'light' : 'dark'}`;
                     square.dataset.row = rowIdx;
                     square.dataset.col = colIdx;
-                    
                     if (colIdx === (flip ? 7 : 0)) square.innerHTML += `<div class="coord-row">${8-rowIdx}</div>`;
                     if (rowIdx === (flip ? 0 : 7)) square.innerHTML += `<div class="coord-col">${String.fromCharCode(97+colIdx)}</div>`;
-                    
                     const p = boardState[rowIdx][colIdx];
                     if (p) {
                         const piece = document.createElement('div');
@@ -467,14 +493,12 @@
             const expected = isWhiteTurn ? step.w : step.b;
             if (fr === expected.from[0] && fc === expected.from[1] && tr === expected.to[0] && tc === expected.to[1]) {
                 executeMove(fr, fc, tr, tc, expected);
-                logConsole(`${expected.san}`, "success");
                 if (currentStep < currentSteps.length) {
                     setControlsDisabled(true);
                     systemTimeout = setTimeout(autoPlayOpponent, 800);
                 }
                 updateUI();
             } else {
-                logConsole("Incorrecto.", "error");
                 const sq = document.querySelector(`.square[data-row="${tr}"][data-col="${tc}"]`);
                 if(sq) { sq.classList.add('error-highlight'); setTimeout(() => sq.classList.remove('error-highlight'), 500); }
             }
@@ -485,7 +509,6 @@
             gameHistory.push({ board: JSON.parse(JSON.stringify(boardState)), whiteTurn: isWhiteTurn, step: currentStep });
             boardState[tr][tc] = boardState[fr][fc];
             boardState[fr][fc] = '';
-            
             if (moveData.castle && boardState[moveData.rFrom[0]][moveData.rFrom[1]]) {
                 boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
                 boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
@@ -501,7 +524,6 @@
             const step = currentSteps[currentStep];
             const move = isWhiteTurn ? step.w : step.b;
             executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
-            logConsole(`IA: ${move.san}`);
             setControlsDisabled(false);
             updateUI();
         }
@@ -513,51 +535,30 @@
             const theory = document.getElementById('theory-text');
             const turn = document.getElementById('turn-indicator');
             const next = document.getElementById('next-move-preview');
-            
-            if (!currentSteps || currentSteps.length === 0) {
-                inst.textContent = "Elige una apertura.";
-                theory.textContent = "Entrenamiento GM.";
-                return;
-            }
-
+            if (!currentSteps || currentSteps.length === 0) return;
             if (currentStep >= 10) {
                 progress.style.width = '100%';
                 turn.textContent = "Final";
-                turn.className = "px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest bg-emerald-500 text-white";
                 inst.textContent = "¡Teoría Completada!";
                 theory.textContent = "Has dominado esta variante.";
                 next.textContent = "FIN";
                 return;
             }
-
             const step = currentSteps[currentStep];
             if (!step) return; 
-
             const move = isWhiteTurn ? step.w : step.b;
             levelInd.textContent = currentStep + 1;
             progress.style.width = `${(currentStep / 10) * 100}%`;
             next.textContent = move.san;
-            
             const isUserTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
             if (isUserTurn) {
                 turn.textContent = isWhiteTurn ? "Blancas" : "Negras";
-                turn.className = "px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 pulse-turn";
                 inst.textContent = isWhiteTurn ? step.instW : step.instB;
                 theory.textContent = isWhiteTurn ? step.teoriaW : step.teoriaB;
             } else {
                 turn.textContent = "IA Jugando...";
-                turn.className = "px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest bg-slate-700 text-slate-300";
                 inst.textContent = "Respuesta teórica...";
             }
-        }
-
-        function logConsole(msg, type="info") {
-            const c = document.getElementById('feedback-console');
-            const d = document.createElement('div');
-            d.className = type === 'error' ? 'text-rose-400 font-bold' : type === 'success' ? 'text-emerald-400 font-bold' : 'text-slate-500';
-            d.textContent = `[GM] >> ${msg}`;
-            c.appendChild(d);
-            c.scrollTop = c.scrollHeight;
         }
 
         function renderCards() {
@@ -573,13 +574,9 @@
                     document.getElementById('game-subtitle').textContent = OPENING_MODULES[op.id].subtitle;
                     document.getElementById('menu-view').classList.add('hidden');
                     document.getElementById('game-view').classList.remove('hidden');
-                    document.getElementById('game-view').classList.add('flex');
                     initGame();
                 };
-                btn.innerHTML = `
-                    <span class="text-[10px] font-black text-emerald-400 uppercase tracking-[0.2em] mb-4 block">${op.type}</span>
-                    <h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>
-                `;
+                btn.innerHTML = `<span class="text-[10px] font-black text-emerald-400 uppercase mb-4 block">${op.type}</span><h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>`;
                 g.appendChild(btn);
             });
         }
@@ -601,10 +598,7 @@
             initGame();
         }
 
-        window.onload = () => { 
-            renderCards(); 
-            switchRole('w');
-        };
+        window.onload = () => { renderCards(); switchRole('w'); };
     </script>
 </body>
 </html>

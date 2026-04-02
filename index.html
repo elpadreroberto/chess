@@ -70,11 +70,6 @@
         }
 
         .btn-disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
-        .pulse-turn { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
@@ -143,8 +138,6 @@
                         <p id="theory-text" class="text-base text-slate-300 italic leading-relaxed"></p>
                     </div>
                 </div>
-
-                <div class="terminal rounded-2xl p-4 h-36 overflow-y-auto text-sm shadow-inner" id="feedback-console"></div>
             </div>
         </main>
     </div>
@@ -176,6 +169,7 @@
             ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
         ];
 
+        // Módulo de Base de Datos - 20 Aperturas Reales con 10 Jugadas (20 plies)
         const OPENING_MODULES = {
             1: { // Ruy Lopez
                 title: "Ruy López", subtitle: "Variante Morphy", theme: "text-emerald-400",
@@ -195,136 +189,287 @@
             2: { // Sicilian Najdorf
                 title: "Siciliana", subtitle: "Variante Najdorf", theme: "text-blue-400",
                 steps: [
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "e4", instB: "c5", teoriaW: "Abierta.", teoriaB: "Siciliana." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "Nf3", instB: "d6", teoriaW: "Desarrollo.", teoriaB: "Control central." },
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,2], to:[4,3], san:"cxd4" }, instW: "d4", instB: "cxd4", teoriaW: "Ruptura.", teoriaB: "Simplificación." },
-                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Nxd4", instB: "Nf6", teoriaW: "Centralización.", teoriaB: "Presiona e4." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,0], to:[2,0], san:"a6" }, instW: "Nc3", instB: "a6", teoriaW: "Defiende e4.", teoriaB: "Sello Najdorf." },
-                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "Bg5", instB: "e6", teoriaW: "Agresivo.", teoriaB: "Refuerza d5." },
-                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,5], to:[1,4], san:"Be7" }, instW: "f4", instB: "Be7", teoriaW: "Espacio.", teoriaB: "Desclava." },
-                    { w: { from:[7,3], to:[5,3], san:"Qd3" }, b: { from:[0,3], to:[1,2], san:"Qc7" }, instW: "Qd3", instB: "Qc7", teoriaW: "Desarrollo Dama.", teoriaB: "Columna c." },
-                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[1,3], san:"Nbd7" }, instW: "O-O-O", instB: "Nbd7", teoriaW: "Ataque.", teoriaB: "Coordinación." },
-                    { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[1,1], to:[3,1], san:"b5" }, instW: "g4", instB: "b5", teoriaW: "Tormenta.", teoriaB: "Contraataque." }
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[7,3], to:[5,3], san:"Qd3" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
+                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                    { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[1,1], to:[3,1], san:"b5" } }
                 ]
             },
-            3: { // Queen's Gambit Declined
+            3: { // QGD
                 title: "Gambito de Dama", subtitle: "Línea Ortodoxa", theme: "text-purple-400",
                 steps: [
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "d4", instB: "d5", teoriaW: "Control.", teoriaB: "Respuesta clásica." },
-                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "c4", instB: "e6", teoriaW: "Ofrecimiento.", teoriaB: "Rechazado." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Nc3", instB: "Nf6", teoriaW: "Presión d5.", teoriaB: "Control e4." },
-                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" }, instW: "Bg5", instB: "Be7", teoriaW: "Clavada.", teoriaB: "Desclava." },
-                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "e3", instB: "O-O", teoriaW: "Solidez.", teoriaB: "Rey a salvo." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" }, instW: "Nf3", instB: "Nbd7", teoriaW: "Desarrollo.", teoriaB: "Soporte d5." },
-                    { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[1,2], to:[2,2], san:"c6" }, instW: "Rc1", instB: "c6", teoriaW: "Columna c.", teoriaB: "Triángulo central." },
-                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,3], to:[4,2], san:"dxc4" }, instW: "Bd3", instB: "dxc4", teoriaW: "Actividad.", teoriaB: "Captura tiempo." },
-                    { w: { from:[5,3], to:[4,2], san:"Bxc4" }, b: { from:[2,5], to:[3,3], san:"Nd5" }, instW: "Bxc4", instB: "Nd5", teoriaW: "Recupera.", teoriaB: "Maniobra Lasker." },
-                    { w: { from:[3,6], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" }, instW: "Bxe7", instB: "Qxe7", teoriaW: "Cambio.", teoriaB: "Conexión torres." }
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                    { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                    { w: { from:[5,3], to:[4,2], san:"Bxc4" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                    { w: { from:[3,6], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" } }
                 ]
             },
             4: { // French Defense
                 title: "Francesa", subtitle: "Variante Clásica", theme: "text-rose-400",
                 steps: [
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "e4", instB: "e6", teoriaW: "Peón rey.", teoriaB: "Francesa." },
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "d4", instB: "d5", teoriaW: "Centro.", teoriaB: "Contrataque d4." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Nc3", instB: "Nf6", teoriaW: "Presión.", teoriaB: "Desarrollo." },
-                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" }, instW: "Bg5", instB: "Be7", teoriaW: "Clavada.", teoriaB: "Desclava." },
-                    { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[1,3], san:"Nfd7" }, instW: "e5", instB: "Nfd7", teoriaW: "Gana espacio.", teoriaB: "Retirada." },
-                    { w: { from:[3,6], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" }, instW: "Bxe7", instB: "Qxe7", teoriaW: "Cambio.", teoriaB: "Recupera." },
-                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "f4", instB: "O-O", teoriaW: "Defensa.", teoriaB: "Seguridad." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "Nf3", instB: "c5", teoriaW: "Desarrollo.", teoriaB: "Ruptura típica." },
-                    { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" }, instW: "Qd2", instB: "Nc6", teoriaW: "Coordina.", teoriaB: "Presión d4." },
-                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,0], to:[2,0], san:"a6" }, instW: "O-O-O", instB: "a6", teoriaW: "Agresividad.", teoriaB: "Contraataque." }
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[1,3], san:"Nfd7" } },
+                    { w: { from:[3,6], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" } },
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,0], to:[2,0], san:"a6" } }
                 ]
             },
-            5: { // Italian Game
+            5: { // Italian
                 title: "Italiana", subtitle: "Giuoco Piano", theme: "text-emerald-400",
                 steps: [
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, instW: "e4", instB: "e5", teoriaW: "Peón rey.", teoriaB: "Abierta." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" }, instW: "Nf3", instB: "Nc6", teoriaW: "Ataque e5.", teoriaB: "Defensa." },
-                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[3,2], san:"Bc5" }, instW: "Bc4", instB: "Bc5", teoriaW: "Alfil italiano.", teoriaB: "Giuoco Piano." },
-                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "c3", instB: "Nf6", teoriaW: "Prepara d4.", teoriaB: "Ataque a e4." },
-                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "d3", instB: "d6", teoriaW: "Pianissimo.", teoriaB: "Sostiene centro." },
-                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "O-O", instB: "O-O", teoriaW: "Seguridad.", teoriaB: "Rey a salvo." },
-                    { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[1,0], to:[2,0], san:"a6" }, instW: "a4", instB: "a6", teoriaW: "Espacio flanco.", teoriaB: "Profilaxis." },
-                    { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "h3", instB: "h6", teoriaW: "Evita clavadas.", teoriaB: "Control g5." },
-                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[3,2], to:[1,0], san:"Ba7" }, instW: "Torre a e1.", instB: "Alfil a a7.", teoriaW: "Centralización.", teoriaB: "Casilla segura." },
-                    { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[2,2], to:[1,4], san:"Ne7" }, instW: "Nbd2", instB: "Ne7", teoriaW: "Maniobra caballo.", teoriaB: "Rumbo a g6." }
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                    { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[3,2], to:[1,0], san:"Ba7" } },
+                    { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[2,2], to:[1,4], san:"Ne7" } }
                 ]
             },
-            6: { // Caro-Kann - FIXED (Verified Coordinates)
+            6: { // Caro-Kann
                 title: "Caro-Kann", subtitle: "Línea Principal", theme: "text-blue-500",
                 steps: [
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" }, instW: "e4", instB: "c6", teoriaW: "Centro.", teoriaB: "Defensa sólida." },
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "d4", instB: "d5", teoriaW: "Centro ideal.", teoriaB: "Ruptura central." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" }, instW: "Nc3", instB: "dxe4", teoriaW: "Defiende e4.", teoriaB: "Captura peón." },
-                    { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,2], to:[3,5], san:"Bf5" }, instW: "Nxe4", instB: "Bf5", teoriaW: "Recupera.", teoriaB: "Activa alfil." },
-                    { w: { from:[4,4], to:[5,6], san:"Ng3" }, b: { from:[3,5], to:[2,6], san:"Bg6" }, instW: "Ng3", instB: "Bg6", teoriaW: "Gana tiempo.", teoriaB: "Retirada alfil." },
-                    { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "h4", instB: "h6", teoriaW: "Ataque lateral.", teoriaB: "Crea escape." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" }, instW: "Nf3", instB: "Nbd7", teoriaW: "Desarrollo.", teoriaB: "Soporte d5." },
-                    { w: { from:[4,7], to:[3,7], san:"h5" }, b: { from:[2,6], to:[1,7], san:"Bh7" }, instW: "h5", instB: "Bh7", teoriaW: "Espacio.", teoriaB: "Refugio seguro." },
-                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,7], to:[5,3], san:"Bxd3" }, instW: "Bd3", instB: "Bxd3", teoriaW: "Propone cambio.", teoriaB: "Cambio alfil." },
-                    { w: { from:[7,3], to:[5,3], san:"Qxd3" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "Qxd3", instB: "e6", teoriaW: "Dama activa.", teoriaB: "Solidez final." }
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                    { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                    { w: { from:[4,4], to:[5,6], san:"Ng3" }, b: { from:[3,5], to:[2,6], san:"Bg6" } },
+                    { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                    { w: { from:[4,7], to:[3,7], san:"h5" }, b: { from:[2,6], to:[1,7], san:"Bh7" } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,7], to:[5,3], san:"Bxd3" } },
+                    { w: { from:[7,3], to:[5,3], san:"Qxd3" }, b: { from:[1,4], to:[2,4], san:"e6" } }
                 ]
             },
-            7: { // King's Indian Defense
+            7: { // King's Indian
                 title: "India de Rey", subtitle: "Línea Clásica", theme: "text-amber-400",
                 steps: [
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Cerrada.", teoriaB: "India." },
-                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" }, instW: "c4", instB: "g6", teoriaW: "Control.", teoriaB: "Fianchetto." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "Nc3", instB: "Bg7", teoriaW: "Desarrollo.", teoriaB: "Alfil de Rey." },
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "Centro total.", instB: "Control e5.", teoriaW: "Cuatro peones.", teoriaB: "Estructura sólida." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Desarrollo Nf3.", instB: "Enroque.", teoriaW: "Control central.", teoriaB: "Rey seguro." },
-                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" }, instW: "Desarrollo Be2.", instB: "Ruptura e5.", teoriaW: "Profilaxis.", teoriaB: "Contraataque." },
-                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" }, instW: "Enroque.", instB: "Nc6.", teoriaW: "Seguridad.", teoriaB: "Presión d4." },
-                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" }, instW: "Cierra d5.", instB: "Maniobra Ne7.", teoriaW: "Gana espacio.", teoriaB: "Rumbo al ataque." },
-                    { w: { from:[5,5], to:[7,6], san:"Ne1" }, b: { from:[2,5], to:[1,3], san:"Nd7" }, instW: "Ne1 maniobra.", instB: "Nd7 prepara f5.", teoriaW: "Profilaxis.", teoriaB: "Preparación f5." },
-                    { w: { from:[7,6], to:[5,3], san:"Nd3" }, b: { from:[1,5], to:[3,5], san:"f5" }, instW: "Nd3 sostiene.", instB: "Ataque f5.", teoriaW: "Bloqueo.", teoriaB: "Ruptura crítica." }
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" } },
+                    { w: { from:[5,5], to:[7,4], san:"Ne1" }, b: { from:[2,5], to:[1,3], san:"Nd7" } },
+                    { w: { from:[7,4], to:[5,3], san:"Nd3" }, b: { from:[1,5], to:[3,5], san:"f5" } }
+                ]
+            },
+            8: { // Nimzo-Indian
+                title: "Nimzo-India", subtitle: "Sistema Rubinstein", theme: "text-amber-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[4,1], san:"Bb4" } },
+                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[4,1], to:[5,2], san:"Bxc3" } },
+                    { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                    { w: { from:[5,3], to:[4,2], san:"Bxc4" }, b: { from:[0,3], to:[1,2], san:"Qc7" } }
+                ]
+            },
+            9: { // Slav Defense
+                title: "Eslava", subtitle: "Línea Principal", theme: "text-purple-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                    { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bxc4" }, b: { from:[0,5], to:[4,1], san:"Bb4" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                    { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[3,5], to:[2,6], san:"Bg6" } },
+                    { w: { from:[5,4], to:[4,4], san:"e4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                ]
+            },
+            10: { // English Opening
+                title: "Inglesa", subtitle: "Simétrica", theme: "text-cyan-400",
+                steps: [
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[2,2], to:[4,3], san:"Nxd4" } },
+                    { w: { from:[7,3], to:[4,3], san:"Qxd4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[4,3], to:[5,3], san:"Qd3" }, b: { from:[1,0], to:[2,0], san:"a6" } }
+                ]
+            },
+            11: { // Pirc
+                title: "Defensa Pirc", subtitle: "Sistema Clásico", theme: "text-blue-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                    { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" } },
+                    { w: { from:[7,0], to:[7,3], san:"Rad1" }, b: { from:[1,0], to:[2,0], san:"a6" } }
+                ]
+            },
+            12: { // Scotch Game
+                title: "Escocesa", subtitle: "Línea Principal", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[4,3], to:[2,2], san:"Nxc6" }, b: { from:[1,1], to:[2,2], san:"bxc6" } },
+                    { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[0,3], to:[1,4], san:"Qe7" } },
+                    { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[0,2], to:[2,0], san:"Ba6" } },
+                    { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,5], to:[1,6], san:"Bg7" } }
+                ]
+            },
+            13: { // Alekhine
+                title: "Alekhine", subtitle: "Moderna", theme: "text-blue-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                    { w: { from:[3,4], to:[2,3], san:"exd6" }, b: { from:[1,2], to:[2,3], san:"cxd6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[2,3], to:[3,3], san:"d5" } }
+                ]
+            },
+            14: { // King's Gambit
+                title: "Gambito de Rey", subtitle: "Variante Aceptada", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                    { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[3,6], to:[4,6], san:"g4" } },
+                    { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[3,4], to:[5,3], san:"Nd3" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                    { w: { from:[7,2], to:[4,5], san:"Bxf4" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[4,4], to:[5,2], san:"Nxc3" } },
+                    { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                ]
+            },
+            15: { // Dutch (Leningrad)
+                title: "Holandesa", subtitle: "Leningrado", theme: "text-amber-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d5" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    // Movimiento 9 incorpora captura al paso correcta (ep)
+                    { w: { from:[4,3], to:[2,4], san:"dxe6 e.p.", ep: [3,4] }, b: { from:[0,2], to:[2,4], san:"Bxe6" } },
+                    { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,1], to:[1,3], san:"Na6" } }
+                ]
+            },
+            16: { // London System
+                title: "Sistema Londres", subtitle: "Línea Principal", theme: "text-purple-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                    { w: { from:[4,5], to:[5,6], san:"Bg3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,1], to:[2,1], san:"b6" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                    { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[0,3], to:[1,2], san:"Qc7" } }
                 ]
             },
             17: { // Scandinavian
                 title: "Escandinava", subtitle: "Línea Principal", theme: "text-blue-400",
                 steps: [
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "e4", instB: "d5", teoriaW: "Centro.", teoriaB: "Golpe inmediato." },
-                    { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,3], to:[3,3], san:"Qxd5" }, instW: "Captura.", instB: "Recupera Dama.", teoriaW: "Simplifica.", teoriaB: "Dama expuesta." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[3,0], san:"Qa5" }, instW: "Nc3", instB: "Qa5", teoriaW: "Gana tiempo.", teoriaB: "Retirada segura." },
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Centro total.", teoriaB: "Desarrollo." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[2,2], san:"c6" }, instW: "Nf3", instB: "c6", teoriaW: "Desarrollo.", teoriaB: "Profilaxis." },
-                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,2], to:[3,5], san:"Bf5" }, instW: "Bc4", instB: "Bf5", teoriaW: "Actividad.", teoriaB: "Alfil fuerte." },
-                    { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "Bd2", instB: "e6", teoriaW: "Descubierta.", teoriaB: "Solidez." },
-                    { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[0,5], to:[4,1], san:"Bb4" }, instW: "Qe2", instB: "Bb4", teoriaW: "Táctica.", teoriaB: "Clavada." },
-                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[2,3], san:"Nbd7" }, instW: "O-O-O", instB: "Nbd7", teoriaW: "Ataque.", teoriaB: "Coordinación." },
-                    { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[4,1], to:[5,2], san:"Bxc3" }, instW: "a3", instB: "Bxc3", teoriaW: "Pregunta.", teoriaB: "Cambio." }
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,3], to:[3,3], san:"Qxd5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[3,0], san:"Qa5" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                    { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[5,2], to:[3,3], san:"Nd5" }, b: { from:[3,0], to:[0,3], san:"Qd8" } },
+                    { w: { from:[3,3], to:[2,5], san:"Nxf6+" }, b: { from:[1,6], to:[2,5], san:"gxf6" } },
+                    { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[0,1], to:[1,3], san:"Nd7" } }
                 ]
             },
             18: { // Reti
-                title: "Reti", subtitle: "Línea Principal", theme: "text-cyan-400",
+                title: "Apertura Reti", subtitle: "Sistema Flex", theme: "text-cyan-400",
                 steps: [
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "Nf3", instB: "d5", teoriaW: "Hipermoderno.", teoriaB: "Clásico." },
-                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[4,3], san:"d4" }, instW: "c4", instB: "d4", teoriaW: "Reto lateral.", teoriaB: "Avance." },
-                    { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,1], to:[2,2], san:"Nc6" }, instW: "g3", instB: "Nc6", teoriaW: "Fianchetto.", teoriaB: "Presión." },
-                    { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[1,4], to:[3,4], san:"e5" }, instW: "Bg2", instB: "e5", teoriaW: "Gran diagonal.", teoriaB: "Dúo central." },
-                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "d3", instB: "Nf6", teoriaW: "Soporte.", teoriaB: "Desarrollo." },
-                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,4], san:"Be7" }, instW: "O-O", instB: "Be7", teoriaW: "Seguridad.", teoriaB: "Profilaxis." },
-                    { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[1,0], to:[3,0], san:"a5" }, instW: "a3", instB: "a5", teoriaW: "Expansión.", teoriaB: "Freno." },
-                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "e3", instB: "O-O", teoriaW: "Abre juego.", teoriaB: "Rey seguro." },
-                    { w: { from:[5,4], to:[4,3], san:"exd4" }, b: { from:[3,4], to:[4,3], san:"exd4" }, instW: "exd4", instB: "exd4", teoriaW: "Apertura.", teoriaB: "Recupera d4." },
-                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[2,2], to:[3,0], san:"Na5" }, instW: "Re1", instB: "Na5", teoriaW: "Columna e.", teoriaB: "Maniobra." }
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[4,3], san:"d4" } },
+                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[5,4], to:[4,3], san:"exd4" }, b: { from:[2,2], to:[4,3], san:"Nxd4" } },
+                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,3], to:[4,3], san:"Qxd4" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[4,3], to:[2,3], san:"Qd6" } },
+                    { w: { from:[5,3], to:[4,3], san:"d4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } }
+                ]
+            },
+            19: { // Grunfeld
+                title: "Defensa Grünfeld", subtitle: "Variante Cambio", theme: "text-amber-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[3,3], to:[5,2], san:"Nxc3" } },
+                    { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,6], to:[6,4], san:"Ne2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,3], to:[1,2], san:"Qc7" } }
                 ]
             },
             20: { // Benoni
-                title: "Benoni", subtitle: "Defensa Moderna", theme: "text-amber-500",
+                title: "Benoni", subtitle: "Moderna", theme: "text-amber-500",
                 steps: [
-                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "d4", instB: "Nf6", teoriaW: "Cerrada.", teoriaB: "Indio." },
-                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "c4", instB: "c5", teoriaW: "Espacio.", teoriaB: "Benoni." },
-                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" }, instW: "d5", instB: "e6", teoriaW: "Ventaja.", teoriaB: "Ruptura." },
-                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" }, instW: "Nc3", instB: "exd5", teoriaW: "Presión.", teoriaB: "Cambio." },
-                    { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "cxd5", instB: "d6", teoriaW: "Estructura.", teoriaB: "Bloqueo." },
-                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" }, instW: "e4", instB: "g6", teoriaW: "Centro.", teoriaB: "Fianchetto." },
-                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "Nf3", instB: "Bg7", teoriaW: "Control.", teoriaB: "Alfil Rey." },
-                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Be2", instB: "O-O", teoriaW: "Profilaxis.", teoriaB: "Seguridad." },
-                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,7], to:[0,4], san:"Re8" }, instW: "O-O", instB: "Re8", teoriaW: "Seguridad.", teoriaB: "Presión e4." },
-                    { w: { from:[5,5], to:[6,3], san:"Nd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" }, instW: "Nd2", instB: "Nc6", teoriaW: "Maniobra.", teoriaB: "Contraataque." }
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                    { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,7], to:[0,4], san:"Re8" } },
+                    { w: { from:[5,5], to:[6,3], san:"Nd2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } }
                 ]
             }
         };
@@ -351,39 +496,6 @@
             { id: 19, name: "Grünfeld", type: "Semi-cerrada", color: "amber" },
             { id: 20, name: "Benoni", type: "Semi-cerrada", color: "amber" }
         ];
-
-        // Función robusta para rellenar los módulos faltantes con 10 jugadas seguras
-        function fillMissingOpenings() {
-            chessOpeningsList.forEach(op => {
-                if (!OPENING_MODULES[op.id]) {
-                    const isD4 = ["Cerrada", "Semi-cerrada"].includes(op.type);
-                    OPENING_MODULES[op.id] = {
-                        title: op.name, subtitle: "Variante Maestra", theme: `text-${op.color}-400`,
-                        steps: Array.from({length: 10}, (_, i) => {
-                            let w, b;
-                            if (isD4) {
-                                if (i === 0) { w = {from:[6,3], to:[4,3], san:"d4"}; b = {from:[0,6], to:[2,5], san:"Nf6"}; }
-                                else if (i === 1) { w = {from:[6,2], to:[4,2], san:"c4"}; b = {from:[1,6], to:[2,6], san:"g6"}; }
-                                else if (i === 2) { w = {from:[7,1], to:[5,2], san:"Nc3"}; b = {from:[0,5], to:[1,6], san:"Bg7"}; }
-                                else { w = {from:[6,4], to:[5,4], san:"e3"}; b = {from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5]}; }
-                            } else {
-                                if (i === 0) { w = {from:[6,4], to:[4,4], san:"e4"}; b = {from:[1,4], to:[3,4], san:"e5"}; }
-                                else if (i === 1) { w = {from:[7,6], to:[5,5], san:"Nf3"}; b = {from:[0,1], to:[2,2], san:"Nc6"}; }
-                                else if (i === 2) { w = {from:[7,5], to:[4,2], san:"Bc4"}; b = {from:[0,5], to:[3,2], san:"Bc5"}; }
-                                else { w = {from:[6,2], to:[5,2], san:"c3"}; b = {from:[0,6], to:[2,5], san:"Nf6"}; }
-                            }
-                            if (i > 3) {
-                                if (isD4) { w = {from:[7,6], to:[5,5], san:"Nf3"}; b = {from:[1,3], to:[2,3], san:"d6"}; }
-                                else { w = {from:[6,3], to:[5,3], san:"d3"}; b = {from:[1,3], to:[2,3], san:"d6"}; }
-                            }
-                            return { w, b, instW: "Jugada teórica.", instB: "Respuesta estándar.", teoriaW: "Desarrollo.", teoriaB: "Centro." };
-                        })
-                    };
-                }
-            });
-        }
-
-        fillMissingOpenings();
 
         let boardState = [];
         let userRole = 'w';
@@ -464,6 +576,7 @@
                     square.dataset.col = colIdx;
                     if (colIdx === (flip ? 7 : 0)) square.innerHTML += `<div class="coord-row">${8-rowIdx}</div>`;
                     if (rowIdx === (flip ? 0 : 7)) square.innerHTML += `<div class="coord-col">${String.fromCharCode(97+colIdx)}</div>`;
+                    
                     const p = boardState[rowIdx][colIdx];
                     if (p) {
                         const piece = document.createElement('div');
@@ -477,6 +590,7 @@
                         });
                         square.appendChild(piece);
                     }
+                    
                     square.addEventListener('dragover', (e) => e.preventDefault());
                     square.addEventListener('drop', (e) => {
                         e.preventDefault();
@@ -507,14 +621,24 @@
         function executeMove(fr, fc, tr, tc, moveData) {
             if (!boardState[fr][fc]) return;
             gameHistory.push({ board: JSON.parse(JSON.stringify(boardState)), whiteTurn: isWhiteTurn, step: currentStep });
+            
             boardState[tr][tc] = boardState[fr][fc];
             boardState[fr][fc] = '';
+            
+            // Lógica de enroque
             if (moveData.castle && boardState[moveData.rFrom[0]][moveData.rFrom[1]]) {
                 boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
                 boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
             }
+            
+            // Lógica Captura al Paso (En Passant) 
+            // Necesario para aperturas avanzadas como la Holandesa Leningrado
+            if (moveData.ep) {
+                boardState[moveData.ep[0]][moveData.ep[1]] = '';
+            }
+
             isWhiteTurn = !isWhiteTurn;
-            if (isWhiteTurn) currentStep++;
+            if (isWhiteTurn) currentStep++; // Un "Step" abarca Blanca+Negra
             renderBoard();
         }
 
@@ -535,29 +659,43 @@
             const theory = document.getElementById('theory-text');
             const turn = document.getElementById('turn-indicator');
             const next = document.getElementById('next-move-preview');
+            
             if (!currentSteps || currentSteps.length === 0) return;
+            
             if (currentStep >= 10) {
                 progress.style.width = '100%';
                 turn.textContent = "Final";
                 inst.textContent = "¡Teoría Completada!";
-                theory.textContent = "Has dominado esta variante.";
+                theory.textContent = "Has dominado esta variante de memoria.";
                 next.textContent = "FIN";
                 return;
             }
+            
             const step = currentSteps[currentStep];
             if (!step) return; 
+            
             const move = isWhiteTurn ? step.w : step.b;
             levelInd.textContent = currentStep + 1;
             progress.style.width = `${(currentStep / 10) * 100}%`;
             next.textContent = move.san;
+            
             const isUserTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
+            
+            // Fallback en textos teóricos para aperturas no anotadas a mano 
+            // Esto previene resultados `undefined` en la UI
+            const fw = step.instW || `Juega ${step.w.san}`;
+            const fb = step.instB || `Juega ${step.b.san}`;
+            const tw = step.teoriaW || "Línea teórica de desarrollo.";
+            const tb = step.teoriaB || "Respuesta posicional estándar.";
+
             if (isUserTurn) {
                 turn.textContent = isWhiteTurn ? "Blancas" : "Negras";
-                inst.textContent = isWhiteTurn ? step.instW : step.instB;
-                theory.textContent = isWhiteTurn ? step.teoriaW : step.teoriaB;
+                inst.textContent = isWhiteTurn ? fw : fb;
+                theory.textContent = isWhiteTurn ? tw : tb;
             } else {
                 turn.textContent = "IA Jugando...";
-                inst.textContent = "Respuesta teórica...";
+                inst.textContent = "Preparando respuesta...";
+                theory.textContent = isWhiteTurn ? tw : tb;
             }
         }
 

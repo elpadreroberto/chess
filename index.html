@@ -78,7 +78,7 @@
         <header class="w-full text-center mt-6 mb-12">
             <!-- Gradiente ajustado a tonos cálidos más agradables -->
             <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-orange-400 to-rose-500 mb-4 drop-shadow-sm">Aprende aperturas</h1>
-            <p class="text-slate-400 text-xl md:text-2xl font-light">20 teorías y sus variantes</p>
+            <p class="text-slate-400 text-xl md:text-2xl font-light">25 teorías y sus variantes</p>
         </header>
         <main class="w-full">
             <div id="openings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
@@ -469,21 +469,6 @@
                 ],
                 variations: [
                     {
-                        name: "Variante del Cambio", subtitle: "Línea posicional",
-                        steps: [
-                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
-                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
-                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
-                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,4], to:[3,3], san:"exd5" }, instW: "cxd5", teoriaW: "Fija la estructura." },
-                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,2], to:[2,2], san:"c6" } },
-                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
-                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
-                            { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
-                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
-                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,3], to:[0,5], san:"Nf8" }, teoriaB: "Maniobra clásica del caballo." }
-                        ]
-                    },
-                    {
                         name: "Variante Tartakower", subtitle: "Flexibilidad moderna",
                         steps: [
                             { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
@@ -496,6 +481,66 @@
                             { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
                             { w: { from:[4,7], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" } },
                             { w: { from:[5,2], to:[3,3], san:"Nxd5" }, b: { from:[2,4], to:[3,3], san:"exd5" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito de Dama Aceptado", subtitle: "Cesión temporal del centro",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[4,2], san:"dxc4" }, instB: "dxc4", teoriaB: "Las negras aceptan el peón ofrecido, cediendo temporalmente el control del centro con la intención de contraatacar más tarde." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bxc4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                            { w: { from:[4,2], to:[5,1], san:"Bb3" }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                            { w: { from:[7,5], to:[7,3], san:"Rd1" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,3], to:[1,2], san:"Qc7" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito de Dama Rehusado", subtitle: "Línea Principal / Ortodoxa",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" }, instB: "e6", teoriaB: "Las negras defienden el peón de d5 con e6, manteniendo una posición sólida y cerrada en el centro." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                            { w: { from:[5,3], to:[4,2], san:"Bxc4" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[3,6], to:[1,4], san:"Bxe7" }, b: { from:[0,3], to:[1,4], san:"Qxe7" } }
+                        ]
+                    },
+                    {
+                        name: "Defensa Eslava", subtitle: "Transposición Eslava",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[2,2], san:"c6" }, instB: "c6", teoriaB: "Las negras defienden el peón d5 con c6. A diferencia del rehusado con e6, esto permite en el futuro un desarrollo más libre del alfil de casillas claras (Ac8)." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bxc4" }, b: { from:[0,5], to:[4,1], san:"Bb4" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[3,5], to:[2,6], san:"Bg6" } },
+                            { w: { from:[5,4], to:[4,4], san:"e4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Contragambito Albin", subtitle: "Sacrificio agresivo",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[3,4], san:"e5" }, instB: "e5", teoriaB: "Una respuesta agresiva y sorpresiva donde las negras sacrifican un peón inmediatamente para desestabilizar el centro blanco." },
+                            { w: { from:[4,2], to:[3,4], san:"dxe5" }, b: { from:[3,3], to:[4,3], san:"d4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,3], to:[1,4], san:"Qe7" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[4,6], to:[5,5], san:"Bxf3" } },
+                            { w: { from:[6,3], to:[5,5], san:"Nxf3" }, b: { from:[0,4], to:[0,2], san:"O-O-O", castle:true, rFrom:[0,0], rTo:[0,3] } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[2,2], to:[4,4], san:"Nxe5" } },
+                            { w: { from:[5,5], to:[4,4], san:"Nxe5" }, b: { from:[1,4], to:[4,4], san:"Qxe5" } }
                         ]
                     }
                 ]
@@ -544,6 +589,96 @@
                             { w: { from:[1,6], to:[1,7], san:"Qxh7" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
                             { w: { from:[7,6], to:[6,4], san:"Ne2" }, b: { from:[0,1], to:[2,2], san:"Nbc6" } }
                         ]
+                    },
+                    {
+                        name: "Variante Tarrasch", subtitle: "Desarrollo limpio y sólido",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nd2" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Nd2", teoriaW: "Variante Tarrasch. Evita la clavada con Bb4." },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[1,3], san:"Nfd7" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,6], to:[6,4], san:"Ne2" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,2], to:[4,3], san:"cxd4" }, b: { from:[1,5], to:[2,5], san:"f6" }, teoriaB: "Ruptura vital en f6 para dinamitar el peón e5." },
+                            { w: { from:[3,4], to:[2,5], san:"exf6" }, b: { from:[1,3], to:[2,5], san:"Nxf6" } },
+                            { w: { from:[6,3], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante del Cambio", subtitle: "Estructura simétrica",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,4], to:[3,3], san:"exd5" }, instW: "exd5", teoriaW: "Apertura muy posicional y tablífera por naturaleza." },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,2], to:[2,2], san:"c6" }, teoriaB: "Simetría casi total. Se impone el juego maniobrero." },
+                            { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[0,3], to:[1,2], san:"Qc7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Rubinstein", subtitle: "Defensa rocosa",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" }, instB: "dxe4", teoriaB: "Variante Rubinstein. Cede el centro para desarrollarse rápido y sin debilidades." },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,1], to:[1,3], san:"Nd7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Ngf6" } },
+                            { w: { from:[4,4], to:[2,5], san:"Nxf6+" }, b: { from:[1,3], to:[2,5], san:"Nxf6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,2], to:[3,2], san:"c5" }, teoriaB: "Golpea la base central de d4 inmediatamente." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                            { w: { from:[4,3], to:[5,1], san:"Nb3" }, b: { from:[3,2], to:[2,3], san:"Bd6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante MacAcutcheon", subtitle: "Lucha salvaje",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[4,1], san:"Bb4" }, instB: "Bb4", teoriaB: "Variante MacAcutcheon. Clava el caballo en vez de retirar el propio." },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[3,6], to:[6,3], san:"Bd2" }, b: { from:[4,1], to:[5,2], san:"Bxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[2,5], to:[3,4], san:"Ne4" } },
+                            { w: { from:[7,3], to:[4,6], san:"Qg4" }, b: { from:[1,6], to:[2,6], san:"g6" }, teoriaW: "Castiga la diagonal negra debilitada." },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,4], to:[6,3], san:"Nxd2" } },
+                            { w: { from:[7,4], to:[6,3], san:"Kxd2" }, b: { from:[1,2], to:[3,2], san:"c5" }, teoriaB: "Destruye el enroque, pero tiene gran iniciativa central." }
+                        ]
+                    },
+                    {
+                        name: "Variante Burn", subtitle: "Presión sobre Bg5",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[3,3], to:[4,4], san:"dxe4" }, instB: "dxe4", teoriaB: "Variante Burn. Entrega el centro para atacar rápido." },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[3,6], to:[2,5], san:"Bxf6" }, b: { from:[1,4], to:[2,5], san:"Bxf6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[1,3], san:"Nd7" } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,1], to:[2,1], san:"b6" }, teoriaW: "Enroques opuestos: una partida mortal se aproxima." },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,2], to:[1,1], san:"Bb7" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Steinitz", subtitle: "Cierre dinámico e5",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[1,3], san:"Nfd7" }, instW: "e5", teoriaW: "Ataque Steinitz. Ganancia de espacio cerrando la posición." },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,3], to:[2,1], san:"Qb6" }, teoriaB: "Ataque feroz combinado sobre d4 y b2." },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[2,1], to:[6,1], san:"Qxb2" } },
+                            { w: { from:[7,0], to:[7,1], san:"Rb1" }, b: { from:[6,1], to:[5,0], san:"Qa3" } }
+                        ]
                     }
                 ]
             },
@@ -585,11 +720,101 @@
                             { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instB: "Nf6", teoriaB: "Defensa de los Dos Caballos." },
                             { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "Ng5", teoriaW: "Ataque inmediato al punto débil f7." },
                             { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" }, teoriaB: "Un error histórico. Lo correcto es Na5." },
-                            { w: { from:[3,6], to:[1,5], san:"Nxf7" }, b: { from:[0,4], to:[1,5], san:"Kxf7" }, instW: "Nxf7!!", teoriaW: "El famoso sacrificio Fegatello." },
+                            { w: { from:[3,6], to:[1,5], san:"Nxf7" }, b: { from:[0,4], to:[1,5], san:"Kxf7" }, instW: "Nxf7!!", teoriaW: "El famoso sacrificio Fegatello (Fried Liver)." },
                             { w: { from:[7,3], to:[5,5], san:"Qf3+" }, b: { from:[1,5], to:[2,4], san:"Ke6" }, teoriaB: "El rey debe defender al caballo saltando al centro." },
                             { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,2], to:[1,4], san:"Nce7" } },
                             { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
                             { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,7], to:[2,7], san:"h6" }, teoriaW: "Máxima presión sobre la posición expuesta." }
+                        ]
+                    },
+                    {
+                        name: "Giuoco Pianissimo", subtitle: "Desarrollo posicional tranquilo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "d3", teoriaW: "Juego muy lento. Posterga c3 y d4 para maniobrar." },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[3,2], to:[1,0], san:"Ba7" }, teoriaB: "Oculta el alfil previniendo b4 y d4." },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[6,3], to:[7,5], san:"Nf1" }, b: { from:[0,5], to:[0,4], san:"Re8" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Greco", subtitle: "Centro inmediato violento",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" }, instW: "d4!", teoriaW: "Ataque Greco. Forzando el centro directamente en la jugada 5." },
+                            { w: { from:[5,2], to:[4,3], san:"cxd4" }, b: { from:[3,2], to:[4,1], san:"Bb4+" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[4,4], to:[5,2], san:"Nxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[4,1], to:[5,2], san:"Bxc3" } },
+                            { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[1,3], to:[3,3], san:"d5" }, teoriaW: "Las blancas tienen un ataque feroz, las negras devuelven material para defender." }
+                        ]
+                    },
+                    {
+                        name: "Variante Traxler", subtitle: "Contraataque táctico extremo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[0,5], to:[3,2], san:"Bc5" }, instB: "Bc5!?", teoriaB: "Variante Traxler. Ignora la amenaza en f7 e inicia un contraataque mortal." },
+                            { w: { from:[3,6], to:[1,5], san:"Nxf7" }, b: { from:[3,2], to:[6,5], san:"Bxf2+" } },
+                            { w: { from:[7,4], to:[6,5], san:"Kxf2" }, b: { from:[2,5], to:[4,4], san:"Nxe4+" } },
+                            { w: { from:[6,5], to:[7,6], san:"Kg1" }, b: { from:[0,3], to:[4,7], san:"Qh4" }, teoriaB: "Amenaza mate en f2." },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[4,4], to:[5,6], san:"Nxg3" } },
+                            { w: { from:[6,7], to:[5,6], san:"hxg3" }, b: { from:[4,7], to:[5,6], san:"Qxg3+" } },
+                            { w: { from:[7,6], to:[7,5], san:"Kf1" }, b: { from:[0,7], to:[0,5], san:"Rf8" }, teoriaW: "Situación crítica al borde del abismo para ambos." }
+                        ]
+                    },
+                    {
+                        name: "Variante Polerio", subtitle: "Línea principal contra Ng5",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,2], to:[3,0], san:"Na5" }, instB: "Na5", teoriaB: "Variante Polerio. La mejor respuesta, sacrifica peón por gran actividad." },
+                            { w: { from:[4,2], to:[3,1], san:"Bb5+" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[3,3], to:[2,2], san:"dxc6" }, b: { from:[1,1], to:[2,2], san:"bxc6" } },
+                            { w: { from:[3,1], to:[5,3], san:"Bd3" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[3,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Max Lange", subtitle: "Complicaciones centrales extremas",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "e5", teoriaB: "Ataque Max Lange. Las negras contraatacan en el centro de inmediato." },
+                            { w: { from:[3,4], to:[2,5], san:"exf6" }, b: { from:[4,3], to:[4,2], san:"dxc4" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1+" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[0,3], to:[3,3], san:"Qd5" }, teoriaW: "Apuntando a destrozar el enroque negro." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[3,5], san:"Qf5" } }
+                        ]
+                    },
+                    {
+                        name: "Defensa Húngara", subtitle: "Esquema sólido y cauteloso",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[1,4], san:"Be7" }, instB: "Be7", teoriaB: "Defensa Húngara. Evita las complejidades del Giuoco Piano y los Dos Caballos." },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,5], to:[7,3], san:"Rd1" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                            { w: { from:[5,2], to:[4,3], san:"cxd4" }, b: { from:[2,3], to:[3,3], san:"d5" }, teoriaB: "Logra estabilizar y abrir juego en el centro." },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } }
                         ]
                     }
                 ]
@@ -637,6 +862,96 @@
                             { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[4,6], to:[2,5], san:"Bxf3" }, teoriaW: "Presión crítica sobre b7 y d5." },
                             { w: { from:[6,6], to:[2,5], san:"gxf3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
                             { w: { from:[5,1], to:[1,1], san:"Qxb7" }, b: { from:[3,3], to:[4,3], san:"Nxd4" }, teoriaB: "Poderoso contraataque central." }
+                        ]
+                    },
+                    {
+                        name: "Variante del Cambio", subtitle: "Sólida pero venenosa",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,2], to:[3,3], san:"cxd5" }, instW: "exd5", teoriaW: "Variante del Cambio. Simplifica el centro rápidamente." },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,6], to:[2,6], san:"g6" }, teoriaW: "Previene que el alfil negro llegue a g4." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                            { w: { from:[5,3], to:[3,5], san:"Bxf5" }, b: { from:[2,6], to:[3,5], san:"gxf5" }, teoriaW: "Daña la estructura negra.", teoriaB: "Abre la columna g para un posible ataque." }
+                        ]
+                    },
+                    {
+                        name: "Variante Fantasía", subtitle: "Complicaciones extremas con f3",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[3,3], to:[4,4], san:"dxe4" }, instW: "f3!", teoriaW: "Variante Fantasía. Busca retener el gran centro de peones a cualquier costo." },
+                            { w: { from:[5,5], to:[4,4], san:"fxe4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaB: "Contraataque inmediato y necesario." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[1,3], san:"Nd7" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[3,3], san:"cxd5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,4], to:[4,6], san:"Bg4" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[4,6], to:[5,5], san:"Bxf3" } },
+                            { w: { from:[7,3], to:[5,5], san:"Qxf3" }, b: { from:[0,6], to:[2,5], san:"Ngf6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Tartakower", subtitle: "Desarrollo dinámico con exf6",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instB: "Nf6", teoriaB: "En lugar de Bf5 o Nd7, las negras desafían al caballo inmediatamente." },
+                            { w: { from:[4,4], to:[2,5], san:"Nxf6+" }, b: { from:[1,4], to:[2,5], san:"exf6" }, teoriaB: "Variante Tartakower/Korchnoi. Abre la columna e y permite el rápido desarrollo del alfil." },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[0,5], to:[0,4], san:"Re8+" } },
+                            { w: { from:[7,6], to:[6,4], san:"Ne2" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[1,3], san:"Nd7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Bronstein-Larsen", subtitle: "Aceptando peones doblados (gxf6)",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[2,5], san:"Nxf6+" }, b: { from:[1,6], to:[2,5], san:"gxf6" }, instB: "gxf6!", teoriaB: "Variante Bronstein-Larsen. Destroza su propia estructura a cambio de la columna g y gran dinamismo." },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,5], to:[2,6], san:"Bg6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,1], to:[1,3], san:"Nd7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Karpov", subtitle: "Defensa con Nd7",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,1], to:[1,3], san:"Nd7" }, instB: "Nd7", teoriaB: "Variante Karpov / Smyslov. Evita peones doblados al apoyar el futuro Nf6." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Ngf6" } },
+                            { w: { from:[4,4], to:[2,5], san:"Nxf6+" }, b: { from:[1,3], to:[2,5], san:"Nxf6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                            { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[1,4], to:[2,4], san:"e6" }, teoriaW: "Agresividad posicional.", teoriaB: "Las negras mantienen una solidez pétrea." },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[3,5], to:[2,6], san:"Bg6" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[0,5], to:[2,3], san:"Bd6" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Indio de Rey", subtitle: "Desarrollo hipermoderno con blancas",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "d3", teoriaW: "Ataque Indio de Rey (KIA). Renuncia a d4 para un desarrollo de flanco." },
+                            { w: { from:[7,1], to:[6,3], san:"Nd2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Ngf3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,0], to:[3,0], san:"a5" }, teoriaW: "Preparación lenta del flanco de rey.", teoriaB: "Ganancia de espacio en el flanco de dama." },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[1,1], to:[2,1], san:"b6" } }
                         ]
                     }
                 ]
@@ -714,6 +1029,96 @@
                             { w: { from:[3,6], to:[5,4], san:"Be3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
                             { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
                             { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,6], to:[1,7], san:"Kh7" }, teoriaB: "Protege h6 sin debilitarse más." }
+                        ]
+                    },
+                    {
+                        name: "Ataque Bayoneta", subtitle: "Tormenta en el flanco de dama",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" } },
+                            { w: { from:[6,1], to:[4,1], san:"b4" }, b: { from:[2,5], to:[3,7], san:"Nh5" }, instW: "b4!", teoriaW: "Ataque Bayoneta. Iniciativa inmediata en el flanco de dama." },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[1,5], to:[3,5], san:"f5" }, teoriaW: "Las blancas se preparan para el asalto negro en el otro lado." }
+                        ]
+                    },
+                    {
+                        name: "Variante del Cambio", subtitle: "Reducción de la tensión",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[2,3], to:[3,4], san:"dxe5" }, instW: "dxe5", teoriaW: "Variante del Cambio. Evita las posiciones híper-agudas." },
+                            { w: { from:[7,3], to:[0,3], san:"Qxd8" }, b: { from:[0,5], to:[0,3], san:"Rxd8" }, teoriaB: "Cambio de damas tempranero, yendo a un final maniobrero." },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,3], to:[0,4], san:"Re8" } },
+                            { w: { from:[5,2], to:[3,3], san:"Nd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Makogonov", subtitle: "Restricción con h3",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "h3", teoriaW: "Sistema Makogonov. Frena en seco el desarrollo del alfil o caballo a g4." },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[0,1], to:[2,0], san:"Na6" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[2,0], to:[3,2], san:"Nc5" }, teoriaW: "Cierre masivo del centro y ganancia de espacio." },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[1,0], to:[3,0], san:"a5" } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[1,2], to:[2,2], san:"c6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Petrosian", subtitle: "Sofocando a las negras",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,0], to:[3,0], san:"a5" }, instW: "d5", teoriaW: "Variante Petrosian. El centro queda definido prematuramente." },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[0,1], to:[2,0], san:"Na6" } },
+                            { w: { from:[5,5], to:[6,3], san:"Nd2" }, b: { from:[0,3], to:[0,4], san:"Qe8" }, teoriaB: "Se aparta de la clavada y prepara el golpe en f5." }
+                        ]
+                    },
+                    {
+                        name: "Sistema Smyslov", subtitle: "Salida veloz del alfil",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "Bg5", teoriaW: "Sistema Smyslov. Provoca debilidades antes de que el negro enroque." },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[2,2], to:[4,3], san:"Nxd4" } }
+                        ]
+                    },
+                    {
+                        name: "Ortodoxa Antigua", subtitle: "Liberación central exd4",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[3,4], to:[4,3], san:"exd4" }, instB: "exd4", teoriaB: "Variante Antigua. Cede el centro para activar de inmediato las piezas." },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[2,5], to:[3,7], san:"Nh5" }, teoriaW: "Defensa sólida.", teoriaB: "Las negras abren líneas letales." }
                         ]
                     }
                 ]
@@ -1036,6 +1441,96 @@
                             { w: { from:[4,1], to:[3,1], san:"b5" }, b: { from:[2,2], to:[4,3], san:"Nd4" } },
                             { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
                         ]
+                    },
+                    {
+                        name: "Sistema Botvinnik", subtitle: "Muro posicional",
+                        steps: [
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[1,4], to:[3,4], san:"e5" }, instB: "e5", teoriaB: "Ambos bandos establecen el muro Botvinnik." },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,6], to:[1,4], san:"Nge7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,0], to:[7,1], san:"Rb1" }, b: { from:[1,0], to:[3,0], san:"a5" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[0,0], to:[0,1], san:"Rb8" }, teoriaW: "Las blancas preparan el clásico avance b4." }
+                        ]
+                    },
+                    {
+                        name: "Variante Erizo (Hedgehog)", subtitle: "Estructura de púas",
+                        steps: [
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,1], to:[2,1], san:"b6" }, instB: "b6", teoriaB: "Inicia el sistema Erizo. Las negras controlan el centro desde atrás." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[7,3], to:[4,3], san:"Qxd4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,5], to:[7,3], san:"Rd1" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Mikenas-Carls", subtitle: "Tensión central inmediata",
+                        steps: [
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "e4", teoriaB: "Contragolpe vital para no ser aplastado por el espacio blanco." },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[3,3], to:[4,3], san:"d4" } },
+                            { w: { from:[3,4], to:[2,5], san:"exf6" }, b: { from:[4,3], to:[5,2], san:"dxc3" }, teoriaW: "Línea muy aguda de la Mikenas." },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,3], to:[2,5], san:"Qxf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[2,3], san:"Bd6" } }
+                        ]
+                    },
+                    {
+                        name: "Anti-Grünfeld", subtitle: "Sorteando la India",
+                        steps: [
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,6], to:[2,6], san:"g6" }, instW: "g3", teoriaW: "Evita las líneas principales de la Grünfeld con un fianchetto temprano." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[3,3], to:[5,2], san:"Nxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,0], to:[7,1], san:"Rb1" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,3], to:[1,2], san:"Qc7" }, teoriaB: "Las negras mantienen gran presión sobre d4 y la diagonal." }
+                        ]
+                    },
+                    {
+                        name: "Anglo-Holandesa", subtitle: "Controlando e4",
+                        steps: [
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,5], to:[3,5], san:"f5" }, instB: "f5", teoriaB: "Transición a líneas de la Defensa Holandesa." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[3,5], to:[4,4], san:"fxe4" }, teoriaW: "Las blancas golpean el control negro." },
+                            { w: { from:[5,3], to:[4,4], san:"dxe4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,2], to:[2,4], san:"Be6" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Bremen", subtitle: "Desarrollo con e4 tardío",
+                        steps: [
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" }, instW: "e4", teoriaW: "Las blancas combinan c4, g3 y e4 para controlar d5 al máximo." },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,2], to:[1,3], san:"Bd7" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,3], to:[0,2], san:"Qc8" } },
+                            { w: { from:[7,6], to:[6,7], san:"Kh2" }, b: { from:[2,5], to:[0,4], san:"Ne8" }, teoriaB: "Prepara la ruptura f5." }
+                        ]
                     }
                 ]
             },
@@ -1082,6 +1577,96 @@
                             { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[3,1], to:[4,1], san:"b4" } },
                             { w: { from:[5,2], to:[7,3], san:"Nd1" }, b: { from:[1,0], to:[3,0], san:"a5" } },
                             { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[4,1], to:[5,2], san:"bxc3" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema del Fianchetto", subtitle: "Tranquilo y posicional",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "g3", teoriaW: "Sistema Fianchetto. Juego muy posicional y control de las casillas oscuras." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[1,0], to:[3,0], san:"a5" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Byrne", subtitle: "Agresión con Bg5",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "Bg5", teoriaW: "Ataque Byrne. Provoca debilidades y desarrolla rápido el flanco de dama." },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[1,7], to:[2,7], san:"h6" }, teoriaB: "Fuerza al alfil a decidirse inmediatamente." },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Argentino", subtitle: "Ataque en tromba (f3 y Be3)",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "f3", teoriaW: "Sistema Argentino. Asegura el centro, prepara Be3, Qd2 y avalancha en flanco de rey." },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[1,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[1,7], to:[3,7], san:"h5" }, teoriaB: "Frena la tormenta bloqueando el peón h." },
+                            { w: { from:[4,6], to:[3,6], san:"g5" }, b: { from:[2,5], to:[1,3], san:"Nfd7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante China", subtitle: "Línea aguda y de doble filo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "h4!", teoriaW: "Variante China. Ataque inmediato sin enrocar.", teoriaB: "Contragolpe en el centro fundamental." },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[4,7], to:[3,7], san:"h5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[3,7], to:[2,6], san:"hxg6" }, b: { from:[1,5], to:[2,6], san:"fxg6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Clásico Tardío", subtitle: "Desarrollo tranquilo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Be2", teoriaW: "Sistema Clásico puro. Apunta a un juego de control central." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" } },
+                            { w: { from:[7,0], to:[7,3], san:"Rad1" }, b: { from:[4,6], to:[1,3], san:"Bd7" } }
+                        ]
+                    },
+                    {
+                        name: "Defensa Hipopótamo", subtitle: "Transposición Pirc hipermoderna",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,1], to:[1,3], san:"Nd7" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" }, instB: "g6", teoriaB: "Entrando en el esquema Hipopótamo. Las negras se encogen en 3 filas." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,6], to:[1,4], san:"Ne7" } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[1,1], to:[2,1], san:"b6" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,0], to:[2,0], san:"a6" }, teoriaW: "Las blancas tienen espacio.", teoriaB: "Las negras no tienen debilidades evidentes." }
                         ]
                     }
                 ]
@@ -1162,6 +1747,96 @@
                             { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
                             { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
                         ]
+                    },
+                    {
+                        name: "Variante del Cambio", subtitle: "Simplificación central",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[3,4], to:[2,3], san:"exd6" }, b: { from:[1,2], to:[2,3], san:"cxd6" }, instW: "exd6", teoriaW: "Variante del Cambio. Despeja la tensión central de inmediato." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[3,4], san:"Ne5" }, teoriaB: "El caballo negro encuentra un puesto ideal en el centro." }
+                        ]
+                    },
+                    {
+                        name: "Variante de los Dos Caballos", subtitle: "Rápido desarrollo con Nc3",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[5,2], san:"Nxc3" }, instW: "Nc3", teoriaW: "Las blancas invitan a doblar sus peones a cambio de abrir líneas rápido." },
+                            { w: { from:[6,3], to:[5,2], san:"dxc3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[2,3], to:[3,4], san:"dxe5" } },
+                            { w: { from:[7,3], to:[0,3], san:"Qxd8+" }, b: { from:[2,2], to:[0,3], san:"Nxd8" }, teoriaB: "Obliga a cambiar damas. El negro sufre un poco pero se solidifica." },
+                            { w: { from:[5,5], to:[3,4], san:"Nxe5" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,5], to:[2,5], san:"f6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante de Persecución", subtitle: "Caza implacable del caballo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[4,2], to:[3,2], san:"c5" }, b: { from:[2,1], to:[3,3], san:"Nd5" }, instW: "c5!", teoriaW: "Las blancas continúan persiguiendo al caballo negro por todo el tablero." },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[5,2], san:"Nxc3" } },
+                            { w: { from:[6,3], to:[5,2], san:"dxc3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[3,4], to:[2,3], san:"exd6" }, b: { from:[1,4], to:[2,3], san:"exd6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[4,2], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Variante Keres", subtitle: "Agresión letal con g4 y e6",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[4,6], to:[3,7], san:"Bh5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[3,7], to:[2,6], san:"Bg6" }, instW: "g4", teoriaW: "Paul Keres ideó este brutal ataque con ganancia de tiempo." },
+                            { w: { from:[3,4], to:[2,4], san:"e6" }, b: { from:[1,5], to:[2,4], san:"fxe6" }, teoriaW: "Sacrifica el peón para arruinar la estructura y crear casillas débiles." },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[0,3], to:[1,3], san:"Qd7" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[2,6], to:[5,3], san:"Bxd3" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Fianchetto (Korchnoi)", subtitle: "Juego posicional y maniobrero",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,3], san:"Nd5" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,6], to:[2,6], san:"g6" }, instB: "g6", teoriaB: "Variante Korchnoi. Preparando el fianchetto para pelear por las casillas oscuras." },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[4,2], to:[5,1], san:"Bb3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[1,0], to:[3,0], san:"a5" }, teoriaW: "Frena la expansión negra en el flanco de dama." },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,3], to:[5,5], san:"Qf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[2,3], to:[3,4], san:"dxe5" } }
+                        ]
+                    },
+                    {
+                        name: "Línea Brooklyn", subtitle: "Retirada hipermoderna profunda",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[0,6], san:"Ng8" }, instB: "Ng8!?", teoriaB: "Variante Brooklyn. Las negras provocan el avance y luego retornan a casa. ¡Hipermodernismo extremo!" },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[4,6], to:[5,5], san:"Bxf3" } },
+                            { w: { from:[7,3], to:[5,5], san:"Qxf3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[3,4], to:[2,3], san:"exd6" }, b: { from:[0,3], to:[2,3], san:"Qxd6" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,4], san:"Be7" } }
+                        ]
                     }
                 ]
             },
@@ -1194,6 +1869,96 @@
                             { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[3,2], to:[5,4], san:"Bxe3" } },
                             { w: { from:[6,4], to:[5,4], san:"Qxe3" }, b: { from:[4,4], to:[5,2], san:"Nxc3" } }
                         ]
+                    },
+                    {
+                        name: "Gambito Kieseritzky", subtitle: "Línea principal clásica",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[3,6], to:[4,6], san:"g4" }, instW: "h4", teoriaW: "Las blancas minan la cadena g5-f4 inmediatamente." },
+                            { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[3,4], to:[5,3], san:"Nd3" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bxf4" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,1], to:[6,3], san:"Nd2" }, b: { from:[0,5], to:[0,4], san:"Re8" }, teoriaW: "Juego agudo de doble filo con el centro estabilizado." }
+                        ]
+                    },
+                    {
+                        name: "Gambito Muzio", subtitle: "Sacrificio brutal de caballo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[3,6], to:[4,6], san:"g4" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[4,6], to:[5,5], san:"gxf3" }, instW: "O-O!!", teoriaW: "Gambito Muzio. Ignora la amenaza del caballo por un desarrollo arrasador." },
+                            { w: { from:[7,3], to:[5,5], san:"Qxf3" }, b: { from:[0,3], to:[2,5], san:"Qf6" }, teoriaB: "Las negras defienden f4 desesperadamente." },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[3,4], san:"Qxe5" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,5], to:[2,7], san:"Bh6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[1,4], san:"Ne7" } },
+                            { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,1], to:[2,2], san:"Nbc6" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Rehusado", subtitle: "Desarrollo clásico con Ac5",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,5], to:[3,2], san:"Bc5" }, instB: "Bc5", teoriaB: "Rehúsa el gambito aprovechando que f4 abre la diagonal a7-g1." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[4,5], to:[3,5], san:"f5" }, b: { from:[2,2], to:[3,0], san:"Na5" }, teoriaW: "Cierra el centro para atacar.", teoriaB: "Busca anular el alfil peligroso." },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[3,0], to:[4,2], san:"Nxc4" } },
+                            { w: { from:[6,3], to:[4,2], san:"dxc4" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,2], to:[1,3], san:"Bd7" } }
+                        ]
+                    },
+                    {
+                        name: "Defensa Fischer", subtitle: "La refutación moderna",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" }, instB: "d6", teoriaB: "Defensa Fischer. Bobby Fischer la ideó para refutar definitivamente el gambito." },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[3,6], to:[4,6], san:"g4" } },
+                            { w: { from:[5,5], to:[7,6], san:"Ng1" }, b: { from:[0,5], to:[2,7], san:"Bh6" }, teoriaW: "El caballo regresa, la posición es peculiar pero equilibrada." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[0,3], to:[2,5], san:"Qf6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[4,5], to:[5,5], san:"f3" } },
+                            { w: { from:[6,4], to:[4,5], san:"Nf4" }, b: { from:[0,6], to:[1,4], san:"Ne7" } }
+                        ]
+                    },
+                    {
+                        name: "Defensa Cunningham", subtitle: "Ataque agudo y expuesto",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,4], to:[4,7], san:"Bh4+" }, instB: "Bh4+", teoriaB: "Defensa Cunningham. Destroza el enroque blanco a cambio de tiempos." },
+                            { w: { from:[7,4], to:[7,5], san:"Kf1" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bxf4" }, b: { from:[0,3], to:[2,5], san:"Qf6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[4,5], to:[5,4], san:"Be3" }, b: { from:[0,4], to:[0,2], san:"O-O-O", castle:true, rFrom:[0,0], rTo:[0,3] } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Allgaier", subtitle: "Sacrificio especulativo de caballo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[3,6], to:[4,6], san:"g4" } },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "Ng5", teoriaW: "Gambito Allgaier. El caballo se tira de cabeza a la muerte en f7." },
+                            { w: { from:[3,6], to:[1,5], san:"Nxf7" }, b: { from:[0,4], to:[1,5], san:"Kxf7" }, teoriaB: "Obligado a capturar, el rey negro queda terriblemente expuesto." },
+                            { w: { from:[7,3], to:[4,6], san:"Qxg4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,6], to:[4,5], san:"Qxf4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4+" }, b: { from:[1,5], to:[1,6], san:"Kg7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                        ]
                     }
                 ]
             },
@@ -1207,9 +1972,9 @@
                     { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
                     { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,3], to:[2,3], san:"d6" } },
                     { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
-                    { w: { from:[6,3], to:[4,3], san:"d5" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[3,4], san:"e5" } },
                     { w: { from:[3,3], to:[2,4], san:"dxe6 e.p.", ep: [3,4] }, b: { from:[0,2], to:[2,4], san:"Bxe6" } },
-                    { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,1], to:[1,3], san:"Na6" } }
+                    { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,1], to:[2,0], san:"Na6" } }
                 ],
                 variations: [
                     {
@@ -1225,6 +1990,96 @@
                             { w: { from:[7,2], to:[6,1], san:"Bb2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
                             { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
                             { w: { from:[7,1], to:[6,3], san:"Nd2" }, b: { from:[1,0], to:[3,0], san:"a5" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Staunton", subtitle: "Contragolpe en e4",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[3,5], to:[4,4], san:"fxe4" }, instW: "e4", teoriaW: "Gambito Staunton. Dinamita el centro buscando rápido desarrollo." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[3,4], san:"Ne5" } },
+                            { w: { from:[7,3], to:[4,3], san:"Qd4" }, b: { from:[3,4], to:[1,5], san:"Nf7" } },
+                            { w: { from:[3,6], to:[2,5], san:"Bxf6" }, b: { from:[1,6], to:[2,5], san:"gxf6" } },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[4,4], to:[5,6], san:"Ng3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Clásico", subtitle: "Ilyin-Zhenevsky",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,4], to:[2,4], san:"e6" }, instB: "e6", teoriaB: "Sistema Clásico, prepara la salida del alfil a e7." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,3], to:[0,4], san:"Qe8" }, teoriaB: "Maniobra típica de Ilyin-Zhenevsky. La dama va al ataque por el flanco de rey." },
+                            { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[0,4], to:[3,7], san:"Qh5" } },
+                            { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,2], to:[5,0], san:"Ba3" }, b: { from:[1,0], to:[3,0], san:"a5" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Hopton", subtitle: "Presión temprana con Ag5",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "Bg5", teoriaW: "Ataque Hopton, incordia el desarrollo natural en el flanco de rey." },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[4,7], to:[5,6], san:"Bg3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[0,7], to:[0,6], san:"Rg8" } },
+                            { w: { from:[4,7], to:[3,6], san:"hxg5" }, b: { from:[2,7], to:[3,6], san:"hxg5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Korchnoi", subtitle: "Sacrificio de torre temático",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "h3", teoriaW: "Ataque Korchnoi. Prepara la avalancha del peón g para abrir líneas." },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[3,5], to:[4,6], san:"fxg4" } },
+                            { w: { from:[5,7], to:[4,6], san:"hxg4" }, b: { from:[2,5], to:[4,6], san:"Nxg4" } },
+                            { w: { from:[7,3], to:[5,3], san:"Qd3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,7], to:[1,7], san:"Rxh7" }, b: { from:[0,7], to:[1,7], san:"Rxh7" }, teoriaW: "Potente sacrificio temático para destrozar el enroque." },
+                            { w: { from:[5,3], to:[2,6], san:"Qg6+" }, b: { from:[0,4], to:[1,3], san:"Kd7" } },
+                            { w: { from:[2,6], to:[4,6], san:"Qxg4+" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Manhattan", subtitle: "Agresión rápida con g4",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[3,5], to:[4,6], san:"fxg4" }, instW: "g4!", teoriaW: "Gambito Manhattan. Agresión inmediata, dudosa teóricamente pero letal en la práctica." },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[4,6], to:[5,6], san:"g3" }, teoriaB: "Las negras devuelven el material para estropear la estructura blanca." },
+                            { w: { from:[6,5], to:[5,6], san:"fxg3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                            { w: { from:[6,6], to:[4,4], san:"Bxe4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Spielmann", subtitle: "Preparando e4 directo",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Nc3", teoriaW: "Ataque Spielmann. Las blancas apuntan a jugar e4 lo antes posible." },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[3,6], to:[2,5], san:"Bxf6" }, b: { from:[1,4], to:[2,5], san:"exf6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,3], to:[1,3], san:"Qd7" } },
+                            { w: { from:[7,3], to:[5,5], san:"Qf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[0,4], to:[0,2], san:"O-O-O", castle:true, rFrom:[0,0], rTo:[0,3] } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[1,7], to:[2,7], san:"h6" } }
                         ]
                     }
                 ]
@@ -1258,6 +2113,96 @@
                             { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[3,2], to:[4,2], san:"c4" }, teoriaB: "Cierra el centro e incomoda a la dama." },
                             { w: { from:[5,1], to:[2,1], san:"Qxb6" }, b: { from:[1,0], to:[2,1], san:"axb6" } }
                         ]
+                    },
+                    {
+                        name: "Ataque Jobava", subtitle: "Línea agresiva con Cc3",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[1,0], to:[2,0], san:"a6" }, instW: "Bf4", teoriaW: "Jobava London. Presiona con Nc3 y Bf4 velozmente saltándose c3." },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "g4!?", teoriaW: "Ataque de avalancha clásico popularizado por Baadur Jobava." },
+                            { w: { from:[4,6], to:[3,6], san:"g5" }, b: { from:[2,5], to:[1,3], san:"Nfd7" } },
+                            { w: { from:[6,7], to:[4,7], san:"h4" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,3], to:[2,1], san:"Qb6" } },
+                            { w: { from:[7,0], to:[7,1], san:"Rb1" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,4], to:[4,3], san:"exd4" }, b: { from:[0,5], to:[2,3], san:"Bd6" }, teoriaB: "Las negras se plantan en el centro listas para la batalla." }
+                        ]
+                    },
+                    {
+                        name: "Variante Clásica Qb6", subtitle: "Prueba de fuego negra",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,3], to:[2,1], san:"Qb6" }, instB: "Qb6!", teoriaB: "Las negras atacan de inmediato la debilidad en b2 dejada por el alfil." },
+                            { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[3,2], to:[4,2], san:"c4" }, teoriaW: "La respuesta más sólida.", teoriaB: "Gana espacio en el flanco de dama." },
+                            { w: { from:[5,1], to:[6,2], san:"Qc2" }, b: { from:[0,2], to:[3,5], san:"Bf5" }, instB: "Bf5!!", teoriaB: "Táctico y espectacular. Si las blancas toman, pierden la torre de a1." },
+                            { w: { from:[6,2], to:[7,2], san:"Qc1" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,7], to:[2,7], san:"h6" } }
+                        ]
+                    },
+                    {
+                        name: "Estructura Caro-Kann", subtitle: "Defensa sólida de diamante",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,2], to:[2,2], san:"c6" }, instB: "c6", teoriaB: "Variante Slava/Caro-Kann. Estructura súper rocosa para anular a las blancas." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,2], to:[3,5], san:"Bf5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[0,3], to:[2,1], san:"Qb6" } },
+                            { w: { from:[4,2], to:[3,2], san:"c5" }, b: { from:[2,1], to:[5,1], san:"Qxb3" } },
+                            { w: { from:[6,0], to:[5,1], san:"axb3" }, b: { from:[1,0], to:[2,0], san:"a6" }, teoriaW: "Abre la columna 'a' preparándose para el final posicional." },
+                            { w: { from:[6,1], to:[4,1], san:"b4" }, b: { from:[0,5], to:[1,4], san:"Be7" } }
+                        ]
+                    },
+                    {
+                        name: "Anti-Grünfeld", subtitle: "Restricción de g6",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,2], to:[3,2], san:"c5" }, teoriaB: "Golpea el centro tratando el juego como en la clásica Grünfeld." },
+                            { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,4], to:[4,3], san:"exd4" }, b: { from:[2,5], to:[3,7], san:"Nh5" }, teoriaB: "Intenta conseguir la pareja de alfiles o molestar f4." },
+                            { w: { from:[4,5], to:[5,4], san:"Be3" }, b: { from:[0,3], to:[2,3], san:"Qd6" } }
+                        ]
+                    },
+                    {
+                        name: "Londres vs Holandesa", subtitle: "Sofocación Anti-Holandesa",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" }, instB: "f5", teoriaB: "Defensa Holandesa." },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Bf4", teoriaW: "El Londres funciona perfectamente para frustrar los ataques holandeses por e5." },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,1], to:[2,1], san:"b6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[2,5], to:[3,4], san:"Ne4" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[4,5], to:[3,6], san:"Bg5" }, b: { from:[0,1], to:[1,3], san:"Nd7" } }
+                        ]
+                    },
+                    {
+                        name: "Londres vs Benoni", subtitle: "Ignorando el caos táctico",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[1,2], to:[3,2], san:"c5" }, instB: "c5", teoriaB: "Ataque rápido tipo Benoni para desestabilizar a las blancas." },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,4], to:[4,3], san:"exd4" }, b: { from:[0,3], to:[2,1], san:"Qb6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,0], to:[2,0], san:"a6" }, instW: "Nc3!", teoriaW: "Ignora la amenaza sobre b2. Si toman (Qxb2), Nb5 gana material." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[2,1], to:[2,2], san:"Qc6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
                     }
                 ]
             },
@@ -1289,6 +2234,96 @@
                             { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
                             { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
                             { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Pytel-Wade", subtitle: "Retirada a d6",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,3], to:[3,3], san:"Qxd5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[2,3], san:"Qd6" }, instB: "Qd6", teoriaB: "Mantiene la dama activa pero más segura que en a5." },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,0], to:[2,0], san:"a6" }, teoriaB: "Evita que las piezas blancas salten a b5." },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,2], san:"O-O-O", castle:true, rFrom:[0,0], rTo:[0,3] } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[2,2], to:[3,4], san:"Nxe5" } }
+                        ]
+                    },
+                    {
+                        name: "Variante de Retirada", subtitle: "Retorno a la base",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,3], to:[3,3], san:"Qxd5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[0,3], san:"Qd8" }, instB: "Qd8", teoriaB: "Retirada de Kiel. Pierde tiempos pero la dama queda a salvo." },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[4,6], to:[3,7], san:"Bh5" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[3,7], to:[2,6], san:"Bg6" } },
+                            { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[5,7], to:[4,7], san:"h4" }, b: { from:[0,5], to:[4,1], san:"Bb4" }, teoriaW: "Las blancas intentan asfixiar al alfil de g6." }
+                        ]
+                    },
+                    {
+                        name: "Gambito Islandés", subtitle: "Desarrollo agresivo",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" }, instB: "e6!", teoriaB: "Gambito Islandés. Entrega el peón por desarrollo feroz." },
+                            { w: { from:[3,3], to:[2,4], san:"dxe6" }, b: { from:[0,2], to:[2,4], san:"Bxe6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,5], to:[4,1], san:"Bb4+" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,3], to:[1,4], san:"Qe7" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,2], san:"O-O-O", castle:true, rFrom:[0,0], rTo:[0,3] } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[4,1], to:[3,0], san:"Ba5" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,7], to:[0,4], san:"Rhe8" }, teoriaB: "Todas las piezas negras apuntan al centro." }
+                        ]
+                    },
+                    {
+                        name: "Gambito Portugués", subtitle: "Ataque veloz",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,2], to:[4,6], san:"Bg4" }, instB: "Bg4", teoriaB: "Gambito Portugués. Fuerza la debilidad de f3 o saca al alfil muy activo." },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[4,6], to:[3,5], san:"Bf5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[3,3], to:[2,4], san:"dxe6" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[2,4], to:[1,5], san:"exf7+" }, b: { from:[0,4], to:[1,5], san:"Kxf7" }, teoriaB: "El rey se queda en el centro, pero la compensación en desarrollo es abismal." },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[4,1], san:"Nb4" } },
+                            { w: { from:[7,1], to:[5,0], san:"Na3" }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                            { w: { from:[6,6], to:[4,6], san:"g4" }, b: { from:[0,7], to:[0,4], san:"Re8+" } }
+                        ]
+                    },
+                    {
+                        name: "Variante de los Caballos", subtitle: "Centro presionado",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[2,5], to:[3,3], san:"Nxd5" }, instB: "Nxd5", teoriaB: "Retoma con el caballo para evitar tiempos sobre la dama." },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[4,2], to:[3,2], san:"c5" }, b: { from:[2,1], to:[3,3], san:"Nd5" }, teoriaW: "Gana espacio en el flanco.", teoriaB: "El caballo encuentra un puesto fuerte central." },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[3,3], to:[5,2], san:"Nxc3" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Panov", subtitle: "Transposición aguda",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[2,5], san:"Nf6" }, instW: "c4", teoriaW: "Trata la posición como una Defensa Caro-Kann o Alekhine." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaB: "Contraataque inmediato en el centro." },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[0,3], to:[7,3], san:"Qxd1+" } },
+                            { w: { from:[7,4], to:[7,3], san:"Kxd1" }, b: { from:[2,5], to:[4,6], san:"Ng4" }, teoriaW: "Pierde el enroque.", teoriaB: "Recupera material de forma activa." },
+                            { w: { from:[5,2], to:[3,3], san:"Nd5" }, b: { from:[0,1], to:[2,0], san:"Na6" } },
+                            { w: { from:[7,3], to:[7,4], san:"Ke1" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[3,3], to:[5,4], san:"Ne3" }, b: { from:[4,6], to:[3,4], san:"Nxe5" } }
                         ]
                     }
                 ]
@@ -1337,6 +2372,96 @@
                             { w: { from:[5,3], to:[4,3], san:"d4" }, b: { from:[1,4], to:[3,5], san:"Nf5" } },
                             { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[0,3], to:[7,3], san:"Qxd1+" } }
                         ]
+                    },
+                    {
+                        name: "Gambito Reti Aceptado", subtitle: "Ruptura central",
+                        steps: [
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[4,2], san:"dxc4" }, instB: "dxc4", teoriaB: "Las negras aceptan el peón forzando a las blancas a recuperarlo." },
+                            { w: { from:[7,1], to:[5,0], san:"Na3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[5,0], to:[4,2], san:"Nxc4" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,5], to:[2,5], san:"f6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,3], to:[1,3], san:"Qd7" } },
+                            { w: { from:[5,5], to:[6,3], san:"Nfd2" }, b: { from:[0,6], to:[1,4], san:"Nge7" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[1,4], to:[3,3], san:"Nd5" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Capablanca", subtitle: "Alfil liberado",
+                        steps: [
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,2], to:[3,5], san:"Bf5" }, instB: "Bf5", teoriaB: "El sistema de Capablanca. El alfil se ubica fuera de la futura cadena e6." },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,2], to:[6,1], san:"Bb2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[1,0], to:[3,0], san:"a5" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Lasker", subtitle: "Presión central cruzada",
+                        steps: [
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,2], to:[4,6], san:"Bg4" }, instB: "Bg4", teoriaB: "Las negras clavan o presionan tempranamente el caballo blanco." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,2], to:[3,3], san:"cxd5" } },
+                            { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[4,6], to:[3,5], san:"Bf5" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[1,4], san:"Ne7" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[0,1], to:[2,2], san:"Nbc6" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Benko Invertido", subtitle: "Sacrificio de flanco con blancas",
+                        steps: [
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[3,3], to:[4,3], san:"d4" } },
+                            { w: { from:[6,1], to:[4,1], san:"b4" }, b: { from:[1,5], to:[2,5], san:"f6" }, instW: "b4", teoriaW: "Las blancas juegan un agresivo Benko invertido." },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[4,2], to:[3,2], san:"c5" }, b: { from:[1,0], to:[3,0], san:"a5" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[3,0], to:[4,1], san:"axb4" } },
+                            { w: { from:[5,4], to:[4,3], san:"exd4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1+" }, b: { from:[0,6], to:[1,4], san:"Nge7" } },
+                            { w: { from:[7,2], to:[6,1], san:"Bb2" }, b: { from:[0,2], to:[4,6], san:"Bg4" } }
+                        ]
+                    },
+                    {
+                        name: "Reti-Catalana", subtitle: "Transposición estratégica híbrida",
+                        steps: [
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,3], to:[4,2], san:"dxc4" }, instW: "d4", teoriaW: "Las blancas transponen a una apertura Catalana sólida." },
+                            { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[6,2], to:[4,2], san:"Qxc4" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                            { w: { from:[4,2], to:[6,2], san:"Qc2" }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                            { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Indio de Rey", subtitle: "Desarrollo hipermoderno puro",
+                        steps: [
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,2], to:[3,2], san:"c5" }, instW: "g3", teoriaW: "Ignora el peón 'c' inicialmente para crear el ataque KIA." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[3,3], to:[4,3], san:"d4" }, teoriaW: "Fuerza a las negras a cerrar el centro para atacar por el flanco de rey." },
+                            { w: { from:[6,3], to:[4,2], san:"Nc4" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,2], to:[2,4], san:"Be6" } }
+                        ]
                     }
                 ]
             },
@@ -1368,6 +2493,96 @@
                             { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,2], to:[3,2], san:"c5" } },
                             { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
                             { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[2,4], to:[3,3], san:"exd5" } }
+                        ]
+                    },
+                    {
+                        name: "Variante del Cambio Moderna", subtitle: "Sistema posicional con Tb1",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[3,3], to:[5,2], san:"Nxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,0], to:[7,1], san:"Rb1" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Rb1", teoriaW: "Sistema Moderno. La torre se aparta de la diagonal del alfil de g7 y presiona b7." },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[3,2], to:[4,3], san:"cxd4" } },
+                            { w: { from:[5,2], to:[4,3], san:"cxd4" }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema con Af4", subtitle: "Control clásico",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "Bf4", teoriaW: "Desarrollo lógico. Ejerce presión sobre c7 y d5." },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,2], to:[3,2], san:"c5" }, teoriaB: "Golpe habitual Grünfeld contra la rigidez blanca." },
+                            { w: { from:[4,3], to:[3,2], san:"dxc5" }, b: { from:[0,3], to:[3,0], san:"Qa5" } },
+                            { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bxc4" }, b: { from:[3,0], to:[3,2], san:"Qxc5" } },
+                            { w: { from:[4,2], to:[5,1], san:"Bb3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Taimanov", subtitle: "El alfil busca clavar",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[2,5], to:[1,7], san:"Ne4" }, instW: "Bg5", teoriaB: "Las negras saltan agresivamente para cuestionar al alfil." },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[1,7], to:[3,6], san:"Nxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,2], to:[2,4], san:"Be6" }, teoriaW: "Planea recuperar en c4 de forma sencilla." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Variante del Fianchetto", subtitle: "Guerra de diagonales",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "g3", teoriaW: "Las blancas neutralizan la presión india oponiendo su propio alfil." },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[5,2], san:"Nxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,3], to:[3,0], san:"Qa5" }, teoriaB: "Ataque veloz al peón c3 debilitado." }
+                        ]
+                    },
+                    {
+                        name: "Sistema Makogonov", subtitle: "Solidez defensiva cerrada",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "e3", teoriaW: "Variante Makogonov. Se abstiene de e4 directo para asegurar el centro." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[5,1], san:"Qb3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,1], to:[2,1], san:"b6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,2], to:[1,1], san:"Bb7" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Anti-Grünfeld", subtitle: "Estructura f3 rocosa",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "f3", teoriaW: "Ataque Neo-Grünfeld. Sostiene un posible e4 con extrema solidez." },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[3,3], to:[2,1], san:"Nb6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Enroque largo ambicioso.", teoriaB: "Golpe central vital en la base." },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[1,4], san:"Ne7" } }
                         ]
                     }
                 ]
@@ -1401,6 +2616,402 @@
                             { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[0,4], san:"Re8" } },
                             { w: { from:[5,5], to:[6,3], san:"Nd2" }, b: { from:[1,0], to:[2,0], san:"a6" }, teoriaW: "El caballo viaja a c4.", teoriaB: "Prepara la expansión en b5." }
                         ]
+                    },
+                    {
+                        name: "Ataque Taimanov", subtitle: "Agresión con f4 y Bb5+",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "f4!", teoriaW: "Ataque Taimanov. El centro blanco avanza implacablemente." },
+                            { w: { from:[7,5], to:[3,1], san:"Bb5+" }, b: { from:[2,5], to:[1,3], san:"Nfd7" }, teoriaW: "Desestabiliza y corta el desarrollo negro." },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,0], san:"Na6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Clásica", subtitle: "Desarrollo central sólido",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, teoriaW: "Línea Clásica. Blancas se desarrollan sin estridencias." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,0], to:[2,0], san:"a6" }, teoriaB: "Prepara la expansión en el flanco de dama con b5." },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,2], to:[2,4], san:"Bg4" }, teoriaW: "Frena b5.", teoriaB: "Clava al caballo para debilitar el control de d5." }
+                        ]
+                    },
+                    {
+                        name: "Gambito Benko Aceptado", subtitle: "Iniciativa por un peón",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,1], to:[3,1], san:"b5" }, instB: "b5!", teoriaB: "Gambito Benko. Transición común; sacrifica el peón para abrir las columnas a y b." },
+                            { w: { from:[4,2], to:[3,1], san:"cxb5" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[3,1], to:[2,0], san:"bxa6" }, b: { from:[1,6], to:[2,6], san:"g6" }, teoriaW: "Las blancas aceptan el gambito, asumiendo presión a largo plazo." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,2], to:[2,0], san:"Bxa6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[2,0], to:[7,5], san:"Bxf1" } },
+                            { w: { from:[7,4], to:[7,5], san:"Kxf1" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,5], to:[6,6], san:"Kg2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Benoni Checa", subtitle: "Cierre pétreo del centro",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[3,4], san:"e5" }, instB: "e5", teoriaB: "Benoni Checa. Bloquea el centro definitivamente. El juego será muy posicional." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[2,5], to:[0,4], san:"Ne8" }, teoriaB: "El caballo se retira para preparar la típica ruptura f5." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,4], to:[3,6], san:"Bg5" } },
+                            { w: { from:[6,0], to:[5,0], san:"a3" }, b: { from:[0,1], to:[1,3], san:"Nd7" } },
+                            { w: { from:[6,1], to:[4,1], san:"b4" }, b: { from:[1,6], to:[2,6], san:"g6" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Moderno", subtitle: "Restricción con h3",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "h3", teoriaW: "Sistema Moderno. Evita de raíz el molesto Bg4." },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,7], to:[0,4], san:"Re8" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Mikenas", subtitle: "Asalto al alfil fianchettado",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,7], to:[2,7], san:"h6" }, instW: "Bg5", teoriaW: "Variante Mikenas. Busca provocar debilidades antes del desarrollo negro." },
+                            { w: { from:[3,6], to:[4,7], san:"Bh4" }, b: { from:[1,6], to:[3,6], san:"g5" } },
+                            { w: { from:[4,7], to:[5,6], san:"Bg3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,5], to:[3,1], san:"Bb5+" }, b: { from:[0,4], to:[0,5], san:"Kf8" }, teoriaB: "El rey pierde el enroque, pero el centro blanco está bajo muchísima presión." }
+                        ]
+                    },
+                    {
+                        name: "Benoni Antigua", subtitle: "Estructura originaria",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,2], to:[3,2], san:"c5" }, instB: "c5", teoriaB: "Benoni Antigua. Permite alcanzar posiciones tipo Benoni de una manera menos directa." },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[1,4], san:"Ne7" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,5], to:[2,5], san:"f6" } },
+                            { w: { from:[3,6], to:[5,4], san:"Be3" }, b: { from:[0,1], to:[1,3], san:"Nd7" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Knaak", subtitle: "Caballo a e2",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                            { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[2,4], to:[3,3], san:"exd5" } },
+                            { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                            { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Nge2", teoriaW: "Variante Knaak. Desarrolla a e2 para no estorbar un futuro f4 y maniobrar hacia g3." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,7], to:[0,4], san:"Re8" } },
+                            { w: { from:[6,4], to:[5,6], san:"Ng3" }, b: { from:[1,0], to:[2,0], san:"a6" } }
+                        ]
+                    }
+                ]
+            },
+            21: { // Catalan
+                title: "Catalana", subtitle: "Línea Cerrada Clásica", theme: "text-purple-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "d4", teoriaW: "Control central inicial." },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "g3", teoriaW: "La marca de la Catalana: fianchetto del alfil de rey." },
+                    { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[3,3], to:[4,2], san:"dxc4" }, instB: "dxc4", teoriaB: "Acepta el reto en c4 temporalmente." },
+                    { w: { from:[7,3], to:[6,2], san:"Qc2" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                    { w: { from:[6,2], to:[4,2], san:"Qxc4" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                    { w: { from:[4,2], to:[6,2], san:"Qc2" }, b: { from:[0,2], to:[1,1], san:"Bb7" } },
+                    { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                ],
+                variations: [
+                    {
+                        name: "Catalana Abierta", subtitle: "Aceptando el peón de c4",
+                        steps: [
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[3,3], to:[4,2], san:"dxc4" }, instB: "dxc4", teoriaB: "Variante Abierta. Las negras toman en c4 y buscarán defenderlo o presionar." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[0,0], to:[0,1], san:"Rb8" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[1,1], to:[3,1], san:"b5" } },
+                            { w: { from:[7,5], to:[7,3], san:"Rd1" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[5,4], to:[4,4], san:"e4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, teoriaW: "Centro inmenso.", teoriaB: "Estructura sólida en flanco de dama." }
+                        ]
+                    }
+                ]
+            },
+            22: { // Bird's Opening
+                title: "Apertura Bird", subtitle: "Holandesa Invertida", theme: "text-cyan-400",
+                steps: [
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "f4", teoriaW: "Controla e5 desde el flanco. Estilo Holandesa con blancas." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,4], to:[5,4], san:"e3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[6,1], to:[5,1], san:"b3" }, b: { from:[0,5], to:[1,6], san:"Bg7" }, instW: "b3", teoriaW: "Prepara el fianchetto en el flanco de dama." },
+                    { w: { from:[7,2], to:[6,1], san:"Bb2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[6,4], san:"Be2" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[5,5], to:[3,4], san:"Ne5" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
+                    { w: { from:[3,4], to:[2,2], san:"Nxc6" }, b: { from:[1,2], to:[2,2], san:"Qxc6" } },
+                    { w: { from:[6,4], to:[5,5], san:"Bf3" }, b: { from:[1,1], to:[2,1], san:"b6" } }
+                ]
+            },
+            23: { // Bogo-Indian
+                title: "Defensa Bogo-India", subtitle: "Línea Principal", theme: "text-amber-400",
+                steps: [
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,4], to:[2,4], san:"e6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[4,1], san:"Bb4+" }, instB: "Bb4+", teoriaB: "La marca de la Bogo-India. Fuerzas el desarrollo o interposición." },
+                    { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,3], to:[1,4], san:"Qe7" } },
+                    { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[4,1], to:[5,2], san:"Bxc3" } },
+                    { w: { from:[6,3], to:[5,2], san:"Bxc3" }, b: { from:[2,5], to:[3,4], san:"Ne4" }, teoriaB: "Aprovecha la debilidad relativa y ubica un caballo fuerte." },
+                    { w: { from:[7,0], to:[7,2], san:"Rc1" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[4,3], to:[3,3], san:"d5" }, b: { from:[2,2], to:[0,3], san:"Nd8" }, teoriaW: "Gana espacio en el centro." }
+                ]
+            },
+            24: { // Vienna Game
+                title: "Apertura Vienesa", subtitle: "Variante Falkbeer", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, instW: "Nc3", teoriaW: "Desarrollo sólido que defiende e4 y prepara f4." },
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "f4", teoriaB: "Golpe central típico contra la Vienesa y el Gambito de Rey." },
+                    { w: { from:[4,5], to:[3,4], san:"fxe5" }, b: { from:[2,5], to:[3,4], san:"Nxe4" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[3,4], to:[5,2], san:"Nxc3" } },
+                    { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[1,2], to:[3,2], san:"c5" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,3], to:[7,4], san:"Qe1" }, b: { from:[3,2], to:[4,2], san:"c4" }, teoriaW: "La dama pasa al ataque por el flanco de rey." }
+                ],
+                variations: [
+                    {
+                        name: "Gambito Vienés", subtitle: "Línea Steinitz (d5)",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[1,3], to:[3,3], san:"d5" }, instB: "d5", teoriaB: "Respuesta central fundamental. Rehusando el gambito con estilo." },
+                            { w: { from:[4,5], to:[3,4], san:"fxe5" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[3,4], to:[2,5], san:"exf6 e.p.", ep:[3,5] }, b: { from:[4,4], to:[2,5], san:"Nxf6" }, teoriaW: "Captura al paso obligatoria para no quedar asfixiado." },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,2], to:[4,6], san:"Bg4" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Vienés Aceptado", subtitle: "Ataque rápido y caótico",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[3,4], to:[4,5], san:"exf4" }, instB: "exf4", teoriaB: "Aceptar el gambito es sumamente arriesgado por e5." },
+                            { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[0,3], to:[1,4], san:"Qe7" }, teoriaB: "La dama clava el peón para salvar el caballo temporalmente." },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[2,5], to:[0,6], san:"Ng8" }, teoriaW: "Las blancas renuevan la amenaza y las negras deben retroceder." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[5,2], to:[3,3], san:"Nd5" }, b: { from:[1,4], to:[0,3], san:"Qd8" } },
+                            { w: { from:[3,4], to:[2,3], san:"exd6+" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[3,3], to:[1,2], san:"Nxc7+" }, b: { from:[0,4], to:[1,3], san:"Kd7" } },
+                            { w: { from:[1,2], to:[0,0], san:"Nxa8" }, b: { from:[0,5], to:[2,3], san:"Bxd6" }, teoriaW: "Las blancas ganan una torre limpia, pero el rey negro sale al ataque." }
+                        ]
+                    },
+                    {
+                        name: "Variante Frankenstein-Drácula", subtitle: "Locura táctica extrema",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[2,5], to:[4,4], san:"Nxe4" }, instB: "Nxe4!?", teoriaB: "El inicio de la locura. Invita a complicaciones inmediatas." },
+                            { w: { from:[7,3], to:[3,7], san:"Qh5" }, b: { from:[4,4], to:[2,3], san:"Nd6" }, teoriaW: "Amenaza mate en f7. El caballo debe regresar a defender." },
+                            { w: { from:[4,2], to:[5,1], san:"Bb3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[5,2], to:[3,1], san:"Nb5" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[3,7], to:[5,5], san:"Qf3" }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[5,5], to:[3,3], san:"Qd5" }, b: { from:[0,3], to:[1,4], san:"Qe7" } },
+                            { w: { from:[3,1], to:[1,2], san:"Nxc7+" }, b: { from:[0,4], to:[0,3], san:"Kd8" } },
+                            { w: { from:[1,2], to:[0,0], san:"Nxa8" }, b: { from:[1,1], to:[2,1], san:"b6" }, teoriaB: "Pese a tener torre de menos, las negras tienen un control central bestial." }
+                        ]
+                    },
+                    {
+                        name: "Defensa Max Lange", subtitle: "Desarrollo y ataque con Qg4",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[3,2], san:"Bc5" }, instB: "Bc5", teoriaB: "Las negras imitan la apertura Italiana." },
+                            { w: { from:[7,3], to:[4,6], san:"Qg4" }, b: { from:[0,3], to:[2,5], san:"Qf6" }, instW: "Qg4!", teoriaW: "Ataca g7 de inmediato explotando la salida del alfil." },
+                            { w: { from:[5,2], to:[3,3], san:"Nd5" }, b: { from:[2,5], to:[6,5], san:"Qxf2+" } },
+                            { w: { from:[7,4], to:[7,3], san:"Kd1" }, b: { from:[0,4], to:[0,5], san:"Kf8" }, teoriaB: "Ambos reyes pierden el enroque tempranamente." },
+                            { w: { from:[7,6], to:[5,7], san:"Nh3" }, b: { from:[6,5], to:[4,3], san:"Qd4" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[4,6], to:[5,5], san:"Qf3" }, b: { from:[0,2], to:[5,7], san:"Bxh3" } },
+                            { w: { from:[7,7], to:[7,5], san:"Rf1" }, b: { from:[3,2], to:[2,4], san:"Be6" }, teoriaW: "Ataque inmenso sobre f7 recuperando la iniciativa." }
+                        ]
+                    },
+                    {
+                        name: "Variante Principal", subtitle: "Tensión central con 3.Bc4",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[2,5], to:[4,4], san:"Nxe4" }, instB: "Nxe4", teoriaB: "Ruptura clásica contra la Vienesa. Amenaza tenedor en d5." },
+                            { w: { from:[5,2], to:[4,4], san:"Nxe4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                            { w: { from:[4,2], to:[5,3], san:"Bd3" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                            { w: { from:[5,3], to:[4,4], san:"Bxe4" }, b: { from:[0,5], to:[2,3], san:"Bd6" }, teoriaB: "Las negras recuperan la pieza y obtienen una posición muy cómoda." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,5], to:[3,5], san:"f5" } },
+                            { w: { from:[4,4], to:[3,3], san:"Bd5+" }, b: { from:[0,6], to:[0,7], san:"Kh8" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,2], to:[2,2], san:"c6" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema Paulsen", subtitle: "Fianchetto posicional (g3)",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[6,6], to:[5,6], san:"g3" }, b: { from:[1,3], to:[3,3], san:"d5" }, instW: "g3", teoriaB: "El Sistema Paulsen busca posiciones tranquilas. Las negras rompen rápido." },
+                            { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,5], to:[3,3], san:"Nxd5" } },
+                            { w: { from:[7,5], to:[6,6], san:"Bg2" }, b: { from:[3,3], to:[5,2], san:"Nxc3" } },
+                            { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,5], to:[2,3], san:"Bd6" }, teoriaW: "Estructura blanca fuerte en el centro, apuntando con el alfil fianchettado." },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,2], to:[4,6], san:"Bg4" } },
+                            { w: { from:[7,0], to:[7,1], san:"Rb1" }, b: { from:[0,0], to:[0,1], san:"Rb8" } }
+                        ]
+                    }
+                ]
+            },
+            25: { // Philidor Defense
+                title: "Defensa Philidor", subtitle: "Línea Antón", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" }, instB: "d6", teoriaB: "Defensa Philidor. Extremadamente sólida pero pasiva." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,2], to:[2,2], san:"c6" }, teoriaB: "Prepara b5 o d5." },
+                    { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                    { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[1,3], to:[3,4], san:"Ne5" }, teoriaW: "Asegura el centro.", teoriaB: "Caballo fuertemente centralizado." }
+                ],
+                variations: [
+                    {
+                        name: "Variante del Cambio", subtitle: "Apertura de líneas",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" }, instB: "exd4", teoriaB: "Cede el centro temporalmente para evitar tensiones mayores." },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[2,2], to:[3,4], san:"Ne5" } },
+                            { w: { from:[4,2], to:[7,5], san:"Bf1" }, b: { from:[1,2], to:[2,2], san:"c6" }, teoriaW: "Recoloca el alfil preparándose para expandirse." }
+                        ]
+                    },
+                    {
+                        name: "Variante Hanham", subtitle: "Bloqueo y maniobra",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,1], to:[1,3], san:"Nd7" }, instB: "Nd7", teoriaB: "La variante Hanham. Mantiene la tensión en e5 y desarrolla sólido." },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[2,3], to:[3,4], san:"dxe5" } },
+                            { w: { from:[7,3], to:[6,4], san:"Qe2" }, b: { from:[0,6], to:[2,5], san:"Ngf6" } },
+                            { w: { from:[7,5], to:[7,3], san:"Rd1" }, b: { from:[0,3], to:[1,2], san:"Qc7" } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,7], to:[2,7], san:"h6" } }
+                        ]
+                    },
+                    {
+                        name: "Contragambito Philidor", subtitle: "Agresión dudosa pero letal",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[1,5], to:[3,5], san:"f5" }, instB: "f5!?", teoriaB: "Contragambito Philidor. Muy arriesgado, crea caos inmediato." },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[3,5], to:[4,4], san:"fxe4" } },
+                            { w: { from:[5,5], to:[3,6], san:"Ng5" }, b: { from:[2,3], to:[3,3], san:"d5" } },
+                            { w: { from:[3,4], to:[2,4], san:"e6" }, b: { from:[0,6], to:[2,7], san:"Nh6" }, teoriaW: "El peón en e6 asfixia brutalmente a las negras." },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[3,6], to:[4,4], san:"Ngxe4" }, b: { from:[3,3], to:[4,4], san:"dxe4" } },
+                            { w: { from:[7,3], to:[3,7], san:"Qh5+" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                            { w: { from:[3,7], to:[3,4], san:"Qe5" }, b: { from:[0,7], to:[0,6], san:"Rg8" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Nimzowitsch", subtitle: "Complicaciones centrales",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[4,3], to:[3,4], san:"dxe5" }, b: { from:[2,5], to:[4,4], san:"Nxe4" }, instW: "dxe5", teoriaW: "Fuerza a las negras a recolocar el caballo expuesto." },
+                            { w: { from:[7,3], to:[3,3], san:"Qd5" }, b: { from:[4,4], to:[3,2], san:"Nc5" } },
+                            { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[3,4], to:[2,3], san:"exd6" }, b: { from:[0,3], to:[2,3], san:"Qxd6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,1], to:[2,2], san:"Nc6" }, teoriaW: "Enroques opuestos: la carrera por el ataque comienza." },
+                            { w: { from:[5,2], to:[3,1], san:"Nb5" }, b: { from:[2,3], to:[2,6], san:"Qg6" } }
+                        ]
+                    },
+                    {
+                        name: "Sistema del León", subtitle: "Flexibilidad hipermoderna",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[1,3], san:"Nbd7" }, instB: "Nbd7", teoriaB: "Variante del León. Demora definir el centro a favor del desarrollo." },
+                            { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                            { w: { from:[6,0], to:[4,0], san:"a4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                            { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[1,1], to:[2,1], san:"b6" } },
+                            { w: { from:[6,1], to:[4,1], san:"b4" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                            { w: { from:[7,2], to:[5,0], san:"Ba3" }, b: { from:[0,2], to:[1,1], san:"Bb7" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Largo", subtitle: "Enroques opuestos",
+                        steps: [
+                            { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" } },
+                            { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                            { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                            { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                            { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                            { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] }, instW: "Bf4", teoriaW: "Preparación agresiva. Las blancas buscarán enroque largo." },
+                            { w: { from:[7,3], to:[6,3], san:"Qd2" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                            { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[2,2], to:[4,3], san:"Nxd4" } },
+                            { w: { from:[6,3], to:[4,3], san:"Qxd4" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                            { w: { from:[7,2], to:[7,1], san:"Kb1" }, b: { from:[1,0], to:[2,0], san:"a6" }, teoriaB: "Ataque profiláctico preparándose para b5." }
+                        ]
                     }
                 ]
             }
@@ -1426,7 +3037,13 @@
             { id: 17, name: "Escandinava", type: "Semi-abierta", color: "blue" },
             { id: 18, name: "Reti", type: "Flanco", color: "cyan" },
             { id: 19, name: "Grünfeld", type: "Semi-cerrada", color: "amber" },
-            { id: 20, name: "Benoni", type: "Semi-cerrada", color: "amber" }
+            { id: 20, name: "Benoni", type: "Semi-cerrada", color: "amber" },
+            // NUEVAS APERTURAS AÑADIDAS (SIN LÓGICA AÚN)
+            { id: 21, name: "Apertura Catalana", type: "Cerrada", color: "purple" },
+            { id: 22, name: "Apertura Bird", type: "Flanco", color: "cyan" },
+            { id: 23, name: "Defensa Bogo-India", type: "Semi-cerrada", color: "amber" },
+            { id: 24, name: "Apertura Vienesa", type: "Abierta", color: "emerald" },
+            { id: 25, name: "Defensa Philidor", type: "Abierta", color: "emerald" }
         ];
 
         let boardState = [];
@@ -1437,50 +3054,41 @@
         let dragFrom = null;
         let gameHistory = []; 
         let systemTimeout = null;
-        let activeOpeningId = null; // NUEVO: Para saber qué apertura base jugamos
+        let activeOpeningId = null; 
 
-        // PARTE 2, 3 y 4: Lógica de Salto Rápido a Variantes
         function skipToVariations() {
             if (!currentSteps || currentStep >= 10 || currentStep >= currentSteps.length) return;
             
-            // 1. Limpiamos cualquier jugada automática pendiente
             if(systemTimeout) {
                 clearTimeout(systemTimeout);
                 systemTimeout = null;
             }
 
-            // 2. Bucle hiper-rápido: ejecuta los movimientos restantes instantáneamente
             while (currentStep < 10 && currentStep < currentSteps.length) {
                 const step = currentSteps[currentStep];
                 const move = isWhiteTurn ? step.w : step.b;
                 if(move) {
                     executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
                 } else {
-                    break; // Fallback de seguridad
+                    break;
                 }
             }
             
-            // 3. Reactivamos controles y forzamos el refresco de la UI
             setControlsDisabled(false);
             updateUI();
         }
 
-        // PARTE 4: Motor de carga de variantes
         function loadVariation(variationData) {
-            // 1. Reemplazamos los pasos por los de la variante
             currentSteps = variationData.steps;
             
-            // 2. Actualizamos el subtítulo de la cabecera
             document.getElementById('game-subtitle').textContent = variationData.subtitle;
             
-            // 3. Limpiamos y ocultamos el panel de variantes
             const varContainer = document.getElementById('variations-container');
             if(varContainer) { 
                 varContainer.classList.add('hidden'); 
                 varContainer.innerHTML = ''; 
             }
             
-            // 4. Reiniciamos el tablero con la nueva línea
             initGame();
         }
 
@@ -1597,25 +3205,23 @@
         }
 
         function executeMove(fr, fc, tr, tc, moveData) {
-            if (!boardState[fr][fc]) return; // Fallback crítico: si las coordenadas están vacías cancela para no colgar la UI.
+            if (!boardState[fr][fc]) return; 
             gameHistory.push({ board: JSON.parse(JSON.stringify(boardState)), whiteTurn: isWhiteTurn, step: currentStep });
             
             boardState[tr][tc] = boardState[fr][fc];
             boardState[fr][fc] = '';
             
-            // Lógica de enroque
             if (moveData.castle && boardState[moveData.rFrom[0]][moveData.rFrom[1]]) {
                 boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
                 boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
             }
             
-            // Lógica Captura al Paso (En Passant)
             if (moveData.ep) {
                 boardState[moveData.ep[0]][moveData.ep[1]] = '';
             }
 
             isWhiteTurn = !isWhiteTurn;
-            if (isWhiteTurn) currentStep++; // Un "Step" abarca Blanca+Negra
+            if (isWhiteTurn) currentStep++; 
             renderBoard();
         }
 
@@ -1636,7 +3242,7 @@
             const theory = document.getElementById('theory-text');
             const turn = document.getElementById('turn-indicator');
             const next = document.getElementById('next-move-preview');
-            const varContainer = document.getElementById('variations-container'); // NUEVO
+            const varContainer = document.getElementById('variations-container'); 
             
             if (!currentSteps || currentSteps.length === 0) return;
             
@@ -1647,14 +3253,13 @@
                 theory.textContent = "Has dominado esta variante de memoria.";
                 next.textContent = "FIN";
 
-                // PARTE 3: Mostrar contenedor de variantes si existen
                 if (activeOpeningId && OPENING_MODULES[activeOpeningId].variations) {
                     varContainer.innerHTML = '<h4 class="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em] mb-1 mt-2">Aprender Variantes</h4>';
                     OPENING_MODULES[activeOpeningId].variations.forEach((v, index) => {
                         const btn = document.createElement('button');
                         btn.className = "w-full text-left px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold border border-slate-500 transition-all text-sm text-white flex justify-between items-center group shadow-md";
                         btn.innerHTML = `<span>${v.name}</span> <span class="text-xs text-slate-400 font-normal group-hover:text-slate-200 transition-colors">${v.subtitle} &rarr;</span>`;
-                        btn.onclick = () => loadVariation(v); // PARTE 4: Conectado a la nueva función
+                        btn.onclick = () => loadVariation(v); 
                         varContainer.appendChild(btn);
                     });
                     varContainer.classList.remove('hidden');
@@ -1663,7 +3268,6 @@
                 return;
             }
             
-            // Ocultar variantes automáticamente si retrocedemos de la jugada 10
             if(varContainer) varContainer.classList.add('hidden');
             
             const step = currentSteps[currentStep];
@@ -1676,8 +3280,6 @@
             
             const isUserTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
             
-            // Fallback en textos teóricos para aperturas no anotadas a mano 
-            // Esto previene resultados `undefined` en la UI
             const fw = step.instW || `Juega ${step.w.san}`;
             const fb = step.instB || `Juega ${step.b.san}`;
             const tw = step.teoriaW || "Línea teórica de desarrollo.";
@@ -1701,7 +3303,14 @@
                 const btn = document.createElement('button');
                 btn.className = "opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between";
                 btn.onclick = () => {
-                    activeOpeningId = op.id; // NUEVO: Guardamos el ID de la apertura al hacer clic
+                    activeOpeningId = op.id; 
+                    
+                    // Verificación temporal para evitar errores con las nuevas aperturas vacías
+                    if(!OPENING_MODULES[op.id]) {
+                        alert("¡Próximamente! La lógica de esta apertura se añadirá en el siguiente paso.");
+                        return;
+                    }
+
                     currentSteps = OPENING_MODULES[op.id].steps;
                     document.getElementById('game-title').textContent = OPENING_MODULES[op.id].title;
                     document.getElementById('game-title').className = `text-4xl font-black ${OPENING_MODULES[op.id].theme}`;
@@ -1720,9 +3329,8 @@
             document.getElementById('game-view').classList.add('hidden');
             document.getElementById('menu-view').classList.remove('hidden');
             currentSteps = [];
-            activeOpeningId = null; // NUEVO: Limpieza
+            activeOpeningId = null; 
             
-            // Limpieza visual al salir (Parte 5 adelantada)
             const varContainer = document.getElementById('variations-container');
             if(varContainer) { varContainer.classList.add('hidden'); varContainer.innerHTML = ''; } 
             

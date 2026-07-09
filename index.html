@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprende aperturas - Edición Gran Maestro</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Motor de reglas de ajedrez (movimientos legales, jaque, enroque, al paso, coronación…) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code&display=swap');
         
@@ -33,6 +35,46 @@
             box-shadow: 0 25px 60px -12px rgba(0,0,0,0.7);
             position: relative;
             overflow: hidden;
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
+            transition: max-width 0.35s ease;
+        }
+        /* Tablero a ancho máximo cuando los paneles bajan */
+        body.layout-stacked .chessboard {
+            max-width: min(96vw, 900px);
+        }
+        body.layout-stacked #game-view {
+            max-width: 100%;
+        }
+        body.layout-stacked #game-main {
+            grid-template-columns: 1fr;
+        }
+        body.layout-stacked #board-column {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        body.layout-stacked #panels-column {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .square.legal-target::after {
+            content: '';
+            position: absolute;
+            width: 28%;
+            height: 28%;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.55);
+            pointer-events: none;
+            z-index: 5;
+        }
+        .square.legal-capture {
+            box-shadow: inset 0 0 0 4px rgba(16, 185, 129, 0.75);
+        }
+        #theory-text {
+            line-height: 1.65;
         }
 
         .square {
@@ -45,6 +87,13 @@
         .square.light { background-color: #f1f5f9; }
         .square.dark { background-color: #475569; }
         .square.error-highlight { background-color: rgba(239, 68, 68, 0.8) !important; }
+        .square.selected {
+            box-shadow: inset 0 0 0 4px rgba(16, 185, 129, 0.95);
+            background-color: rgba(16, 185, 129, 0.35) !important;
+        }
+        .square.selected.dark {
+            background-color: rgba(16, 185, 129, 0.45) !important;
+        }
 
         .piece {
             width: 92%;
@@ -54,14 +103,18 @@
             background-repeat: no-repeat;
             background-position: center;
             user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
             z-index: 10;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            pointer-events: none; /* los clics/toques van a la casilla */
         }
         .piece:active { cursor: grabbing; }
 
         .coord-col { position: absolute; bottom: 2px; right: 4px; font-size: 10px; font-weight: 800; color: #94a3b8; pointer-events: none; }
         .coord-row { position: absolute; top: 2px; left: 4px; font-size: 10px; font-weight: 800; color: #94a3b8; pointer-events: none; }
         .square.dark .coord-col, .square.dark .coord-row { color: #cbd5e1; }
+        .square { cursor: pointer; touch-action: none; }
 
         .terminal {
             font-family: 'Fira Code', monospace;
@@ -70,6 +123,125 @@
         }
 
         .btn-disabled { opacity: 0.3; cursor: not-allowed; pointer-events: none; }
+
+        /* Botones de control: solo icono; etiqueta al hover */
+        .icon-btn {
+            position: relative;
+            width: 3rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            border: 1px solid #64748b;
+            background: #334155;
+            color: #f8fafc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            transition: background 0.15s, border-color 0.15s, transform 0.15s;
+        }
+        .icon-btn:hover { background: #475569; transform: translateY(-1px); }
+        .icon-btn:active { transform: translateY(0); }
+        .icon-btn svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+        .icon-btn-primary {
+            background: #059669;
+            border-color: #34d399;
+        }
+        .icon-btn-primary:hover { background: #10b981; }
+        .icon-btn-label {
+            position: absolute;
+            bottom: calc(100% + 0.5rem);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            padding: 0.3rem 0.55rem;
+            border-radius: 0.4rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+            z-index: 40;
+        }
+        .icon-btn-label::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #334155;
+        }
+        .icon-btn:hover .icon-btn-label,
+        .icon-btn:focus-visible .icon-btn-label {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Selector de bando: dos fichas (sin texto) */
+        .role-switch {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem;
+            border-radius: 9999px;
+            background: #1e293b;
+            border: 1px solid #334155;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.35);
+        }
+        .role-dot {
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 9999px;
+            border: 2px solid transparent;
+            transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+            cursor: pointer;
+            position: relative;
+        }
+        .role-dot.white {
+            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #e2e8f0 55%, #94a3b8 100%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+        }
+        .role-dot.black {
+            background: radial-gradient(circle at 35% 30%, #64748b 0%, #1e293b 55%, #020617 100%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+        .role-dot:hover { transform: scale(1.06); }
+        .role-dot.active {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.35), 0 2px 8px rgba(0,0,0,0.4);
+            transform: scale(1.08);
+        }
+        .role-dot .role-tip {
+            position: absolute;
+            bottom: calc(100% + 0.45rem);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            padding: 0.25rem 0.45rem;
+            border-radius: 0.35rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s;
+            z-index: 40;
+        }
+        .role-dot:hover .role-tip,
+        .role-dot:focus-visible .role-tip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
@@ -85,7 +257,7 @@
         </main>
     </div>
 
-    <div id="game-view" class="hidden w-full max-w-6xl flex-col items-center">
+    <div id="game-view" class="hidden w-full max-w-6xl flex flex-col items-center">
         <header class="w-full mb-8 flex flex-col lg:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-5 w-full lg:w-auto">
                 <button onclick="backToMenu()" class="shrink-0 bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-xl border border-slate-600 transition-all shadow-lg group">
@@ -97,34 +269,61 @@
                 </div>
             </div>
             
-            <div class="flex flex-wrap justify-center gap-4">
-                <button id="btn-undo-move" onclick="undoMove()" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold border border-slate-500 transition-all shadow-md">Retroceder</button>
-                <button id="btn-next-move" onclick="stepNextMove()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold border border-emerald-400 transition-all shadow-lg">Auto-Jugada</button>
-                
+            <div class="flex flex-wrap justify-center items-center gap-3">
+                <button id="btn-undo-move" onclick="undoMove()" class="icon-btn" aria-label="Retroceder" title="Retroceder">
+                    <span class="icon-btn-label">Retroceder</span>
+                    <!-- flecha atrás -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button id="btn-reset" onclick="resetOpening()" class="icon-btn" aria-label="Reiniciar" title="Reiniciar">
+                    <span class="icon-btn-label">Reiniciar</span>
+                    <!-- flecha circular -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+                </button>
+                <button id="btn-next-move" onclick="stepNextMove()" class="icon-btn icon-btn-primary" aria-label="Auto-Jugada" title="Auto-Jugada">
+                    <span class="icon-btn-label">Auto-Jugada</span>
+                    <!-- flecha adelante -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                </button>
+                <button id="btn-layout" onclick="toggleLayout()" class="icon-btn" aria-label="Cambiar disposición" title="Paneles abajo / al lado">
+                    <span class="icon-btn-label" id="layout-btn-label">Paneles abajo</span>
+                    <!-- icono apilar paneles -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true" id="layout-btn-icon">
+                        <rect x="3" y="3" width="8" height="18" rx="1.5"/>
+                        <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+                        <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+                    </svg>
+                </button>
+
                 <!-- PARTE 1 & 2: Botón de Salto Actualizado -->
                 <button id="btn-skip" onclick="skipToVariations()" class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-bold border border-slate-600 transition-all shadow-md text-sm flex items-center">Variantes ⏩</button>
 
-                <div class="flex bg-slate-800 p-1.5 rounded-xl border border-slate-700 shadow-inner">
-                    <button id="btn-white" onclick="switchRole('w')" class="px-5 py-2 rounded-lg font-black text-xs uppercase transition-all">Blancas</button>
-                    <button id="btn-black" onclick="switchRole('b')" class="px-5 py-2 rounded-lg font-black text-xs uppercase transition-all">Negras</button>
+                <div class="role-switch" role="group" aria-label="Elegir bando">
+                    <button id="btn-white" type="button" onclick="switchRole('w')" class="role-dot white" aria-label="Jugar con blancas" title="Blancas">
+                        <span class="role-tip">Blancas</span>
+                    </button>
+                    <button id="btn-black" type="button" onclick="switchRole('b')" class="role-dot black" aria-label="Jugar con negras" title="Negras">
+                        <span class="role-tip">Negras</span>
+                    </button>
                 </div>
             </div>
         </header>
 
-        <main class="w-full grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <div class="flex justify-center items-start">
+        <main id="game-main" class="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 transition-all duration-300">
+            <div id="board-column" class="flex justify-center items-start">
                 <div id="board" class="chessboard"></div>
             </div>
             
-            <div class="flex flex-col gap-6">
+            <div id="panels-column" class="flex flex-col gap-6">
                 <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-2xl">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-2xl font-black text-white">Jugada <span id="level-indicator" class="text-emerald-400">1</span>/10</h2>
+                        <h2 class="text-2xl font-black text-white"><span id="mode-label">Jugada</span> <span id="level-indicator" class="text-emerald-400">1</span><span id="level-total">/10</span></h2>
                         <span id="turn-indicator" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Blancas</span>
                     </div>
                     <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden p-0.5 border border-slate-700">
                         <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-cyan-500 h-full rounded-full transition-all duration-700" style="width: 10%"></div>
                     </div>
+                    <p id="game-status" class="mt-3 text-sm text-slate-400 hidden"></p>
                 </div>
 
                 <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-2xl flex-grow flex flex-col gap-5">
@@ -140,7 +339,7 @@
 
                     <div>
                         <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Concepto Estratégico</h4>
-                        <p id="theory-text" class="text-base text-slate-300 italic leading-relaxed"></p>
+                        <p id="theory-text" class="text-base text-slate-300 leading-relaxed"></p>
                     </div>
 
                     <!-- CONTENEDOR FANTASMA PARA VARIANTES (Parte 2) -->
@@ -3651,68 +3850,340 @@
         let isWhiteTurn = true;
         let currentSteps = [];
         let dragFrom = null;
-        let gameHistory = []; 
+        let selectedSquare = null;
+        let legalTargets = []; // casillas alg ['e4',...] para resaltar
+        let gameHistory = [];
         let systemTimeout = null;
-        let activeOpeningId = null; 
+        let activeOpeningId = null;
+        let touchState = null;
+        let ignoreClickUntil = 0;
+        let freePlayMode = false;
+        let layoutStacked = false;
+        let chessGame = null; // instancia chess.js
+        let lastMoveSan = null;
+
+        const FILE_LETTERS = 'abcdefgh';
+
+        function rcToAlg(r, c) {
+            return FILE_LETTERS[c] + (8 - r);
+        }
+
+        function algToRc(alg) {
+            return [8 - parseInt(alg[1], 10), FILE_LETTERS.indexOf(alg[0])];
+        }
+
+        function boardFromChess() {
+            const b = Array.from({ length: 8 }, () => Array(8).fill(''));
+            if (!chessGame) return b;
+            const matrix = chessGame.board();
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const p = matrix[r][c];
+                    if (p) b[r][c] = p.color === 'w' ? p.type.toUpperCase() : p.type.toLowerCase();
+                }
+            }
+            return b;
+        }
+
+        function syncFromChess() {
+            boardState = boardFromChess();
+            isWhiteTurn = !chessGame || chessGame.turn() === 'w';
+        }
+
+        function createChessEngine() {
+            if (typeof Chess === 'undefined') {
+                console.error('chess.js no cargó; el modo libre usará reglas limitadas.');
+                return null;
+            }
+            return new Chess();
+        }
+
+        function theoryLength() {
+            return currentSteps ? currentSteps.length : 0;
+        }
+
+        function isTheoryComplete() {
+            return freePlayMode || (currentSteps && currentStep >= theoryLength());
+        }
+
+        /** Explicación estratégica larga según la jugada SAN (todas las aperturas). */
+        function explainSanDetailed(san, isWhite, openingName) {
+            const side = isWhite ? 'Las blancas' : 'Las negras';
+            const rival = isWhite ? 'las negras' : 'las blancas';
+            const opening = openingName || 'esta apertura';
+            if (!san) {
+                return `${side} continúan el plan típico de ${opening}: mejorar la coordinación de las piezas, disputar el centro y preparar el medio juego sin crear debilidades innecesarias.`;
+            }
+
+            const clean = san.replace(/[+#]$/, '');
+            const givesCheck = /[+]/.test(san);
+            const isMate = /#/.test(san);
+            const isCapture = clean.includes('x');
+            let text = '';
+
+            if (clean === 'O-O' || clean === '0-0') {
+                text = `${side} enrocan en corto. El rey abandona el centro —donde es más vulnerable cuando se abren las líneas— y se sitúa tras una cadena de peones más segura. Al mismo tiempo, la torre del flanco de rey entra en juego por la columna f, lista para apoyar rupturas centrales o defender. En ${opening}, el enroque suele ser el puente entre el desarrollo inicial y el plan de medio juego.`;
+            } else if (clean === 'O-O-O' || clean === '0-0-0') {
+                text = `${side} enrocan en largo. Es una decisión más combativa: el rey se va al flanco de dama y la torre de a queda centralizada en d, presionando el centro. En ${opening} este enroque a menudo anuncia un ataque opuesto de peones en el flanco de rey o un juego muy dinámico en el centro.`;
+            } else {
+                let pieceCode = 'P';
+                let dest = clean;
+                if (/^[KQRBN]/.test(clean)) {
+                    pieceCode = clean[0];
+                    dest = clean.slice(1);
+                }
+                dest = dest.replace(/^([a-h])?x?/, '').replace(/=.*/, '');
+                const destMatch = clean.match(/([a-h][1-8])(?:=[QRBN])?$/);
+                const square = destMatch ? destMatch[1] : dest;
+                const file = square && square[0];
+                const rank = square && square[1];
+
+                const pieceNames = { K: 'rey', Q: 'dama', R: 'torre', B: 'alfil', N: 'caballo', P: 'peón' };
+                const pieceName = pieceNames[pieceCode] || 'pieza';
+
+                const motives = [];
+                if (pieceCode === 'P') {
+                    if (rank === '4' || rank === '5') {
+                        motives.push(`ocupa o disputa el centro, reclamando espacio y abriendo diagonales para alfiles y dama`);
+                    } else if (rank === '3' || rank === '6') {
+                        motives.push(`refuerza la estructura, prepara casillas para las piezas menores y evita que ${rival} se expandan con comodidad`);
+                    } else if (rank === '2' || rank === '7') {
+                        motives.push(`reorganiza la cadena de peones y mantiene la flexibilidad de la estructura`);
+                    } else {
+                        motives.push(`mejora la estructura de peones y gana espacio útil para el plan de ${opening}`);
+                    }
+                    if (file === 'c' || file === 'f') {
+                        motives.push(`también influye en casillas centrales adyacentes (d y e), típico de esquemas modernos`);
+                    }
+                } else if (pieceCode === 'N') {
+                    motives.push(`desarrolla el caballo hacia una casilla activa desde la que controla el centro y amenaza puntos clave`);
+                    motives.push(`los caballos en la apertura buscan puestos estables (c3/f3 o c6/f6) antes de lanzar un ataque`);
+                } else if (pieceCode === 'B') {
+                    motives.push(`activa el alfil sobre una diagonal importante, presionando peones o piezas rivales y apoyando el control central`);
+                    motives.push(`un alfil bien colocado en ${opening} suele definir si el juego será posicional o táctico`);
+                } else if (pieceCode === 'R') {
+                    motives.push(`coloca la torre en una columna abierta o semiabierta, maximizando su fuerza a distancia`);
+                    motives.push(`en el medio juego temprano, las torres buscan el centro (e y d) o apoyar rupturas de peones`);
+                } else if (pieceCode === 'Q') {
+                    motives.push(`la dama entra en juego con cuidado: es la pieza más valiosa y no debe quedar expuesta a acosos de piezas menores`);
+                    motives.push(`desde ${square || 'su nueva casilla'} puede coordinar amenazas, defender el rey o clavar piezas`);
+                } else if (pieceCode === 'K') {
+                    motives.push(`mueve el rey con un fin concreto (conectarse, escapar de jaques o preparar un final)`);
+                }
+
+                if (isCapture) {
+                    motives.push(`la captura elimina material o un defensor rival, modifica la estructura de peones y puede abrir líneas para un ataque`);
+                }
+
+                const promo = clean.match(/=([QRBN])/);
+                if (promo) {
+                    const promoName = pieceNames[promo[1]] || 'pieza';
+                    motives.push(`el peón corona en ${promoName}, transformando la ventaja espacial en una pieza de gran poder de combate`);
+                }
+
+                text = `${side} juegan ${san}: mueven su ${pieceName}${square ? ` hacia ${square}` : ''}. ${motives.join('. ')}. `;
+                text += `En el contexto de ${opening}, esta idea no es aislada: busca mejorar la coordinación, disputar el centro y limitar las opciones de ${rival} antes de pasar al medio juego.`;
+            }
+
+            if (givesCheck && !isMate) {
+                text += ` Además da jaque: obliga a ${rival} a responder de inmediato (capturar, bloquear o mover el rey), robando un tiempo útil en la lucha por la iniciativa.`;
+            }
+            if (isMate) {
+                text += ` ¡Es jaque mate! La partida termina porque el rey rival no tiene escape legal.`;
+            }
+            return text;
+        }
+
+        function buildFullTheory(san, isWhite, shortHint, openingName) {
+            const detailed = explainSanDetailed(san, isWhite, openingName);
+            if (!shortHint) return detailed;
+            const hint = String(shortHint).trim();
+            if (!hint || /^(Línea teórica|Respuesta posicional)/i.test(hint)) return detailed;
+            // Si ya es un texto largo y rico, lo respetamos y añadimos solo un refuerzo breve
+            if (hint.length > 120) return hint;
+            const seed = hint.replace(/\.$/, '');
+            return `${seed}. ${detailed}`;
+        }
+
+        function getOpeningTitle() {
+            if (activeOpeningId && OPENING_MODULES[activeOpeningId]) {
+                return OPENING_MODULES[activeOpeningId].title;
+            }
+            return 'esta apertura';
+        }
+
+        function toggleLayout() {
+            layoutStacked = !layoutStacked;
+            document.body.classList.toggle('layout-stacked', layoutStacked);
+            const label = document.getElementById('layout-btn-label');
+            if (label) label.textContent = layoutStacked ? 'Paneles al lado' : 'Paneles abajo';
+            const btn = document.getElementById('btn-layout');
+            if (btn) btn.setAttribute('aria-pressed', layoutStacked ? 'true' : 'false');
+        }
+
+        /** Línea principal + variantes de una apertura (la principal va primero). */
+        function getOpeningLines(openingId) {
+            const mod = OPENING_MODULES[openingId];
+            if (!mod) return [];
+            const mainLine = {
+                name: mod.subtitle || "Línea principal",
+                subtitle: "Línea principal",
+                steps: mod.steps,
+                isMain: true
+            };
+            const extras = (mod.variations || []).map(v => ({ ...v, isMain: false }));
+            return [mainLine, ...extras];
+        }
+
+        function renderVariationsList() {
+            const varContainer = document.getElementById('variations-container');
+            if (!varContainer || !activeOpeningId || !OPENING_MODULES[activeOpeningId]) return;
+
+            const lines = getOpeningLines(activeOpeningId);
+            if (lines.length === 0) {
+                varContainer.classList.add('hidden');
+                varContainer.innerHTML = '';
+                return;
+            }
+
+            varContainer.innerHTML = '<h4 class="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em] mb-1 mt-2">Aprender Variantes</h4>';
+            lines.forEach((v) => {
+                const btn = document.createElement('button');
+                const mainStyle = v.isMain
+                    ? "w-full text-left px-4 py-3 bg-emerald-700/40 hover:bg-emerald-600/50 rounded-xl font-bold border border-emerald-500/60 transition-all text-sm text-white flex justify-between items-center group shadow-md"
+                    : "w-full text-left px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold border border-slate-500 transition-all text-sm text-white flex justify-between items-center group shadow-md";
+                btn.className = mainStyle;
+                const badge = v.isMain
+                    ? `<span class="text-[10px] uppercase tracking-wider text-emerald-300 font-black mr-2">Principal</span>`
+                    : '';
+                btn.innerHTML = `<span class="flex items-center gap-1">${badge}<span>${v.name}</span></span> <span class="text-xs text-slate-400 font-normal group-hover:text-slate-200 transition-colors">${v.subtitle} &rarr;</span>`;
+                btn.onclick = () => loadVariation(v);
+                varContainer.appendChild(btn);
+            });
+            varContainer.classList.remove('hidden');
+        }
+
+        function enterFreePlayIfNeeded() {
+            if (!currentSteps) return;
+            if (currentStep >= theoryLength() && !freePlayMode) {
+                freePlayMode = true;
+            }
+        }
 
         function skipToVariations() {
-            if (!currentSteps || currentStep >= 10 || currentStep >= currentSteps.length) return;
-            
-            if(systemTimeout) {
+            if (!currentSteps || currentSteps.length === 0) return;
+
+            if (isTheoryComplete()) {
+                setControlsDisabled(false);
+                renderVariationsList();
+                updateUI();
+                return;
+            }
+
+            if (systemTimeout) {
                 clearTimeout(systemTimeout);
                 systemTimeout = null;
             }
 
-            while (currentStep < 10 && currentStep < currentSteps.length) {
+            while (currentStep < theoryLength()) {
                 const step = currentSteps[currentStep];
+                if (!step) break;
                 const move = isWhiteTurn ? step.w : step.b;
-                if(move) {
+                if (move) {
                     executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
                 } else {
                     break;
                 }
             }
-            
+
+            freePlayMode = true;
             setControlsDisabled(false);
             updateUI();
         }
 
         function loadVariation(variationData) {
             currentSteps = variationData.steps;
-            
-            document.getElementById('game-subtitle').textContent = variationData.subtitle;
-            
+            document.getElementById('game-subtitle').textContent = variationData.isMain
+                ? (variationData.name || variationData.subtitle)
+                : variationData.subtitle;
+
             const varContainer = document.getElementById('variations-container');
-            if(varContainer) { 
-                varContainer.classList.add('hidden'); 
-                varContainer.innerHTML = ''; 
+            if (varContainer) {
+                varContainer.classList.add('hidden');
+                varContainer.innerHTML = '';
             }
-            
+
             initGame();
         }
 
-        function initGame() {
-            if(systemTimeout) clearTimeout(systemTimeout);
-            boardState = INITIAL_BOARD.map(row => [...row]);
-            currentStep = 0;
-            isWhiteTurn = true;
+        function clearSelection() {
+            selectedSquare = null;
             dragFrom = null;
-            gameHistory = []; 
+            touchState = null;
+            legalTargets = [];
+        }
+
+        function isPieceOwnedBySide(piece, sideWhite) {
+            if (!piece) return false;
+            const isWhite = piece === piece.toUpperCase();
+            return sideWhite ? isWhite : !isWhite;
+        }
+
+        function isSelectablePiece(piece) {
+            if (!piece) return false;
+            if (chessGame && chessGame.game_over()) return false;
+            // En teoría y en libre: solo el bando al que le toca
+            return isPieceOwnedBySide(piece, isWhiteTurn);
+        }
+
+        function getLegalTargetsFor(r, c) {
+            if (!chessGame || !freePlayMode) return [];
+            const sq = rcToAlg(r, c);
+            const moves = chessGame.moves({ square: sq, verbose: true }) || [];
+            return moves.map(m => m.to);
+        }
+
+        function initGame() {
+            if (systemTimeout) clearTimeout(systemTimeout);
+            systemTimeout = null;
+            freePlayMode = false;
+            lastMoveSan = null;
+            chessGame = createChessEngine();
+            if (chessGame) {
+                syncFromChess();
+            } else {
+                boardState = INITIAL_BOARD.map(row => [...row]);
+                isWhiteTurn = true;
+            }
+            currentStep = 0;
+            clearSelection();
+            gameHistory = [];
             renderBoard();
             updateUI();
             setControlsDisabled(false);
-            if (userRole === 'b' && isWhiteTurn && currentSteps && currentSteps.length > 0) {
+            if (userRole === 'b' && isWhiteTurn && currentSteps && currentSteps.length > 0 && !freePlayMode) {
                 setControlsDisabled(true);
                 systemTimeout = setTimeout(autoPlayOpponent, 1000);
             }
+        }
+
+        function resetOpening() {
+            if (!currentSteps || currentSteps.length === 0) return;
+            if (systemTimeout) {
+                clearTimeout(systemTimeout);
+                systemTimeout = null;
+            }
+            const varContainer = document.getElementById('variations-container');
+            if (varContainer) varContainer.classList.add('hidden');
+            initGame();
         }
 
         function setControlsDisabled(disabled) {
             const btns = ['btn-undo-move', 'btn-next-move', 'btn-white', 'btn-black'];
             btns.forEach(id => {
                 const el = document.getElementById(id);
-                if(el) {
-                    if(disabled) el.classList.add('btn-disabled');
+                if (el) {
+                    if (disabled) el.classList.add('btn-disabled');
                     else el.classList.remove('btn-disabled');
                 }
             });
@@ -3720,177 +4191,545 @@
 
         function undoMove() {
             if (gameHistory.length === 0) return;
-            const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
-            let stepsToUndo = (isMyTurn && gameHistory.length >= 2) ? 2 : 1;
-            for (let i = 0; i < stepsToUndo; i++) {
-                if (gameHistory.length > 0) {
-                    const lastState = gameHistory.pop();
-                    boardState = lastState.board;
-                    isWhiteTurn = lastState.whiteTurn;
-                    currentStep = lastState.step;
-                }
+            if (systemTimeout) {
+                clearTimeout(systemTimeout);
+                systemTimeout = null;
             }
+
+            const isMyTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
+            // En modo libre: un ply; en teoría (turno del usuario): a menudo dos (propia + rival)
+            let stepsToUndo = (!freePlayMode && isMyTurn && gameHistory.length >= 2) ? 2 : 1;
+
+            for (let i = 0; i < stepsToUndo; i++) {
+                if (gameHistory.length === 0) break;
+                const last = gameHistory.pop();
+                if (chessGame && last.fen) {
+                    chessGame.load(last.fen);
+                    syncFromChess();
+                } else if (last.board) {
+                    boardState = last.board;
+                    isWhiteTurn = last.whiteTurn;
+                }
+                currentStep = last.step;
+                freePlayMode = !!last.freePlay;
+                lastMoveSan = last.lastMoveSan || null;
+            }
+            clearSelection();
             renderBoard();
             updateUI();
+            setControlsDisabled(false);
         }
 
         function stepNextMove() {
-            if (!currentSteps || currentStep >= currentSteps.length) return;
+            if (freePlayMode) {
+                // En partida libre: juega una jugada legal al azar del bando actual (útil para explorar)
+                playRandomLegalMove();
+                return;
+            }
+            if (!currentSteps || currentStep >= theoryLength()) return;
             const step = currentSteps[currentStep];
             const expected = isWhiteTurn ? step.w : step.b;
+            if (!expected) return;
             executeMove(expected.from[0], expected.from[1], expected.to[0], expected.to[1], expected);
-            if (currentStep < currentSteps.length) {
-                setControlsDisabled(true);
-                systemTimeout = setTimeout(autoPlayOpponent, 800);
+            if (!isTheoryComplete() && currentStep < theoryLength()) {
+                const stillTheory = currentStep < theoryLength();
+                if (stillTheory) {
+                    setControlsDisabled(true);
+                    systemTimeout = setTimeout(autoPlayOpponent, 800);
+                }
             }
+            updateUI();
+        }
+
+        function playRandomLegalMove() {
+            if (!chessGame || chessGame.game_over()) return;
+            const moves = chessGame.moves({ verbose: true });
+            if (!moves.length) return;
+            const m = moves[Math.floor(Math.random() * moves.length)];
+            const [fr, fc] = algToRc(m.from);
+            const [tr, tc] = algToRc(m.to);
+            executeFreeMove(fr, fc, tr, tc);
+            updateUI();
+        }
+
+        function pushHistory() {
+            gameHistory.push({
+                fen: chessGame ? chessGame.fen() : null,
+                board: JSON.parse(JSON.stringify(boardState)),
+                whiteTurn: isWhiteTurn,
+                step: currentStep,
+                freePlay: freePlayMode,
+                lastMoveSan: lastMoveSan
+            });
+        }
+
+        function applyEngineMove(fr, fc, tr, tc, promotion) {
+            if (!chessGame) return null;
+            const from = rcToAlg(fr, fc);
+            const to = rcToAlg(tr, tc);
+            const move = chessGame.move({ from, to, promotion: promotion || 'q' });
+            if (move) {
+                lastMoveSan = move.san;
+                syncFromChess();
+                return move;
+            }
+            return null;
+        }
+
+        function tryPlayOnEngine(game, moveData) {
+            if (!game || !moveData) return false;
+            if (moveData.from && moveData.to) {
+                const from = rcToAlg(moveData.from[0], moveData.from[1]);
+                const to = rcToAlg(moveData.to[0], moveData.to[1]);
+                const m = game.move({ from, to, promotion: moveData.promotion || 'q' });
+                if (m) return true;
+            }
+            if (moveData.san) {
+                const san = moveData.san.replace(/0-0-0/g, 'O-O-O').replace(/0-0/g, 'O-O');
+                const m = game.move(san);
+                if (m) return true;
+            }
+            return false;
+        }
+
+        /** Reconstruye chess.js repitiendo la teoría hasta la posición actual. */
+        function resyncChessFromTheoryProgress() {
+            if (typeof Chess === 'undefined' || !currentSteps) return;
+            const g = new Chess();
+            for (let s = 0; s < currentSteps.length; s++) {
+                const step = currentSteps[s];
+                if (!step) break;
+                if (s < currentStep) {
+                    tryPlayOnEngine(g, step.w);
+                    tryPlayOnEngine(g, step.b);
+                } else if (s === currentStep) {
+                    if (!isWhiteTurn) tryPlayOnEngine(g, step.w);
+                    break;
+                } else {
+                    break;
+                }
+            }
+            chessGame = g;
+            syncFromChess();
+        }
+
+        function scheduleOpponentIfNeeded() {
+            if (!freePlayMode || !chessGame || chessGame.game_over()) return;
+            const oppTurn = (userRole === 'w' && chessGame.turn() === 'b') || (userRole === 'b' && chessGame.turn() === 'w');
+            if (!oppTurn) return;
+            if (systemTimeout) clearTimeout(systemTimeout);
+            setControlsDisabled(true);
+            systemTimeout = setTimeout(() => {
+                systemTimeout = null;
+                if (!chessGame || chessGame.game_over() || !freePlayMode) {
+                    setControlsDisabled(false);
+                    updateUI();
+                    return;
+                }
+                const moves = chessGame.moves({ verbose: true });
+                if (moves.length) {
+                    const captures = moves.filter(m => m.flags && m.flags.includes('c'));
+                    const pool = captures.length ? captures : moves;
+                    const pick = pool[Math.floor(Math.random() * pool.length)];
+                    const [or, oc] = algToRc(pick.from);
+                    const [tr2, tc2] = algToRc(pick.to);
+                    pushHistory();
+                    applyEngineMove(or, oc, tr2, tc2, pick.promotion || 'q');
+                    renderBoard();
+                }
+                setControlsDisabled(false);
+                updateUI();
+            }, 450);
+        }
+
+        function executeMove(fr, fc, tr, tc, moveData) {
+            // Teoría: intenta motor; si falla, aplica manualmente y resincroniza
+            pushHistory();
+
+            let applied = false;
+            if (chessGame) {
+                const promo = (moveData && moveData.promotion) || 'q';
+                const move = applyEngineMove(fr, fc, tr, tc, promo);
+                if (move) {
+                    applied = true;
+                } else if (moveData && moveData.san) {
+                    const bySan = chessGame.move(String(moveData.san).replace(/0-0-0/g, 'O-O-O').replace(/0-0/g, 'O-O'));
+                    if (bySan) {
+                        lastMoveSan = bySan.san;
+                        syncFromChess();
+                        applied = true;
+                    }
+                }
+            }
+
+            if (!applied) {
+                if (!boardState[fr] || !boardState[fr][fc]) {
+                    gameHistory.pop();
+                    return;
+                }
+                boardState[tr][tc] = boardState[fr][fc];
+                boardState[fr][fc] = '';
+                if (moveData && moveData.castle && boardState[moveData.rFrom[0]][moveData.rFrom[1]]) {
+                    boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
+                    boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
+                }
+                if (moveData && moveData.ep) {
+                    boardState[moveData.ep[0]][moveData.ep[1]] = '';
+                }
+                lastMoveSan = (moveData && moveData.san) || null;
+                isWhiteTurn = !isWhiteTurn;
+            }
+
+            // Avance del contador de teoría: un step = blancas + negras
+            if (!freePlayMode) {
+                if (isWhiteTurn) currentStep++;
+                if (currentStep >= theoryLength()) freePlayMode = true;
+            }
+
+            if (!applied) {
+                // Tras fallback manual, reconstruir el motor para que la partida libre sea legal
+                resyncChessFromTheoryProgress();
+            }
+
+            clearSelection();
+            renderBoard();
+            if (freePlayMode) scheduleOpponentIfNeeded();
+        }
+
+        function executeFreeMove(fr, fc, tr, tc) {
+            if (!chessGame || chessGame.game_over()) return false;
+            pushHistory();
+            const move = applyEngineMove(fr, fc, tr, tc, 'q');
+            if (!move) {
+                gameHistory.pop();
+                return false;
+            }
+            clearSelection();
+            renderBoard();
+            scheduleOpponentIfNeeded();
+            return true;
+        }
+
+        function autoPlayOpponent() {
+            systemTimeout = null;
+            if (freePlayMode || !currentSteps || currentStep >= theoryLength()) {
+                setControlsDisabled(false);
+                updateUI();
+                return;
+            }
+            const step = currentSteps[currentStep];
+            if (!step) {
+                setControlsDisabled(false);
+                return;
+            }
+            const move = isWhiteTurn ? step.w : step.b;
+            if (move) {
+                executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
+            }
+            setControlsDisabled(false);
             updateUI();
         }
 
         function renderBoard() {
             const boardEl = document.getElementById('board');
+            if (!boardEl) return;
             boardEl.innerHTML = '';
             const flip = userRole === 'b';
+            const legalSet = new Set(legalTargets);
+
             for (let r = 0; r < 8; r++) {
                 const rowIdx = flip ? 7 - r : r;
                 for (let c = 0; c < 8; c++) {
                     const colIdx = flip ? 7 - c : c;
                     const isLight = (rowIdx + colIdx) % 2 === 0;
                     const square = document.createElement('div');
-                    square.className = `square ${isLight ? 'light' : 'dark'}`;
+                    const isSelected = selectedSquare && selectedSquare.r === rowIdx && selectedSquare.c === colIdx;
+                    const alg = rcToAlg(rowIdx, colIdx);
+                    const isLegal = legalSet.has(alg);
+                    const isCapture = isLegal && boardState[rowIdx][colIdx];
+                    let cls = `square ${isLight ? 'light' : 'dark'}`;
+                    if (isSelected) cls += ' selected';
+                    if (isLegal && !isCapture) cls += ' legal-target';
+                    if (isCapture) cls += ' legal-capture';
+                    square.className = cls;
                     square.dataset.row = rowIdx;
                     square.dataset.col = colIdx;
-                    if (colIdx === (flip ? 7 : 0)) square.innerHTML += `<div class="coord-row">${8-rowIdx}</div>`;
-                    if (rowIdx === (flip ? 0 : 7)) square.innerHTML += `<div class="coord-col">${String.fromCharCode(97+colIdx)}</div>`;
-                    
+                    if (colIdx === (flip ? 7 : 0)) square.innerHTML += `<div class="coord-row">${8 - rowIdx}</div>`;
+                    if (rowIdx === (flip ? 0 : 7)) square.innerHTML += `<div class="coord-col">${FILE_LETTERS[colIdx]}</div>`;
+
                     const p = boardState[rowIdx][colIdx];
                     if (p) {
                         const piece = document.createElement('div');
                         piece.className = 'piece';
                         piece.style.backgroundImage = `url(${PIECES_URL[p]})`;
-                        piece.draggable = true;
-                        piece.addEventListener('dragstart', (e) => {
-                            const isWhite = p === p.toUpperCase();
-                            if ((isWhiteTurn && !isWhite) || (!isWhiteTurn && isWhite)) { e.preventDefault(); return; }
-                            dragFrom = {r: rowIdx, c: colIdx};
-                        });
+                        square.draggable = isSelectablePiece(p);
                         square.appendChild(piece);
                     }
-                    
+
+                    square.addEventListener('dragstart', (e) => {
+                        const pieceHere = boardState[rowIdx][colIdx];
+                        if (!isSelectablePiece(pieceHere)) { e.preventDefault(); return; }
+                        dragFrom = { r: rowIdx, c: colIdx };
+                        selectedSquare = { r: rowIdx, c: colIdx };
+                        legalTargets = freePlayMode ? getLegalTargetsFor(rowIdx, colIdx) : [];
+                        e.dataTransfer.effectAllowed = 'move';
+                        try { e.dataTransfer.setData('text/plain', `${rowIdx},${colIdx}`); } catch (_) {}
+                    });
+                    square.addEventListener('dragend', () => { dragFrom = null; });
                     square.addEventListener('dragover', (e) => e.preventDefault());
                     square.addEventListener('drop', (e) => {
                         e.preventDefault();
-                        if (dragFrom) handleMoveAttempt(dragFrom.r, dragFrom.c, rowIdx, colIdx);
+                        const from = dragFrom || selectedSquare;
+                        if (from) handleMoveAttempt(from.r, from.c, rowIdx, colIdx);
+                        dragFrom = null;
                     });
+
+                    square.addEventListener('click', () => {
+                        if (Date.now() < ignoreClickUntil) return;
+                        handleSquareActivate(rowIdx, colIdx);
+                    });
+
+                    square.addEventListener('touchstart', (e) => {
+                        if (e.touches.length !== 1) return;
+                        e.preventDefault();
+                        touchState = {
+                            r: rowIdx, c: colIdx, moved: false,
+                            startX: e.touches[0].clientX, startY: e.touches[0].clientY
+                        };
+                    }, { passive: false });
+
+                    square.addEventListener('touchmove', (e) => {
+                        if (!touchState || e.touches.length !== 1) return;
+                        e.preventDefault();
+                        const dx = e.touches[0].clientX - touchState.startX;
+                        const dy = e.touches[0].clientY - touchState.startY;
+                        if (Math.hypot(dx, dy) > 10) touchState.moved = true;
+                    }, { passive: false });
+
+                    square.addEventListener('touchend', (e) => {
+                        if (!touchState) return;
+                        e.preventDefault();
+                        ignoreClickUntil = Date.now() + 450;
+                        const t = e.changedTouches[0];
+                        const el = document.elementFromPoint(t.clientX, t.clientY);
+                        const targetSq = el && el.closest ? el.closest('.square') : null;
+                        const tr = targetSq ? parseInt(targetSq.dataset.row, 10) : touchState.r;
+                        const tc = targetSq ? parseInt(targetSq.dataset.col, 10) : touchState.c;
+                        const startR = touchState.r, startC = touchState.c, wasDrag = touchState.moved;
+                        touchState = null;
+                        if (wasDrag) {
+                            const originPiece = boardState[startR][startC];
+                            if (isSelectablePiece(originPiece) && (tr !== startR || tc !== startC)) {
+                                selectedSquare = { r: startR, c: startC };
+                                handleMoveAttempt(startR, startC, tr, tc);
+                            } else if (selectedSquare && (tr !== selectedSquare.r || tc !== selectedSquare.c)) {
+                                handleMoveAttempt(selectedSquare.r, selectedSquare.c, tr, tc);
+                            }
+                        } else {
+                            handleSquareActivate(tr, tc);
+                        }
+                    }, { passive: false });
+
+                    square.addEventListener('touchcancel', () => { touchState = null; });
                     boardEl.appendChild(square);
                 }
             }
         }
 
+        function highlightSelectionOnly() {
+            document.querySelectorAll('.square.selected').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.square.legal-target, .square.legal-capture').forEach(el => {
+                el.classList.remove('legal-target', 'legal-capture');
+            });
+            if (!selectedSquare) return;
+            const sq = document.querySelector(`.square[data-row="${selectedSquare.r}"][data-col="${selectedSquare.c}"]`);
+            if (sq) sq.classList.add('selected');
+            legalTargets.forEach(alg => {
+                const [r, c] = algToRc(alg);
+                const cell = document.querySelector(`.square[data-row="${r}"][data-col="${c}"]`);
+                if (!cell) return;
+                if (boardState[r][c]) cell.classList.add('legal-capture');
+                else cell.classList.add('legal-target');
+            });
+        }
+
+        function handleSquareActivate(rowIdx, colIdx) {
+            if (!currentSteps || currentSteps.length === 0) return;
+            // Bloquear solo si no hay teoría ni modo libre (no debería pasar)
+            if (!freePlayMode && currentStep >= theoryLength()) {
+                freePlayMode = true;
+            }
+            if (chessGame && chessGame.game_over()) return;
+
+            const pieceHere = boardState[rowIdx][colIdx];
+
+            if (!selectedSquare) {
+                if (isSelectablePiece(pieceHere)) {
+                    selectedSquare = { r: rowIdx, c: colIdx };
+                    legalTargets = freePlayMode ? getLegalTargetsFor(rowIdx, colIdx) : [];
+                    highlightSelectionOnly();
+                }
+                return;
+            }
+
+            if (selectedSquare.r === rowIdx && selectedSquare.c === colIdx) {
+                clearSelection();
+                highlightSelectionOnly();
+                return;
+            }
+
+            if (isSelectablePiece(pieceHere)) {
+                selectedSquare = { r: rowIdx, c: colIdx };
+                legalTargets = freePlayMode ? getLegalTargetsFor(rowIdx, colIdx) : [];
+                highlightSelectionOnly();
+                return;
+            }
+
+            handleMoveAttempt(selectedSquare.r, selectedSquare.c, rowIdx, colIdx);
+        }
+
         function handleMoveAttempt(fr, fc, tr, tc) {
-            if (!currentSteps || currentStep >= currentSteps.length) return;
+            if (fr === tr && fc === tc) return;
+
+            enterFreePlayIfNeeded();
+
+            if (freePlayMode) {
+                const ok = executeFreeMove(fr, fc, tr, tc);
+                if (!ok) {
+                    const sq = document.querySelector(`.square[data-row="${tr}"][data-col="${tc}"]`);
+                    if (sq) {
+                        sq.classList.add('error-highlight');
+                        setTimeout(() => sq.classList.remove('error-highlight'), 450);
+                    }
+                    highlightSelectionOnly();
+                } else {
+                    updateUI();
+                }
+                return;
+            }
+
+            if (!currentSteps || currentStep >= theoryLength()) {
+                freePlayMode = true;
+                handleMoveAttempt(fr, fc, tr, tc);
+                return;
+            }
+
             const step = currentSteps[currentStep];
             const expected = isWhiteTurn ? step.w : step.b;
-            if (fr === expected.from[0] && fc === expected.from[1] && tr === expected.to[0] && tc === expected.to[1]) {
+            if (expected && fr === expected.from[0] && fc === expected.from[1] && tr === expected.to[0] && tc === expected.to[1]) {
+                clearSelection();
                 executeMove(fr, fc, tr, tc, expected);
-                if (currentStep < currentSteps.length) {
+                if (!freePlayMode && currentStep < theoryLength()) {
                     setControlsDisabled(true);
                     systemTimeout = setTimeout(autoPlayOpponent, 800);
                 }
                 updateUI();
             } else {
                 const sq = document.querySelector(`.square[data-row="${tr}"][data-col="${tc}"]`);
-                if(sq) { sq.classList.add('error-highlight'); setTimeout(() => sq.classList.remove('error-highlight'), 500); }
+                if (sq) {
+                    sq.classList.add('error-highlight');
+                    setTimeout(() => sq.classList.remove('error-highlight'), 500);
+                }
+                highlightSelectionOnly();
             }
         }
 
-        function executeMove(fr, fc, tr, tc, moveData) {
-            if (!boardState[fr][fc]) return; 
-            gameHistory.push({ board: JSON.parse(JSON.stringify(boardState)), whiteTurn: isWhiteTurn, step: currentStep });
-            
-            boardState[tr][tc] = boardState[fr][fc];
-            boardState[fr][fc] = '';
-            
-            if (moveData.castle && boardState[moveData.rFrom[0]][moveData.rFrom[1]]) {
-                boardState[moveData.rTo[0]][moveData.rTo[1]] = boardState[moveData.rFrom[0]][moveData.rFrom[1]];
-                boardState[moveData.rFrom[0]][moveData.rFrom[1]] = '';
+        function updateGameStatusBanner() {
+            const el = document.getElementById('game-status');
+            if (!el) return;
+            if (!chessGame || !freePlayMode) {
+                el.classList.add('hidden');
+                el.textContent = '';
+                return;
             }
-            
-            if (moveData.ep) {
-                boardState[moveData.ep[0]][moveData.ep[1]] = '';
+            el.classList.remove('hidden');
+            if (chessGame.in_checkmate()) {
+                el.textContent = chessGame.turn() === 'w'
+                    ? 'Jaque mate. Ganan las negras.'
+                    : 'Jaque mate. Ganan las blancas.';
+                el.className = 'mt-3 text-sm font-bold text-rose-400';
+            } else if (chessGame.in_stalemate()) {
+                el.textContent = 'Ahogado: tablas.';
+                el.className = 'mt-3 text-sm font-bold text-amber-300';
+            } else if (chessGame.in_draw()) {
+                el.textContent = 'Tablas (regla de tablas del reglamento).';
+                el.className = 'mt-3 text-sm font-bold text-amber-300';
+            } else if (chessGame.in_check()) {
+                el.textContent = (chessGame.turn() === 'w' ? 'Jaque al rey blanco.' : 'Jaque al rey negro.') + ' Debes resolver el jaque.';
+                el.className = 'mt-3 text-sm font-bold text-orange-300';
+            } else {
+                el.textContent = 'Partida libre: puedes continuar con todas las reglas del ajedrez (enroque, al paso, coronación en dama, jaque…). El rival responde automáticamente.';
+                el.className = 'mt-3 text-sm text-slate-400';
             }
-
-            isWhiteTurn = !isWhiteTurn;
-            if (isWhiteTurn) currentStep++; 
-            renderBoard();
-        }
-
-        function autoPlayOpponent() {
-            systemTimeout = null;
-            if (!currentSteps || currentStep >= currentSteps.length) { setControlsDisabled(false); return; }
-            const step = currentSteps[currentStep];
-            const move = isWhiteTurn ? step.w : step.b;
-            executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
-            setControlsDisabled(false);
-            updateUI();
         }
 
         function updateUI() {
             const levelInd = document.getElementById('level-indicator');
+            const levelTotal = document.getElementById('level-total');
+            const modeLabel = document.getElementById('mode-label');
             const progress = document.getElementById('progress-bar');
             const inst = document.getElementById('instruction-text');
             const theory = document.getElementById('theory-text');
             const turn = document.getElementById('turn-indicator');
             const next = document.getElementById('next-move-preview');
-            const varContainer = document.getElementById('variations-container'); 
-            
-            if (!currentSteps || currentSteps.length === 0) return;
-            
-            if (currentStep >= 10) {
-                progress.style.width = '100%';
-                turn.textContent = "Final";
-                inst.textContent = "¡Teoría Completada!";
-                theory.textContent = "Has dominado esta variante de memoria.";
-                next.textContent = "FIN";
+            const varContainer = document.getElementById('variations-container');
+            const openingName = getOpeningTitle();
 
-                if (activeOpeningId && OPENING_MODULES[activeOpeningId].variations) {
-                    varContainer.innerHTML = '<h4 class="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em] mb-1 mt-2">Aprender Variantes</h4>';
-                    OPENING_MODULES[activeOpeningId].variations.forEach((v, index) => {
-                        const btn = document.createElement('button');
-                        btn.className = "w-full text-left px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold border border-slate-500 transition-all text-sm text-white flex justify-between items-center group shadow-md";
-                        btn.innerHTML = `<span>${v.name}</span> <span class="text-xs text-slate-400 font-normal group-hover:text-slate-200 transition-colors">${v.subtitle} &rarr;</span>`;
-                        btn.onclick = () => loadVariation(v); 
-                        varContainer.appendChild(btn);
-                    });
-                    varContainer.classList.remove('hidden');
+            if (!currentSteps || currentSteps.length === 0) return;
+
+            enterFreePlayIfNeeded();
+
+            if (freePlayMode || currentStep >= theoryLength()) {
+                freePlayMode = true;
+                if (modeLabel) modeLabel.textContent = 'Partida libre';
+                if (levelInd) levelInd.textContent = '';
+                if (levelTotal) levelTotal.textContent = '';
+                progress.style.width = '100%';
+                const isUserTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
+                turn.textContent = chessGame && chessGame.game_over()
+                    ? 'Fin'
+                    : (isWhiteTurn ? 'Blancas' : 'Negras');
+                next.textContent = lastMoveSan || '—';
+                if (chessGame && chessGame.game_over()) {
+                    inst.textContent = 'La partida ha terminado.';
+                    theory.textContent = 'Puedes reiniciar la apertura, elegir otra variante o volver al menú. El tablero ha respetado todas las reglas oficiales del ajedrez.';
+                } else {
+                    inst.textContent = isUserTurn
+                        ? 'Teoría completada. Continúa la partida con movimientos legales.'
+                        : 'El rival está pensando…';
+                    theory.textContent = 'Has memorizado la línea teórica. A partir de aquí el tablero aplica el reglamento completo: movimientos legales de cada pieza, jaque, enroque, captura al paso y coronación (automática a dama). Explora el medio juego o prueba otras ideas; usa Variantes para estudiar otras líneas de ' + openingName + '.';
                 }
-                
+                updateGameStatusBanner();
+                renderVariationsList();
                 return;
             }
-            
-            if(varContainer) varContainer.classList.add('hidden');
-            
+
+            updateGameStatusBanner();
+            if (varContainer) varContainer.classList.add('hidden');
+            if (modeLabel) modeLabel.textContent = 'Jugada';
+            if (levelTotal) levelTotal.textContent = '/' + theoryLength();
+
             const step = currentSteps[currentStep];
-            if (!step) return; 
-            
+            if (!step) return;
+
             const move = isWhiteTurn ? step.w : step.b;
             levelInd.textContent = currentStep + 1;
-            progress.style.width = `${(currentStep / 10) * 100}%`;
-            next.textContent = move.san;
-            
+            progress.style.width = `${(currentStep / Math.max(theoryLength(), 1)) * 100}%`;
+            next.textContent = (move && move.san) || '--';
+
             const isUserTurn = (userRole === 'w' && isWhiteTurn) || (userRole === 'b' && !isWhiteTurn);
-            
-            const fw = step.instW || `Juega ${step.w.san}`;
-            const fb = step.instB || `Juega ${step.b.san}`;
-            const tw = step.teoriaW || "Línea teórica de desarrollo.";
-            const tb = step.teoriaB || "Respuesta posicional estándar.";
+            const fw = (step.instW) || (step.w && step.w.san ? `Juega ${step.w.san}` : 'Jugada de blancas');
+            const fb = (step.instB) || (step.b && step.b.san ? `Juega ${step.b.san}` : 'Jugada de negras');
+            const tw = buildFullTheory(step.w && step.w.san, true, step.teoriaW, openingName);
+            const tb = buildFullTheory(step.b && step.b.san, false, step.teoriaB, openingName);
 
             if (isUserTurn) {
-                turn.textContent = isWhiteTurn ? "Blancas" : "Negras";
+                turn.textContent = isWhiteTurn ? 'Blancas' : 'Negras';
                 inst.textContent = isWhiteTurn ? fw : fb;
                 theory.textContent = isWhiteTurn ? tw : tb;
             } else {
-                turn.textContent = "IA Jugando...";
-                inst.textContent = "Preparando respuesta...";
+                turn.textContent = 'Rival…';
+                inst.textContent = 'Preparando la respuesta teórica…';
                 theory.textContent = isWhiteTurn ? tw : tb;
             }
         }
@@ -3900,22 +4739,21 @@
             g.innerHTML = '';
             chessOpeningsList.forEach(op => {
                 const btn = document.createElement('button');
-                btn.className = "opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between";
+                btn.className = 'opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between';
                 btn.onclick = () => {
-                    activeOpeningId = op.id; 
-                    
-                    // Verificación temporal para evitar errores con las nuevas aperturas vacías
-                    if(!OPENING_MODULES[op.id]) {
-                        alert("¡Próximamente! La lógica de esta apertura se añadirá en el siguiente paso.");
+                    activeOpeningId = op.id;
+                    if (!OPENING_MODULES[op.id]) {
+                        alert('¡Próximamente! La lógica de esta apertura se añadirá en el siguiente paso.');
                         return;
                     }
-
                     currentSteps = OPENING_MODULES[op.id].steps;
                     document.getElementById('game-title').textContent = OPENING_MODULES[op.id].title;
                     document.getElementById('game-title').className = `text-4xl font-black ${OPENING_MODULES[op.id].theme}`;
                     document.getElementById('game-subtitle').textContent = OPENING_MODULES[op.id].subtitle;
                     document.getElementById('menu-view').classList.add('hidden');
-                    document.getElementById('game-view').classList.remove('hidden');
+                    const gv = document.getElementById('game-view');
+                    gv.classList.remove('hidden');
+                    gv.classList.add('flex');
                     initGame();
                 };
                 btn.innerHTML = `<span class="text-[10px] font-black text-emerald-400 uppercase mb-4 block">${op.type}</span><h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>`;
@@ -3924,15 +4762,17 @@
         }
 
         function backToMenu() {
-            if(systemTimeout) clearTimeout(systemTimeout);
-            document.getElementById('game-view').classList.add('hidden');
+            if (systemTimeout) clearTimeout(systemTimeout);
+            const gv = document.getElementById('game-view');
+            gv.classList.add('hidden');
+            gv.classList.remove('flex');
             document.getElementById('menu-view').classList.remove('hidden');
             currentSteps = [];
-            activeOpeningId = null; 
-            
+            activeOpeningId = null;
+            freePlayMode = false;
+            clearSelection();
             const varContainer = document.getElementById('variations-container');
-            if(varContainer) { varContainer.classList.add('hidden'); varContainer.innerHTML = ''; } 
-            
+            if (varContainer) { varContainer.classList.add('hidden'); varContainer.innerHTML = ''; }
             initGame();
         }
 
@@ -3940,12 +4780,31 @@
             userRole = r;
             const w = document.getElementById('btn-white');
             const b = document.getElementById('btn-black');
-            w.className = r === 'w' ? 'px-5 py-2 rounded-lg font-black text-xs bg-emerald-600 text-white' : 'px-5 py-2 rounded-lg font-black text-xs text-slate-400 hover:text-slate-200';
-            b.className = r === 'b' ? 'px-5 py-2 rounded-lg font-black text-xs bg-emerald-600 text-white' : 'px-5 py-2 rounded-lg font-black text-xs text-slate-400 hover:text-slate-200';
+            if (w) {
+                w.classList.toggle('active', r === 'w');
+                w.setAttribute('aria-pressed', r === 'w' ? 'true' : 'false');
+            }
+            if (b) {
+                b.classList.toggle('active', r === 'b');
+                b.setAttribute('aria-pressed', r === 'b' ? 'true' : 'false');
+            }
+            // En partida libre, solo girar el tablero sin reiniciar
+            if (freePlayMode && chessGame) {
+                clearSelection();
+                renderBoard();
+                updateUI();
+                return;
+            }
             initGame();
         }
 
-        window.onload = () => { renderCards(); switchRole('w'); };
+        window.onload = () => {
+            if (typeof Chess === 'undefined') {
+                console.warn('chess.js no disponible');
+            }
+            renderCards();
+            switchRole('w');
+        };
     </script>
 </body>
 </html>

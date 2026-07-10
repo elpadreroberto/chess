@@ -28,7 +28,8 @@
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: repeat(8, 1fr);
             width: 100%;
-            max-width: 520px;
+            --board-max: 520px;
+            max-width: var(--board-max);
             aspect-ratio: 1 / 1;
             border: 8px solid #334155;
             border-radius: 12px;
@@ -38,11 +39,11 @@
             touch-action: none;
             -webkit-user-select: none;
             user-select: none;
-            transition: max-width 0.35s ease;
+            transition: max-width 0.3s ease;
         }
         /* Tablero a ancho máximo cuando los paneles bajan */
         body.layout-stacked .chessboard {
-            max-width: min(96vw, 900px);
+            max-width: min(96vw, var(--board-max));
         }
         body.layout-stacked #game-view {
             max-width: 100%;
@@ -84,8 +85,14 @@
             position: relative;
         }
 
-        .square.light { background-color: #f1f5f9; }
-        .square.dark { background-color: #475569; }
+        .chessboard {
+            --sq-light: #f1f5f9;
+            --sq-dark: #475569;
+            --board-frame: #334155;
+        }
+        .square.light { background-color: var(--sq-light); }
+        .square.dark { background-color: var(--sq-dark); }
+        .chessboard { border-color: var(--board-frame); }
         .square.error-highlight { background-color: rgba(239, 68, 68, 0.8) !important; }
         .square.selected {
             box-shadow: inset 0 0 0 4px rgba(16, 185, 129, 0.95);
@@ -127,37 +134,127 @@
         /* Botones de control: solo icono; etiqueta al hover */
         .icon-btn {
             position: relative;
-            width: 3rem;
-            height: 3rem;
+            width: 2.35rem;
+            height: 2.35rem;
+            flex-shrink: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border-radius: 0.75rem;
+            border-radius: 0.6rem;
             border: 1px solid #64748b;
             background: #334155;
             color: #f8fafc;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
             transition: background 0.15s, border-color 0.15s, transform 0.15s;
         }
         .icon-btn:hover { background: #475569; transform: translateY(-1px); }
         .icon-btn:active { transform: translateY(0); }
-        .icon-btn svg { width: 1.35rem; height: 1.35rem; stroke: currentColor; fill: none; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
+        .icon-btn svg { width: 1.15rem; height: 1.15rem; stroke: currentColor; fill: none; stroke-width: 2.25; stroke-linecap: round; stroke-linejoin: round; }
         .icon-btn-primary {
             background: #059669;
             border-color: #34d399;
         }
         .icon-btn-primary:hover { background: #10b981; }
+        /* Grupo unificado: Retroceder | Reiniciar | Auto-Jugada */
+        .move-btn-group {
+            display: inline-flex;
+            align-items: stretch;
+            flex-shrink: 0;
+            height: 2.55rem;
+            border-radius: 0.7rem;
+            overflow: hidden;
+            border: 1px solid #64748b;
+            background: #1e293b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.28);
+        }
+        .move-btn-group .icon-btn {
+            width: 3.15rem;
+            height: 100%;
+            border-radius: 0;
+            border: none;
+            border-right: 1px solid #475569;
+            box-shadow: none;
+            background: #334155;
+            transform: none;
+        }
+        .move-btn-group .icon-btn:last-child {
+            border-right: none;
+        }
+        .move-btn-group .icon-btn:hover {
+            background: #475569;
+            transform: none;
+            z-index: 1;
+        }
+        .move-btn-group .icon-btn.icon-btn-primary {
+            background: #059669;
+            min-width: 3.35rem;
+            width: 3.35rem;
+        }
+        .move-btn-group .icon-btn.icon-btn-primary:hover {
+            background: #10b981;
+        }
+        .move-btn-group .icon-btn.btn-disabled {
+            opacity: 0.35;
+        }
+        .move-btn-group .icon-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Variantes: solo texto VAR, más alargado */
+        .icon-btn-variants {
+            background: #1e293b;
+            border-color: #475569;
+            color: #cbd5e1;
+            min-width: 3.6rem;
+            width: auto;
+            padding: 0 0.85rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+        }
+        .icon-btn-variants:hover {
+            background: #334155;
+            border-color: #64748b;
+            color: #f1f5f9;
+        }
+        .icon-btn-variants.active-panel {
+            background: #334155;
+            border-color: #94a3b8;
+            color: #e2e8f0;
+            box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.35);
+        }
+        .icon-btn-variants .var-abbr {
+            line-height: 1;
+            pointer-events: none;
+        }
+        /* Selector de bando dentro del panel de jugada */
+        .role-switch-panel {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem;
+            border-radius: 9999px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.35);
+            flex-shrink: 0;
+        }
+        .role-switch-panel .role-dot {
+            width: 1.85rem;
+            height: 1.85rem;
+        }
         .icon-btn-label {
             position: absolute;
-            bottom: calc(100% + 0.5rem);
+            bottom: calc(100% + 0.4rem);
             left: 50%;
             transform: translateX(-50%) translateY(4px);
-            padding: 0.3rem 0.55rem;
-            border-radius: 0.4rem;
+            padding: 0.25rem 0.45rem;
+            border-radius: 0.35rem;
             background: #0f172a;
             border: 1px solid #334155;
             color: #e2e8f0;
-            font-size: 0.7rem;
+            font-size: 0.62rem;
             font-weight: 700;
             letter-spacing: 0.04em;
             text-transform: uppercase;
@@ -166,7 +263,7 @@
             pointer-events: none;
             transition: opacity 0.15s, transform 0.15s;
             box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-            z-index: 40;
+            z-index: 60;
         }
         .icon-btn-label::after {
             content: '';
@@ -242,6 +339,346 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+
+        /* Barra superior única: todos los controles en una fila */
+        .top-bar {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0.35rem;
+            margin-bottom: 0.85rem;
+            padding: 0.4rem 0.35rem;
+            position: relative;
+            z-index: 40;
+            /* overflow-x:auto recorta submenús; el scroll va en .top-bar-scroll */
+            overflow: visible;
+            border-bottom: 1px solid #1e293b;
+        }
+        .top-bar-scroll {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0.35rem;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 transparent;
+            padding-bottom: 2px;
+        }
+        .top-bar-scroll::-webkit-scrollbar { height: 4px; }
+        .top-bar-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        .top-bar-sep {
+            width: 1px;
+            height: 1.6rem;
+            background: #334155;
+            flex-shrink: 0;
+            margin: 0 0.15rem;
+        }
+        .game-title-block {
+            flex-shrink: 0;
+            min-width: 0;
+            max-width: 9.5rem;
+            line-height: 1.15;
+        }
+        /* Apertura principal (arriba izq.) — siempre cian */
+        .game-title-sm {
+            font-size: 0.82rem !important;
+            font-weight: 800 !important;
+            line-height: 1.15 !important;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 9.5rem;
+            color: #38bdf8 !important; /* sky-400 */
+        }
+        /* Variante en estudio — siempre ámbar (distinto de la apertura) */
+        .game-subtitle-sm {
+            font-size: 0.58rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.08em !important;
+            text-transform: uppercase;
+            color: #fbbf24 !important; /* amber-400 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 9.5rem;
+            opacity: 1;
+        }
+        .cat-dropdown {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .cat-btn {
+            padding: 0.38rem 0.55rem;
+            border-radius: 0.55rem;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+            white-space: nowrap;
+            height: 2.35rem;
+            cursor: pointer;
+        }
+        .cat-btn:hover, .cat-btn.open {
+            background: #334155;
+            border-color: #10b981;
+            color: #fff;
+        }
+        .cat-btn.open {
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35);
+        }
+        /*
+         * Submenús con position:fixed (via JS) para no quedar recortados
+         * por el scroll horizontal de la barra.
+         */
+        .cat-submenu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 14.5rem;
+            max-width: min(90vw, 18rem);
+            max-height: min(60vh, 22rem);
+            overflow-y: auto;
+            background: #0b1220;
+            border: 1px solid #334155;
+            border-radius: 0.85rem;
+            box-shadow: 0 22px 50px rgba(0,0,0,0.65), 0 0 0 1px rgba(16,185,129,0.08);
+            padding: 0.4rem;
+            z-index: 9999;
+        }
+        .cat-submenu.open {
+            display: block;
+            animation: catMenuIn 0.12s ease-out;
+        }
+        @keyframes catMenuIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .cat-submenu .cat-menu-title {
+            padding: 0.35rem 0.65rem 0.45rem;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #64748b;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 0.3rem;
+        }
+        .cat-submenu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.55rem 0.7rem;
+            border-radius: 0.55rem;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+        }
+        .cat-submenu button:hover {
+            background: #1e293b;
+            color: #6ee7b7;
+            border-color: #334155;
+        }
+        .cat-submenu button.active {
+            background: rgba(16, 185, 129, 0.16);
+            color: #6ee7b7;
+            border-color: rgba(16, 185, 129, 0.45);
+        }
+        .cat-submenu .cat-empty {
+            padding: 0.65rem 0.75rem;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        .cat-submenu .cat-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            width: 100%;
+            text-align: left;
+            padding: 0.55rem 0.7rem;
+            border-radius: 0.55rem;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+        }
+        .cat-submenu .cat-item:hover,
+        .cat-submenu .cat-item.flyout-active {
+            background: #1e293b;
+            color: #6ee7b7;
+            border-color: #334155;
+        }
+        .cat-submenu .cat-item.active {
+            background: rgba(16, 185, 129, 0.16);
+            color: #6ee7b7;
+            border-color: rgba(16, 185, 129, 0.45);
+        }
+        .cat-submenu .cat-item .cat-item-name {
+            flex: 1;
+            min-width: 0;
+        }
+        .cat-submenu .cat-item .cat-item-chevron {
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            opacity: 0.55;
+            color: #94a3b8;
+        }
+        /* Panel de variantes: rejilla multi-columna, todo a la vista (sin scroll) */
+        .cat-flyout {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: min(94vw, 46rem);
+            max-width: 94vw;
+            max-height: none;
+            overflow: visible;
+            background: #0b1220;
+            border: 1px solid #475569;
+            border-radius: 0.9rem;
+            box-shadow: 0 22px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(56,189,248,0.12);
+            padding: 0.5rem 0.55rem 0.6rem;
+            z-index: 10000;
+            --fly-bridge: 16px;
+            box-sizing: border-box;
+        }
+        .cat-flyout.open {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
+            gap: 0.3rem 0.35rem;
+            align-content: start;
+            animation: catMenuIn 0.12s ease-out;
+        }
+        .cat-flyout.open.fly-right::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: calc(-1 * var(--fly-bridge));
+            width: var(--fly-bridge);
+        }
+        .cat-flyout.open.fly-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: calc(-1 * var(--fly-bridge));
+            width: var(--fly-bridge);
+        }
+        .cat-flyout .cat-menu-title {
+            grid-column: 1 / -1;
+            padding: 0.25rem 0.45rem 0.4rem;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #38bdf8;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 0.15rem;
+        }
+        .cat-flyout button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.4rem 0.5rem;
+            min-height: 2.1rem;
+            border-radius: 0.5rem;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            background: #111827;
+            border: 1px solid #1e293b;
+            cursor: pointer;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+            line-height: 1.25;
+        }
+        .cat-flyout button:hover {
+            background: #1e293b;
+            color: #fbbf24;
+            border-color: #475569;
+        }
+        .cat-flyout button.main-line {
+            color: #6ee7b7;
+            border-color: rgba(16, 185, 129, 0.35);
+            background: rgba(16, 185, 129, 0.08);
+        }
+        .cat-flyout button .fly-badge {
+            display: inline-block;
+            font-size: 0.55rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #34d399;
+            margin-right: 0.3rem;
+        }
+        .cat-flyout .fly-sub {
+            display: block;
+            font-size: 0.62rem;
+            font-weight: 500;
+            color: #64748b;
+            margin-top: 0.08rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .role-switch {
+            height: 2.35rem;
+            padding: 0.25rem;
+        }
+        .role-dot {
+            width: 1.75rem;
+            height: 1.75rem;
+        }
+        .sf-level-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            font-size: 0.5rem;
+            font-weight: 900;
+            background: #0f172a;
+            border: 1px solid #10b981;
+            color: #6ee7b7;
+            border-radius: 0.25rem;
+            padding: 0 2px;
+            line-height: 1.2;
+            pointer-events: none;
+        }
+        /* Lista de variantes arriba del todo */
+        #variations-container.variations-top {
+            width: 100%;
+            margin: 0 0 0.75rem 0;
+            padding: 0.75rem 0.85rem;
+            border-radius: 0.85rem;
+            border: 1px solid #7c3aed;
+            background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+            box-shadow: 0 10px 28px rgba(88, 28, 135, 0.25);
+            max-height: 40vh;
+            overflow-y: auto;
+            gap: 0.4rem;
+        }
+        #variations-container.variations-top.hidden {
+            display: none !important;
+        }
+        #variations-container.variations-top:not(.hidden) {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
@@ -258,56 +695,131 @@
     </div>
 
     <div id="game-view" class="hidden w-full max-w-6xl flex flex-col items-center">
-        <header class="w-full mb-8 flex flex-col lg:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-5 w-full lg:w-auto">
-                <button onclick="backToMenu()" class="shrink-0 bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-xl border border-slate-600 transition-all shadow-lg group">
-                    <svg class="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <div>
-                    <h1 id="game-title" class="text-3xl font-black leading-tight tracking-tight">Apertura</h1>
-                    <p id="game-subtitle" class="text-emerald-400 font-bold text-sm uppercase tracking-widest">Análisis de Gran Maestro</p>
-                </div>
-            </div>
-            
-            <div class="flex flex-wrap justify-center items-center gap-3">
-                <button id="btn-undo-move" onclick="undoMove()" class="icon-btn" aria-label="Retroceder" title="Retroceder">
-                    <span class="icon-btn-label">Retroceder</span>
-                    <!-- flecha atrás -->
+        <!-- Una sola fila superior con todos los controles -->
+        <header class="top-bar" id="top-bar">
+            <div class="top-bar-scroll" id="top-bar-scroll">
+                <button onclick="backToMenu()" class="icon-btn" aria-label="Menú" title="Menú">
+                    <span class="icon-btn-label">Menú</span>
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
-                <button id="btn-reset" onclick="resetOpening()" class="icon-btn" aria-label="Reiniciar" title="Reiniciar">
-                    <span class="icon-btn-label">Reiniciar</span>
-                    <!-- flecha circular -->
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+
+                <div class="game-title-block">
+                    <h1 id="game-title" class="game-title-sm">Apertura</h1>
+                    <p id="game-subtitle" class="game-subtitle-sm">Línea principal</p>
+                </div>
+
+                <div class="top-bar-sep" aria-hidden="true"></div>
+
+                <div class="cat-dropdown">
+                    <button type="button" class="cat-btn" id="cat-btn-Abierta" onclick="event.stopPropagation(); toggleCatMenu('Abierta')" aria-haspopup="true" aria-expanded="false">Abiertas ▾</button>
+                </div>
+                <div class="cat-dropdown">
+                    <button type="button" class="cat-btn" id="cat-btn-Cerrada" onclick="event.stopPropagation(); toggleCatMenu('Cerrada')" aria-haspopup="true" aria-expanded="false">Cerradas ▾</button>
+                </div>
+                <div class="cat-dropdown">
+                    <button type="button" class="cat-btn" id="cat-btn-Semi-abierta" onclick="event.stopPropagation(); toggleCatMenu('Semi-abierta')" aria-haspopup="true" aria-expanded="false">Semiabiertas ▾</button>
+                </div>
+                <div class="cat-dropdown">
+                    <button type="button" class="cat-btn" id="cat-btn-Semi-cerrada" onclick="event.stopPropagation(); toggleCatMenu('Semi-cerrada')" aria-haspopup="true" aria-expanded="false">Semicerradas ▾</button>
+                </div>
+
+                <div class="top-bar-sep" aria-hidden="true"></div>
+
+                <div class="move-btn-group" role="group" aria-label="Control de jugadas">
+                    <button id="btn-undo-move" onclick="undoMove()" class="icon-btn" aria-label="Retroceder" title="Retroceder">
+                        <span class="icon-btn-label">Retroceder</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button id="btn-reset" onclick="resetOpening()" class="icon-btn" aria-label="Reiniciar" title="Reiniciar">
+                        <span class="icon-btn-label">Reiniciar</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+                    </button>
+                    <button id="btn-step-one" onclick="stepOnePly()" class="icon-btn" aria-label="Una jugada" title="Una jugada">
+                        <span class="icon-btn-label">Una jugada</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                    </button>
+                    <button id="btn-next-move" onclick="stepNextMove()" class="icon-btn icon-btn-primary" aria-label="Auto-Jugada" title="Auto-Jugada (tú + rival)">
+                        <span class="icon-btn-label">Auto (2)</span>
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 6l5 6-5 6"/>
+                            <path d="M13 6l5 6-5 6"/>
+                        </svg>
+                    </button>
+                </div>
+                <button id="btn-skip" onclick="skipToVariations()" class="icon-btn icon-btn-variants" aria-label="Variantes" title="Variantes" aria-pressed="false">
+                    <span class="icon-btn-label">Variantes</span>
+                    <span class="var-abbr">VAR</span>
                 </button>
-                <button id="btn-next-move" onclick="stepNextMove()" class="icon-btn icon-btn-primary" aria-label="Auto-Jugada" title="Auto-Jugada">
-                    <span class="icon-btn-label">Auto-Jugada</span>
-                    <!-- flecha adelante -->
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+
+                <div class="top-bar-sep" aria-hidden="true"></div>
+
+                <button id="btn-board-size" onclick="cycleBoardSize()" class="icon-btn" aria-label="Tamaño del tablero" title="Tamaño del tablero">
+                    <span class="icon-btn-label" id="board-size-label">Tamaño</span>
+                    <!-- ciclos de tamaño: marco + flechas -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="5" y="5" width="14" height="14" rx="1.5"/>
+                        <path d="M9 12h6"/>
+                        <path d="M12 9v6"/>
+                    </svg>
                 </button>
                 <button id="btn-layout" onclick="toggleLayout()" class="icon-btn" aria-label="Cambiar disposición" title="Paneles abajo / al lado">
                     <span class="icon-btn-label" id="layout-btn-label">Paneles abajo</span>
-                    <!-- icono apilar paneles -->
-                    <svg viewBox="0 0 24 24" aria-hidden="true" id="layout-btn-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="3" y="3" width="8" height="18" rx="1.5"/>
                         <rect x="13" y="3" width="8" height="8" rx="1.5"/>
                         <rect x="13" y="13" width="8" height="8" rx="1.5"/>
                     </svg>
                 </button>
-
-                <!-- PARTE 1 & 2: Botón de Salto Actualizado -->
-                <button id="btn-skip" onclick="skipToVariations()" class="px-4 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-bold border border-slate-600 transition-all shadow-md text-sm flex items-center">Variantes ⏩</button>
-
-                <div class="role-switch" role="group" aria-label="Elegir bando">
-                    <button id="btn-white" type="button" onclick="switchRole('w')" class="role-dot white" aria-label="Jugar con blancas" title="Blancas">
-                        <span class="role-tip">Blancas</span>
-                    </button>
-                    <button id="btn-black" type="button" onclick="switchRole('b')" class="role-dot black" aria-label="Jugar con negras" title="Negras">
-                        <span class="role-tip">Negras</span>
-                    </button>
-                </div>
+                <button id="btn-board-theme" onclick="cycleBoardTheme()" class="icon-btn" aria-label="Cambiar colores del tablero" title="Colores del tablero">
+                    <span class="icon-btn-label" id="board-theme-label">Tablero</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="3" width="8" height="8" rx="1"/>
+                        <rect x="13" y="3" width="8" height="8" rx="1"/>
+                        <rect x="3" y="13" width="8" height="8" rx="1"/>
+                        <rect x="13" y="13" width="8" height="8" rx="1"/>
+                    </svg>
+                </button>
+                <button id="btn-piece-set" onclick="cyclePieceSet()" class="icon-btn" aria-label="Cambiar estilo de piezas" title="Estilo de piezas">
+                    <span class="icon-btn-label" id="piece-set-label">Piezas</span>
+                    <!-- peón simple -->
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="12" cy="7" r="3"/>
+                        <path d="M9.5 11.5c0 0 1 1.5 1 3.5v1h3v-1c0-2 1-3.5 1-3.5"/>
+                        <path d="M8 20h8"/>
+                        <path d="M9 16.5h6l.5 3.5h-7L9 16.5z"/>
+                    </svg>
+                </button>
+                <button id="btn-stockfish" onclick="cycleStockfishLevel()" class="icon-btn" aria-label="Nivel Stockfish" title="Stockfish: Torpe">
+                    <span class="icon-btn-label" id="stockfish-level-label">SF · Torpe</span>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="6" y="8" width="12" height="10" rx="2"/>
+                        <path d="M12 8V5"/>
+                        <circle cx="12" cy="4" r="1.2" fill="currentColor" stroke="none"/>
+                        <circle cx="9.5" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
+                        <circle cx="14.5" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
+                        <path d="M10 15.5h4"/>
+                        <path d="M6 12H4"/>
+                        <path d="M20 12h-2"/>
+                        <path d="M9 18v2"/>
+                        <path d="M15 18v2"/>
+                    </svg>
+                    <span class="sf-level-badge" id="sf-badge">T</span>
+                </button>
             </div>
         </header>
+
+        <!-- Portal de submenús de aperturas (fuera del scroll para no recortarse) -->
+        <div id="cat-menus-portal" aria-hidden="true">
+            <div class="cat-submenu" id="cat-menu-Abierta" role="menu"></div>
+            <div class="cat-submenu" id="cat-menu-Cerrada" role="menu"></div>
+            <div class="cat-submenu" id="cat-menu-Semi-abierta" role="menu"></div>
+            <div class="cat-submenu" id="cat-menu-Semi-cerrada" role="menu"></div>
+            <!-- Sub-submenú lateral con variantes de la apertura resaltada -->
+            <div class="cat-flyout" id="cat-flyout" role="menu" aria-label="Variantes de la apertura"></div>
+        </div>
+
+        <!-- Lista de variantes arriba del todo (justo bajo la barra de controles) -->
+        <div id="variations-container" class="variations-top hidden" aria-live="polite"></div>
 
         <main id="game-main" class="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 transition-all duration-300">
             <div id="board-column" class="flex justify-center items-start">
@@ -316,9 +828,19 @@
             
             <div id="panels-column" class="flex flex-col gap-6">
                 <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-2xl">
-                    <div class="flex justify-between items-center mb-4">
+                    <div class="flex justify-between items-center gap-3 mb-4 flex-wrap">
                         <h2 class="text-2xl font-black text-white"><span id="mode-label">Jugada</span> <span id="level-indicator" class="text-emerald-400">1</span><span id="level-total">/10</span></h2>
-                        <span id="turn-indicator" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Blancas</span>
+                        <div class="flex items-center gap-2">
+                            <div class="role-switch role-switch-panel" role="group" aria-label="Elegir bando">
+                                <button id="btn-white" type="button" onclick="switchRole('w')" class="role-dot white" aria-label="Jugar con blancas" title="Blancas">
+                                    <span class="role-tip">Blancas</span>
+                                </button>
+                                <button id="btn-black" type="button" onclick="switchRole('b')" class="role-dot black" aria-label="Jugar con negras" title="Negras">
+                                    <span class="role-tip">Negras</span>
+                                </button>
+                            </div>
+                            <span id="turn-indicator" class="px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Blancas</span>
+                        </div>
                     </div>
                     <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden p-0.5 border border-slate-700">
                         <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-cyan-500 h-full rounded-full transition-all duration-700" style="width: 10%"></div>
@@ -340,17 +862,19 @@
                     <div>
                         <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Concepto Estratégico</h4>
                         <p id="theory-text" class="text-base text-slate-300 leading-relaxed"></p>
+                        <div id="theory-prev-wrap" class="hidden mt-4 pt-4 border-t border-slate-700">
+                            <h5 class="text-[10px] font-black text-amber-500/90 uppercase tracking-[0.18em] mb-2">Jugada anterior</h5>
+                            <p id="theory-text-prev" class="text-sm text-slate-400 leading-relaxed italic"></p>
+                        </div>
                     </div>
-
-                    <!-- CONTENEDOR FANTASMA PARA VARIANTES (Parte 2) -->
-                    <div id="variations-container" class="hidden flex flex-col gap-3 mt-2 border-t border-slate-700 pt-4"></div>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        const PIECES_URL = {
+        // Set clásico Wikipedia (Cburnett) — respaldo y set 0
+        const PIECES_CBURNETT = {
             'P': 'https://upload.wikimedia.org/wikipedia/commons/4/45/Chess_plt45.svg',
             'N': 'https://upload.wikimedia.org/wikipedia/commons/7/70/Chess_nlt45.svg',
             'B': 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Chess_blt45.svg',
@@ -364,6 +888,100 @@
             'q': 'https://upload.wikimedia.org/wikipedia/commons/4/47/Chess_qdt45.svg',
             'k': 'https://upload.wikimedia.org/wikipedia/commons/f/f0/Chess_kdt45.svg',
         };
+        // Compatibilidad con código existente
+        let PIECES_URL = { ...PIECES_CBURNETT };
+
+        /** Temas de casillas del tablero (se ciclan con el botón). */
+        const BOARD_THEMES = [
+            { name: 'Pizarra', light: '#f1f5f9', dark: '#475569', frame: '#334155' },
+            { name: 'Verde clásico', light: '#ebecd0', dark: '#779556', frame: '#5a7a42' },
+            { name: 'Madera', light: '#f0d9b5', dark: '#b58863', frame: '#8b6914' },
+            { name: 'Azul mar', light: '#e8eef7', dark: '#4b7399', frame: '#2c4a6e' },
+            { name: 'Hielo', light: '#dee3e6', dark: '#8ca2ad', frame: '#5c7380' },
+            { name: 'Coral', light: '#f5d5c8', dark: '#c47b6b', frame: '#8f4e42' },
+            { name: 'Medianoche', light: '#c7d2fe', dark: '#312e81', frame: '#1e1b4b' },
+            { name: 'Arena', light: '#f5f0e1', dark: '#c3a36b', frame: '#8a7340' }
+        ];
+
+        /**
+         * Estilos de piezas (Lichess vía jsDelivr + clásico Wikipedia).
+         * Cada set se resuelve con getPieceImageUrl().
+         */
+        const PIECE_SETS = [
+            { id: 'cburnett-wiki', name: 'Clásico', kind: 'map', map: PIECES_CBURNETT },
+            { id: 'merida', name: 'Mérida', kind: 'lichess', folder: 'merida' },
+            { id: 'alpha', name: 'Alpha', kind: 'lichess', folder: 'alpha' },
+            { id: 'california', name: 'California', kind: 'lichess', folder: 'california' },
+            { id: 'cardinal', name: 'Cardinal', kind: 'lichess', folder: 'cardinal' },
+            { id: 'companion', name: 'Companion', kind: 'lichess', folder: 'companion' },
+            { id: 'fantasy', name: 'Fantasy', kind: 'lichess', folder: 'fantasy' },
+            { id: 'gioco', name: 'Gioco', kind: 'lichess', folder: 'gioco' },
+            { id: 'horsey', name: 'Horsey', kind: 'lichess', folder: 'horsey' },
+            { id: 'maestro', name: 'Maestro', kind: 'lichess', folder: 'maestro' },
+            { id: 'shapes', name: 'Shapes', kind: 'lichess', folder: 'shapes' },
+            { id: 'spatial', name: 'Spatial', kind: 'lichess', folder: 'spatial' },
+            { id: 'staunty', name: 'Staunty', kind: 'lichess', folder: 'staunty' },
+            { id: 'tatiana', name: 'Tatiana', kind: 'lichess', folder: 'tatiana' }
+        ];
+
+        let boardThemeIndex = 0;
+        let pieceSetIndex = 0;
+
+        function getPieceImageUrl(piece) {
+            const set = PIECE_SETS[pieceSetIndex] || PIECE_SETS[0];
+            if (!piece) return '';
+            if (set.kind === 'map' && set.map) return set.map[piece] || '';
+            if (set.kind === 'lichess') {
+                const color = piece === piece.toUpperCase() ? 'w' : 'b';
+                const type = piece.toUpperCase(); // KQRBNP
+                return `https://cdn.jsdelivr.net/gh/lichess-org/lila@master/public/piece/${set.folder}/${color}${type}.svg`;
+            }
+            return PIECES_CBURNETT[piece] || '';
+        }
+
+        function refreshPiecesUrlMap() {
+            const keys = ['P','N','B','R','Q','K','p','n','b','r','q','k'];
+            const map = {};
+            keys.forEach(k => { map[k] = getPieceImageUrl(k); });
+            PIECES_URL = map;
+        }
+
+        function applyBoardTheme() {
+            const theme = BOARD_THEMES[boardThemeIndex] || BOARD_THEMES[0];
+            const board = document.getElementById('board');
+            if (board) {
+                board.style.setProperty('--sq-light', theme.light);
+                board.style.setProperty('--sq-dark', theme.dark);
+                board.style.setProperty('--board-frame', theme.frame);
+            }
+            const label = document.getElementById('board-theme-label');
+            if (label) label.textContent = theme.name;
+            const btn = document.getElementById('btn-board-theme');
+            if (btn) btn.title = `Tablero: ${theme.name}`;
+        }
+
+        function cycleBoardTheme() {
+            boardThemeIndex = (boardThemeIndex + 1) % BOARD_THEMES.length;
+            applyBoardTheme();
+        }
+
+        function applyPieceSet() {
+            refreshPiecesUrlMap();
+            const set = PIECE_SETS[pieceSetIndex] || PIECE_SETS[0];
+            const label = document.getElementById('piece-set-label');
+            if (label) label.textContent = set.name;
+            const btn = document.getElementById('btn-piece-set');
+            if (btn) btn.title = `Piezas: ${set.name}`;
+            // Re-pintar tablero si existe partida
+            if (document.getElementById('board') && boardState && boardState.length) {
+                renderBoard();
+            }
+        }
+
+        function cyclePieceSet() {
+            pieceSetIndex = (pieceSetIndex + 1) % PIECE_SETS.length;
+            applyPieceSet();
+        }
 
         const INITIAL_BOARD = [
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
@@ -3844,6 +4462,393 @@
             { id: 25, name: "Defensa Philidor", type: "Abierta", color: "emerald" }
         ];
 
+        /** Agrupa las 25 aperturas en 4 familias (Flanco se incluye en Cerrada). */
+        function normalizeOpeningType(type) {
+            if (type === 'Flanco') return 'Cerrada';
+            return type;
+        }
+
+        const OPENING_CATEGORIES = ['Abierta', 'Cerrada', 'Semi-abierta', 'Semi-cerrada'];
+
+        function getOpeningsByCategory(cat) {
+            return chessOpeningsList.filter(op => normalizeOpeningType(op.type) === cat);
+        }
+
+        const CAT_TITLES = {
+            'Abierta': 'Aperturas abiertas',
+            'Cerrada': 'Aperturas cerradas',
+            'Semi-abierta': 'Aperturas semiabiertas',
+            'Semi-cerrada': 'Aperturas semicerradas'
+        };
+
+        let flyoutHideTimer = null;
+        let activeFlyoutOpeningId = null;
+        let skipNextOpeningClick = false;
+
+        function hideOpeningFlyout() {
+            if (flyoutHideTimer) {
+                clearTimeout(flyoutHideTimer);
+                flyoutHideTimer = null;
+            }
+            const flyout = document.getElementById('cat-flyout');
+            if (flyout) {
+                flyout.classList.remove('open');
+                flyout.innerHTML = '';
+            }
+            document.querySelectorAll('.cat-item.flyout-active').forEach(el => el.classList.remove('flyout-active'));
+            activeFlyoutOpeningId = null;
+            skipNextOpeningClick = false;
+        }
+
+        function scheduleHideOpeningFlyout(delay = 480) {
+            if (flyoutHideTimer) clearTimeout(flyoutHideTimer);
+            flyoutHideTimer = setTimeout(() => {
+                hideOpeningFlyout();
+            }, delay);
+        }
+
+        function cancelHideOpeningFlyout() {
+            if (flyoutHideTimer) {
+                clearTimeout(flyoutHideTimer);
+                flyoutHideTimer = null;
+            }
+        }
+
+        function positionOpeningFlyout(anchorEl) {
+            const flyout = document.getElementById('cat-flyout');
+            if (!flyout || !anchorEl) return;
+            const rect = anchorEl.getBoundingClientRect();
+            const parentMenu = anchorEl.closest('.cat-submenu');
+            const parentRect = parentMenu ? parentMenu.getBoundingClientRect() : rect;
+            const bridge = 16;
+            const margin = 8;
+            const count = flyout.querySelectorAll('button').length || 1;
+
+            // Ancho para caber todas en rejilla (sin scroll vertical)
+            const cols = Math.min(4, Math.max(2, Math.ceil(Math.sqrt(count))));
+            const fw = Math.min(window.innerWidth - margin * 2, Math.max(280, cols * 168 + 24));
+            flyout.style.width = fw + 'px';
+
+            // Preferir a la derecha del menú padre
+            let placeRight = true;
+            let left = parentRect.right + bridge;
+            if (left + fw > window.innerWidth - margin) {
+                placeRight = false;
+                left = Math.max(margin, parentRect.left - fw - bridge);
+            }
+            // Si aún no cabe a un lado, centrar bajo el menú
+            if (left < margin || left + fw > window.innerWidth - margin) {
+                left = Math.max(margin, (window.innerWidth - fw) / 2);
+                placeRight = true;
+            }
+
+            // Medir altura real y reencajar en el viewport (sin forzar scroll interno)
+            flyout.style.top = '0px';
+            flyout.style.left = left + 'px';
+            const h = flyout.offsetHeight || 200;
+            let top = rect.top;
+            if (top + h > window.innerHeight - margin) {
+                top = Math.max(margin, window.innerHeight - h - margin);
+            }
+            if (top < margin) top = margin;
+
+            flyout.style.top = top + 'px';
+            flyout.style.left = left + 'px';
+            flyout.classList.toggle('fly-right', placeRight);
+            flyout.classList.toggle('fly-left', !placeRight);
+            flyout.scrollTop = 0;
+        }
+
+        /** Muestra a un costado todas las variantes de una apertura (sin cerrar el menú padre). */
+        function showOpeningFlyout(op, anchorEl, fromTouch) {
+            cancelHideOpeningFlyout();
+            const flyout = document.getElementById('cat-flyout');
+            if (!flyout || !op || !OPENING_MODULES[op.id]) return;
+
+            document.querySelectorAll('.cat-item.flyout-active').forEach(el => el.classList.remove('flyout-active'));
+            if (anchorEl) anchorEl.classList.add('flyout-active');
+
+            activeFlyoutOpeningId = op.id;
+            if (fromTouch) skipNextOpeningClick = true;
+
+            const lines = getOpeningLines(op.id);
+            flyout.innerHTML = '';
+            const title = document.createElement('div');
+            title.className = 'cat-menu-title';
+            title.textContent = op.name + ' · variantes';
+            flyout.appendChild(title);
+
+            if (!lines.length) {
+                const empty = document.createElement('div');
+                empty.className = 'cat-empty';
+                empty.textContent = 'Sin variantes';
+                flyout.appendChild(empty);
+            } else {
+                lines.forEach(line => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.setAttribute('role', 'menuitem');
+                    if (line.isMain) b.classList.add('main-line');
+                    const badge = line.isMain ? '<span class="fly-badge">Principal</span>' : '';
+                    const sub = line.subtitle && line.subtitle !== line.name
+                        ? `<span class="fly-sub">${line.subtitle}</span>`
+                        : '';
+                    b.innerHTML = `${badge}${line.name || line.subtitle || 'Línea'}${sub}`;
+                    b.onclick = (e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        closeAllCatMenus();
+                        startOpeningLine(op.id, line);
+                    };
+                    // Evitar que mouseleave del flyout dispare al pasar entre botones
+                    b.addEventListener('mouseenter', () => cancelHideOpeningFlyout());
+                    flyout.appendChild(b);
+                });
+            }
+
+            flyout.classList.add('open');
+            // Posicionar tras pintar (rejilla multi-columna, todo a la vista)
+            requestAnimationFrame(() => {
+                positionOpeningFlyout(anchorEl);
+                requestAnimationFrame(() => positionOpeningFlyout(anchorEl));
+            });
+
+            flyout.onmouseenter = () => cancelHideOpeningFlyout();
+            flyout.onmouseleave = () => scheduleHideOpeningFlyout(520);
+        }
+
+        function closeAllCatMenus() {
+            hideOpeningFlyout();
+            OPENING_CATEGORIES.forEach(cat => {
+                const menu = document.getElementById('cat-menu-' + cat);
+                const btn = document.getElementById('cat-btn-' + cat);
+                if (menu) {
+                    menu.classList.remove('open');
+                    menu.style.top = '';
+                    menu.style.left = '';
+                }
+                if (btn) {
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        /** Coloca el submenú fixed bajo el botón (evita recorte por overflow). */
+        function positionCatMenu(cat) {
+            const menu = document.getElementById('cat-menu-' + cat);
+            const btn = document.getElementById('cat-btn-' + cat);
+            if (!menu || !btn) return;
+            const rect = btn.getBoundingClientRect();
+            const menuWidth = Math.min(window.innerWidth * 0.9, 288);
+            let left = rect.left;
+            // Evitar que se salga por la derecha
+            if (left + menuWidth > window.innerWidth - 8) {
+                left = Math.max(8, window.innerWidth - menuWidth - 8);
+            }
+            // Preferir debajo; si no hay espacio, abrir hacia arriba
+            let top = rect.bottom + 6;
+            const maxH = Math.min(window.innerHeight * 0.6, 352);
+            if (top + Math.min(maxH, 200) > window.innerHeight - 8) {
+                top = Math.max(8, rect.top - 6 - Math.min(maxH, 240));
+            }
+            menu.style.top = top + 'px';
+            menu.style.left = left + 'px';
+            menu.style.minWidth = Math.max(rect.width, 200) + 'px';
+        }
+
+        function toggleCatMenu(cat) {
+            const menu = document.getElementById('cat-menu-' + cat);
+            const btn = document.getElementById('cat-btn-' + cat);
+            if (!menu || !btn) return;
+            const willOpen = !menu.classList.contains('open');
+            closeAllCatMenus();
+            if (willOpen) {
+                populateCatMenu(cat);
+                menu.classList.add('open');
+                btn.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+                // position after content is in DOM
+                requestAnimationFrame(() => positionCatMenu(cat));
+            }
+        }
+
+        function populateCatMenu(cat) {
+            const menu = document.getElementById('cat-menu-' + cat);
+            if (!menu) return;
+            const list = getOpeningsByCategory(cat);
+            menu.innerHTML = '';
+
+            const title = document.createElement('div');
+            title.className = 'cat-menu-title';
+            title.textContent = CAT_TITLES[cat] || cat;
+            menu.appendChild(title);
+
+            if (!list.length) {
+                const empty = document.createElement('div');
+                empty.className = 'cat-empty';
+                empty.textContent = 'Sin aperturas en este grupo';
+                menu.appendChild(empty);
+                return;
+            }
+
+            // Mantener el menú principal al entrar/salir (delay generoso para cruzar al flyout)
+            menu.onmouseenter = () => cancelHideOpeningFlyout();
+            menu.onmouseleave = (e) => {
+                // Si el puntero va hacia el flyout, no ocultar
+                const fly = document.getElementById('cat-flyout');
+                const to = e.relatedTarget;
+                if (fly && to && (fly === to || fly.contains(to))) {
+                    cancelHideOpeningFlyout();
+                    return;
+                }
+                scheduleHideOpeningFlyout(520);
+            };
+
+            list.forEach(op => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'cat-item';
+                b.setAttribute('role', 'menuitem');
+                b.dataset.openingId = String(op.id);
+                if (activeOpeningId === op.id) b.classList.add('active');
+                b.innerHTML = `<span class="cat-item-name">${op.name}</span><span class="cat-item-chevron" aria-hidden="true">▸</span>`;
+
+                // Hover / focus: abrir sub-submenú de variantes a un costado
+                b.addEventListener('mouseenter', () => showOpeningFlyout(op, b, false));
+                b.addEventListener('focus', () => showOpeningFlyout(op, b, false));
+
+                // Táctil: primer toque abre el panel de variantes a un costado
+                b.addEventListener('touchstart', (e) => {
+                    if (activeFlyoutOpeningId !== op.id) {
+                        e.preventDefault();
+                        showOpeningFlyout(op, b, true);
+                    }
+                }, { passive: false });
+
+                // Click: carga la línea principal (en táctil, el 1.er click sintético se ignora)
+                b.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (skipNextOpeningClick && activeFlyoutOpeningId === op.id) {
+                        skipNextOpeningClick = false;
+                        return;
+                    }
+                    closeAllCatMenus();
+                    startOpening(op.id);
+                });
+
+                menu.appendChild(b);
+            });
+        }
+
+        /* ─── Tamaño del tablero ─── */
+        const BOARD_SIZES = [360, 420, 480, 520, 600, 700, 820, 960];
+        let boardSizeIndex = 3; // 520 por defecto
+
+        function applyBoardSize() {
+            const board = document.getElementById('board');
+            if (!board) return;
+            const px = BOARD_SIZES[boardSizeIndex] || 520;
+            board.style.setProperty('--board-max', px + 'px');
+            const label = document.getElementById('board-size-label');
+            const btn = document.getElementById('btn-board-size');
+            const level = boardSizeIndex + 1;
+            const total = BOARD_SIZES.length;
+            if (label) label.textContent = `Tamaño ${level}/${total}`;
+            if (btn) {
+                btn.title = `Tamaño del tablero: ${px}px (${level}/${total}) — clic para ciclar`;
+                btn.setAttribute('aria-label', `Tamaño del tablero ${level} de ${total}`);
+            }
+        }
+
+        /** Un solo botón: cicla del más pequeño al más grande y vuelve a empezar. */
+        function cycleBoardSize() {
+            boardSizeIndex = (boardSizeIndex + 1) % BOARD_SIZES.length;
+            applyBoardSize();
+        }
+
+        function buildAllCatMenus() {
+            // Solo rellena contenido; no abre menús
+            OPENING_CATEGORIES.forEach(populateCatMenu);
+        }
+
+        /** Carga una apertura (línea principal) manteniendo la vista del tablero. */
+        function startOpening(id) {
+            const mod = OPENING_MODULES[id];
+            if (!mod) {
+                alert('¡Próximamente! La lógica de esta apertura se añadirá en el siguiente paso.');
+                return;
+            }
+            const mainLine = {
+                name: mod.subtitle || 'Línea principal',
+                subtitle: 'Línea principal',
+                steps: mod.steps,
+                isMain: true
+            };
+            startOpeningLine(id, mainLine);
+        }
+
+        /** Carga una apertura en una línea concreta (principal o variante). */
+        function startOpeningLine(id, lineData) {
+            if (!OPENING_MODULES[id]) {
+                alert('¡Próximamente! La lógica de esta apertura se añadirá en el siguiente paso.');
+                return;
+            }
+            if (systemTimeout) {
+                clearTimeout(systemTimeout);
+                systemTimeout = null;
+            }
+            activeOpeningId = id;
+            freePlayMode = false;
+            variationsPanelOpen = false;
+
+            const mod = OPENING_MODULES[id];
+            const line = lineData || {
+                name: mod.subtitle || 'Línea principal',
+                subtitle: 'Línea principal',
+                steps: mod.steps,
+                isMain: true
+            };
+
+            currentSteps = line.steps || mod.steps;
+            document.getElementById('game-title').textContent = mod.title;
+            document.getElementById('game-title').className = 'game-title-sm';
+            document.getElementById('game-subtitle').textContent =
+                line.isMain
+                    ? (line.name || mod.subtitle || 'Línea principal')
+                    : (line.name || line.subtitle || 'Variante');
+            document.getElementById('game-subtitle').className = 'game-subtitle-sm';
+
+            document.getElementById('menu-view').classList.add('hidden');
+            const gv = document.getElementById('game-view');
+            gv.classList.remove('hidden');
+            gv.classList.add('flex');
+
+            hideVariationsList();
+            initGame();
+            buildAllCatMenus();
+        }
+
+        // Cerrar submenús al clic fuera o Escape; reposicionar al scroll/resize
+        document.addEventListener('click', (e) => {
+            if (
+                e.target.closest('.cat-dropdown') ||
+                e.target.closest('.cat-submenu') ||
+                e.target.closest('.cat-flyout')
+            ) return;
+            closeAllCatMenus();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAllCatMenus();
+        });
+        window.addEventListener('resize', () => closeAllCatMenus());
+        document.addEventListener('scroll', () => {
+            if (document.querySelector('.cat-submenu.open') || document.querySelector('.cat-flyout.open')) {
+                closeAllCatMenus();
+            }
+        }, true);
+
         let boardState = [];
         let userRole = 'w';
         let currentStep = 0;
@@ -4005,6 +5010,157 @@
             return `${seed}. ${detailed}`;
         }
 
+        /** Explicación de la jugada ya hecha, en pasado. */
+        function explainSanPastDetailed(san, isWhite, openingName) {
+            const side = isWhite ? 'Las blancas' : 'Las negras';
+            const rival = isWhite ? 'las negras' : 'las blancas';
+            const opening = openingName || 'esta apertura';
+            if (!san) {
+                return `${side} buscaron en la anterior mantener el plan de ${opening}: coordinar piezas, disputar el centro y no crear debilidades.`;
+            }
+
+            const clean = san.replace(/[+#]$/, '');
+            const givesCheck = /[+]/.test(san);
+            const isMate = /#/.test(san);
+            const isCapture = clean.includes('x');
+            let text = '';
+
+            if (clean === 'O-O' || clean === '0-0') {
+                text = `${side} enrocaron en corto. Pusieron el rey a salvo tras la cadena de peones y activaron la torre por f. En ${opening}, esa decisión buscaba enlazar el desarrollo con un medio juego más seguro.`;
+            } else if (clean === 'O-O-O' || clean === '0-0-0') {
+                text = `${side} enrocaron en largo. El rey se fue al flanco de dama y la torre quedó más centralizada. Buscaban un juego más combativo, típico de ciertas líneas de ${opening}.`;
+            } else {
+                let pieceCode = 'P';
+                if (/^[KQRBN]/.test(clean)) pieceCode = clean[0];
+                const destMatch = clean.match(/([a-h][1-8])(?:=[QRBN])?$/);
+                const square = destMatch ? destMatch[1] : '';
+                const pieceNames = { K: 'rey', Q: 'dama', R: 'torre', B: 'alfil', N: 'caballo', P: 'peón' };
+                const pieceName = pieceNames[pieceCode] || 'pieza';
+
+                const motives = [];
+                if (pieceCode === 'P') {
+                    motives.push('ocuparon o disputaron espacio central y abrieron o cerraron líneas');
+                } else if (pieceCode === 'N') {
+                    motives.push('desarrollaron el caballo hacia un puesto más activo, con control sobre casillas clave');
+                } else if (pieceCode === 'B') {
+                    motives.push('activaron el alfil en una diagonal útil, presionando o apoyando el centro');
+                } else if (pieceCode === 'R') {
+                    motives.push('colocaron la torre en una columna más prometedora para el medio juego');
+                } else if (pieceCode === 'Q') {
+                    motives.push('entraron con la dama con cuidado, coordinando amenazas sin exponerla en exceso');
+                } else if (pieceCode === 'K') {
+                    motives.push('movieron el rey con un fin concreto de seguridad o coordinación');
+                }
+                if (isCapture) {
+                    motives.push('con la captura alteraron el material o la estructura y abrieron nuevas líneas');
+                }
+
+                text = `${side} jugaron ${san}: movieron su ${pieceName}${square ? ` hacia ${square}` : ''}. ${motives.join('. ')}. `;
+                text += `Buscaron en la anterior mejorar la coordinación, disputar el centro y limitar las opciones de ${rival} en el marco de ${opening}.`;
+            }
+
+            if (givesCheck && !isMate) {
+                text += ` Además dieron jaque y obligaron a ${rival} a responder al instante.`;
+            }
+            if (isMate) {
+                text += ` Fue jaque mate: la partida terminó.`;
+            }
+            return text;
+        }
+
+        function toPastHint(hint) {
+            if (!hint) return '';
+            let t = String(hint).trim().replace(/\.$/, '');
+            // Conversiones simples al pasado para comentarios cortos de la base
+            const pairs = [
+                [/\bjuega\b/gi, 'jugó'],
+                [/\bjuegan\b/gi, 'jugaron'],
+                [/\bmueve\b/gi, 'movió'],
+                [/\bmueven\b/gi, 'movieron'],
+                [/\bdesarrolla\b/gi, 'desarrolló'],
+                [/\bdesarrollan\b/gi, 'desarrollaron'],
+                [/\bataca\b/gi, 'atacó'],
+                [/\batacan\b/gi, 'atacaron'],
+                [/\bdefiende\b/gi, 'defendió'],
+                [/\bdefienden\b/gi, 'defendieron'],
+                [/\bprepara\b/gi, 'preparó'],
+                [/\bpreparan\b/gi, 'prepararon'],
+                [/\bcontrola\b/gi, 'controló'],
+                [/\bcontrolan\b/gi, 'controlaron'],
+                [/\bocupa\b/gi, 'ocupó'],
+                [/\bocupan\b/gi, 'ocuparon'],
+                [/\babre\b/gi, 'abrió'],
+                [/\babren\b/gi, 'abrieron'],
+                [/\bbusca\b/gi, 'buscó'],
+                [/\bbuscan\b/gi, 'buscaron'],
+                [/\bamenaza\b/gi, 'amenazó'],
+                [/\bamenazan\b/gi, 'amenazaron'],
+                [/\bpresiona\b/gi, 'presionó'],
+                [/\bpresionan\b/gi, 'presionaron'],
+                [/\benroca\b/gi, 'enrocó'],
+                [/\benrocan\b/gi, 'enrocaron'],
+                [/\bcaptura\b/gi, 'capturó'],
+                [/\bcapturan\b/gi, 'capturaron'],
+                [/\breclama\b/gi, 'reclamó'],
+                [/\breclaman\b/gi, 'reclamaron'],
+                [/\bresponde\b/gi, 'respondió'],
+                [/\bresponden\b/gi, 'respondieron']
+            ];
+            pairs.forEach(([re, rep]) => { t = t.replace(re, rep); });
+            return t;
+        }
+
+        function buildPastTheory(san, isWhite, shortHint, openingName) {
+            const detailed = explainSanPastDetailed(san, isWhite, openingName);
+            if (!shortHint) return detailed;
+            const hint = toPastHint(shortHint);
+            if (!hint || /^(Línea teórica|Respuesta posicional)/i.test(hint)) return detailed;
+            if (hint.length > 100) return hint + (/\.$/.test(hint) ? '' : '.');
+            return `${hint}. ${detailed}`;
+        }
+
+        /** Datos de la última jugada ya ejecutada en la línea teórica. */
+        function getPreviousTheoryMove() {
+            if (!currentSteps || !currentSteps.length) return null;
+            // Al inicio, aún no hay jugada anterior
+            if (currentStep === 0 && isWhiteTurn) return null;
+
+            if (!isWhiteTurn) {
+                // Acaban de mover las blancas en el step actual
+                const step = currentSteps[currentStep];
+                if (!step || !step.w) return null;
+                return { san: step.w.san, isWhite: true, teoria: step.teoriaW };
+            }
+            // Turno de blancas: la anterior fue la negras del step previo
+            if (currentStep <= 0) return null;
+            const prev = currentSteps[currentStep - 1];
+            if (!prev || !prev.b) return null;
+            return { san: prev.b.san, isWhite: false, teoria: prev.teoriaB };
+        }
+
+        function updatePreviousTheoryUI(openingName) {
+            const wrap = document.getElementById('theory-prev-wrap');
+            const el = document.getElementById('theory-text-prev');
+            if (!wrap || !el) return;
+
+            const prev = getPreviousTheoryMove();
+            if (!prev || !prev.san) {
+                // En partida libre, comentar la última jugada conocida en pasado
+                if (freePlayMode && lastMoveSan) {
+                    // Inferir bando: tras la jugada, toca el otro; si es turno de blancas, la última fue de negras
+                    const lastWasWhite = !isWhiteTurn;
+                    wrap.classList.remove('hidden');
+                    el.textContent = buildPastTheory(lastMoveSan, lastWasWhite, null, openingName);
+                    return;
+                }
+                wrap.classList.add('hidden');
+                el.textContent = '';
+                return;
+            }
+            wrap.classList.remove('hidden');
+            el.textContent = buildPastTheory(prev.san, prev.isWhite, prev.teoria, openingName);
+        }
+
         function getOpeningTitle() {
             if (activeOpeningId && OPENING_MODULES[activeOpeningId]) {
                 return OPENING_MODULES[activeOpeningId].title;
@@ -4035,23 +5191,41 @@
             return [mainLine, ...extras];
         }
 
+        let variationsPanelOpen = false;
+
+        function setVariantsBtnActive(active) {
+            const btn = document.getElementById('btn-skip');
+            if (!btn) return;
+            btn.classList.toggle('active-panel', !!active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+
+        function hideVariationsList() {
+            const varContainer = document.getElementById('variations-container');
+            if (varContainer) {
+                varContainer.classList.add('hidden');
+                varContainer.innerHTML = '';
+            }
+            variationsPanelOpen = false;
+            setVariantsBtnActive(false);
+        }
+
         function renderVariationsList() {
             const varContainer = document.getElementById('variations-container');
             if (!varContainer || !activeOpeningId || !OPENING_MODULES[activeOpeningId]) return;
 
             const lines = getOpeningLines(activeOpeningId);
             if (lines.length === 0) {
-                varContainer.classList.add('hidden');
-                varContainer.innerHTML = '';
+                hideVariationsList();
                 return;
             }
 
-            varContainer.innerHTML = '<h4 class="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em] mb-1 mt-2">Aprender Variantes</h4>';
+            varContainer.innerHTML = '<h4 class="text-[10px] font-black text-fuchsia-300 uppercase tracking-[0.2em] mb-1">Elegir variante</h4>';
             lines.forEach((v) => {
                 const btn = document.createElement('button');
                 const mainStyle = v.isMain
-                    ? "w-full text-left px-4 py-3 bg-emerald-700/40 hover:bg-emerald-600/50 rounded-xl font-bold border border-emerald-500/60 transition-all text-sm text-white flex justify-between items-center group shadow-md"
-                    : "w-full text-left px-4 py-3 bg-slate-700 hover:bg-slate-600 rounded-xl font-bold border border-slate-500 transition-all text-sm text-white flex justify-between items-center group shadow-md";
+                    ? "w-full text-left px-4 py-2.5 bg-emerald-700/40 hover:bg-emerald-600/50 rounded-xl font-bold border border-emerald-500/60 transition-all text-sm text-white flex justify-between items-center group shadow-md"
+                    : "w-full text-left px-4 py-2.5 bg-slate-800/80 hover:bg-slate-700 rounded-xl font-bold border border-slate-600 transition-all text-sm text-white flex justify-between items-center group shadow-md";
                 btn.className = mainStyle;
                 const badge = v.isMain
                     ? `<span class="text-[10px] uppercase tracking-wider text-emerald-300 font-black mr-2">Principal</span>`
@@ -4061,22 +5235,25 @@
                 varContainer.appendChild(btn);
             });
             varContainer.classList.remove('hidden');
+            variationsPanelOpen = true;
+            setVariantsBtnActive(true);
         }
 
         function enterFreePlayIfNeeded() {
             if (!currentSteps) return;
             if (currentStep >= theoryLength() && !freePlayMode) {
                 freePlayMode = true;
+                // Al terminar la teoría, mostrar variantes arriba de inmediato
+                variationsPanelOpen = true;
             }
         }
 
         function skipToVariations() {
             if (!currentSteps || currentSteps.length === 0) return;
 
-            if (isTheoryComplete()) {
-                setControlsDisabled(false);
-                renderVariationsList();
-                updateUI();
+            // Segundo clic: ocultar lista de inmediato
+            if (variationsPanelOpen) {
+                hideVariationsList();
                 return;
             }
 
@@ -4085,34 +5262,43 @@
                 systemTimeout = null;
             }
 
-            while (currentStep < theoryLength()) {
-                const step = currentSteps[currentStep];
-                if (!step) break;
-                const move = isWhiteTurn ? step.w : step.b;
-                if (move) {
-                    executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
-                } else {
-                    break;
+            // Si aún no terminó la teoría, saltar al final
+            if (!isTheoryComplete()) {
+                while (currentStep < theoryLength()) {
+                    const step = currentSteps[currentStep];
+                    if (!step) break;
+                    const move = isWhiteTurn ? step.w : step.b;
+                    if (move) {
+                        executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
+                    } else {
+                        break;
+                    }
                 }
+                freePlayMode = true;
             }
 
-            freePlayMode = true;
             setControlsDisabled(false);
+            variationsPanelOpen = true;
+            renderVariationsList();
             updateUI();
         }
 
         function loadVariation(variationData) {
             currentSteps = variationData.steps;
-            document.getElementById('game-subtitle').textContent = variationData.isMain
+            const sub = document.getElementById('game-subtitle');
+            // Variante en estudio siempre en color ámbar (clase fija)
+            sub.textContent = variationData.isMain
                 ? (variationData.name || variationData.subtitle)
-                : variationData.subtitle;
-
-            const varContainer = document.getElementById('variations-container');
-            if (varContainer) {
-                varContainer.classList.add('hidden');
-                varContainer.innerHTML = '';
+                : (variationData.name || variationData.subtitle);
+            sub.className = 'game-subtitle-sm';
+            // Mantener el nombre de la apertura principal en cian
+            if (activeOpeningId && OPENING_MODULES[activeOpeningId]) {
+                const t = document.getElementById('game-title');
+                t.textContent = OPENING_MODULES[activeOpeningId].title;
+                t.className = 'game-title-sm';
             }
 
+            hideVariationsList();
             initGame();
         }
 
@@ -4148,6 +5334,7 @@
             systemTimeout = null;
             freePlayMode = false;
             lastMoveSan = null;
+            hideVariationsList();
             chessGame = createChessEngine();
             if (chessGame) {
                 syncFromChess();
@@ -4173,13 +5360,12 @@
                 clearTimeout(systemTimeout);
                 systemTimeout = null;
             }
-            const varContainer = document.getElementById('variations-container');
-            if (varContainer) varContainer.classList.add('hidden');
+            hideVariationsList();
             initGame();
         }
 
         function setControlsDisabled(disabled) {
-            const btns = ['btn-undo-move', 'btn-next-move', 'btn-white', 'btn-black'];
+            const btns = ['btn-undo-move', 'btn-step-one', 'btn-next-move', 'btn-white', 'btn-black'];
             btns.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
@@ -4220,9 +5406,39 @@
             setControlsDisabled(false);
         }
 
+        /** Solo un ply (una media jugada): no responde el rival automáticamente. */
+        function stepOnePly() {
+            if (freePlayMode) {
+                if (!chessGame || chessGame.game_over()) return;
+                const moves = chessGame.moves({ verbose: true });
+                if (!moves.length) return;
+                const m = moves[Math.floor(Math.random() * moves.length)];
+                const [fr, fc] = algToRc(m.from);
+                const [tr, tc] = algToRc(m.to);
+                pushHistory();
+                const applied = applyEngineMove(fr, fc, tr, tc, m.promotion || 'q');
+                if (!applied) {
+                    gameHistory.pop();
+                    return;
+                }
+                clearSelection();
+                renderBoard();
+                updateUI();
+                return;
+            }
+            if (!currentSteps || currentStep >= theoryLength()) return;
+            const step = currentSteps[currentStep];
+            const expected = isWhiteTurn ? step.w : step.b;
+            if (!expected) return;
+            executeMove(expected.from[0], expected.from[1], expected.to[0], expected.to[1], expected);
+            setControlsDisabled(false);
+            updateUI();
+        }
+
+        /** Auto-jugada: un ply tuyo + respuesta del rival (dos plies en teoría). */
         function stepNextMove() {
             if (freePlayMode) {
-                // En partida libre: juega una jugada legal al azar del bando actual (útil para explorar)
+                // En partida libre: una jugada del bando actual; el rival responde solo si toca
                 playRandomLegalMove();
                 return;
             }
@@ -4313,33 +5529,229 @@
             syncFromChess();
         }
 
+        /* ─── Stockfish (rival tras memorizar la apertura) ─── */
+        const SF_LEVELS = [
+            { id: 'torpe', name: 'Torpe', short: 'T', skill: 0, depth: 2, movetime: 100, blunderChance: 0.45 },
+            { id: 'basico', name: 'Básico', short: 'B', skill: 5, depth: 5, movetime: 250, blunderChance: 0.12 },
+            { id: 'medio', name: 'Medio', short: 'M', skill: 12, depth: 9, movetime: 450, blunderChance: 0.03 },
+            { id: 'avanzado', name: 'Avanzado', short: 'A', skill: 18, depth: 14, movetime: 900, blunderChance: 0 }
+        ];
+        let sfLevelIndex = 0; // por defecto: Torpe
+        let stockfishWorker = null;
+        let stockfishReady = false;
+        let stockfishLoading = null;
+        let stockfishBusy = false;
+
+        function getSfLevel() {
+            return SF_LEVELS[sfLevelIndex] || SF_LEVELS[0];
+        }
+
+        function updateStockfishUI() {
+            const lv = getSfLevel();
+            const label = document.getElementById('stockfish-level-label');
+            const badge = document.getElementById('sf-badge');
+            const btn = document.getElementById('btn-stockfish');
+            if (label) label.textContent = `Stockfish · ${lv.name}`;
+            if (badge) badge.textContent = lv.short;
+            if (btn) {
+                btn.title = `Stockfish: ${lv.name} (pulsa para cambiar nivel)`;
+                btn.setAttribute('aria-label', `Nivel Stockfish: ${lv.name}`);
+            }
+        }
+
+        function cycleStockfishLevel() {
+            sfLevelIndex = (sfLevelIndex + 1) % SF_LEVELS.length;
+            updateStockfishUI();
+            // Reconfigurar motor si ya está listo
+            if (stockfishWorker && stockfishReady) {
+                const lv = getSfLevel();
+                stockfishWorker.postMessage(`setoption name Skill Level value ${lv.skill}`);
+            }
+        }
+
+        function ensureStockfish() {
+            if (stockfishWorker && stockfishReady) return Promise.resolve(stockfishWorker);
+            if (stockfishLoading) return stockfishLoading;
+
+            stockfishLoading = (async () => {
+                const urls = [
+                    'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js',
+                    'https://unpkg.com/stockfish.js@10.0.2/stockfish.js'
+                ];
+                let lastErr = null;
+                for (const url of urls) {
+                    try {
+                        const res = await fetch(url, { mode: 'cors' });
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        const code = await res.text();
+                        const blob = new Blob([code], { type: 'application/javascript' });
+                        const blobUrl = URL.createObjectURL(blob);
+                        const worker = new Worker(blobUrl);
+
+                        await new Promise((resolve, reject) => {
+                            const t = setTimeout(() => reject(new Error('timeout stockfish')), 12000);
+                            const onMsg = (e) => {
+                                const line = String(e.data || '');
+                                if (line === 'uciok' || line.includes('uciok')) {
+                                    clearTimeout(t);
+                                    worker.removeEventListener('message', onMsg);
+                                    resolve();
+                                }
+                            };
+                            worker.addEventListener('message', onMsg);
+                            worker.onerror = (err) => {
+                                clearTimeout(t);
+                                reject(err);
+                            };
+                            worker.postMessage('uci');
+                        });
+
+                        stockfishWorker = worker;
+                        stockfishReady = true;
+                        const lv = getSfLevel();
+                        worker.postMessage('setoption name Skill Level value ' + lv.skill);
+                        worker.postMessage('isready');
+                        return worker;
+                    } catch (err) {
+                        lastErr = err;
+                        console.warn('Stockfish load failed from', url, err);
+                    }
+                }
+                stockfishLoading = null;
+                throw lastErr || new Error('No se pudo cargar Stockfish');
+            })();
+
+            return stockfishLoading;
+        }
+
+        function pickRandomLegalVerbose() {
+            if (!chessGame) return null;
+            const moves = chessGame.moves({ verbose: true });
+            if (!moves.length) return null;
+            return moves[Math.floor(Math.random() * moves.length)];
+        }
+
+        function applyVerboseMove(m) {
+            if (!m) return false;
+            const [or, oc] = algToRc(m.from);
+            const [tr2, tc2] = algToRc(m.to);
+            pushHistory();
+            applyEngineMove(or, oc, tr2, tc2, m.promotion || 'q');
+            renderBoard();
+            return true;
+        }
+
+        function parseBestmove(line) {
+            // bestmove e2e4 [ponder e7e5]
+            const parts = String(line).trim().split(/\s+/);
+            if (parts[0] !== 'bestmove' || !parts[1] || parts[1] === '(none)') return null;
+            const bm = parts[1];
+            if (bm.length < 4) return null;
+            return {
+                from: bm.slice(0, 2),
+                to: bm.slice(2, 4),
+                promotion: bm[4] ? bm[4].toLowerCase() : 'q'
+            };
+        }
+
+        function askStockfishBestMove(fen) {
+            return new Promise(async (resolve) => {
+                const lv = getSfLevel();
+                // Torpe: a veces mueve al azar para parecer más débil
+                if (lv.blunderChance > 0 && Math.random() < lv.blunderChance) {
+                    resolve(pickRandomLegalVerbose());
+                    return;
+                }
+
+                try {
+                    const worker = await ensureStockfish();
+                    if (stockfishBusy) {
+                        worker.postMessage('stop');
+                    }
+                    stockfishBusy = true;
+
+                    let done = false;
+                    const finish = (val) => {
+                        if (done) return;
+                        done = true;
+                        stockfishBusy = false;
+                        worker.removeEventListener('message', onMsg);
+                        clearTimeout(timer);
+                        resolve(val);
+                    };
+
+                    const onMsg = (e) => {
+                        const line = String(e.data || '');
+                        if (line.startsWith('bestmove')) {
+                            const parsed = parseBestmove(line);
+                            if (parsed) {
+                                finish({
+                                    from: parsed.from,
+                                    to: parsed.to,
+                                    promotion: parsed.promotion
+                                });
+                            } else {
+                                finish(pickRandomLegalVerbose());
+                            }
+                        }
+                    };
+
+                    const timer = setTimeout(() => {
+                        try { worker.postMessage('stop'); } catch (_) {}
+                        finish(pickRandomLegalVerbose());
+                    }, Math.max(2500, lv.movetime + 2000));
+
+                    worker.addEventListener('message', onMsg);
+                    worker.postMessage('stop');
+                    worker.postMessage('setoption name Skill Level value ' + lv.skill);
+                    worker.postMessage('position fen ' + fen);
+                    worker.postMessage(`go depth ${lv.depth} movetime ${lv.movetime}`);
+                } catch (err) {
+                    console.warn('Stockfish no disponible, rival aleatorio:', err);
+                    resolve(pickRandomLegalVerbose());
+                }
+            });
+        }
+
         function scheduleOpponentIfNeeded() {
             if (!freePlayMode || !chessGame || chessGame.game_over()) return;
             const oppTurn = (userRole === 'w' && chessGame.turn() === 'b') || (userRole === 'b' && chessGame.turn() === 'w');
             if (!oppTurn) return;
             if (systemTimeout) clearTimeout(systemTimeout);
             setControlsDisabled(true);
-            systemTimeout = setTimeout(() => {
+
+            systemTimeout = setTimeout(async () => {
                 systemTimeout = null;
                 if (!chessGame || chessGame.game_over() || !freePlayMode) {
                     setControlsDisabled(false);
                     updateUI();
                     return;
                 }
-                const moves = chessGame.moves({ verbose: true });
-                if (moves.length) {
-                    const captures = moves.filter(m => m.flags && m.flags.includes('c'));
-                    const pool = captures.length ? captures : moves;
-                    const pick = pool[Math.floor(Math.random() * pool.length)];
-                    const [or, oc] = algToRc(pick.from);
-                    const [tr2, tc2] = algToRc(pick.to);
+
+                const fen = chessGame.fen();
+                let move = await askStockfishBestMove(fen);
+                if ((!move || !move.from) && chessGame) move = pickRandomLegalVerbose();
+
+                if (move && move.from && move.to && chessGame && !chessGame.game_over() && freePlayMode) {
                     pushHistory();
-                    applyEngineMove(or, oc, tr2, tc2, pick.promotion || 'q');
-                    renderBoard();
+                    const [fr, fc] = algToRc(move.from);
+                    const [tr, tc] = algToRc(move.to);
+                    let applied = applyEngineMove(fr, fc, tr, tc, move.promotion || 'q');
+                    if (!applied) {
+                        const rnd = pickRandomLegalVerbose();
+                        if (rnd) {
+                            const [rfr, rfc] = algToRc(rnd.from);
+                            const [rtr, rtc] = algToRc(rnd.to);
+                            applied = applyEngineMove(rfr, rfc, rtr, rtc, rnd.promotion || 'q');
+                        }
+                    }
+                    if (applied) renderBoard();
+                    else gameHistory.pop();
                 }
+
                 setControlsDisabled(false);
                 updateUI();
-            }, 450);
+            }, 350);
         }
 
         function executeMove(fr, fc, tr, tc, moveData) {
@@ -4383,7 +5795,10 @@
             // Avance del contador de teoría: un step = blancas + negras
             if (!freePlayMode) {
                 if (isWhiteTurn) currentStep++;
-                if (currentStep >= theoryLength()) freePlayMode = true;
+                if (currentStep >= theoryLength()) {
+                    freePlayMode = true;
+                    variationsPanelOpen = true; // mostrar variantes arriba al terminar la teoría
+                }
             }
 
             if (!applied) {
@@ -4461,7 +5876,7 @@
                     if (p) {
                         const piece = document.createElement('div');
                         piece.className = 'piece';
-                        piece.style.backgroundImage = `url(${PIECES_URL[p]})`;
+                        piece.style.backgroundImage = `url(${getPieceImageUrl(p)})`;
                         square.draggable = isSelectablePiece(p);
                         square.appendChild(piece);
                     }
@@ -4658,7 +6073,8 @@
                 el.textContent = (chessGame.turn() === 'w' ? 'Jaque al rey blanco.' : 'Jaque al rey negro.') + ' Debes resolver el jaque.';
                 el.className = 'mt-3 text-sm font-bold text-orange-300';
             } else {
-                el.textContent = 'Partida libre: puedes continuar con todas las reglas del ajedrez (enroque, al paso, coronación en dama, jaque…). El rival responde automáticamente.';
+                const lv = getSfLevel();
+                el.textContent = `Partida libre vs Stockfish (${lv.name}): reglas completas. Pulsa el botón SF para cambiar nivel (Torpe → Básico → Medio → Avanzado).`;
                 el.className = 'mt-3 text-sm text-slate-400';
             }
         }
@@ -4697,15 +6113,22 @@
                     inst.textContent = isUserTurn
                         ? 'Teoría completada. Continúa la partida con movimientos legales.'
                         : 'El rival está pensando…';
-                    theory.textContent = 'Has memorizado la línea teórica. A partir de aquí el tablero aplica el reglamento completo: movimientos legales de cada pieza, jaque, enroque, captura al paso y coronación (automática a dama). Explora el medio juego o prueba otras ideas; usa Variantes para estudiar otras líneas de ' + openingName + '.';
+                    const lv = getSfLevel();
+                    theory.textContent = `Has memorizado la línea teórica. Ahora te enfrentas a Stockfish en nivel «${lv.name}» (cámbialo con el botón SF). El tablero aplica el reglamento completo: jaque, enroque, al paso y coronación. Usa Variantes para otras líneas de ${openingName}.`;
                 }
+                updatePreviousTheoryUI(openingName);
                 updateGameStatusBanner();
-                renderVariationsList();
+                // Solo refrescar/mostrar variantes si el panel está abierto (o se acaba de abrir al terminar teoría)
+                if (variationsPanelOpen) renderVariationsList();
+                else hideVariationsList();
                 return;
             }
 
             updateGameStatusBanner();
-            if (varContainer) varContainer.classList.add('hidden');
+            // En teoría, no forzar cierre si el usuario abrió el panel con el botón
+            if (!variationsPanelOpen && varContainer) {
+                varContainer.classList.add('hidden');
+            }
             if (modeLabel) modeLabel.textContent = 'Jugada';
             if (levelTotal) levelTotal.textContent = '/' + theoryLength();
 
@@ -4732,6 +6155,7 @@
                 inst.textContent = 'Preparando la respuesta teórica…';
                 theory.textContent = isWhiteTurn ? tw : tb;
             }
+            updatePreviousTheoryUI(openingName);
         }
 
         function renderCards() {
@@ -4740,25 +6164,12 @@
             chessOpeningsList.forEach(op => {
                 const btn = document.createElement('button');
                 btn.className = 'opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between';
-                btn.onclick = () => {
-                    activeOpeningId = op.id;
-                    if (!OPENING_MODULES[op.id]) {
-                        alert('¡Próximamente! La lógica de esta apertura se añadirá en el siguiente paso.');
-                        return;
-                    }
-                    currentSteps = OPENING_MODULES[op.id].steps;
-                    document.getElementById('game-title').textContent = OPENING_MODULES[op.id].title;
-                    document.getElementById('game-title').className = `text-4xl font-black ${OPENING_MODULES[op.id].theme}`;
-                    document.getElementById('game-subtitle').textContent = OPENING_MODULES[op.id].subtitle;
-                    document.getElementById('menu-view').classList.add('hidden');
-                    const gv = document.getElementById('game-view');
-                    gv.classList.remove('hidden');
-                    gv.classList.add('flex');
-                    initGame();
-                };
-                btn.innerHTML = `<span class="text-[10px] font-black text-emerald-400 uppercase mb-4 block">${op.type}</span><h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>`;
+                btn.onclick = () => startOpening(op.id);
+                const group = normalizeOpeningType(op.type);
+                btn.innerHTML = `<span class="text-[10px] font-black text-emerald-400 uppercase mb-4 block">${group}${op.type === 'Flanco' ? ' · Flanco' : ''}</span><h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>`;
                 g.appendChild(btn);
             });
+            buildAllCatMenus();
         }
 
         function backToMenu() {
@@ -4771,8 +6182,7 @@
             activeOpeningId = null;
             freePlayMode = false;
             clearSelection();
-            const varContainer = document.getElementById('variations-container');
-            if (varContainer) { varContainer.classList.add('hidden'); varContainer.innerHTML = ''; }
+            hideVariationsList();
             initGame();
         }
 
@@ -4802,8 +6212,15 @@
             if (typeof Chess === 'undefined') {
                 console.warn('chess.js no disponible');
             }
+            refreshPiecesUrlMap();
+            applyBoardTheme();
+            applyBoardSize();
+            applyPieceSet();
+            updateStockfishUI();
             renderCards();
             switchRole('w');
+            // Precargar Stockfish en segundo plano
+            ensureStockfish().catch(() => {});
         };
     </script>
 </body>

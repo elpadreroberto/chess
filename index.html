@@ -16,12 +16,315 @@
             font-family: 'Inter', sans-serif; 
         }
 
-        .opening-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .opening-card:hover {
+        .opening-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+        }
+        .opening-card:hover,
+        .opening-card.flyout-active {
             transform: translateY(-6px);
             box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.4);
             border-color: #10b981;
         }
+        .opening-card.flyout-active {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35), 0 12px 30px -10px rgba(56, 189, 248, 0.25);
+            z-index: 5;
+        }
+        .opening-card .card-var-hint {
+            margin-top: 0.85rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .opening-card:hover .card-var-hint,
+        .opening-card.flyout-active .card-var-hint {
+            color: #38bdf8;
+        }
+        .opening-card .card-var-chevron {
+            color: #38bdf8;
+            opacity: 0.85;
+        }
+
+        /* ─── Modo EXAMEN ─── */
+        .exam-launch-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.7rem 1.35rem;
+            border-radius: 0.85rem;
+            font-size: 0.85rem;
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #0f172a;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 45%, #ea580c 100%);
+            border: 1px solid #fcd34d;
+            box-shadow: 0 10px 28px rgba(245, 158, 11, 0.35);
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+        }
+        .exam-launch-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+            box-shadow: 0 14px 32px rgba(245, 158, 11, 0.45);
+        }
+        .exam-launch-btn.open {
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.35), 0 10px 28px rgba(245, 158, 11, 0.35);
+        }
+        .exam-launch-btn .exam-ico {
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .exam-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: min(94vw, 22rem);
+            max-width: 94vw;
+            background: #0b1220;
+            border: 1px solid #f59e0b;
+            border-radius: 0.95rem;
+            box-shadow: 0 22px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(245, 158, 11, 0.18);
+            padding: 0.55rem 0.6rem 0.65rem;
+            z-index: 10060;
+            box-sizing: border-box;
+        }
+        .exam-menu.open {
+            display: block;
+            animation: catMenuIn 0.12s ease-out;
+        }
+        .exam-menu .exam-menu-title {
+            padding: 0.3rem 0.4rem 0.45rem;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #fbbf24;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 0.4rem;
+        }
+        .exam-menu .exam-menu-hint {
+            padding: 0.15rem 0.4rem 0.45rem;
+            font-size: 0.68rem;
+            color: #94a3b8;
+            line-height: 1.35;
+        }
+        .exam-menu .exam-all-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.65rem 0.7rem;
+            margin-bottom: 0.45rem;
+            border-radius: 0.6rem;
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: #0f172a;
+            background: linear-gradient(135deg, #fde68a, #fbbf24);
+            border: 1px solid #f59e0b;
+            cursor: pointer;
+            transition: filter 0.12s, transform 0.12s;
+        }
+        .exam-menu .exam-all-btn:hover {
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+        }
+        .exam-menu .exam-cat-block {
+            margin-top: 0.4rem;
+            padding: 0.45rem 0.4rem 0.5rem;
+            border-radius: 0.65rem;
+            background: #111827;
+            border: 1px solid #1e293b;
+        }
+        .exam-menu .exam-cat-label {
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 0.4rem;
+            padding: 0 0.15rem;
+        }
+        .exam-menu .exam-cat-opts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.35rem;
+        }
+        .exam-menu .exam-opt-btn {
+            padding: 0.45rem 0.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            background: #1e293b;
+            border: 1px solid #334155;
+            cursor: pointer;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+        }
+        .exam-menu .exam-opt-btn:hover {
+            background: #334155;
+            border-color: #f59e0b;
+            color: #fde68a;
+        }
+        .exam-menu .exam-opt-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+        #exam-quiz-panel {
+            display: none;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        #exam-quiz-panel.visible {
+            display: flex;
+        }
+        #exam-quiz-panel .exam-q-title {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #f8fafc;
+            line-height: 1.3;
+        }
+        #exam-quiz-panel .exam-q-sub {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+        #exam-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.45rem;
+        }
+        @media (min-width: 480px) {
+            #exam-options {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .exam-choice-btn {
+            text-align: left;
+            padding: 0.7rem 0.85rem;
+            border-radius: 0.7rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            background: #0f172a;
+            border: 1px solid #334155;
+            cursor: pointer;
+            transition: background 0.12s, border-color 0.12s, transform 0.12s;
+        }
+        .exam-choice-btn:hover:not(:disabled) {
+            background: #1e293b;
+            border-color: #f59e0b;
+            transform: translateY(-1px);
+        }
+        .exam-choice-btn.correct {
+            background: rgba(16, 185, 129, 0.18);
+            border-color: #10b981;
+            color: #6ee7b7;
+        }
+        .exam-choice-btn.wrong {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #ef4444;
+            color: #fca5a5;
+        }
+        .exam-choice-btn:disabled {
+            cursor: default;
+            opacity: 0.95;
+        }
+        #exam-feedback {
+            min-height: 1.4rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+        #exam-feedback.ok { color: #6ee7b7; }
+        #exam-feedback.bad { color: #fca5a5; }
+        .exam-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        .exam-actions button {
+            padding: 0.55rem 0.9rem;
+            border-radius: 0.6rem;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 1px solid #475569;
+            background: #1e293b;
+            color: #e2e8f0;
+            transition: background 0.12s, border-color 0.12s;
+        }
+        .exam-actions button:hover {
+            background: #334155;
+            border-color: #94a3b8;
+        }
+        .exam-actions button.primary {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-color: #fcd34d;
+            color: #0f172a;
+        }
+        body.exam-active #btn-skip,
+        body.exam-active #btn-reset,
+        body.exam-active .move-btn-group,
+        body.exam-active .role-switch-panel {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+        body.exam-active #theory-panel-study.exam-hidden-study {
+            display: none;
+        }
+
+        .opening-category {
+            margin-bottom: 2.5rem;
+        }
+        .opening-category:last-child {
+            margin-bottom: 0;
+        }
+        .opening-category-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        .opening-category-title h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #e2e8f0;
+        }
+        .opening-category-title .cat-count {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #94a3b8;
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(71, 85, 105, 0.6);
+            border-radius: 999px;
+            padding: 0.15rem 0.55rem;
+        }
+        .opening-category-title .cat-dot {
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 999px;
+            flex-shrink: 0;
+        }
+        .opening-category[data-cat="Abierta"] .cat-dot { background: #34d399; }
+        .opening-category[data-cat="Cerrada"] .cat-dot { background: #c084fc; }
+        .opening-category[data-cat="Semi-abierta"] .cat-dot { background: #60a5fa; }
+        .opening-category[data-cat="Semi-cerrada"] .cat-dot { background: #fbbf24; }
 
         .chessboard {
             display: grid;
@@ -155,12 +458,12 @@
             border-color: #34d399;
         }
         .icon-btn-primary:hover { background: #10b981; }
-        /* Grupo unificado: Retroceder | Reiniciar | Auto-Jugada */
+        /* Grupo unificado: Retroceder | Reiniciar | Una | Auto | Variantes */
         .move-btn-group {
             display: inline-flex;
             align-items: stretch;
             flex-shrink: 0;
-            height: 2.55rem;
+            height: 2.45rem;
             border-radius: 0.7rem;
             overflow: hidden;
             border: 1px solid #64748b;
@@ -168,7 +471,8 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.28);
         }
         .move-btn-group .icon-btn {
-            width: 3.15rem;
+            width: 2.55rem;
+            min-width: 2.55rem;
             height: 100%;
             border-radius: 0;
             border: none;
@@ -176,6 +480,9 @@
             box-shadow: none;
             background: #334155;
             transform: none;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 0;
         }
         .move-btn-group .icon-btn:last-child {
             border-right: none;
@@ -187,8 +494,8 @@
         }
         .move-btn-group .icon-btn.icon-btn-primary {
             background: #059669;
-            min-width: 3.35rem;
-            width: 3.35rem;
+            min-width: 2.7rem;
+            width: 2.7rem;
         }
         .move-btn-group .icon-btn.icon-btn-primary:hover {
             background: #10b981;
@@ -197,36 +504,155 @@
             opacity: 0.35;
         }
         .move-btn-group .icon-btn svg {
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.15rem;
+            height: 1.15rem;
+        }
+        .move-btn-group .icon-btn-variants {
+            min-width: 2.55rem;
+            width: 2.55rem;
+            padding: 0;
+            font-size: inherit;
+            font-weight: inherit;
+            letter-spacing: normal;
+            background: #1e293b;
+            color: #c4b5fd;
+        }
+        .move-btn-group .icon-btn-variants:hover {
+            background: #312e81;
+            color: #ede9fe;
+        }
+        .move-btn-group .icon-btn-variants.active-panel {
+            background: #4c1d95;
+            color: #f5f3ff;
+            box-shadow: inset 0 0 0 2px rgba(167, 139, 250, 0.55);
+        }
+        .move-btn-group .icon-btn-variants svg {
+            stroke: currentColor;
         }
 
-        /* Variantes: solo texto VAR, más alargado */
+        /* Grupo unificado: aspecto del tablero (tamaño, paneles, colores, piezas) */
+        .board-look-group {
+            display: inline-flex;
+            align-items: stretch;
+            flex-shrink: 0;
+            height: 2.55rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid #38bdf8;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            box-shadow:
+                0 2px 12px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(56, 189, 248, 0.18),
+                inset 0 1px 0 rgba(148, 163, 184, 0.12);
+        }
+        .board-look-group .icon-btn {
+            width: 2.65rem;
+            height: 100%;
+            border-radius: 0;
+            border: none;
+            border-right: 1px solid rgba(56, 189, 248, 0.22);
+            box-shadow: none;
+            background: transparent;
+            color: #e0f2fe;
+            transform: none;
+        }
+        .board-look-group .icon-btn:last-child {
+            border-right: none;
+        }
+        .board-look-group .icon-btn:hover {
+            background: rgba(56, 189, 248, 0.16);
+            transform: none;
+            z-index: 1;
+        }
+        .board-look-group .icon-btn:active {
+            background: rgba(56, 189, 248, 0.28);
+        }
+        .board-look-group .icon-btn svg {
+            width: 1.15rem;
+            height: 1.15rem;
+            stroke: #7dd3fc;
+        }
+        /* Contorno interior sutil en forma de “marco de tablero” */
+        .board-look-group .icon-btn svg rect,
+        .board-look-group .icon-btn svg path,
+        .board-look-group .icon-btn svg circle {
+            stroke: currentColor;
+        }
+
+        /* Grupo Stockfish + Examen (herramientas de rival / evaluación) */
+        .user-tools-group {
+            display: inline-flex;
+            align-items: stretch;
+            flex-shrink: 0;
+            height: 2.55rem;
+            border-radius: 0.75rem;
+            /* overflow visible para no recortar el badge de nivel SF */
+            overflow: visible;
+            border: 1px solid #a78bfa;
+            background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+            box-shadow:
+                0 2px 12px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(167, 139, 250, 0.2),
+                inset 0 1px 0 rgba(196, 181, 253, 0.1);
+        }
+        .user-tools-group .icon-btn {
+            height: 100%;
+            border-radius: 0;
+            border: none;
+            border-right: 1px solid rgba(167, 139, 250, 0.28);
+            box-shadow: none;
+            background: transparent;
+            transform: none;
+            width: 2.75rem;
+            color: #ede9fe;
+        }
+        .user-tools-group .icon-btn:first-child {
+            border-radius: 0.7rem 0 0 0.7rem;
+        }
+        .user-tools-group .icon-btn:last-child {
+            border-right: none;
+            border-radius: 0 0.7rem 0.7rem 0;
+        }
+        .user-tools-group .sf-level-badge {
+            bottom: 2px;
+            right: 2px;
+        }
+        .user-tools-group .icon-btn:hover {
+            background: rgba(167, 139, 250, 0.18);
+            transform: none;
+            z-index: 1;
+        }
+        .user-tools-group .icon-btn-exam {
+            min-width: 2.55rem;
+            width: 2.55rem;
+            padding: 0;
+        }
+        .user-tools-group #btn-stockfish {
+            min-width: 2.55rem;
+            width: 2.55rem;
+            padding: 0;
+        }
+        .user-tools-group .icon-btn svg {
+            width: 1.15rem;
+            height: 1.15rem;
+        }
+
+        /* Variantes (fuera del grupo, p. ej. rail lateral sin reagrupar) */
         .icon-btn-variants {
             background: #1e293b;
             border-color: #475569;
-            color: #cbd5e1;
-            min-width: 3.6rem;
-            width: auto;
-            padding: 0 0.85rem;
-            font-size: 0.72rem;
-            font-weight: 800;
-            letter-spacing: 0.14em;
+            color: #c4b5fd;
         }
         .icon-btn-variants:hover {
-            background: #334155;
-            border-color: #64748b;
-            color: #f1f5f9;
+            background: #312e81;
+            border-color: #a78bfa;
+            color: #ede9fe;
         }
         .icon-btn-variants.active-panel {
-            background: #334155;
-            border-color: #94a3b8;
-            color: #e2e8f0;
-            box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.35);
-        }
-        .icon-btn-variants .var-abbr {
-            line-height: 1;
-            pointer-events: none;
+            background: #4c1d95;
+            border-color: #c4b5fd;
+            color: #f5f3ff;
+            box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.35);
         }
         /* Selector de bando dentro del panel de jugada */
         .role-switch-panel {
@@ -340,6 +766,236 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* ─── Área de juego + 3 disposiciones de la barra de controles ─── */
+        .game-workspace {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .game-center {
+            width: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .toolbar-half {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+        .toolbar-half-main {
+            flex: 0 0 auto;
+            min-width: max-content;
+        }
+        .toolbar-half-extra {
+            flex: 0 0 auto;
+            margin-left: auto;
+            padding-left: 0.4rem;
+            min-width: max-content;
+        }
+        .toolbar-half > .icon-btn,
+        .toolbar-half > .move-btn-group,
+        .toolbar-half > .board-look-group,
+        .toolbar-half > .user-tools-group,
+        .toolbar-half > .game-title-block,
+        .toolbar-half > .top-bar-right {
+            flex-shrink: 0;
+        }
+        .toolbar-side {
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.5rem;
+            padding: 0.55rem 0.5rem;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid #1e293b;
+            border-radius: 0.9rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+            max-height: calc(100vh - 1.5rem);
+            overflow-x: visible;
+            overflow-y: auto;
+            position: sticky;
+            top: 0.5rem;
+            z-index: 45;
+            width: max-content;
+            min-width: 3.4rem;
+            scrollbar-width: thin;
+            scrollbar-color: #475569 transparent;
+        }
+        .toolbar-side:not([hidden]) {
+            display: flex;
+        }
+        .toolbar-side .toolbar-half {
+            flex-direction: column;
+            align-items: stretch;
+            margin-left: 0;
+            padding-left: 0;
+            width: 100%;
+        }
+        .toolbar-side .toolbar-half-extra {
+            padding-top: 0.35rem;
+            border-top: 1px solid #1e293b;
+        }
+        .toolbar-side .toolbar-half-lead-sep {
+            display: none;
+        }
+        .toolbar-side .top-bar-right {
+            flex-direction: column;
+            align-items: stretch;
+            margin-left: 0;
+            padding-left: 0;
+            width: 100%;
+        }
+        .toolbar-side .top-bar-sep {
+            width: 100%;
+            height: 1px;
+            margin: 0.15rem 0;
+        }
+        .toolbar-side .move-btn-group,
+        .toolbar-side .board-look-group,
+        .toolbar-side .user-tools-group {
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+        }
+        .toolbar-side .move-btn-group .icon-btn,
+        .toolbar-side .board-look-group .icon-btn,
+        .toolbar-side .user-tools-group .icon-btn {
+            width: 100%;
+            min-width: 0;
+            height: 2.4rem;
+            border-right: none;
+            border-bottom: 1px solid #475569;
+        }
+        .toolbar-side .board-look-group .icon-btn {
+            border-bottom-color: rgba(56, 189, 248, 0.22);
+        }
+        .toolbar-side .user-tools-group .icon-btn {
+            border-bottom-color: rgba(167, 139, 250, 0.28);
+        }
+        .toolbar-side .move-btn-group .icon-btn:last-child,
+        .toolbar-side .board-look-group .icon-btn:last-child,
+        .toolbar-side .user-tools-group .icon-btn:last-child {
+            border-bottom: none;
+        }
+        .toolbar-side .move-btn-group .icon-btn.icon-btn-primary,
+        .toolbar-side .user-tools-group .icon-btn-exam,
+        .toolbar-side .user-tools-group #btn-stockfish {
+            width: 100%;
+            min-width: 0;
+        }
+        .toolbar-side .user-tools-group .icon-btn:first-child {
+            border-radius: 0.7rem 0.7rem 0 0;
+        }
+        .toolbar-side .user-tools-group .icon-btn:last-child {
+            border-radius: 0 0 0.7rem 0.7rem;
+        }
+        .toolbar-side .icon-btn,
+        .toolbar-side .icon-btn-variants,
+        .toolbar-side .cat-btn {
+            width: 100%;
+            justify-content: center;
+        }
+        .toolbar-side .cat-btn {
+            text-align: center;
+            height: auto;
+            min-height: 2.35rem;
+            padding: 0.4rem 0.5rem;
+            white-space: normal;
+            line-height: 1.15;
+        }
+        .toolbar-side .game-title-block {
+            max-width: 7.5rem;
+            text-align: center;
+            align-self: center;
+        }
+        .toolbar-side .game-title-sm,
+        .toolbar-side .game-subtitle-sm {
+            max-width: 7.5rem;
+            white-space: normal;
+            text-align: center;
+        }
+        /* Tooltips a la derecha cuando la barra está al costado */
+        .toolbar-side .icon-btn-label {
+            bottom: auto;
+            left: calc(100% + 0.45rem);
+            top: 50%;
+            transform: translateY(-50%) translateX(-4px);
+        }
+        .toolbar-side .icon-btn-label::after {
+            top: 50%;
+            left: auto;
+            right: 100%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-right-color: #334155;
+            border-top-color: transparent;
+        }
+        .toolbar-side .icon-btn:hover .icon-btn-label,
+        .toolbar-side .icon-btn:focus-visible .icon-btn-label {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        /* Modo izquierda: todo el menú al costado del tablero */
+        body.toolbar-mode-left .game-workspace {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            grid-template-rows: auto;
+            gap: 0.75rem 0.9rem;
+            align-items: start;
+        }
+        body.toolbar-mode-left #top-bar.top-bar-empty {
+            display: none;
+        }
+        body.toolbar-mode-left #toolbar-side {
+            grid-column: 1;
+            grid-row: 1;
+        }
+        body.toolbar-mode-left #game-center {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        body.toolbar-mode-left #game-view {
+            max-width: min(100%, 92rem);
+        }
+
+        /* Modo mixto: mitad arriba, mitad al costado */
+        body.toolbar-mode-split .game-workspace {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            grid-template-rows: auto 1fr;
+            gap: 0.55rem 0.9rem;
+            align-items: start;
+        }
+        body.toolbar-mode-split #top-bar {
+            grid-column: 1 / -1;
+            grid-row: 1;
+            margin-bottom: 0;
+        }
+        body.toolbar-mode-split #toolbar-side {
+            grid-column: 1;
+            grid-row: 2;
+        }
+        body.toolbar-mode-split #game-center {
+            grid-column: 2;
+            grid-row: 2;
+        }
+        body.toolbar-mode-split #game-view {
+            max-width: min(100%, 92rem);
+        }
+        body.toolbar-mode-split .toolbar-half-main {
+            margin-left: 0;
+            flex: 1 1 auto;
+        }
+        body.toolbar-mode-split #top-bar .toolbar-half-extra {
+            display: none; /* vive en el rail lateral */
+        }
+
         /* Barra superior única: todos los controles en una fila */
         .top-bar {
             width: 100%;
@@ -355,17 +1011,39 @@
             overflow: visible;
             border-bottom: 1px solid #1e293b;
         }
+        .top-bar.top-bar-empty {
+            display: none;
+        }
         .top-bar-scroll {
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.45rem;
             width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
             scrollbar-width: thin;
             scrollbar-color: #475569 transparent;
             padding-bottom: 2px;
+            /* Evita que los hijos se compriman y se superpongan */
+            min-width: 0;
+        }
+        .top-bar-left {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0.35rem;
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .top-bar-right {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 0.35rem;
+            flex: 0 0 auto;
+            margin-left: 0;
+            padding-left: 0;
         }
         .top-bar-scroll::-webkit-scrollbar { height: 4px; }
         .top-bar-scroll::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
@@ -377,9 +1055,9 @@
             margin: 0 0.15rem;
         }
         .game-title-block {
-            flex-shrink: 0;
-            min-width: 0;
-            max-width: 9.5rem;
+            flex-shrink: 1;
+            min-width: 4.5rem;
+            max-width: 8rem;
             line-height: 1.15;
         }
         /* Apertura principal (arriba izq.) — siempre cian */
@@ -391,7 +1069,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 9.5rem;
+            max-width: 8rem;
             color: #38bdf8 !important; /* sky-400 */
         }
         /* Variante en estudio — siempre ámbar (distinto de la apertura) */
@@ -404,7 +1082,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 9.5rem;
+            max-width: 8rem;
             opacity: 1;
         }
         .cat-dropdown {
@@ -412,19 +1090,20 @@
             flex-shrink: 0;
         }
         .cat-btn {
-            padding: 0.38rem 0.55rem;
+            padding: 0.35rem 0.45rem;
             border-radius: 0.55rem;
-            font-size: 0.62rem;
+            font-size: 0.58rem;
             font-weight: 800;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
             text-transform: uppercase;
             border: 1px solid #475569;
             background: #1e293b;
             color: #e2e8f0;
             transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
             white-space: nowrap;
-            height: 2.35rem;
+            height: 2.45rem;
             cursor: pointer;
+            flex-shrink: 0;
         }
         .cat-btn:hover, .cat-btn.open {
             background: #334155;
@@ -435,27 +1114,31 @@
             box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.35);
         }
         /*
-         * Submenús con position:fixed (via JS) para no quedar recortados
-         * por el scroll horizontal de la barra.
+         * Submenús de categoría: rejilla multi-columna, todo a la vista (sin barra de scroll).
+         * Cada apertura abre un flyout lateral con sus variantes.
          */
         .cat-submenu {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            min-width: 14.5rem;
-            max-width: min(90vw, 18rem);
-            max-height: min(60vh, 22rem);
-            overflow-y: auto;
+            width: min(92vw, 36rem);
+            max-width: 92vw;
+            max-height: none;
+            overflow: visible;
             background: #0b1220;
             border: 1px solid #334155;
-            border-radius: 0.85rem;
+            border-radius: 0.9rem;
             box-shadow: 0 22px 50px rgba(0,0,0,0.65), 0 0 0 1px rgba(16,185,129,0.08);
-            padding: 0.4rem;
+            padding: 0.45rem 0.5rem 0.55rem;
             z-index: 9999;
+            box-sizing: border-box;
         }
         .cat-submenu.open {
-            display: block;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(10.2rem, 1fr));
+            gap: 0.28rem 0.32rem;
+            align-content: start;
             animation: catMenuIn 0.12s ease-out;
         }
         @keyframes catMenuIn {
@@ -463,40 +1146,25 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .cat-submenu .cat-menu-title {
-            padding: 0.35rem 0.65rem 0.45rem;
+            grid-column: 1 / -1;
+            padding: 0.3rem 0.45rem 0.4rem;
             font-size: 0.62rem;
             font-weight: 800;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: #64748b;
             border-bottom: 1px solid #1e293b;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.15rem;
         }
-        .cat-submenu button {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 0.55rem 0.7rem;
-            border-radius: 0.55rem;
-            font-size: 0.84rem;
-            font-weight: 600;
-            color: #e2e8f0;
-            background: transparent;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: background 0.12s, border-color 0.12s, color 0.12s;
-        }
-        .cat-submenu button:hover {
-            background: #1e293b;
-            color: #6ee7b7;
-            border-color: #334155;
-        }
-        .cat-submenu button.active {
-            background: rgba(16, 185, 129, 0.16);
-            color: #6ee7b7;
-            border-color: rgba(16, 185, 129, 0.45);
+        .cat-submenu .cat-menu-hint {
+            grid-column: 1 / -1;
+            padding: 0.15rem 0.45rem 0.35rem;
+            font-size: 0.62rem;
+            color: #64748b;
+            font-weight: 500;
         }
         .cat-submenu .cat-empty {
+            grid-column: 1 / -1;
             padding: 0.65rem 0.75rem;
             font-size: 0.75rem;
             color: #64748b;
@@ -505,16 +1173,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 0.5rem;
+            gap: 0.35rem;
             width: 100%;
             text-align: left;
-            padding: 0.55rem 0.7rem;
-            border-radius: 0.55rem;
-            font-size: 0.84rem;
+            padding: 0.45rem 0.55rem;
+            min-height: 2.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.78rem;
             font-weight: 600;
             color: #e2e8f0;
-            background: transparent;
-            border: 1px solid transparent;
+            background: #111827;
+            border: 1px solid #1e293b;
             cursor: pointer;
             transition: background 0.12s, border-color 0.12s, color 0.12s;
         }
@@ -522,7 +1191,8 @@
         .cat-submenu .cat-item.flyout-active {
             background: #1e293b;
             color: #6ee7b7;
-            border-color: #334155;
+            border-color: #10b981;
+            box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.25);
         }
         .cat-submenu .cat-item.active {
             background: rgba(16, 185, 129, 0.16);
@@ -532,36 +1202,38 @@
         .cat-submenu .cat-item .cat-item-name {
             flex: 1;
             min-width: 0;
+            line-height: 1.2;
         }
         .cat-submenu .cat-item .cat-item-chevron {
             flex-shrink: 0;
-            font-size: 0.7rem;
-            opacity: 0.55;
-            color: #94a3b8;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            color: #38bdf8;
         }
-        /* Panel de variantes: rejilla multi-columna, todo a la vista (sin scroll) */
+        /* Flyout de variantes (igual para Abiertas y el resto): rejilla, sin barra de scroll */
         .cat-flyout {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: min(94vw, 46rem);
+            width: min(94vw, 48rem);
             max-width: 94vw;
             max-height: none;
             overflow: visible;
             background: #0b1220;
-            border: 1px solid #475569;
+            border: 1px solid #38bdf8;
             border-radius: 0.9rem;
-            box-shadow: 0 22px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(56,189,248,0.12);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.75), 0 0 0 1px rgba(56,189,248,0.18);
             padding: 0.5rem 0.55rem 0.6rem;
-            z-index: 10000;
-            --fly-bridge: 16px;
+            z-index: 10050;
+            --fly-bridge: 18px;
             box-sizing: border-box;
+            pointer-events: auto;
         }
         .cat-flyout.open {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
-            gap: 0.3rem 0.35rem;
+            grid-template-columns: repeat(auto-fill, minmax(10.2rem, 1fr));
+            gap: 0.28rem 0.32rem;
             align-content: start;
             animation: catMenuIn 0.12s ease-out;
         }
@@ -687,137 +1359,174 @@
         <header class="w-full text-center mt-6 mb-12">
             <!-- Gradiente ajustado a tonos cálidos más agradables -->
             <h1 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-orange-400 to-rose-500 mb-4 drop-shadow-sm">Aprende aperturas</h1>
-            <p class="text-slate-400 text-xl md:text-2xl font-light">25 teorías y sus variantes</p>
+            <p class="text-slate-400 text-xl md:text-2xl font-light">30 teorías y sus variantes</p>
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button type="button" id="btn-exam-home" class="exam-launch-btn" onclick="event.stopPropagation(); toggleExamMenu(event)" aria-haspopup="true" aria-expanded="false" title="Modo examen: identifica la apertura">
+                    <span class="exam-ico" aria-hidden="true">📝</span>
+                    Examen
+                </button>
+                <p class="text-slate-500 text-sm max-w-md">Observa una partida al azar e identifica la apertura entre varias opciones.</p>
+            </div>
         </header>
         <main class="w-full">
-            <div id="openings-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+            <div id="openings-grid" class="w-full"></div>
         </main>
     </div>
 
     <div id="game-view" class="hidden w-full max-w-6xl flex flex-col items-center">
-        <!-- Una sola fila superior con todos los controles -->
+        <div class="game-workspace" id="game-workspace">
+        <!-- Barra de controles: 3 modos (arriba / izquierda / mixta) -->
         <header class="top-bar" id="top-bar">
             <div class="top-bar-scroll" id="top-bar-scroll">
-                <button onclick="backToMenu()" class="icon-btn" aria-label="Menú" title="Menú">
-                    <span class="icon-btn-label">Menú</span>
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-                </button>
-
-                <div class="game-title-block">
-                    <h1 id="game-title" class="game-title-sm">Apertura</h1>
-                    <p id="game-subtitle" class="game-subtitle-sm">Línea principal</p>
-                </div>
-
-                <div class="top-bar-sep" aria-hidden="true"></div>
-
-                <div class="cat-dropdown">
-                    <button type="button" class="cat-btn" id="cat-btn-Abierta" onclick="event.stopPropagation(); toggleCatMenu('Abierta')" aria-haspopup="true" aria-expanded="false">Abiertas ▾</button>
-                </div>
-                <div class="cat-dropdown">
-                    <button type="button" class="cat-btn" id="cat-btn-Cerrada" onclick="event.stopPropagation(); toggleCatMenu('Cerrada')" aria-haspopup="true" aria-expanded="false">Cerradas ▾</button>
-                </div>
-                <div class="cat-dropdown">
-                    <button type="button" class="cat-btn" id="cat-btn-Semi-abierta" onclick="event.stopPropagation(); toggleCatMenu('Semi-abierta')" aria-haspopup="true" aria-expanded="false">Semiabiertas ▾</button>
-                </div>
-                <div class="cat-dropdown">
-                    <button type="button" class="cat-btn" id="cat-btn-Semi-cerrada" onclick="event.stopPropagation(); toggleCatMenu('Semi-cerrada')" aria-haspopup="true" aria-expanded="false">Semicerradas ▾</button>
-                </div>
-
-                <div class="top-bar-sep" aria-hidden="true"></div>
-
-                <div class="move-btn-group" role="group" aria-label="Control de jugadas">
-                    <button id="btn-undo-move" onclick="undoMove()" class="icon-btn" aria-label="Retroceder" title="Retroceder">
-                        <span class="icon-btn-label">Retroceder</span>
+                <!-- Mitad A: menú, título y control de jugadas -->
+                <div class="toolbar-half toolbar-half-main" id="toolbar-half-main">
+                    <button onclick="backToMenu()" class="icon-btn" aria-label="Menú" title="Menú">
+                        <span class="icon-btn-label">Menú</span>
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
                     </button>
-                    <button id="btn-reset" onclick="resetOpening()" class="icon-btn" aria-label="Reiniciar" title="Reiniciar">
-                        <span class="icon-btn-label">Reiniciar</span>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
-                    </button>
-                    <button id="btn-step-one" onclick="stepOnePly()" class="icon-btn" aria-label="Una jugada" title="Una jugada">
-                        <span class="icon-btn-label">Una jugada</span>
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-                    </button>
-                    <button id="btn-next-move" onclick="stepNextMove()" class="icon-btn icon-btn-primary" aria-label="Auto-Jugada" title="Auto-Jugada (tú + rival)">
-                        <span class="icon-btn-label">Auto (2)</span>
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M6 6l5 6-5 6"/>
-                            <path d="M13 6l5 6-5 6"/>
+
+                    <button id="btn-toolbar-mode" type="button" onclick="cycleToolbarMode()" class="icon-btn" aria-label="Disposición del menú" title="Rotar disposición del menú: arriba · izquierda · mixta" data-mode="top">
+                        <span class="icon-btn-label" id="toolbar-mode-label">Menú arriba</span>
+                        <svg id="toolbar-mode-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <!-- silueta: menú arriba (por defecto) -->
+                            <rect x="3" y="3" width="18" height="4" rx="1"/>
+                            <rect x="3" y="9" width="18" height="12" rx="1.5"/>
                         </svg>
                     </button>
+
+                    <div class="game-title-block">
+                        <h1 id="game-title" class="game-title-sm">Apertura</h1>
+                        <p id="game-subtitle" class="game-subtitle-sm">Línea principal</p>
+                    </div>
+
+                    <div class="top-bar-sep" aria-hidden="true"></div>
+
+                    <div class="move-btn-group" role="group" aria-label="Control de jugadas y variantes">
+                        <button id="btn-undo-move" onclick="undoMove()" class="icon-btn" aria-label="Retroceder" title="Retroceder">
+                            <span class="icon-btn-label">Retroceder</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button id="btn-reset" onclick="resetOpening()" class="icon-btn" aria-label="Reiniciar" title="Reiniciar">
+                            <span class="icon-btn-label">Reiniciar</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+                        </button>
+                        <button id="btn-step-one" onclick="stepOnePly()" class="icon-btn" aria-label="Una jugada" title="Una jugada">
+                            <span class="icon-btn-label">Una jugada</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                        </button>
+                        <button id="btn-next-move" onclick="stepNextMove()" class="icon-btn icon-btn-primary" aria-label="Auto-Jugada" title="Auto-Jugada (tú + rival)">
+                            <span class="icon-btn-label">Auto (2)</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M6 6l5 6-5 6"/>
+                                <path d="M13 6l5 6-5 6"/>
+                            </svg>
+                        </button>
+                        <button id="btn-skip" onclick="skipToVariations()" class="icon-btn icon-btn-variants" aria-label="Variantes" title="Variantes" aria-pressed="false">
+                            <span class="icon-btn-label">Variantes</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="6" cy="6" r="2.2"/>
+                                <circle cx="6" cy="18" r="2.2"/>
+                                <circle cx="18" cy="12" r="2.2"/>
+                                <path d="M6 8.2v7.6"/>
+                                <path d="M8.1 7.1L15.8 11"/>
+                                <path d="M8.1 16.9L15.8 13"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <button id="btn-skip" onclick="skipToVariations()" class="icon-btn icon-btn-variants" aria-label="Variantes" title="Variantes" aria-pressed="false">
-                    <span class="icon-btn-label">Variantes</span>
-                    <span class="var-abbr">VAR</span>
-                </button>
 
-                <div class="top-bar-sep" aria-hidden="true"></div>
+                <!-- Mitad B: aspecto del tablero, Stockfish/Examen y categorías -->
+                <div class="toolbar-half toolbar-half-extra" id="toolbar-half-extra">
+                    <div class="top-bar-sep toolbar-half-lead-sep" aria-hidden="true"></div>
 
-                <button id="btn-board-size" onclick="cycleBoardSize()" class="icon-btn" aria-label="Tamaño del tablero" title="Tamaño del tablero">
-                    <span class="icon-btn-label" id="board-size-label">Tamaño</span>
-                    <!-- ciclos de tamaño: marco + flechas -->
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="5" y="5" width="14" height="14" rx="1.5"/>
-                        <path d="M9 12h6"/>
-                        <path d="M12 9v6"/>
-                    </svg>
-                </button>
-                <button id="btn-layout" onclick="toggleLayout()" class="icon-btn" aria-label="Cambiar disposición" title="Paneles abajo / al lado">
-                    <span class="icon-btn-label" id="layout-btn-label">Paneles abajo</span>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="3" y="3" width="8" height="18" rx="1.5"/>
-                        <rect x="13" y="3" width="8" height="8" rx="1.5"/>
-                        <rect x="13" y="13" width="8" height="8" rx="1.5"/>
-                    </svg>
-                </button>
-                <button id="btn-board-theme" onclick="cycleBoardTheme()" class="icon-btn" aria-label="Cambiar colores del tablero" title="Colores del tablero">
-                    <span class="icon-btn-label" id="board-theme-label">Tablero</span>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="3" y="3" width="8" height="8" rx="1"/>
-                        <rect x="13" y="3" width="8" height="8" rx="1"/>
-                        <rect x="3" y="13" width="8" height="8" rx="1"/>
-                        <rect x="13" y="13" width="8" height="8" rx="1"/>
-                    </svg>
-                </button>
-                <button id="btn-piece-set" onclick="cyclePieceSet()" class="icon-btn" aria-label="Cambiar estilo de piezas" title="Estilo de piezas">
-                    <span class="icon-btn-label" id="piece-set-label">Piezas</span>
-                    <!-- peón simple -->
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="7" r="3"/>
-                        <path d="M9.5 11.5c0 0 1 1.5 1 3.5v1h3v-1c0-2 1-3.5 1-3.5"/>
-                        <path d="M8 20h8"/>
-                        <path d="M9 16.5h6l.5 3.5h-7L9 16.5z"/>
-                    </svg>
-                </button>
-                <button id="btn-stockfish" onclick="cycleStockfishLevel()" class="icon-btn" aria-label="Nivel Stockfish" title="Stockfish: Torpe">
-                    <span class="icon-btn-label" id="stockfish-level-label">SF · Torpe</span>
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <rect x="6" y="8" width="12" height="10" rx="2"/>
-                        <path d="M12 8V5"/>
-                        <circle cx="12" cy="4" r="1.2" fill="currentColor" stroke="none"/>
-                        <circle cx="9.5" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
-                        <circle cx="14.5" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
-                        <path d="M10 15.5h4"/>
-                        <path d="M6 12H4"/>
-                        <path d="M20 12h-2"/>
-                        <path d="M9 18v2"/>
-                        <path d="M15 18v2"/>
-                    </svg>
-                    <span class="sf-level-badge" id="sf-badge">T</span>
-                </button>
+                    <div class="board-look-group" role="group" aria-label="Aspecto del tablero">
+                        <button id="btn-board-size" onclick="cycleBoardSize()" class="icon-btn" aria-label="Tamaño del tablero" title="Tamaño del tablero">
+                            <span class="icon-btn-label" id="board-size-label">Tamaño</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="5" y="5" width="14" height="14" rx="1.5"/>
+                                <path d="M9 12h6"/>
+                                <path d="M12 9v6"/>
+                            </svg>
+                        </button>
+                        <button id="btn-layout" onclick="toggleLayout()" class="icon-btn" aria-label="Cambiar disposición" title="Paneles abajo / al lado">
+                            <span class="icon-btn-label" id="layout-btn-label">Paneles abajo</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="3" width="8" height="18" rx="1.5"/>
+                                <rect x="13" y="3" width="8" height="8" rx="1.5"/>
+                                <rect x="13" y="13" width="8" height="8" rx="1.5"/>
+                            </svg>
+                        </button>
+                        <button id="btn-board-theme" onclick="cycleBoardTheme()" class="icon-btn" aria-label="Cambiar colores del tablero" title="Colores del tablero">
+                            <span class="icon-btn-label" id="board-theme-label">Tablero</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="3" y="3" width="8" height="8" rx="1"/>
+                                <rect x="13" y="3" width="8" height="8" rx="1"/>
+                                <rect x="3" y="13" width="8" height="8" rx="1"/>
+                                <rect x="13" y="13" width="8" height="8" rx="1"/>
+                            </svg>
+                        </button>
+                        <button id="btn-piece-set" onclick="cyclePieceSet()" class="icon-btn" aria-label="Cambiar estilo de piezas" title="Estilo de piezas">
+                            <span class="icon-btn-label" id="piece-set-label">Piezas</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="7" r="3"/>
+                                <path d="M9.5 11.5c0 0 1 1.5 1 3.5v1h3v-1c0-2 1-3.5 1-3.5"/>
+                                <path d="M8 20h8"/>
+                                <path d="M9 16.5h6l.5 3.5h-7L9 16.5z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="user-tools-group" role="group" aria-label="Stockfish y examen">
+                        <button id="btn-stockfish" onclick="cycleStockfishLevel()" class="icon-btn" aria-label="Nivel Stockfish" title="Stockfish: Torpe">
+                            <span class="icon-btn-label" id="stockfish-level-label">SF · Torpe</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <rect x="6" y="8" width="12" height="10" rx="2"/>
+                                <path d="M12 8V5"/>
+                                <circle cx="12" cy="4" r="1.2" fill="currentColor" stroke="none"/>
+                                <circle cx="9.5" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
+                                <circle cx="14.5" cy="12.5" r="1.1" fill="currentColor" stroke="none"/>
+                                <path d="M10 15.5h4"/>
+                                <path d="M6 12H4"/>
+                                <path d="M20 12h-2"/>
+                                <path d="M9 18v2"/>
+                                <path d="M15 18v2"/>
+                            </svg>
+                            <span class="sf-level-badge" id="sf-badge">T</span>
+                        </button>
+                        <button type="button" id="btn-exam-bar" class="icon-btn icon-btn-exam" onclick="event.stopPropagation(); toggleExamMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Examen" title="Modo examen">
+                            <span class="icon-btn-label">Examen</span>
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+                                <rect x="9" y="3" width="6" height="4" rx="1"/>
+                                <path d="M9 13l2 2 4-4"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="top-bar-sep" aria-hidden="true"></div>
+
+                    <div class="top-bar-right" id="top-bar-cats">
+                        <div class="cat-dropdown">
+                            <button type="button" class="cat-btn" id="cat-btn-Abierta" onclick="event.stopPropagation(); toggleCatMenu('Abierta')" aria-haspopup="true" aria-expanded="false">Abiertas ▾</button>
+                        </div>
+                        <div class="cat-dropdown">
+                            <button type="button" class="cat-btn" id="cat-btn-Cerrada" onclick="event.stopPropagation(); toggleCatMenu('Cerrada')" aria-haspopup="true" aria-expanded="false">Cerradas ▾</button>
+                        </div>
+                        <div class="cat-dropdown">
+                            <button type="button" class="cat-btn" id="cat-btn-Semi-abierta" onclick="event.stopPropagation(); toggleCatMenu('Semi-abierta')" aria-haspopup="true" aria-expanded="false">Semiabiertas ▾</button>
+                        </div>
+                        <div class="cat-dropdown">
+                            <button type="button" class="cat-btn" id="cat-btn-Semi-cerrada" onclick="event.stopPropagation(); toggleCatMenu('Semi-cerrada')" aria-haspopup="true" aria-expanded="false">Semicerradas ▾</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <!-- Portal de submenús de aperturas (fuera del scroll para no recortarse) -->
-        <div id="cat-menus-portal" aria-hidden="true">
-            <div class="cat-submenu" id="cat-menu-Abierta" role="menu"></div>
-            <div class="cat-submenu" id="cat-menu-Cerrada" role="menu"></div>
-            <div class="cat-submenu" id="cat-menu-Semi-abierta" role="menu"></div>
-            <div class="cat-submenu" id="cat-menu-Semi-cerrada" role="menu"></div>
-            <!-- Sub-submenú lateral con variantes de la apertura resaltada -->
-            <div class="cat-flyout" id="cat-flyout" role="menu" aria-label="Variantes de la apertura"></div>
-        </div>
+        <!-- Rail lateral (se llena al rotar a modo izquierda o mixta) -->
+        <aside class="toolbar-side" id="toolbar-side" aria-label="Controles laterales" hidden></aside>
 
+        <div class="game-center" id="game-center">
         <!-- Lista de variantes arriba del todo (justo bajo la barra de controles) -->
         <div id="variations-container" class="variations-top hidden" aria-live="polite"></div>
 
@@ -849,6 +1558,22 @@
                 </div>
 
                 <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-2xl flex-grow flex flex-col gap-5">
+                    <!-- Panel de respuesta del examen -->
+                    <div id="exam-quiz-panel" aria-live="polite">
+                        <div>
+                            <p class="text-[10px] font-black text-amber-400 uppercase tracking-[0.18em] mb-2">Examen</p>
+                            <h3 class="exam-q-title">¿Qué apertura has visto?</h3>
+                            <p class="exam-q-sub" id="exam-quiz-sub">Elige la respuesta correcta entre las opciones.</p>
+                        </div>
+                        <div id="exam-options" role="group" aria-label="Opciones de apertura"></div>
+                        <p id="exam-feedback"></p>
+                        <div class="exam-actions" id="exam-actions" hidden>
+                            <button type="button" class="primary" id="exam-btn-again" onclick="repeatExamScope()">Otro examen</button>
+                            <button type="button" id="exam-btn-menu" onclick="backToMenu()">Menú principal</button>
+                        </div>
+                    </div>
+
+                    <div id="theory-panel-study">
                     <div>
                         <h4 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Instrucción Actual</h4>
                         <p id="instruction-text" class="text-xl font-bold text-white leading-tight"></p>
@@ -867,9 +1592,22 @@
                             <p id="theory-text-prev" class="text-sm text-slate-400 leading-relaxed italic"></p>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </main>
+        </div><!-- /game-center -->
+        </div><!-- /game-workspace -->
+    </div>
+
+    <!-- Portal global de submenús (inicio + tablero; position:fixed no debe vivir dentro de #game-view oculto) -->
+    <div id="cat-menus-portal" aria-hidden="true">
+        <div class="cat-submenu" id="cat-menu-Abierta" role="menu"></div>
+        <div class="cat-submenu" id="cat-menu-Cerrada" role="menu"></div>
+        <div class="cat-submenu" id="cat-menu-Semi-abierta" role="menu"></div>
+        <div class="cat-submenu" id="cat-menu-Semi-cerrada" role="menu"></div>
+        <div class="cat-flyout" id="cat-flyout" role="menu" aria-label="Variantes de la apertura"></div>
+        <div class="exam-menu" id="exam-menu" role="menu" aria-label="Opciones de examen"></div>
     </div>
 
     <script>
@@ -996,7 +1734,7 @@
 
         // Módulo de Base de Datos - 20 Aperturas Reales con 10 Jugadas Dobles Exactas (20 plies)
         
-        // Módulo de Base de Datos - 25 Aperturas Reales con 10 Jugadas Dobles Exactas (20 plies)
+        // Módulo de Base de Datos - 30 Aperturas Reales con 10 Jugadas Dobles Exactas (20 plies)
         const OPENING_MODULES = {
             1: { // Ruy Lopez
                 title: "Ruy López", subtitle: "Variante Morphy", theme: "text-emerald-400",
@@ -4430,6 +5168,241 @@
                         ]
                     }
                 ]
+            },
+            26: { // Defensa Petrov
+                title: "Defensa Petrov", subtitle: "Línea Clásica", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[5,5], to:[3,4], san:"Nxe5" }, b: { from:[1,3], to:[2,3], san:"d6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[3,4], to:[5,5], san:"Nf3" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[2,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[4,4], to:[5,2], san:"Nxc3" } },
+                    { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,1], to:[1,3], san:"Nd7" } }
+                ],
+                variations: [
+                    {
+                        name: "Gambito Cochrane", subtitle: "Sacrificio en f7",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[5,5], to:[3,4], san:"Nxe5" }, b: { from:[1,3], to:[2,3], san:"d6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[3,4], to:[1,5], san:"Nxf7" }, b: { from:[0,4], to:[1,5], san:"Kxf7" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[2,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[6,2], to:[4,2], san:"c4" }, b: { from:[1,2], to:[2,2], san:"c6" } },
+                    { w: { from:[4,2], to:[3,3], san:"cxd5" }, b: { from:[2,2], to:[3,3], san:"cxd5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                        ]
+                    },
+                    {
+                        name: "Ataque Nimzowitsch", subtitle: "5.Nc3 contra Petrov",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[5,5], to:[3,4], san:"Nxe5" }, b: { from:[1,3], to:[2,3], san:"d6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[3,4], to:[5,5], san:"Nf3" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[4,4], to:[5,2], san:"Nxc3" } },
+                    { w: { from:[6,3], to:[5,2], san:"dxc3" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,1], to:[1,3], san:"Nd7" } },
+                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                    { w: { from:[7,2], to:[4,5], san:"Bf4" }, b: { from:[1,3], to:[2,5], san:"Nf6" } }
+                        ]
+                    }
+                ]
+            },
+            27: { // Apertura de Alfil
+                title: "Apertura de Alfil", subtitle: "Sistema Clásico", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,2], to:[2,2], san:"c6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[4,2], to:[5,1], san:"Bb3" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                    { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[0,1], to:[1,3], san:"Nbd7" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,3], to:[0,5], san:"Nf8" } },
+                    { w: { from:[6,3], to:[7,5], san:"Nf1" }, b: { from:[2,5], to:[4,6], san:"Ng4" } }
+                ],
+                variations: [
+                    {
+                        name: "Gambito Urusov", subtitle: "Sacrificio posicional",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[2,5], to:[4,4], san:"Nxe4" } },
+                    { w: { from:[7,3], to:[4,3], san:"Qxd4" }, b: { from:[4,4], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[4,3], to:[4,7], san:"Qh4" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                    { w: { from:[7,7], to:[7,4], san:"Rhe1" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } }
+                        ]
+                    },
+                    {
+                        name: "Línea con ...Nc6", subtitle: "Desarrollo italiano del alfil",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,5], to:[3,2], san:"Bc5" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[4,2], to:[5,1], san:"Bb3" }, b: { from:[1,0], to:[2,0], san:"a6" } },
+                    { w: { from:[7,1], to:[6,3], san:"Nbd2" }, b: { from:[3,2], to:[1,0], san:"Ba7" } },
+                    { w: { from:[6,7], to:[5,7], san:"h3" }, b: { from:[1,7], to:[2,7], san:"h6" } },
+                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[0,2], to:[2,4], san:"Be6" } }
+                        ]
+                    }
+                ]
+            },
+            28: { // Cuatro Caballos
+                title: "Cuatro Caballos", subtitle: "Variante Española", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,5], to:[3,1], san:"Bb5" }, b: { from:[0,5], to:[4,1], san:"Bb4" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[4,1], to:[5,2], san:"Bxc3" } },
+                    { w: { from:[6,1], to:[5,2], san:"bxc3" }, b: { from:[0,3], to:[1,4], san:"Qe7" } },
+                    { w: { from:[7,5], to:[7,4], san:"Re1" }, b: { from:[2,2], to:[0,3], san:"Nd8" } },
+                    { w: { from:[5,3], to:[4,3], san:"d4" }, b: { from:[0,3], to:[2,4], san:"Ne6" } }
+                ],
+                variations: [
+                    {
+                        name: "Cuatro Caballos Escocesa", subtitle: "4.d4",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[5,5], to:[4,3], san:"Nxd4" }, b: { from:[0,5], to:[4,1], san:"Bb4" } },
+                    { w: { from:[4,3], to:[2,2], san:"Nxc6" }, b: { from:[1,1], to:[2,2], san:"bxc6" } },
+                    { w: { from:[7,5], to:[5,3], san:"Bd3" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,2], to:[3,3], san:"cxd5" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,2], to:[2,2], san:"c6" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Rubinstein", subtitle: "4...Nd4",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,6], to:[2,5], san:"Nf6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,5], to:[3,1], san:"Bb5" }, b: { from:[2,2], to:[4,3], san:"Nd4" } },
+                    { w: { from:[3,1], to:[4,0], san:"Ba4" }, b: { from:[0,5], to:[3,2], san:"Bc5" } },
+                    { w: { from:[5,5], to:[3,4], san:"Nxe5" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[3,4], to:[5,3], san:"Nd3" }, b: { from:[3,2], to:[2,1], san:"Bb6" } },
+                    { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[2,5], to:[0,4], san:"Ne8" } },
+                    { w: { from:[7,4], to:[7,6], san:"O-O", castle:true, rFrom:[7,7], rTo:[7,5] }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[3,4], to:[2,3], san:"exd6" }, b: { from:[0,4], to:[2,3], san:"Nxd6" } }
+                        ]
+                    }
+                ]
+            },
+            29: { // Juego del Centro
+                title: "Juego del Centro", subtitle: "Línea Principal", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[7,3], to:[4,3], san:"Qxd4" }, b: { from:[0,1], to:[2,2], san:"Nc6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[4,3], to:[5,4], san:"Qe3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[4,1], san:"Bb4" } },
+                    { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,5], to:[0,4], san:"Re8" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[6,5], to:[5,5], san:"f3" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                    { w: { from:[7,6], to:[6,4], san:"Nge2" }, b: { from:[4,1], to:[3,0], san:"Ba5" } }
+                ],
+                variations: [
+                    {
+                        name: "Variante Paulsen", subtitle: "Estructura con ...g6",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[7,3], to:[4,3], san:"Qxd4" }, b: { from:[0,1], to:[2,2], san:"Nc6" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[4,3], to:[5,4], san:"Qe3" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[0,5], to:[1,6], san:"Bg7" } },
+                    { w: { from:[7,2], to:[6,3], san:"Bd2" }, b: { from:[0,6], to:[1,4], san:"Nge7" } },
+                    { w: { from:[7,4], to:[7,2], san:"O-O-O", castle:true, rFrom:[7,0], rTo:[7,3] }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[1,3], to:[2,3], san:"d6" } },
+                    { w: { from:[6,5], to:[4,5], san:"f4" }, b: { from:[0,2], to:[2,4], san:"Be6" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[1,0], to:[2,0], san:"a6" } }
+                        ]
+                    },
+                    {
+                        name: "Gambito Danés", subtitle: "3.c3 sacrificio",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[4,3], to:[5,2], san:"dxc3" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[5,2], to:[6,1], san:"cxb2" } },
+                    { w: { from:[7,2], to:[6,1], san:"Bxb2" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[4,4], to:[3,4], san:"e5" }, b: { from:[1,3], to:[3,3], san:"d5" } },
+                    { w: { from:[3,4], to:[2,5], san:"exf6" }, b: { from:[3,3], to:[4,2], san:"dxc4" } },
+                    { w: { from:[7,3], to:[0,3], san:"Qxd8+" }, b: { from:[0,4], to:[0,3], san:"Kxd8" } },
+                    { w: { from:[2,5], to:[1,6], san:"fxg7" }, b: { from:[0,5], to:[1,6], san:"Bxg7" } },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } }
+                        ]
+                    }
+                ]
+            },
+            30: { // Apertura Ponziani
+                title: "Apertura Ponziani", subtitle: "Línea Principal", theme: "text-emerald-400",
+                steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,3], to:[3,3], san:"d5" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,3], to:[4,0], san:"Qa4" }, b: { from:[1,5], to:[2,5], san:"f6" } },
+                    { w: { from:[7,5], to:[3,1], san:"Bb5" }, b: { from:[0,6], to:[1,4], san:"Ne7" } },
+                    { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[0,3], to:[3,3], san:"Qxd5" } },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[0,2], to:[1,3], san:"Bd7" } },
+                    { w: { from:[7,2], to:[5,4], san:"Be3" }, b: { from:[3,4], to:[4,3], san:"exd4" } },
+                    { w: { from:[5,2], to:[4,3], san:"cxd4" }, b: { from:[1,4], to:[3,5], san:"Nf5" } },
+                    { w: { from:[7,1], to:[5,2], san:"Nc3" }, b: { from:[3,3], to:[1,5], san:"Qf7" } }
+                ],
+                variations: [
+                    {
+                        name: "Contragambito Jaenisch", subtitle: "3...f5",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,5], to:[3,5], san:"f5" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[6,3], to:[4,3], san:"d4" }, b: { from:[3,5], to:[4,4], san:"fxe4" } },
+                    { w: { from:[5,5], to:[3,4], san:"Nxe5" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[0,5], to:[1,4], san:"Be7" } },
+                    { w: { from:[3,6], to:[2,5], san:"Bxf6" }, b: { from:[1,4], to:[2,5], san:"Bxf6" } },
+                    { w: { from:[7,3], to:[3,7], san:"Qh5+" }, b: { from:[1,6], to:[2,6], san:"g6" } },
+                    { w: { from:[3,4], to:[2,6], san:"Nxg6" }, b: { from:[1,7], to:[2,6], san:"hxg6" } },
+                    { w: { from:[3,7], to:[2,6], san:"Qxg6+" }, b: { from:[0,4], to:[0,5], san:"Kf8" } }
+                        ]
+                    },
+                    {
+                        name: "Variante Steinitz", subtitle: "4...Bd7",
+                        steps: [
+                    { w: { from:[6,4], to:[4,4], san:"e4" }, b: { from:[1,4], to:[3,4], san:"e5" }, teoriaW: "Ocupa el centro.", teoriaB: "Respuesta simétrica de peón de rey." },
+                    { w: { from:[7,6], to:[5,5], san:"Nf3" }, b: { from:[0,1], to:[2,2], san:"Nc6" } },
+                    { w: { from:[6,2], to:[5,2], san:"c3" }, b: { from:[1,3], to:[3,3], san:"d5" }, teoriaW: "Idea característica de la apertura.", teoriaB: "Continúa el plan teórico." },
+                    { w: { from:[7,3], to:[4,0], san:"Qa4" }, b: { from:[0,2], to:[1,3], san:"Bd7" } },
+                    { w: { from:[4,4], to:[3,3], san:"exd5" }, b: { from:[2,2], to:[4,3], san:"Nd4" } },
+                    { w: { from:[4,0], to:[7,3], san:"Qd1" }, b: { from:[4,3], to:[5,5], san:"Nxf3+" } },
+                    { w: { from:[7,3], to:[5,5], san:"Qxf3" }, b: { from:[0,6], to:[2,5], san:"Nf6" } },
+                    { w: { from:[7,5], to:[4,2], san:"Bc4" }, b: { from:[0,5], to:[2,3], san:"Bd6" } },
+                    { w: { from:[6,3], to:[5,3], san:"d3" }, b: { from:[0,4], to:[0,6], san:"O-O", castle:true, rFrom:[0,7], rTo:[0,5] } },
+                    { w: { from:[7,2], to:[3,6], san:"Bg5" }, b: { from:[1,7], to:[2,7], san:"h6" } }
+                        ]
+                    }
+                ]
             }
         };
 
@@ -4459,10 +5432,15 @@
             { id: 22, name: "Apertura Bird", type: "Flanco", color: "cyan" },
             { id: 23, name: "Defensa Bogo-India", type: "Semi-cerrada", color: "amber" },
             { id: 24, name: "Apertura Vienesa", type: "Abierta", color: "emerald" },
-            { id: 25, name: "Defensa Philidor", type: "Abierta", color: "emerald" }
+            { id: 25, name: "Defensa Philidor", type: "Abierta", color: "emerald" },
+            { id: 26, name: "Defensa Petrov", type: "Abierta", color: "emerald" },
+            { id: 27, name: "Apertura de Alfil", type: "Abierta", color: "emerald" },
+            { id: 28, name: "Cuatro Caballos", type: "Abierta", color: "emerald" },
+            { id: 29, name: "Juego del Centro", type: "Abierta", color: "emerald" },
+            { id: 30, name: "Apertura Ponziani", type: "Abierta", color: "emerald" }
         ];
 
-        /** Agrupa las 25 aperturas en 4 familias (Flanco se incluye en Cerrada). */
+        /** Agrupa las 30 aperturas en 4 familias (Flanco se incluye en Cerrada). */
         function normalizeOpeningType(type) {
             if (type === 'Flanco') return 'Cerrada';
             return type;
@@ -4481,6 +5459,469 @@
             'Semi-cerrada': 'Aperturas semicerradas'
         };
 
+        /* ─── Modo EXAMEN ─── */
+        let examState = null;
+        let examTimeout = null;
+        let examMenuAnchor = null;
+
+        function shuffleArray(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const t = a[i];
+                a[i] = a[j];
+                a[j] = t;
+            }
+            return a;
+        }
+
+        function getStudyableOpenings(category) {
+            const base = category === 'all'
+                ? chessOpeningsList.slice()
+                : getOpeningsByCategory(category);
+            return base.filter(op => {
+                const mod = OPENING_MODULES[op.id];
+                return mod && Array.isArray(mod.steps) && mod.steps.length > 0;
+            });
+        }
+
+        function isExamActive() {
+            return !!(examState && examState.active);
+        }
+
+        function isExamPlaying() {
+            return !!(examState && examState.active && examState.phase === 'playing');
+        }
+
+        function isExamQuiz() {
+            return !!(examState && examState.active && examState.phase === 'quiz');
+        }
+
+        function clearExamTimers() {
+            if (examTimeout) {
+                clearTimeout(examTimeout);
+                examTimeout = null;
+            }
+        }
+
+        function closeExamMenu() {
+            const menu = document.getElementById('exam-menu');
+            if (menu) {
+                menu.classList.remove('open');
+                menu.style.top = '';
+                menu.style.left = '';
+            }
+            document.querySelectorAll('#btn-exam-home, #btn-exam-bar').forEach(btn => {
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+            });
+            examMenuAnchor = null;
+        }
+
+        function positionExamMenu(anchorEl) {
+            const menu = document.getElementById('exam-menu');
+            if (!menu || !anchorEl) return;
+            const rect = anchorEl.getBoundingClientRect();
+            const margin = 8;
+            const mw = Math.min(window.innerWidth - margin * 2, 352);
+            menu.style.width = mw + 'px';
+            menu.style.top = '0px';
+            menu.style.left = '0px';
+            const h = menu.offsetHeight || 360;
+            let left = rect.left + (rect.width / 2) - (mw / 2);
+            left = Math.max(margin, Math.min(left, window.innerWidth - mw - margin));
+            let top = rect.bottom + 8;
+            if (top + h > window.innerHeight - margin) {
+                top = Math.max(margin, rect.top - 8 - h);
+            }
+            if (top < margin) top = margin;
+            menu.style.left = left + 'px';
+            menu.style.top = top + 'px';
+        }
+
+        function buildExamMenu() {
+            const menu = document.getElementById('exam-menu');
+            if (!menu) return;
+            menu.innerHTML = '';
+
+            const title = document.createElement('div');
+            title.className = 'exam-menu-title';
+            title.textContent = 'Modo examen';
+            menu.appendChild(title);
+
+            const hint = document.createElement('div');
+            hint.className = 'exam-menu-hint';
+            hint.textContent = 'Se reproduce una apertura al azar del grupo elegido. Al final debes identificarla entre 5–6 opciones.';
+            menu.appendChild(hint);
+
+            const allBtn = document.createElement('button');
+            allBtn.type = 'button';
+            allBtn.className = 'exam-all-btn';
+            allBtn.setAttribute('role', 'menuitem');
+            const allCount = getStudyableOpenings('all').length;
+            allBtn.textContent = `Una entre todas (${allCount})`;
+            allBtn.onclick = (e) => {
+                e.stopPropagation();
+                startExam('all', 'all');
+            };
+            menu.appendChild(allBtn);
+
+            OPENING_CATEGORIES.forEach(cat => {
+                const list = getStudyableOpenings(cat);
+                const block = document.createElement('div');
+                block.className = 'exam-cat-block';
+
+                const lab = document.createElement('div');
+                lab.className = 'exam-cat-label';
+                lab.textContent = `${CAT_TITLES[cat] || cat} (${list.length})`;
+                block.appendChild(lab);
+
+                const opts = document.createElement('div');
+                opts.className = 'exam-cat-opts';
+
+                [
+                    { count: 2, label: '2' },
+                    { count: 4, label: '4' },
+                    { count: 'all', label: 'Todas' }
+                ].forEach(opt => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'exam-opt-btn';
+                    b.setAttribute('role', 'menuitem');
+                    b.textContent = opt.label;
+                    const need = opt.count === 'all' ? 1 : opt.count;
+                    b.disabled = list.length < need;
+                    b.title = b.disabled
+                        ? 'No hay suficientes aperturas en este grupo'
+                        : (opt.count === 'all'
+                            ? `Examen entre las ${list.length} de este grupo`
+                            : `Elige ${opt.count} al azar de este grupo y examina una`);
+                    b.onclick = (e) => {
+                        e.stopPropagation();
+                        if (b.disabled) return;
+                        startExam(cat, opt.count);
+                    };
+                    opts.appendChild(b);
+                });
+
+                block.appendChild(opts);
+                menu.appendChild(block);
+            });
+        }
+
+        function toggleExamMenu(ev) {
+            if (ev) ev.stopPropagation();
+            const menu = document.getElementById('exam-menu');
+            if (!menu) return;
+            const anchor = (ev && ev.currentTarget) || document.getElementById('btn-exam-home');
+            const willOpen = !menu.classList.contains('open') || examMenuAnchor !== anchor;
+
+            closeAllCatMenus();
+            closeExamMenu();
+            if (!willOpen) return;
+
+            buildExamMenu();
+            menu.classList.add('open');
+            examMenuAnchor = anchor;
+            if (anchor) {
+                anchor.classList.add('open');
+                anchor.setAttribute('aria-expanded', 'true');
+            }
+            requestAnimationFrame(() => {
+                positionExamMenu(anchor);
+                requestAnimationFrame(() => positionExamMenu(anchor));
+            });
+        }
+
+        function hideExamQuizPanel() {
+            const panel = document.getElementById('exam-quiz-panel');
+            const study = document.getElementById('theory-panel-study');
+            if (panel) panel.classList.remove('visible');
+            if (study) study.classList.remove('exam-hidden-study');
+            const actions = document.getElementById('exam-actions');
+            if (actions) actions.hidden = true;
+            const fb = document.getElementById('exam-feedback');
+            if (fb) {
+                fb.textContent = '';
+                fb.className = '';
+            }
+            const opts = document.getElementById('exam-options');
+            if (opts) opts.innerHTML = '';
+        }
+
+        function showExamQuizPanel() {
+            const panel = document.getElementById('exam-quiz-panel');
+            const study = document.getElementById('theory-panel-study');
+            if (panel) panel.classList.add('visible');
+            if (study) study.classList.add('exam-hidden-study');
+        }
+
+        function endExam(keepView) {
+            clearExamTimers();
+            examState = null;
+            document.body.classList.remove('exam-active');
+            hideExamQuizPanel();
+            closeExamMenu();
+            if (!keepView) {
+                // caller may switch views
+            }
+        }
+
+        /**
+         * Inicia un examen.
+         * @param {string} category - 'all' | 'Abierta' | 'Cerrada' | 'Semi-abierta' | 'Semi-cerrada'
+         * @param {number|'all'} count - 2, 4 o 'all'
+         */
+        function startExam(category, count) {
+            closeExamMenu();
+            hideOpeningFlyout();
+            clearExamTimers();
+            if (systemTimeout) {
+                clearTimeout(systemTimeout);
+                systemTimeout = null;
+            }
+
+            const studyable = getStudyableOpenings(category);
+            if (!studyable.length) {
+                alert('No hay aperturas disponibles para este examen.');
+                return;
+            }
+
+            let pool;
+            if (count === 'all' || count >= studyable.length) {
+                pool = shuffleArray(studyable);
+            } else {
+                pool = shuffleArray(studyable).slice(0, count);
+            }
+            if (!pool.length) {
+                alert('No hay aperturas suficientes para este examen.');
+                return;
+            }
+
+            const answer = pool[Math.floor(Math.random() * pool.length)];
+            const allStudyable = getStudyableOpenings('all');
+            // Preferir 6 opciones (mín. 5 si hay al menos 5 aperturas en total)
+            let nOptions = allStudyable.length >= 6 ? 6
+                : (allStudyable.length >= 5 ? 5 : Math.max(2, allStudyable.length));
+
+            const optionIds = new Set([answer.id]);
+            // Primero rellenar con el resto del pool
+            shuffleArray(pool).forEach(op => {
+                if (optionIds.size >= nOptions) return;
+                optionIds.add(op.id);
+            });
+            // Luego distractores del mismo grupo y del resto del catálogo
+            const sameGroup = category === 'all' ? allStudyable : getStudyableOpenings(category);
+            shuffleArray(sameGroup).forEach(op => {
+                if (optionIds.size >= nOptions) return;
+                optionIds.add(op.id);
+            });
+            shuffleArray(allStudyable).forEach(op => {
+                if (optionIds.size >= nOptions) return;
+                optionIds.add(op.id);
+            });
+
+            const options = shuffleArray(
+                [...optionIds].map(id => chessOpeningsList.find(o => o.id === id)).filter(Boolean)
+            );
+
+            examState = {
+                active: true,
+                phase: 'playing', // playing | quiz | done
+                category,
+                count,
+                poolIds: pool.map(o => o.id),
+                answerId: answer.id,
+                options,
+                answered: false
+            };
+            document.body.classList.add('exam-active');
+            hideExamQuizPanel();
+
+            // Vista de tablero sin revelar el nombre
+            activeOpeningId = answer.id;
+            freePlayMode = false;
+            variationsPanelOpen = false;
+            userRole = 'w';
+            const btnW = document.getElementById('btn-white');
+            const btnB = document.getElementById('btn-black');
+            if (btnW) {
+                btnW.classList.add('active');
+                btnW.setAttribute('aria-pressed', 'true');
+            }
+            if (btnB) {
+                btnB.classList.remove('active');
+                btnB.setAttribute('aria-pressed', 'false');
+            }
+
+            const mod = OPENING_MODULES[answer.id];
+            currentSteps = mod.steps;
+
+            document.getElementById('menu-view').classList.add('hidden');
+            const gv = document.getElementById('game-view');
+            gv.classList.remove('hidden');
+            gv.classList.add('flex');
+
+            const t = document.getElementById('game-title');
+            const s = document.getElementById('game-subtitle');
+            if (t) {
+                t.textContent = 'Examen';
+                t.className = 'game-title-sm';
+            }
+            if (s) {
+                s.textContent = 'Observa la partida…';
+                s.className = 'game-subtitle-sm';
+            }
+
+            hideVariationsList();
+            initGame();
+            setControlsDisabled(true);
+            updateUI();
+
+            // Pequeña pausa y reproducción automática
+            examTimeout = setTimeout(examPlayNextPly, 700);
+        }
+
+        function examPlayNextPly() {
+            examTimeout = null;
+            if (!isExamPlaying()) return;
+
+            if (!currentSteps || currentStep >= theoryLength()) {
+                finishExamPlayback();
+                return;
+            }
+
+            const step = currentSteps[currentStep];
+            if (!step) {
+                finishExamPlayback();
+                return;
+            }
+            const move = isWhiteTurn ? step.w : step.b;
+            if (!move || !move.from || !move.to) {
+                // Si falta una media jugada, intentar avanzar o terminar
+                if (!isWhiteTurn) {
+                    // Forzar avance de step si negras no tienen jugada
+                    currentStep++;
+                    if (currentStep >= theoryLength()) {
+                        finishExamPlayback();
+                        return;
+                    }
+                    examTimeout = setTimeout(examPlayNextPly, 400);
+                    return;
+                }
+                finishExamPlayback();
+                return;
+            }
+
+            executeMove(move.from[0], move.from[1], move.to[0], move.to[1], move);
+            updateUI();
+
+            if (currentStep >= theoryLength()) {
+                examTimeout = setTimeout(finishExamPlayback, 650);
+            } else {
+                examTimeout = setTimeout(examPlayNextPly, 720);
+            }
+        }
+
+        function finishExamPlayback() {
+            clearExamTimers();
+            if (!examState || !examState.active) return;
+            examState.phase = 'quiz';
+            freePlayMode = false;
+            variationsPanelOpen = false;
+            hideVariationsList();
+            setControlsDisabled(true);
+            renderExamQuiz();
+            updateUI();
+        }
+
+        function renderExamQuiz() {
+            if (!examState) return;
+            showExamQuizPanel();
+            const sub = document.getElementById('exam-quiz-sub');
+            if (sub) {
+                const scopeLabel = examState.category === 'all'
+                    ? 'todas las aperturas'
+                    : (CAT_TITLES[examState.category] || examState.category).toLowerCase();
+                const nPool = examState.poolIds.length;
+                sub.textContent = examState.count === 'all' || examState.category === 'all'
+                    ? `Ámbito: ${scopeLabel}. Elige la correcta entre ${examState.options.length} opciones.`
+                    : `Ámbito: ${nPool} de ${scopeLabel}. Elige la correcta entre ${examState.options.length} opciones.`;
+            }
+
+            const box = document.getElementById('exam-options');
+            const fb = document.getElementById('exam-feedback');
+            const actions = document.getElementById('exam-actions');
+            if (fb) {
+                fb.textContent = '';
+                fb.className = '';
+            }
+            if (actions) actions.hidden = true;
+            if (!box) return;
+            box.innerHTML = '';
+
+            examState.options.forEach(op => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'exam-choice-btn';
+                b.textContent = op.name;
+                b.dataset.id = String(op.id);
+                b.onclick = () => submitExamAnswer(op.id, b);
+                box.appendChild(b);
+            });
+
+            const t = document.getElementById('game-title');
+            const s = document.getElementById('game-subtitle');
+            if (t) t.textContent = 'Examen';
+            if (s) s.textContent = '¿Qué apertura era?';
+        }
+
+        function submitExamAnswer(chosenId, btnEl) {
+            if (!examState || examState.phase !== 'quiz' || examState.answered) return;
+            examState.answered = true;
+            examState.phase = 'done';
+
+            const correct = chosenId === examState.answerId;
+            const answerOp = chessOpeningsList.find(o => o.id === examState.answerId);
+            const answerName = answerOp ? answerOp.name : 'la correcta';
+
+            document.querySelectorAll('#exam-options .exam-choice-btn').forEach(b => {
+                b.disabled = true;
+                const id = Number(b.dataset.id);
+                if (id === examState.answerId) b.classList.add('correct');
+                else if (btnEl && b === btnEl && !correct) b.classList.add('wrong');
+            });
+
+            const fb = document.getElementById('exam-feedback');
+            if (fb) {
+                if (correct) {
+                    fb.textContent = `¡Correcto! Era ${answerName}.`;
+                    fb.className = 'ok';
+                } else {
+                    fb.textContent = `Incorrecto. La apertura era ${answerName}.`;
+                    fb.className = 'bad';
+                }
+            }
+
+            const actions = document.getElementById('exam-actions');
+            if (actions) actions.hidden = false;
+
+            // Revelar título real al acertar/fallar
+            const mod = OPENING_MODULES[examState.answerId];
+            const t = document.getElementById('game-title');
+            const s = document.getElementById('game-subtitle');
+            if (t && mod) t.textContent = mod.title;
+            if (s) s.textContent = correct ? 'Respuesta correcta' : 'Respuesta incorrecta';
+
+            updateUI();
+        }
+
+        function repeatExamScope() {
+            if (!examState) return;
+            const { category, count } = examState;
+            startExam(category, count);
+        }
+
         let flyoutHideTimer = null;
         let activeFlyoutOpeningId = null;
         let skipNextOpeningClick = false;
@@ -4495,7 +5936,10 @@
                 flyout.classList.remove('open');
                 flyout.innerHTML = '';
             }
-            document.querySelectorAll('.cat-item.flyout-active').forEach(el => el.classList.remove('flyout-active'));
+            document.querySelectorAll('.cat-item.flyout-active, .opening-card.flyout-active')
+                .forEach(el => el.classList.remove('flyout-active'));
+            document.querySelectorAll('.opening-card[aria-expanded="true"]')
+                .forEach(el => el.setAttribute('aria-expanded', 'false'));
             activeFlyoutOpeningId = null;
             skipNextOpeningClick = false;
         }
@@ -4519,34 +5963,43 @@
             if (!flyout || !anchorEl) return;
             const rect = anchorEl.getBoundingClientRect();
             const parentMenu = anchorEl.closest('.cat-submenu');
+            const fromCard = anchorEl.classList.contains('opening-card');
             const parentRect = parentMenu ? parentMenu.getBoundingClientRect() : rect;
-            const bridge = 16;
+            const bridge = fromCard ? 12 : 18;
             const margin = 8;
             const count = flyout.querySelectorAll('button').length || 1;
 
-            // Ancho para caber todas en rejilla (sin scroll vertical)
-            const cols = Math.min(4, Math.max(2, Math.ceil(Math.sqrt(count))));
-            const fw = Math.min(window.innerWidth - margin * 2, Math.max(280, cols * 168 + 24));
+            // Rejilla ancha: más columnas si hay muchas variantes (p. ej. Ruy López)
+            const cols = Math.min(5, Math.max(2, Math.ceil(count / 3)));
+            const fw = Math.min(window.innerWidth - margin * 2, Math.max(300, cols * 160 + 28));
             flyout.style.width = fw + 'px';
+            flyout.style.maxHeight = 'none';
+            flyout.style.overflow = 'visible';
 
-            // Preferir a la derecha del menú padre
+            // Preferir a la derecha del ancla (menú de categoría o tarjeta de inicio)
             let placeRight = true;
+            let placedBeside = true;
             let left = parentRect.right + bridge;
             if (left + fw > window.innerWidth - margin) {
                 placeRight = false;
                 left = Math.max(margin, parentRect.left - fw - bridge);
             }
-            // Si aún no cabe a un lado, centrar bajo el menú
             if (left < margin || left + fw > window.innerWidth - margin) {
-                left = Math.max(margin, (window.innerWidth - fw) / 2);
+                // Debajo del ancla si no cabe a los lados
+                left = Math.max(margin, Math.min(
+                    parentRect.left,
+                    window.innerWidth - fw - margin
+                ));
                 placeRight = true;
+                placedBeside = false;
             }
 
-            // Medir altura real y reencajar en el viewport (sin forzar scroll interno)
             flyout.style.top = '0px';
             flyout.style.left = left + 'px';
             const h = flyout.offsetHeight || 200;
-            let top = rect.top;
+            let top = placedBeside
+                ? Math.min(rect.top, parentRect.top)
+                : parentRect.bottom + 8;
             if (top + h > window.innerHeight - margin) {
                 top = Math.max(margin, window.innerHeight - h - margin);
             }
@@ -4554,8 +6007,8 @@
 
             flyout.style.top = top + 'px';
             flyout.style.left = left + 'px';
-            flyout.classList.toggle('fly-right', placeRight);
-            flyout.classList.toggle('fly-left', !placeRight);
+            flyout.classList.toggle('fly-right', placeRight && placedBeside);
+            flyout.classList.toggle('fly-left', !placeRight && placedBeside);
             flyout.scrollTop = 0;
         }
 
@@ -4565,7 +6018,8 @@
             const flyout = document.getElementById('cat-flyout');
             if (!flyout || !op || !OPENING_MODULES[op.id]) return;
 
-            document.querySelectorAll('.cat-item.flyout-active').forEach(el => el.classList.remove('flyout-active'));
+            document.querySelectorAll('.cat-item.flyout-active, .opening-card.flyout-active')
+                .forEach(el => el.classList.remove('flyout-active'));
             if (anchorEl) anchorEl.classList.add('flyout-active');
 
             activeFlyoutOpeningId = op.id;
@@ -4614,11 +6068,19 @@
             });
 
             flyout.onmouseenter = () => cancelHideOpeningFlyout();
-            flyout.onmouseleave = () => scheduleHideOpeningFlyout(520);
+            flyout.onmouseleave = (e) => {
+                const to = e.relatedTarget;
+                if (to && to.closest && to.closest('.opening-card.flyout-active')) {
+                    cancelHideOpeningFlyout();
+                    return;
+                }
+                scheduleHideOpeningFlyout(520);
+            };
         }
 
         function closeAllCatMenus() {
             hideOpeningFlyout();
+            closeExamMenu();
             OPENING_CATEGORIES.forEach(cat => {
                 const menu = document.getElementById('cat-menu-' + cat);
                 const btn = document.getElementById('cat-btn-' + cat);
@@ -4634,27 +6096,51 @@
             });
         }
 
-        /** Coloca el submenú fixed bajo el botón (evita recorte por overflow). */
+        /** Coloca el submenú de categoría en rejilla (sin scroll), bajo el botón o a su derecha si está en el rail. */
         function positionCatMenu(cat) {
             const menu = document.getElementById('cat-menu-' + cat);
             const btn = document.getElementById('cat-btn-' + cat);
             if (!menu || !btn) return;
             const rect = btn.getBoundingClientRect();
-            const menuWidth = Math.min(window.innerWidth * 0.9, 288);
-            let left = rect.left;
-            // Evitar que se salga por la derecha
-            if (left + menuWidth > window.innerWidth - 8) {
-                left = Math.max(8, window.innerWidth - menuWidth - 8);
+            const margin = 8;
+            const count = menu.querySelectorAll('.cat-item').length || 1;
+            const cols = Math.min(4, Math.max(2, Math.ceil(count / 4)));
+            const menuWidth = Math.min(window.innerWidth - margin * 2, Math.max(280, cols * 168 + 28));
+            menu.style.width = menuWidth + 'px';
+
+            const sideRail = document.getElementById('toolbar-side');
+            const inSideRail = !!(sideRail && !sideRail.hidden && sideRail.contains(btn));
+
+            menu.style.top = '0px';
+            menu.style.left = '0px';
+            const h = menu.offsetHeight || 200;
+
+            let left;
+            let top;
+            if (inSideRail) {
+                // Abrir a la derecha del rail lateral
+                left = rect.right + 8;
+                if (left + menuWidth > window.innerWidth - margin) {
+                    left = Math.max(margin, rect.left - menuWidth - 8);
+                }
+                top = rect.top;
+                if (top + h > window.innerHeight - margin) {
+                    top = Math.max(margin, window.innerHeight - h - margin);
+                }
+            } else {
+                left = rect.left;
+                if (left + menuWidth > window.innerWidth - margin) {
+                    left = Math.max(margin, window.innerWidth - menuWidth - margin);
+                }
+                top = rect.bottom + 6;
+                if (top + h > window.innerHeight - margin) {
+                    top = Math.max(margin, rect.top - 6 - h);
+                }
             }
-            // Preferir debajo; si no hay espacio, abrir hacia arriba
-            let top = rect.bottom + 6;
-            const maxH = Math.min(window.innerHeight * 0.6, 352);
-            if (top + Math.min(maxH, 200) > window.innerHeight - 8) {
-                top = Math.max(8, rect.top - 6 - Math.min(maxH, 240));
-            }
-            menu.style.top = top + 'px';
+            if (top < margin) top = margin;
+            if (left < margin) left = margin;
             menu.style.left = left + 'px';
-            menu.style.minWidth = Math.max(rect.width, 200) + 'px';
+            menu.style.top = top + 'px';
         }
 
         function toggleCatMenu(cat) {
@@ -4668,8 +6154,10 @@
                 menu.classList.add('open');
                 btn.classList.add('open');
                 btn.setAttribute('aria-expanded', 'true');
-                // position after content is in DOM
-                requestAnimationFrame(() => positionCatMenu(cat));
+                requestAnimationFrame(() => {
+                    positionCatMenu(cat);
+                    requestAnimationFrame(() => positionCatMenu(cat));
+                });
             }
         }
 
@@ -4684,6 +6172,11 @@
             title.textContent = CAT_TITLES[cat] || cat;
             menu.appendChild(title);
 
+            const hint = document.createElement('div');
+            hint.className = 'cat-menu-hint';
+            hint.textContent = 'Pasa el cursor o toca ▸ para ver variantes · clic = línea principal';
+            menu.appendChild(hint);
+
             if (!list.length) {
                 const empty = document.createElement('div');
                 empty.className = 'cat-empty';
@@ -4692,17 +6185,17 @@
                 return;
             }
 
-            // Mantener el menú principal al entrar/salir (delay generoso para cruzar al flyout)
+            // Mantener menú y flyout al moverse entre ambos
             menu.onmouseenter = () => cancelHideOpeningFlyout();
             menu.onmouseleave = (e) => {
-                // Si el puntero va hacia el flyout, no ocultar
                 const fly = document.getElementById('cat-flyout');
                 const to = e.relatedTarget;
                 if (fly && to && (fly === to || fly.contains(to))) {
                     cancelHideOpeningFlyout();
                     return;
                 }
-                scheduleHideOpeningFlyout(520);
+                // No cerrar el menú de categoría al ir al flyout; solo programar ocultar flyout
+                scheduleHideOpeningFlyout(600);
             };
 
             list.forEach(op => {
@@ -4712,13 +6205,15 @@
                 b.setAttribute('role', 'menuitem');
                 b.dataset.openingId = String(op.id);
                 if (activeOpeningId === op.id) b.classList.add('active');
-                b.innerHTML = `<span class="cat-item-name">${op.name}</span><span class="cat-item-chevron" aria-hidden="true">▸</span>`;
+                const nVar = (OPENING_MODULES[op.id] && OPENING_MODULES[op.id].variations)
+                    ? OPENING_MODULES[op.id].variations.length
+                    : 0;
+                b.innerHTML = `<span class="cat-item-name">${op.name}</span><span class="cat-item-chevron" aria-hidden="true" title="Variantes">▸${nVar ? nVar : ''}</span>`;
 
-                // Hover / focus: abrir sub-submenú de variantes a un costado
+                // Hover / focus: flyout de variantes a un costado (igual en Abiertas y el resto)
                 b.addEventListener('mouseenter', () => showOpeningFlyout(op, b, false));
                 b.addEventListener('focus', () => showOpeningFlyout(op, b, false));
 
-                // Táctil: primer toque abre el panel de variantes a un costado
                 b.addEventListener('touchstart', (e) => {
                     if (activeFlyoutOpeningId !== op.id) {
                         e.preventDefault();
@@ -4726,7 +6221,6 @@
                     }
                 }, { passive: false });
 
-                // Click: carga la línea principal (en táctil, el 1.er click sintético se ignora)
                 b.addEventListener('click', (e) => {
                     e.stopPropagation();
                     e.preventDefault();
@@ -4799,6 +6293,7 @@
                 clearTimeout(systemTimeout);
                 systemTimeout = null;
             }
+            endExam(true);
             activeOpeningId = id;
             freePlayMode = false;
             variationsPanelOpen = false;
@@ -4825,6 +6320,7 @@
             gv.classList.remove('hidden');
             gv.classList.add('flex');
 
+            hideOpeningFlyout();
             hideVariationsList();
             initGame();
             buildAllCatMenus();
@@ -4835,7 +6331,11 @@
             if (
                 e.target.closest('.cat-dropdown') ||
                 e.target.closest('.cat-submenu') ||
-                e.target.closest('.cat-flyout')
+                e.target.closest('.cat-flyout') ||
+                e.target.closest('.opening-card') ||
+                e.target.closest('.exam-menu') ||
+                e.target.closest('#btn-exam-home') ||
+                e.target.closest('#btn-exam-bar')
             ) return;
             closeAllCatMenus();
         });
@@ -4844,7 +6344,11 @@
         });
         window.addEventListener('resize', () => closeAllCatMenus());
         document.addEventListener('scroll', () => {
-            if (document.querySelector('.cat-submenu.open') || document.querySelector('.cat-flyout.open')) {
+            if (
+                document.querySelector('.cat-submenu.open') ||
+                document.querySelector('.cat-flyout.open') ||
+                document.querySelector('.exam-menu.open')
+            ) {
                 closeAllCatMenus();
             }
         }, true);
@@ -5177,6 +6681,86 @@
             if (btn) btn.setAttribute('aria-pressed', layoutStacked ? 'true' : 'false');
         }
 
+        /* ─── Disposición de la barra de menú (arriba / izquierda / mixta) ─── */
+        const TOOLBAR_MODES = [
+            {
+                id: 'top',
+                label: 'Menú arriba',
+                title: 'Menú arriba (siguiente: izquierda)',
+                // Barra superior completa + área de contenido
+                icon: '<rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="9" width="18" height="12" rx="1.5"/>'
+            },
+            {
+                id: 'left',
+                label: 'Menú izquierda',
+                title: 'Menú a la izquierda (siguiente: mixto)',
+                // Rail vertical izquierdo + área de contenido
+                icon: '<rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="11" height="18" rx="1.5"/>'
+            },
+            {
+                id: 'split',
+                label: 'Menú mixto',
+                title: 'Mitad arriba + mitad al costado (siguiente: arriba)',
+                // Franja superior + rail lateral + contenido
+                icon: '<rect x="3" y="3" width="18" height="4" rx="1"/><rect x="3" y="9" width="5" height="12" rx="1"/><rect x="10" y="9" width="11" height="12" rx="1.5"/>'
+            }
+        ];
+        let toolbarModeIndex = 0;
+
+        function updateToolbarModeIcon(mode) {
+            const svg = document.getElementById('toolbar-mode-icon');
+            if (!svg || !mode) return;
+            svg.innerHTML = mode.icon || '';
+        }
+
+        function applyToolbarMode() {
+            const mode = TOOLBAR_MODES[toolbarModeIndex] || TOOLBAR_MODES[0];
+            const main = document.getElementById('toolbar-half-main');
+            const extra = document.getElementById('toolbar-half-extra');
+            const scroll = document.getElementById('top-bar-scroll');
+            const side = document.getElementById('toolbar-side');
+            const topBar = document.getElementById('top-bar');
+            if (!main || !extra || !scroll || !side || !topBar) return;
+
+            document.body.classList.remove('toolbar-mode-top', 'toolbar-mode-left', 'toolbar-mode-split');
+            document.body.classList.add('toolbar-mode-' + mode.id);
+
+            closeAllCatMenus();
+
+            if (mode.id === 'top') {
+                scroll.appendChild(main);
+                scroll.appendChild(extra);
+                side.hidden = true;
+                topBar.classList.remove('top-bar-empty');
+            } else if (mode.id === 'left') {
+                side.appendChild(main);
+                side.appendChild(extra);
+                side.hidden = false;
+                topBar.classList.add('top-bar-empty');
+            } else {
+                // split: mitad de juego arriba, opciones + categorías al costado
+                scroll.appendChild(main);
+                side.appendChild(extra);
+                side.hidden = false;
+                topBar.classList.remove('top-bar-empty');
+            }
+
+            const label = document.getElementById('toolbar-mode-label');
+            if (label) label.textContent = mode.label;
+            const btn = document.getElementById('btn-toolbar-mode');
+            if (btn) {
+                btn.title = mode.title;
+                btn.setAttribute('aria-label', mode.title);
+                btn.dataset.mode = mode.id;
+            }
+            updateToolbarModeIcon(mode);
+        }
+
+        function cycleToolbarMode() {
+            toolbarModeIndex = (toolbarModeIndex + 1) % TOOLBAR_MODES.length;
+            applyToolbarMode();
+        }
+
         /** Línea principal + variantes de una apertura (la principal va primero). */
         function getOpeningLines(openingId) {
             const mod = OPENING_MODULES[openingId];
@@ -5241,6 +6825,7 @@
 
         function enterFreePlayIfNeeded() {
             if (!currentSteps) return;
+            if (isExamActive()) return;
             if (currentStep >= theoryLength() && !freePlayMode) {
                 freePlayMode = true;
                 // Al terminar la teoría, mostrar variantes arriba de inmediato
@@ -5249,6 +6834,7 @@
         }
 
         function skipToVariations() {
+            if (isExamActive()) return;
             if (!currentSteps || currentSteps.length === 0) return;
 
             // Segundo clic: ocultar lista de inmediato
@@ -5347,6 +6933,10 @@
             gameHistory = [];
             renderBoard();
             updateUI();
+            if (isExamActive()) {
+                setControlsDisabled(true);
+                return;
+            }
             setControlsDisabled(false);
             if (userRole === 'b' && isWhiteTurn && currentSteps && currentSteps.length > 0 && !freePlayMode) {
                 setControlsDisabled(true);
@@ -5355,6 +6945,7 @@
         }
 
         function resetOpening() {
+            if (isExamActive()) return;
             if (!currentSteps || currentSteps.length === 0) return;
             if (systemTimeout) {
                 clearTimeout(systemTimeout);
@@ -5408,6 +6999,7 @@
 
         /** Solo un ply (una media jugada): no responde el rival automáticamente. */
         function stepOnePly() {
+            if (isExamActive()) return;
             if (freePlayMode) {
                 if (!chessGame || chessGame.game_over()) return;
                 const moves = chessGame.moves({ verbose: true });
@@ -5437,6 +7029,7 @@
 
         /** Auto-jugada: un ply tuyo + respuesta del rival (dos plies en teoría). */
         function stepNextMove() {
+            if (isExamActive()) return;
             if (freePlayMode) {
                 // En partida libre: una jugada del bando actual; el rival responde solo si toca
                 playRandomLegalMove();
@@ -5796,8 +7389,14 @@
             if (!freePlayMode) {
                 if (isWhiteTurn) currentStep++;
                 if (currentStep >= theoryLength()) {
-                    freePlayMode = true;
-                    variationsPanelOpen = true; // mostrar variantes arriba al terminar la teoría
+                    if (isExamPlaying()) {
+                        // En examen no pasar a partida libre ni mostrar variantes
+                        freePlayMode = false;
+                        variationsPanelOpen = false;
+                    } else {
+                        freePlayMode = true;
+                        variationsPanelOpen = true; // mostrar variantes arriba al terminar la teoría
+                    }
                 }
             }
 
@@ -5808,7 +7407,7 @@
 
             clearSelection();
             renderBoard();
-            if (freePlayMode) scheduleOpponentIfNeeded();
+            if (freePlayMode && !isExamActive()) scheduleOpponentIfNeeded();
         }
 
         function executeFreeMove(fr, fc, tr, tc) {
@@ -5970,6 +7569,8 @@
 
         function handleSquareActivate(rowIdx, colIdx) {
             if (!currentSteps || currentSteps.length === 0) return;
+            // Durante el examen no se permite mover piezas
+            if (isExamActive()) return;
             // Bloquear solo si no hay teoría ni modo libre (no debería pasar)
             if (!freePlayMode && currentStep >= theoryLength()) {
                 freePlayMode = true;
@@ -6093,6 +7694,46 @@
 
             if (!currentSteps || currentSteps.length === 0) return;
 
+            // UI específica del modo examen (sin spoilers de la apertura)
+            if (isExamActive()) {
+                hideVariationsList();
+                if (modeLabel) modeLabel.textContent = 'Examen';
+                if (levelTotal) levelTotal.textContent = '/' + theoryLength();
+                if (levelInd) {
+                    const shown = Math.min(theoryLength(), Math.max(1, currentStep + (isWhiteTurn ? 1 : 0)));
+                    levelInd.textContent = String(examState.phase === 'playing' ? shown : theoryLength());
+                }
+                const pct = theoryLength()
+                    ? Math.min(100, Math.round((currentStep / theoryLength()) * 100))
+                    : 0;
+                if (progress) {
+                    progress.style.width = (examState.phase === 'playing' ? Math.max(pct, 4) : 100) + '%';
+                }
+                if (turn) turn.textContent = isWhiteTurn ? 'Blancas' : 'Negras';
+
+                if (examState.phase === 'playing') {
+                    if (inst) inst.textContent = 'Observa el desarrollo de la apertura…';
+                    if (theory) {
+                        theory.textContent = 'No se muestra la notación ni el nombre. Al terminar deberás identificar qué apertura es.';
+                    }
+                    if (next) next.textContent = '···';
+                    const prevWrap = document.getElementById('theory-prev-wrap');
+                    if (prevWrap) prevWrap.classList.add('hidden');
+                } else {
+                    if (inst) {
+                        inst.textContent = examState.answered
+                            ? (examState.phase === 'done' ? 'Examen respondido.' : '¿Qué apertura era?')
+                            : '¿Qué apertura has visto?';
+                    }
+                    if (theory) {
+                        theory.textContent = 'Elige una de las opciones del panel de examen.';
+                    }
+                    if (next) next.textContent = lastMoveSan || '—';
+                }
+                updateGameStatusBanner();
+                return;
+            }
+
             enterFreePlayIfNeeded();
 
             if (freePlayMode || currentStep >= theoryLength()) {
@@ -6161,19 +7802,105 @@
         function renderCards() {
             const g = document.getElementById('openings-grid');
             g.innerHTML = '';
-            chessOpeningsList.forEach(op => {
-                const btn = document.createElement('button');
-                btn.className = 'opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between';
-                btn.onclick = () => startOpening(op.id);
-                const group = normalizeOpeningType(op.type);
-                btn.innerHTML = `<span class="text-[10px] font-black text-emerald-400 uppercase mb-4 block">${group}${op.type === 'Flanco' ? ' · Flanco' : ''}</span><h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>`;
-                g.appendChild(btn);
+
+            // Orden fijo de las 4 categorías en la página inicial
+            OPENING_CATEGORIES.forEach(cat => {
+                const openings = getOpeningsByCategory(cat);
+                if (!openings.length) return;
+
+                const section = document.createElement('section');
+                section.className = 'opening-category';
+                section.dataset.cat = cat;
+                section.setAttribute('aria-label', CAT_TITLES[cat] || cat);
+
+                const titleRow = document.createElement('div');
+                titleRow.className = 'opening-category-title';
+                titleRow.innerHTML =
+                    `<span class="cat-dot" aria-hidden="true"></span>` +
+                    `<h2>${CAT_TITLES[cat] || cat}</h2>` +
+                    `<span class="cat-count">${openings.length}</span>`;
+                section.appendChild(titleRow);
+
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6';
+
+                openings.forEach(op => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'opening-card bg-slate-800 border border-slate-700 rounded-2xl p-6 text-left flex flex-col justify-between';
+                    btn.dataset.openingId = String(op.id);
+                    btn.setAttribute('aria-haspopup', 'menu');
+                    btn.setAttribute('aria-expanded', 'false');
+
+                    const group = normalizeOpeningType(op.type);
+                    const nVar = (OPENING_MODULES[op.id] && OPENING_MODULES[op.id].variations)
+                        ? OPENING_MODULES[op.id].variations.length
+                        : 0;
+                    const linesHint = nVar > 0
+                        ? `${nVar + 1} líneas · ver variantes`
+                        : 'Línea principal';
+
+                    btn.innerHTML =
+                        `<span class="text-[10px] font-black text-emerald-400 uppercase mb-4 block">${group}${op.type === 'Flanco' ? ' · Flanco' : ''}</span>` +
+                        `<h3 class="text-2xl font-black text-white leading-tight">${op.name}</h3>` +
+                        `<span class="card-var-hint"><span>${linesHint}</span><span class="card-var-chevron" aria-hidden="true">▸</span></span>`;
+
+                    const setExpanded = (open) => {
+                        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    };
+
+                    btn.addEventListener('mouseenter', () => {
+                        if (!OPENING_MODULES[op.id]) return;
+                        showOpeningFlyout(op, btn, false);
+                        setExpanded(true);
+                    });
+                    btn.addEventListener('focus', () => {
+                        if (!OPENING_MODULES[op.id]) return;
+                        showOpeningFlyout(op, btn, false);
+                        setExpanded(true);
+                    });
+                    btn.addEventListener('mouseleave', (e) => {
+                        const fly = document.getElementById('cat-flyout');
+                        const to = e.relatedTarget;
+                        if (fly && to && (fly === to || fly.contains(to))) {
+                            cancelHideOpeningFlyout();
+                            return;
+                        }
+                        scheduleHideOpeningFlyout(420);
+                    });
+                    btn.addEventListener('touchstart', (e) => {
+                        if (!OPENING_MODULES[op.id]) return;
+                        if (activeFlyoutOpeningId !== op.id) {
+                            e.preventDefault();
+                            showOpeningFlyout(op, btn, true);
+                            setExpanded(true);
+                        }
+                    }, { passive: false });
+
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (skipNextOpeningClick && activeFlyoutOpeningId === op.id) {
+                            skipNextOpeningClick = false;
+                            return;
+                        }
+                        hideOpeningFlyout();
+                        startOpening(op.id);
+                    });
+
+                    grid.appendChild(btn);
+                });
+
+                section.appendChild(grid);
+                g.appendChild(section);
             });
+
             buildAllCatMenus();
         }
 
         function backToMenu() {
             if (systemTimeout) clearTimeout(systemTimeout);
+            systemTimeout = null;
+            endExam(true);
             const gv = document.getElementById('game-view');
             gv.classList.add('hidden');
             gv.classList.remove('flex');
@@ -6183,10 +7910,16 @@
             freePlayMode = false;
             clearSelection();
             hideVariationsList();
-            initGame();
+            setControlsDisabled(false);
+            // No llamar initGame con examen: dejar tablero limpio al volver
+            chessGame = createChessEngine();
+            if (chessGame) syncFromChess();
+            currentStep = 0;
+            renderBoard();
         }
 
         function switchRole(r) {
+            if (isExamActive()) return;
             userRole = r;
             const w = document.getElementById('btn-white');
             const b = document.getElementById('btn-black');
@@ -6216,7 +7949,9 @@
             applyBoardTheme();
             applyBoardSize();
             applyPieceSet();
+            applyToolbarMode();
             updateStockfishUI();
+            buildExamMenu();
             renderCards();
             switchRole('w');
             // Precargar Stockfish en segundo plano

@@ -77,24 +77,77 @@
 
     function tryPlay(game, mv) {
         if (!game || !mv) return null;
+        const legal = game.moves({ verbose: true }) || [];
+        const apply = (u) => {
+            try { return game.move(u) || null; } catch (_) { return null; }
+        };
         if (mv.from && mv.to && typeof mv.from === 'string') {
-            const m = game.move({ from: mv.from, to: mv.to, promotion: mv.promotion || 'q' });
+            const hit = legal.find(m => m.from === mv.from && m.to === mv.to);
+            const m = hit ? apply(hit) : apply({ from: mv.from, to: mv.to, promotion: mv.promotion || 'q' });
             if (m) return m;
         }
         if (Array.isArray(mv.from) && Array.isArray(mv.to) && typeof rcToAlg === 'function') {
-            const m = game.move({
-                from: rcToAlg(mv.from[0], mv.from[1]),
-                to: rcToAlg(mv.to[0], mv.to[1]),
-                promotion: mv.promotion || 'q'
-            });
-            if (m) return m;
+            const from = rcToAlg(mv.from[0], mv.from[1]);
+            const to = rcToAlg(mv.to[0], mv.to[1]);
+            const hit = legal.find(m => m.from === from && m.to === to);
+            if (hit) {
+                const m = apply(hit);
+                if (m) return m;
+            }
         }
         if (mv.san) {
             const san = String(mv.san).replace(/0-0-0/g, 'O-O-O').replace(/0-0/g, 'O-O');
-            const m = game.move(san);
+            let m = apply(san);
             if (m) return m;
+            try { m = game.move(san, { sloppy: true }); } catch (_) { m = null; }
+            if (m) return m;
+            if (/^O-O-O/.test(san)) {
+                const c = legal.find(x => String(x.san).startsWith('O-O-O'));
+                if (c) return apply(c);
+            } else if (/^O-O/.test(san)) {
+                const c = legal.find(x => x.san === 'O-O' || String(x.san).startsWith('O-O+'));
+                if (c) return apply(c);
+            }
+            const dest = (san.match(/([a-h][1-8])(?:=[QRBN])?$/) || [])[1];
+            const piece = /^[KQRBN]/.test(san) ? san[0].toLowerCase() : 'p';
+            if (dest) {
+                const typed = legal.filter(x => x.to === dest && x.piece === piece);
+                if (typed.length === 1) return apply(typed[0]);
+                const any = legal.filter(x => x.to === dest);
+                if (any.length === 1) return apply(any[0]);
+            }
         }
         return null;
+    }
+
+    /** Recorta una línea teórica en el primer ply ilegal. No inventa jugadas. */
+    function sanitizeSteps(steps) {
+        if (typeof Chess === 'undefined' || !Array.isArray(steps)) return steps || [];
+        const g = new Chess();
+        const out = [];
+        for (let i = 0; i < steps.length; i++) {
+            const step = steps[i];
+            const copy = Object.assign({}, step);
+            let wrote = false;
+            for (const side of ['w', 'b']) {
+                if (!step[side]) continue;
+                const played = tryPlay(g, step[side]);
+                if (!played) return out;
+                if (typeof algToRc === 'function') {
+                    copy[side] = Object.assign({}, step[side], {
+                        san: played.san,
+                        from: algToRc(played.from),
+                        to: algToRc(played.to),
+                        promotion: played.promotion
+                    });
+                } else {
+                    copy[side] = Object.assign({}, step[side], { san: played.san });
+                }
+                wrote = true;
+            }
+            if (wrote) out.push(copy);
+        }
+        return out;
     }
 
     function isTrapName(s) {
@@ -1616,6 +1669,23 @@
                 d.id = 'debrief-panel';
                 if (col) col.appendChild(d);
             }
+            if (!$('btn-nueva-ronda')) {
+                const host = $('theory-panel-study') || document.querySelector('#panels-column');
+                if (host) {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.id = 'btn-nueva-ronda';
+                    b.className = 'home-btn home-btn-sparring';
+                    b.textContent = 'Nueva ronda';
+                    b.style.display = 'none';
+                    b.onclick = () => {
+                        if (C.today.active && C.today.phase === 'sparring') C.today.afterSparring();
+                        else if (C.sparring.active) C.sparring.restartSame();
+                        else C.ui.openSparring();
+                    };
+                    host.appendChild(b);
+                }
+            }
             if (!$('btn-qwen')) {
                 const theory = $('theory-panel-study');
                 if (theory) {
@@ -1661,6 +1731,23 @@
                 C.engine.setLevel((C.engine.idx + 1) % C.LEVELS.length, true);
             };
         }
+        if (typeof getOpeningLines === 'function') {
+            const origLines = getOpeningLines;
+            root.getOpeningLines = getOpeningLines = function (openingId) {
+                return origLines(openingId).map((line) => Object.assign({}, line, {
+                    steps: sanitizeSteps(line.steps)
+                }));
+            };
+        }
+        if (typeof startOpeningLine === 'function') {
+            const origStart = startOpeningLine;
+            root.startOpeningLine = startOpeningLine = function (id, lineData) {
+                if (lineData && lineData.steps) {
+                    lineData = Object.assign({}, lineData, { steps: sanitizeSteps(lineData.steps) });
+                }
+                return origStart.call(this, id, lineData);
+            };
+        }
         if (typeof scheduleOpponentIfNeeded === 'function') {
             const orig = scheduleOpponentIfNeeded;
             root.scheduleOpponentIfNeeded = scheduleOpponentIfNeeded = function () {
@@ -1682,6 +1769,8 @@
                 origU.apply(this, arguments);
                 C.ui.syncChip();
                 C.ui.syncClock();
+                const nr = $('btn-nueva-ronda');
+                if (nr && !(C.sparring.active)) nr.style.display = 'none';
                 if (C.sparring.active && !C.sparring.ended) {
                     if ($('mode-label')) $('mode-label').textContent = 'Sparring';
                     const n = chessGame ? Math.ceil(chessGame.history().length / 2) : 1;
@@ -1692,6 +1781,7 @@
                         const mine = (userRole === 'w' && chessGame.turn() === 'w') || (userRole === 'b' && chessGame.turn() === 'b');
                         if (mine && exp.length) $('instruction-text').textContent = 'Sigue en el libro. Juega tu plan (el árbol admite: ' + exp.slice(0, 4).join(', ') + (exp.length > 4 ? '…' : '') + ').';
                     }
+                    if (nr) nr.style.display = 'inline-flex';
                 }
             };
         }

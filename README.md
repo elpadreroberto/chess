@@ -81,6 +81,10 @@ Si en esta máquina corre Ollama (`localhost:11434`) con un modelo Qwen, aparece
 - Cambiar fuente: GitHub → Settings → Pages → Branch.
 - Tras un push, espera 1–2 minutos y recarga sin caché.
 
+## Libro teórico y chess.js
+
+El sparring recorta en silencio el **último ply ilegal** de 8 variantes del catálogo original (Evans, Steinitz, Londres Qb6, 3 líneas catalanas, 2 bogo-indias). El resto de la línea se conserva. No se inventan jugadas.
+
 ## Qué no se ha tocado
 
 - Estética oscura, título naranja, cards, familias.

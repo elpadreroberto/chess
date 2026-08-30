@@ -1586,21 +1586,48 @@
         },
         injectHome() {
             const header = document.querySelector('#menu-view header');
-            if (!header || $('home-actions')) return;
-            const wrap = header.querySelector('.mt-8') || header;
-            const nav = document.createElement('div');
-            nav.className = 'home-actions';
-            nav.id = 'home-actions';
-            nav.innerHTML =
+            if (!header) return;
+            if ($('home-ribbons')) {
+                this.syncDue();
+                return;
+            }
+            const examBtn = $('btn-exam-home');
+            const oldWrap = header.querySelector('.mt-8');
+            const ribbons = document.createElement('div');
+            ribbons.id = 'home-ribbons';
+            ribbons.className = 'home-ribbons';
+
+            const classic = document.createElement('div');
+            classic.className = 'home-ribbon home-ribbon-classic';
+            classic.setAttribute('role', 'toolbar');
+            classic.setAttribute('aria-label', 'Controles clásicos');
+            if (examBtn) classic.appendChild(examBtn);
+            const hint = document.createElement('span');
+            hint.className = 'home-ribbon-hint';
+            hint.textContent = 'Identifica la apertura entre varias opciones.';
+            classic.appendChild(hint);
+
+            const neu = document.createElement('div');
+            neu.className = 'home-ribbon home-ribbon-new';
+            neu.id = 'home-actions';
+            neu.setAttribute('role', 'toolbar');
+            neu.setAttribute('aria-label', 'Nuevas funciones');
+            neu.innerHTML =
                 '<button type="button" class="home-btn home-btn-sparring" id="btn-home-sparring">Sparring</button>' +
                 '<button type="button" class="home-btn home-btn-today" id="btn-home-today">Hoy</button>' +
                 '<button type="button" class="home-btn home-btn-rep" id="btn-home-rep">Repertorio</button>' +
                 '<button type="button" class="home-btn home-btn-import" id="btn-home-import">Importar</button>';
-            wrap.appendChild(nav);
+
             const due = document.createElement('p');
             due.id = 'home-due';
             due.className = 'home-due';
-            wrap.appendChild(due);
+
+            ribbons.appendChild(classic);
+            ribbons.appendChild(neu);
+            ribbons.appendChild(due);
+            if (oldWrap) oldWrap.replaceWith(ribbons);
+            else header.appendChild(ribbons);
+
             $('btn-home-sparring').onclick = () => this.openSparring();
             $('btn-home-today').onclick = () => C.today.start();
             $('btn-home-rep').onclick = () => this.openRepertoire();
@@ -1608,40 +1635,45 @@
             this.syncDue();
         },
         injectCombat() {
-            if ($('combat-group')) {
+            if ($('combat-ribbon') && $('combat-group')) {
                 this.bindCombat();
                 return;
             }
-            const host = document.querySelector('.user-tools-group');
-            const box = document.createElement('div');
-            box.className = 'combat-group';
-            box.id = 'combat-group';
-            box.setAttribute('role', 'group');
-            box.setAttribute('aria-label', 'Combate: rival y reloj');
-            box.innerHTML =
-                '<span class="combat-kicker">Combate</span>' +
-                '<div class="combat-row"><span class="combat-label">Rival</span>' +
-                '<div class="rival-pills" id="rival-pills">' +
-                C.LEVELS.map(l => '<button type="button" class="pill" data-id="' + l.id + '">' + l.name + '</button>').join('') +
-                '</div></div>' +
-                '<p class="rival-help">Básico responde y no te aplasta. Avanzado sí. Torpe comete errores de club.</p>' +
-                '<div class="combat-row"><span class="combat-label">Reloj</span>' +
-                '<div class="clock-pills" id="clock-pills">' +
-                C.CLOCKS.map(c => '<button type="button" class="pill pill-clock" data-id="' + c.id + '">' + c.name + '</button>').join('') +
-                '</div></div>' +
-                '<div class="combat-row"><span class="book-chip in-book" id="book-chip">En libro</span>' +
-                '<span class="clock-readout" id="clock-readout"></span></div>';
-            if (host && host.parentNode) host.parentNode.insertBefore(box, host);
+            let box = $('combat-group');
+            if (!box) {
+                box = document.createElement('div');
+                box.className = 'combat-group';
+                box.id = 'combat-group';
+                box.setAttribute('role', 'toolbar');
+                box.setAttribute('aria-label', 'Combate: rival y reloj');
+                box.title = 'Básico responde y no te aplasta. Avanzado sí. Torpe comete errores de club.';
+                box.innerHTML =
+                    '<div class="combat-row"><span class="combat-label">Rival</span>' +
+                    '<div class="rival-pills" id="rival-pills">' +
+                    C.LEVELS.map(l => '<button type="button" class="pill" data-id="' + l.id + '">' + l.name + '</button>').join('') +
+                    '</div></div>' +
+                    '<p class="rival-help">Básico responde y no te aplasta. Avanzado sí. Torpe comete errores de club.</p>' +
+                    '<div class="combat-row"><span class="combat-label">Reloj</span>' +
+                    '<div class="clock-pills" id="clock-pills">' +
+                    C.CLOCKS.map(c => '<button type="button" class="pill pill-clock" data-id="' + c.id + '">' + c.name + '</button>').join('') +
+                    '</div></div>' +
+                    '<div class="combat-row"><span class="book-chip in-book" id="book-chip">En libro</span>' +
+                    '<span class="clock-readout" id="clock-readout"></span></div>';
+            }
+            let ribbon = $('combat-ribbon');
+            if (!ribbon) {
+                ribbon = document.createElement('div');
+                ribbon.id = 'combat-ribbon';
+                ribbon.appendChild(box);
+                const center = $('game-center');
+                if (center) center.insertBefore(ribbon, center.firstChild);
+                else {
+                    const topBar = $('top-bar');
+                    if (topBar) topBar.insertAdjacentElement('afterend', ribbon);
+                }
+            }
             const sf = $('btn-stockfish');
             if (sf) sf.style.display = 'none';
-            const mg = document.querySelector('.move-btn-group');
-            if (mg && !mg.querySelector('.class-kicker')) {
-                mg.classList.add('class-controls');
-                const k = document.createElement('span');
-                k.className = 'class-kicker';
-                k.textContent = 'Clase';
-                mg.parentNode.insertBefore(k, mg);
-            }
             this.bindCombat();
         },
         bindCombat() {

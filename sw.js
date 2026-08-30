@@ -1,5 +1,5 @@
 /* Service worker mínimo para GitHub Pages: cola FSRS y repertorio viven en localStorage. */
-const CACHE = 'aperturas-v3';
+const CACHE = 'aperturas-v4';
 const CORE = [
     './',
     './index.html',

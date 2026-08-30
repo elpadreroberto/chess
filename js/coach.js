@@ -883,14 +883,8 @@
         const pairs = [];
         (rep.white || []).forEach(id => pairs.push({ id, color: 'w' }));
         (rep.black || []).forEach(id => pairs.push({ id, color: 'b' }));
-        if (!pairs.length) {
-            (chessOpeningsList || []).forEach(op => {
-                if (OPENING_MODULES[op.id]) {
-                    pairs.push({ id: op.id, color: 'w' });
-                    pairs.push({ id: op.id, color: 'b' });
-                }
-            });
-        }
+        /* Sin repertorio no se vuelca el catálogo entero (serían miles de cartas).
+           Sparring sí usa el catálogo; FSRS solo repertorio + desviaciones. */
         pairs.forEach(({ id, color }) => {
             const tree = C.book.treeFor(id, color);
             Object.keys(tree).forEach(fen => {
@@ -1316,7 +1310,9 @@
             const el = $('home-due');
             if (!el) return;
             const n = C.fsrs.dueCount();
-            el.innerHTML = n ? ('Hoy toca <strong>' + n + '</strong> carta' + (n === 1 ? '' : 's') + ' de FSRS.') : 'No hay cartas pendientes. Importa un PGN o clona una apertura a tu repertorio.';
+            el.innerHTML = n
+                ? ('Hoy toca <strong>' + n + '</strong> carta' + (n === 1 ? '' : 's') + ' de FSRS.')
+                : 'No hay cartas pendientes. Añade aperturas a tu repertorio o importa un PGN.';
         },
         hideDebrief() {
             const p = $('debrief-panel');
@@ -1510,7 +1506,8 @@
                 (r.black.length ? r.black.map(id => row(id, 'b')).join('') : '<p class="hint">Vacío: se usa el catálogo.</p>') + '</div>' +
                 '<label>Añadir a negras</label><select class="coach-in" id="add-b"><option value="">— apertura del catálogo —</option>' +
                 ops.map(o => '<option value="' + o.id + '">' + escapeHtml(o.name) + '</option>').join('') + '</select>' +
-                '<div class="coach-actions"><button type="button" class="primary" id="rep-export">Exportar JSON</button>' +
+                '<div class="coach-actions"><button type="button" id="rep-all">Añadir las 30 al repertorio (FSRS)</button>' +
+                '<button type="button" class="primary" id="rep-export">Exportar JSON</button>' +
                 '<button type="button" id="rep-imp-btn">Importar JSON</button>' +
                 '<button type="button" class="ghost" id="rep-close">Cerrar</button></div>' +
                 '<textarea class="coach-ta" id="rep-json" placeholder="Pega JSON aquí para importar, o copia el exportado."></textarea>'
@@ -1518,6 +1515,15 @@
             const refresh = () => this.openRepertoire();
             $('add-w').onchange = () => { if ($('add-w').value) { C.repertoire.addCatalog($('add-w').value, 'w'); refresh(); } };
             $('add-b').onchange = () => { if ($('add-b').value) { C.repertoire.addCatalog($('add-b').value, 'b'); refresh(); } };
+            const allBtn = $('rep-all');
+            if (allBtn) allBtn.onclick = () => {
+                (chessOpeningsList || []).forEach(op => {
+                    if (!OPENING_MODULES[op.id]) return;
+                    C.repertoire.addCatalog(op.id, 'w');
+                    C.repertoire.addCatalog(op.id, 'b');
+                });
+                refresh();
+            };
             $('coach-sheet').onclick = (e) => {
                 const del = e.target.closest('[data-del]');
                 const cl = e.target.closest('[data-clone]');

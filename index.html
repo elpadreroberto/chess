@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f59e0b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="icon" href="./icons/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
     <title>Aprende aperturas - Edición Gran Maestro</title>
+    <link rel="stylesheet" href="./css/coach.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Motor de reglas de ajedrez (movimientos legales, jaque, enroque, al paso, coronación…) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
@@ -1365,7 +1372,7 @@
                     <span class="exam-ico" aria-hidden="true">📝</span>
                     Examen
                 </button>
-                <p class="text-slate-500 text-sm max-w-md">Observa una partida al azar e identifica la apertura entre varias opciones.</p>
+                <p class="text-slate-500 text-sm max-w-md">Observa una partida al azar e identifica la apertura entre varias opciones. Sparring, Hoy y el repertorio se añaden debajo; el examen no cambia.</p>
             </div>
         </header>
         <main class="w-full">
@@ -7136,10 +7143,28 @@
         let stockfishBusy = false;
 
         function getSfLevel() {
+            if (window.Coach && Coach.LEVELS) {
+                const i = (Coach.engine && typeof Coach.engine.idx === 'number') ? Coach.engine.idx : 0;
+                return Coach.LEVELS[i] || Coach.LEVELS[0];
+            }
             return SF_LEVELS[sfLevelIndex] || SF_LEVELS[0];
         }
 
+        function cycleStockfishLevel() {
+            if (window.Coach && Coach.engine) {
+                Coach.engine.setLevel((Coach.engine.idx + 1) % Coach.LEVELS.length, true);
+                return;
+            }
+            sfLevelIndex = (sfLevelIndex + 1) % SF_LEVELS.length;
+            updateStockfishUI();
+            if (stockfishWorker && stockfishReady) {
+                const lv = getSfLevel();
+                stockfishWorker.postMessage(`setoption name Skill Level value ${lv.skill}`);
+            }
+        }
+
         function updateStockfishUI() {
+            if (window.Coach && Coach.ui) Coach.ui.syncRival();
             const lv = getSfLevel();
             const label = document.getElementById('stockfish-level-label');
             const badge = document.getElementById('sf-badge');
@@ -7149,16 +7174,6 @@
             if (btn) {
                 btn.title = `Stockfish: ${lv.name} (pulsa para cambiar nivel)`;
                 btn.setAttribute('aria-label', `Nivel Stockfish: ${lv.name}`);
-            }
-        }
-
-        function cycleStockfishLevel() {
-            sfLevelIndex = (sfLevelIndex + 1) % SF_LEVELS.length;
-            updateStockfishUI();
-            // Reconfigurar motor si ya está listo
-            if (stockfishWorker && stockfishReady) {
-                const lv = getSfLevel();
-                stockfishWorker.postMessage(`setoption name Skill Level value ${lv.skill}`);
             }
         }
 
@@ -7248,6 +7263,9 @@
         }
 
         function askStockfishBestMove(fen) {
+            if (window.Coach && Coach.engine && typeof Coach.engine.ask === 'function') {
+                return Coach.engine.ask(fen);
+            }
             return new Promise(async (resolve) => {
                 const lv = getSfLevel();
                 // Torpe: a veces mueve al azar para parecer más débil
@@ -7307,6 +7325,7 @@
         }
 
         function scheduleOpponentIfNeeded() {
+            if (window.Coach && (Coach.sparring.active || Coach.fsrs.active)) return;
             if (!freePlayMode || !chessGame || chessGame.game_over()) return;
             const oppTurn = (userRole === 'w' && chessGame.turn() === 'b') || (userRole === 'b' && chessGame.turn() === 'w');
             if (!oppTurn) return;
@@ -7606,6 +7625,8 @@
 
         function handleMoveAttempt(fr, fc, tr, tc) {
             if (fr === tr && fc === tc) return;
+            if (window.Coach && Coach.fsrs.active) return Coach.fsrs.reviewMove(fr, fc, tr, tc);
+            if (window.Coach && Coach.sparring.active) return Coach.sparring.onMove(fr, fc, tr, tc);
 
             enterFreePlayIfNeeded();
 
@@ -7942,6 +7963,7 @@
         }
 
         window.onload = () => {
+            if (window.Coach && typeof Coach.installHooks === 'function') Coach.installHooks();
             if (typeof Chess === 'undefined') {
                 console.warn('chess.js no disponible');
             }
@@ -7956,7 +7978,10 @@
             switchRole('w');
             // Precargar Stockfish en segundo plano
             ensureStockfish().catch(() => {});
+            if (window.Coach && typeof Coach.boot === 'function') Coach.boot();
         };
     </script>
+    <script src="./js/fsrs.js"></script>
+    <script src="./js/coach.js"></script>
 </body>
 </html>

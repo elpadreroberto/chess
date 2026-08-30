@@ -1,5 +1,5 @@
 /* Service worker mínimo para GitHub Pages: cola FSRS y repertorio viven en localStorage. */
-const CACHE = 'aperturas-v2';
+const CACHE = 'aperturas-v3';
 const CORE = [
     './',
     './index.html',
@@ -46,16 +46,32 @@ self.addEventListener('fetch', (event) => {
         }
         return;
     }
+    /* HTML/JS/CSS: red primero para no servir un coach.js viejo tras un deploy. */
+    const fresh = /\.html?$|\.js$|\.css$|\/$/.test(url.pathname);
     event.respondWith(
-        caches.match(req).then((hit) => {
-            const fetchPromise = fetch(req).then((res) => {
-                if (res && res.ok) {
-                    const copy = res.clone();
-                    caches.open(CACHE).then((cache) => cache.put(req, copy));
+        (async () => {
+            if (fresh) {
+                try {
+                    const res = await fetch(req);
+                    if (res && res.ok) {
+                        const cache = await caches.open(CACHE);
+                        cache.put(req, res.clone());
+                    }
+                    return res;
+                } catch (err) {
+                    const hit = await caches.match(req);
+                    if (hit) return hit;
+                    throw err;
                 }
-                return res;
-            }).catch(() => hit);
-            return hit || fetchPromise;
-        })
+            }
+            const hit = await caches.match(req);
+            if (hit) return hit;
+            const res = await fetch(req);
+            if (res && res.ok) {
+                const cache = await caches.open(CACHE);
+                cache.put(req, res.clone());
+            }
+            return res;
+        })()
     );
 });
